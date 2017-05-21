@@ -2,10 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mustangproject</groupId>
   <artifactId>ZUV</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>ZUGFeRD VeraPDF</name>
+  	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jetty.version>9.3.0.M2</jetty.version>
+		<eclipselink.version>2.5.0</eclipselink.version>
+	</properties>
   
   <repositories>
       <repository>
+      	<!-- repo for veraPDF -->
         <snapshots>
           <enabled>true</enabled>
         </snapshots>
@@ -13,9 +21,39 @@
         <name>Vera development</name>
         <url>http://artifactory.openpreservation.org/artifactory/vera-dev</url>
       </repository>
+      	<!-- repo for jetty repo2.maven.org as a repository. -->
+	
+		<repository>
+			<id>repo2_maven_org</id>
+			<url>http://repo2.maven.org/maven2</url>
+		</repository>
+	
+      
+      
     </repositories>
     
   <dependencies>
+  <!-- Jetty -->
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+				<!-- Jersey -->
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-jetty-servlet</artifactId>
+			<version>2.15</version>
+		</dependency>
+		
+  <!--  Verapdf -->
       <dependency>
       <groupId>org.verapdf</groupId>
       <artifactId>validation-model</artifactId>
