@@ -1,29 +1,26 @@
 package ZUV;
 
 import java.io.IOException;
-import java.util.logging.LogManager;
+import java.io.PrintWriter;
 
-import org.eclipse.jetty.http.HttpVersion;
-import org.eclipse.jetty.security.ConstraintMapping;
-import org.eclipse.jetty.security.ConstraintSecurityHandler;
-import org.eclipse.jetty.security.HashLoginService;
-import org.eclipse.jetty.security.SecurityHandler;
-import org.eclipse.jetty.security.authentication.BasicAuthenticator;
-import org.eclipse.jetty.server.Authentication.User;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.log.Logger;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.util.security.Constraint;
-import org.eclipse.jetty.util.security.Credential;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.FragmentConfiguration;
+import org.eclipse.jetty.webapp.JettyWebXmlConfiguration;
+import org.eclipse.jetty.webapp.MetaInfConfiguration;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
 
 public class WebInterfaceThread extends Thread {
@@ -52,20 +49,6 @@ public class WebInterfaceThread extends Thread {
 */
 			server = new Server();
 
-			  // Since this example shows off SSL configuration, we need a keystore
-	        // with the appropriate key. These lookup of jetty.home is purely a hack
-	        // to get access to a keystore that we use in many unit tests and should
-	        // probably be a direct path to your own keystore.
-	      /*  File keystoreFile = new File(new FileInputStream(this.getClass().getResourceAsStream("my.conf")));
-	        if (!keystoreFile.exists())
-	        {
-	            try {
-					throw new FileNotFoundException(keystoreFile.getAbsolutePath());
-				} catch (FileNotFoundException e) {
-					log.error("Exception",e);
-				
-				}
-	        }*/
 	        
 	        // HTTP Configuration
 	        // HttpConfiguration is a collection of configuration information
@@ -102,9 +85,9 @@ public class WebInterfaceThread extends Thread {
 			context.setWelcomeFiles(new String[] { "index.html" });
 
 			context.setContextPath("/");
-/*
-			AdminIndex admin=new AdminIndex();
-			context.addServlet(new ServletHolder(admin), admin.getPath()+"*");*/
+
+			UploadServlet uploadServlet=new UploadServlet();
+			context.addServlet(new ServletHolder(uploadServlet), "/upload/*");
 			server.setHandler(context);
 
 			try {
