@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="main"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar"/>
@@ -43,5 +44,12 @@
 	<classpathentry kind="var" path="M2_REPO/org/xmlunit/xmlunit-core/2.2.1/xmlunit-core-2.2.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/verapdf/feature-reporting/1.0.5/feature-reporting-1.0.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/verapdf/metadata-fixer/1.0.5/metadata-fixer-1.0.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/helger/ph-schematron/4.3.1/ph-schematron-4.3.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/helger/ph-commons/8.6.5/ph-commons-8.6.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/helger/ph-xml/8.6.5/ph-xml-8.6.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/helger/ph-jaxb/8.6.5/ph-jaxb-8.6.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/saxon/Saxon-HE/9.7.0-18/Saxon-HE-9.7.0-18.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
