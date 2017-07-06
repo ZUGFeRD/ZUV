@@ -5,7 +5,7 @@ Essentially this is supposed to be made available as a jar file which can be emb
 
 
 ## Build
-compile with /opt/local/bin/mvn clean package 
+compile with `/opt/local/bin/mvn` clean package 
 
 
 ## Install
@@ -31,7 +31,7 @@ the placeholder [VeraPDF installation directory] with the complete path of your 
 
 ## Run
 
-Run verapdf-gui . Check that embedded files is checked in Config|Features Config.
+Run `verapdf-gui` . Check that embedded files is checked in Config|Features Config.
 Select a ZUGFeRD file like [the mustangproject sample file](http://www.mustangproject.org/MustangGnuaccountingBeispielRE-20170509_505.pdf).
 Select "Validation and Features" as report type and hit the execute button.
 
