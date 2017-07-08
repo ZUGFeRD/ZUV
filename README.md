@@ -10,7 +10,8 @@ compile with `/opt/local/bin/mvn` clean package
 
 ## Install
 
-Download the VeraPDF installer from http://verapdf.org/software/ and install .
+Download the VeraPDF installer from http://verapdf.org/software/ and install. 
+Make sure you check the "veraPDF Sample Plugins" option in the installation process.
 
 Copy the ZUV jar file into the plugins-subdirectory of the [VeraPDF installation directory].
 
@@ -19,9 +20,9 @@ Copy the ZUV jar file into the plugins-subdirectory of the [VeraPDF installation
 ```xml
   <plugin enabled="true">
     <name>ZUGFeRD Validator</name>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <description>Validates ZUGFeRD PDFs against the official Schematron. Developed by Jochen Staerk.</description>
-    <pluginJar>[VeraPDF installation directory]/plugins/ZUV-0.2.0-SNAPSHOT.jar</pluginJar>
+    <pluginJar>[VeraPDF installation directory]/plugins/ZUV-0.3.0-SNAPSHOT.jar</pluginJar>
   </plugin>
 ```
 

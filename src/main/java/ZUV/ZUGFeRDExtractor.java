@@ -5,6 +5,16 @@ import org.verapdf.features.AbstractEmbeddedFileFeaturesExtractor;
 import org.verapdf.features.EmbeddedFileFeaturesData;
 import org.verapdf.features.tools.FeatureTreeNode;
 
+
+import com.helger.schematron.ISchematronResource;
+import com.helger.schematron.xslt.SchematronResourceSCH;
+import com.helger.schematron.xslt.SchematronResourceXSLT;
+
+
+import javax.xml.transform.stream.StreamSource;
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+
+
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -13,6 +23,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,99 +34,93 @@ import java.util.logging.Logger;
 /**
  * @author Jochen Stärk
  */
-public class ZUGFeRDExtractor extends
-        AbstractEmbeddedFileFeaturesExtractor {
+public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 
-    private static final Logger LOGGER = Logger.getLogger(ZUGFeRDExtractor.class.getCanonicalName());
+	private static final Logger LOGGER = Logger.getLogger(ZUGFeRDExtractor.class.getCanonicalName());
 
-    @Override
-    public List<FeatureTreeNode> getEmbeddedFileFeatures(
-            EmbeddedFileFeaturesData embeddedFileFeaturesData) {
-        List<FeatureTreeNode> res = new ArrayList<>();
-        try {
-            FeatureTreeNode stream = FeatureTreeNode
-                    .createRootNode("streamContent");
-            stream.setValue(DatatypeConverter
-                    .printHexBinary(inputStreamToByteArray(embeddedFileFeaturesData.getStream())));
-            res.add(stream);
+	@Override
+	public List<FeatureTreeNode> getEmbeddedFileFeatures(EmbeddedFileFeaturesData embeddedFileFeaturesData) {
+		List<FeatureTreeNode> res = new ArrayList<>();
+		String schematronValidationString = "";
 
-///
-            
-            /**
-          
-          	try {
-			//final ISchematronResource aResSCH = SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
-			//  ... DOES work but is highly deprecated (and rightly so) because it takes 30-40min,
-			final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile (new File("utils/ZUGFeRDSchematronStylesheet.xsl"));
-			// takes around 10 Seconds. http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html explains that
-			// this xslt can be created using sth like 
-			// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s tcdl2.0.tsdtf.sch iso_svrl.xsl
-		    if (!aResSCH.isValidSchematron ())
-	      throw new IllegalArgumentException ("Invalid Schematron!");
-	    SchematronOutputType sout= aResSCH.applySchematronValidationToSVRL (new StreamSource (new File("ZUGFeRD-invoice.xml")));
-		
-	    for (String currentString : sout.getText()) {
-			System.out.println(currentString);
-		}
-	    
-	    
+		try {
+			// final ISchematronResource aResSCH =
+			// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
+			// ... DOES work but is highly deprecated (and rightly so) because
+			// it takes 30-40min,
+		/*	ClassLoader classLoader = ZUGFeRDExtractor.class.getClassLoader();
+			
+			InputStream xsltInputStream =   classLoader.getResourceAsStream("ZUGFeRDSchematronStylesheet.xsl");
+			File xsltFile=File.createTempFile("verapdf-zugferd", "xsl");
+			if (xsltFile.exists()) {
+				xsltFile.delete();
+			}
+			Files.copy(xsltInputStream, xsltFile.toPath());
+			//File xsltFile=classLoader.getResource("ZUGFeRDSchematronStylesheet.xsl").getFile();
+			
+			final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(xsltFile);
+			// takes around 10 Seconds.
+			// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
+			// explains that
+			// this xslt can be created using sth like
+			// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
+			// tcdl2.0.tsdtf.sch iso_svrl.xsl
+			if (!aResSCH.isValidSchematron()) {
+				throw new IllegalArgumentException("Invalid Schematron!");
+			}
+			SchematronOutputType sout = aResSCH
+					.applySchematronValidationToSVRL(new StreamSource(embeddedFileFeaturesData.getStream()));
+
+			for (String currentString : sout.getText()) {
+				schematronValidationString += currentString;
+			}
+
+			addObjectNode("Validation", schematronValidationString, res);
+			*/
+			/*FeatureTreeNode stream = FeatureTreeNode
+	                    .createRootNode("XSLTFileContentstest7");
+	            stream.setValue(DatatypeConverter
+	                    .printHexBinary(inputStreamToByteArray(xsltFileInputStream)));
+	            res.add(stream);*/
+			addObjectNode("Validation", "test9", res);
+			//addObjectNode("ValidationIsNull9", xsltInputStream==null?"Yes":"No", res);
+			//xsltFile.delete();
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-             */
-///
-            addObjectNode("checkSum", embeddedFileFeaturesData.getCheckSum(),
-                    res);
-            addObjectNode("Test", "Inter",
-                    res);
-            addObjectNode("creationDate",
-                    formatXMLDate(embeddedFileFeaturesData.getCreationDate()),
-                    res);
-            addObjectNode("description",
-                    embeddedFileFeaturesData.getDescription(), res);
-            addObjectNode("modDate",
-                    formatXMLDate(embeddedFileFeaturesData.getModDate()), res);
-            addObjectNode("name", embeddedFileFeaturesData.getName(), res);
-            addObjectNode("size", embeddedFileFeaturesData.getSize(), res);
-            addObjectNode("subtype", embeddedFileFeaturesData.getSubtype(), res);
-
-        } catch (IOException | FeatureParsingException | DatatypeConfigurationException e) {
 			LOGGER.log(Level.WARNING, "IO/Exception when adding information", e);
-        }
-        return res;
-    }
+		}
+		
+		return res;
+	}
 
-    private static void addObjectNode(String nodeName, Object toAdd,
-            List<FeatureTreeNode> list) throws FeatureParsingException {
-        if (toAdd != null) {
-            FeatureTreeNode node = FeatureTreeNode.createRootNode(nodeName);
-            node.setValue(toAdd.toString());
-            list.add(node);
-        }
-    }
+	private static void addObjectNode(String nodeName, Object toAdd, List<FeatureTreeNode> list)
+			throws FeatureParsingException {
+		if (toAdd != null) {
+			FeatureTreeNode node = FeatureTreeNode.createRootNode(nodeName);
+			node.setValue(toAdd.toString());
+			list.add(node);
+		}
+	}
 
-    private static String formatXMLDate(Calendar calendar)
-            throws DatatypeConfigurationException {
-        if (calendar == null) {
-            return null;
-        }
-        GregorianCalendar greg = new GregorianCalendar(Locale.US);
-        greg.setTime(calendar.getTime());
-        greg.setTimeZone(calendar.getTimeZone());
-        XMLGregorianCalendar xmlCalendar = DatatypeFactory.newInstance()
-                .newXMLGregorianCalendar(greg);
-        return xmlCalendar.toXMLFormat();
+	private static String formatXMLDate(Calendar calendar) throws DatatypeConfigurationException {
+		if (calendar == null) {
+			return null;
+		}
+		GregorianCalendar greg = new GregorianCalendar(Locale.US);
+		greg.setTime(calendar.getTime());
+		greg.setTimeZone(calendar.getTimeZone());
+		XMLGregorianCalendar xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(greg);
+		return xmlCalendar.toXMLFormat();
 
-    }
+	}
 
-    private static byte[] inputStreamToByteArray(InputStream is) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] bytes = new byte[1024];
-        int length;
-        while ((length = is.read(bytes)) != -1) {
-            baos.write(bytes, 0, length);
-        }
-        return baos.toByteArray();
-    }
+	private static byte[] inputStreamToByteArray(InputStream is) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] bytes = new byte[1024];
+		int length;
+		while ((length = is.read(bytes)) != -1) {
+			baos.write(bytes, 0, length);
+		}
+		return baos.toByteArray();
+	}
 }
