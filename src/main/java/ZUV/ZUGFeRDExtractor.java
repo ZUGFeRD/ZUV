@@ -6,6 +6,13 @@ import org.verapdf.features.EmbeddedFileFeaturesData;
 import org.verapdf.features.tools.FeatureTreeNode;
 
 
+/* JS@2017-07-09 comment 2/3: (1/3 is in the pom.xml) 
+ * 
+ * I want to remove this comment, the one below, and the one in the pom.xml. In order to perform
+ * schematron validation on the submitted file.
+ 
+This one goes....	
+
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.xslt.SchematronResourceSCH;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
@@ -13,7 +20,9 @@ import com.helger.schematron.xslt.SchematronResourceXSLT;
 
 import javax.xml.transform.stream.StreamSource;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+... up to here
 
+*/
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -48,7 +57,7 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
 			// ... DOES work but is highly deprecated (and rightly so) because
 			// it takes 30-40min,
-		/*	ClassLoader classLoader = ZUGFeRDExtractor.class.getClassLoader();
+			ClassLoader classLoader = ZUGFeRDExtractor.class.getClassLoader();
 			
 			InputStream xsltInputStream =   classLoader.getResourceAsStream("ZUGFeRDSchematronStylesheet.xsl");
 			File xsltFile=File.createTempFile("verapdf-zugferd", "xsl");
@@ -56,8 +65,7 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 				xsltFile.delete();
 			}
 			Files.copy(xsltInputStream, xsltFile.toPath());
-			//File xsltFile=classLoader.getResource("ZUGFeRDSchematronStylesheet.xsl").getFile();
-			
+/* JS@2017-07-09  comment 3/3: I want to remove this comment, which goes....	
 			final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(xsltFile);
 			// takes around 10 Seconds.
 			// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
@@ -76,15 +84,10 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			}
 
 			addObjectNode("Validation", schematronValidationString, res);
-			*/
-			/*FeatureTreeNode stream = FeatureTreeNode
-	                    .createRootNode("XSLTFileContentstest7");
-	            stream.setValue(DatatypeConverter
-	                    .printHexBinary(inputStreamToByteArray(xsltFileInputStream)));
-	            res.add(stream);*/
-			addObjectNode("Validation", "test9", res);
-			//addObjectNode("ValidationIsNull9", xsltInputStream==null?"Yes":"No", res);
-			//xsltFile.delete();
+... up to here
+ */
+			addObjectNode("Validation", "test10", res);
+			xsltFile.delete();
 			
 		} catch (Exception e) {
 			LOGGER.log(Level.WARNING, "IO/Exception when adding information", e);

@@ -46,6 +46,13 @@ Report/Jobs/job/featuresReport/embeddedFiles/customFeatures/pluginFeatures[name=
 
 Permissive Open Source APL2, see LICENSE
 
+## Todo
+
+* Use https://github.com/veraPDF/veraPDF-rest as web interface
+* Find out if anything from the konik.io validator can be used
+* Find out which ZUGFeRD tools have been used if they can be identified
+* output the results (not only in a xml file)
+
 ## Authors
 
 Jochen Staerk
