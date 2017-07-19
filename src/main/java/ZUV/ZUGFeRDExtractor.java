@@ -28,10 +28,15 @@ import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.io.File;
@@ -86,7 +91,26 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			addObjectNode("Validation", schematronValidationString, res);
 ... up to here
  */
-			addObjectNode("Validation", "test10", res);
+			
+			
+			/*
+			 System.setProperty("javax.xml.transform.TransformerFactory",
+                     "net.sf.saxon.TransformerFactoryImpl");
+			 StringWriter resultStringWriter=new StringWriter();
+			 TransformerFactory tFactory = TransformerFactory.newInstance();
+		        try {
+		            Transformer transformer =
+		                tFactory.newTransformer(new StreamSource(xsltFile));
+
+		            
+		            transformer.transform(new StreamSource(embeddedFileFeaturesData.getStream()),
+		                                  new StreamResult(resultStringWriter));
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+				addObjectNode("validationResult", resultStringWriter.toString(), res);
+				*/
+				addObjectNode("Validation", "test10", res);
 			xsltFile.delete();
 			
 		} catch (Exception e) {
