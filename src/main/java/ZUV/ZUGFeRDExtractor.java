@@ -1,4 +1,4 @@
-package main.java.ZUV;
+package ZUV;
 
 import org.verapdf.core.FeatureParsingException;
 import org.verapdf.features.AbstractEmbeddedFileFeaturesExtractor;
@@ -6,23 +6,15 @@ import org.verapdf.features.EmbeddedFileFeaturesData;
 import org.verapdf.features.tools.FeatureTreeNode;
 
 
-/* JS@2017-07-09 comment 2/3: (1/3 is in the pom.xml) 
- * 
- * I want to remove this comment, the one below, and the one in the pom.xml. In order to perform
- * schematron validation on the submitted file.
- 
-This one goes....	
-
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.xslt.SchematronResourceSCH;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 
 
 import javax.xml.transform.stream.StreamSource;
-import org.oclc.purl.dsdl.svrl.SchematronOutputType;
-... up to here
 
-*/
+import org.oclc.purl.dsdl.svrl.FailedAssert;
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -57,17 +49,9 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
 			// ... DOES work but is highly deprecated (and rightly so) because
 			// it takes 30-40min,
-			ClassLoader classLoader = ZUGFeRDExtractor.class.getClassLoader();
-			
-			InputStream xsltInputStream =   classLoader.getResourceAsStream("ZUGFeRDSchematronStylesheet.xsl");
-			File xsltFile=File.createTempFile("verapdf-zugferd", "xsl");
-			if (xsltFile.exists()) {
-				xsltFile.delete();
-			}
-			Files.copy(xsltInputStream, xsltFile.toPath());
-/* JS@2017-07-09  comment 3/3: I want to remove this comment, which goes....	
-			final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(xsltFile);
-			// takes around 10 Seconds.
+			/* I want to remove this comment but it will raise a Invalid Schematron Exception
+			final ISchematronResource aResSCH = SchematronResourceXSLT.fromClassPath("/ZUGFeRDSchematronStylesheet.xsl");
+					// takes around 10 Seconds.
 			// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
 			// explains that
 			// this xslt can be created using sth like
@@ -79,18 +63,22 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			SchematronOutputType sout = aResSCH
 					.applySchematronValidationToSVRL(new StreamSource(embeddedFileFeaturesData.getStream()));
 
-			for (String currentString : sout.getText()) {
-				schematronValidationString += currentString;
+			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
+			for (Object object : failedAsserts) {
+				if (object instanceof FailedAssert) {
+					FailedAssert failedAssert = (FailedAssert) object;
+					schematronValidationString+=failedAssert.getText();
+					schematronValidationString+=failedAssert.getTest();
+				}
 			}
 
+
 			addObjectNode("Validation", schematronValidationString, res);
-... up to here
- */
-			addObjectNode("Validation", "test10", res);
-			xsltFile.delete();
+			*/
+			addObjectNode("Validation", "test11", res);
 			
 		} catch (Exception e) {
-			LOGGER.log(Level.WARNING, "IO/Exception when adding information", e);
+			LOGGER.log(Level.WARNING, e.getMessage()+" @ "+e.getStackTrace().toString());
 		}
 		
 		return res;
