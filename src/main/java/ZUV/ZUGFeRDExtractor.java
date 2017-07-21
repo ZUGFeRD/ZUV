@@ -24,6 +24,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.io.File;
@@ -78,7 +80,12 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 			addObjectNode("Validation", "test11", res);
 			
 		} catch (Exception e) {
-			LOGGER.log(Level.WARNING, e.getMessage()+" @ "+e.getStackTrace().toString());
+
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			
+			LOGGER.log(Level.WARNING, e.getMessage()+" @ "+sw.toString(), e);
 		}
 		
 		return res;
