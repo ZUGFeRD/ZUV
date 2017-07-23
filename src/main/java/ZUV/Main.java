@@ -36,7 +36,9 @@ public class Main {
 			 * 
 			 */
 
-			final ISchematronResource aResSCH = SchematronResourceXSLT.fromClassPath("/ZUGFeRDSchematronStylesheet.xsl");
+			//final ISchematronResource aResSCH = SchematronResourceXSLT.fromClassPath("/ZUGFeRDSchematronStylesheet.xsl");
+			final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
+
 			// takes around 10 Seconds.
 			// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
 			// explains that
