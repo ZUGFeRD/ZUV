@@ -8,6 +8,21 @@
 	<packaging>jar</packaging>
 	<version>0.3.0-SNAPSHOT</version>
 
+<licenses>
+  <license>
+    <name>Apache License, Version 2.0</name>
+    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    <distribution>repo</distribution>
+    <comments>A business-friendly OSS license</comments>
+  </license>
+</licenses>
+<developers>
+    <developer>
+      <id>jstaerk</id>
+      <name>Jochen Staerk</name>
+      <email>jstaerk@usegroup.de</email>
+    </developer>
+  </developers>
 	<repositories>
 		<repository>
 			<snapshots>
@@ -33,88 +48,61 @@
 			<artifactId>ph-schematron</artifactId>
 			<version>4.3.1</version>
 		</dependency>
-		
+
+
 		<!-- https://mvnrepository.com/artifact/net.sf.saxon/Saxon-HE -->
-<dependency>
-    <groupId>net.sf.saxon</groupId>
-    <artifactId>Saxon-HE</artifactId>
-    <version>9.8.0-3</version>
-</dependency>
-<!-- 
-<dependency>
-    <groupId>jaxen</groupId>
-    <artifactId>jaxen</artifactId>
-    <version>1.1.6</version>
-</dependency>
-<dependency>
-    <groupId>xml-apis</groupId>
-    <artifactId>xml-apis</artifactId>
-    <version>2.0.2</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.bcel</groupId>
-    <artifactId>bcel</artifactId>
-    <version>6.0</version>
-</dependency>
-<dependency>
-    <groupId>com.sun.msv.datatype.xsd</groupId>
-    <artifactId>xsdlib</artifactId>
-    <version>2013.2</version>
-</dependency>
-<dependency>
-    <groupId>pull-parser</groupId>
-    <artifactId>pull-parser</artifactId>
-    <version>2.1.10</version>
-</dependency>
-<dependency>
-    <groupId>com.sun.xml.bind</groupId>
-    <artifactId>jaxb1-impl</artifactId>
-    <version>2.2.1</version>
-</dependency>
--->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.7.0-18</version>
+		</dependency>
+		<!-- <dependency> <groupId>jaxen</groupId> <artifactId>jaxen</artifactId> 
+			<version>1.1.6</version> </dependency> <dependency> <groupId>xml-apis</groupId> 
+			<artifactId>xml-apis</artifactId> <version>2.0.2</version> </dependency> 
+			<dependency> <groupId>org.apache.bcel</groupId> <artifactId>bcel</artifactId> 
+			<version>6.0</version> </dependency> <dependency> <groupId>com.sun.msv.datatype.xsd</groupId> 
+			<artifactId>xsdlib</artifactId> <version>2013.2</version> </dependency> <dependency> 
+			<groupId>pull-parser</groupId> <artifactId>pull-parser</artifactId> <version>2.1.10</version> 
+			</dependency> <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb1-impl</artifactId> 
+			<version>2.2.1</version> </dependency> -->
 
-<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
-<dependency>
-    <groupId>dom4j</groupId>
-    <artifactId>dom4j</artifactId>
-    <version>1.6.1</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
-<dependency>
-    <groupId>org.jdom</groupId>
-    <artifactId>jdom</artifactId>
-    <version>1.1</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
-<dependency>
-    <groupId>xml-resolver</groupId>
-    <artifactId>xml-resolver</artifactId>
-    <version>1.2</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/xom/xom -->
-<dependency>
-    <groupId>xom</groupId>
-    <artifactId>xom</artifactId>
-    <version>1.2.5</version>
-			<scope>provided</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
+		<dependency>
+			<groupId>xml-resolver</groupId>
+			<artifactId>xml-resolver</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/xom/xom -->
+		<dependency>
+			<groupId>xom</groupId>
+			<artifactId>xom</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/msv/xsdlib -->
-<dependency>
-    <groupId>msv</groupId>
-    <artifactId>xsdlib</artifactId>
-    <version>20030807</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/msv/relaxngDatatype -->
-<dependency>
-    <groupId>msv</groupId>
-    <artifactId>relaxngDatatype</artifactId>
-    <version>20030807</version>
-			<scope>provided</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/msv/xsdlib -->
+		<dependency>
+			<groupId>msv</groupId>
+			<artifactId>xsdlib</artifactId>
+			<version>20030807</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/msv/relaxngDatatype -->
+		<dependency>
+			<groupId>msv</groupId>
+			<artifactId>relaxngDatatype</artifactId>
+			<version>20030807</version>
+		</dependency>
 
 
 		<!-- Apparently a hidden (runtime) ph-schematron(?) dependency -->
@@ -129,7 +117,6 @@
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
 			<version>1.3</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- Apparently another hidden (runtime) ph-schematron(?) dependency -->
 
@@ -151,7 +138,7 @@
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
 			<version>1.8.2</version>
-			<scope>provided</scope>
+
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jmock/jmock -->
@@ -159,7 +146,7 @@
 			<groupId>jmock</groupId>
 			<artifactId>jmock</artifactId>
 			<version>1.2.0</version>
-			<scope>provided</scope>
+
 		</dependency>
 
 
@@ -168,7 +155,7 @@
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 			<version>3.4</version>
-			<scope>provided</scope>
+
 		</dependency>
 
 		<dependency>
@@ -176,40 +163,34 @@
 			<artifactId>FastInfoset</artifactId>
 			<version>1.2.13</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
-<dependency>
-    <groupId>jaxen</groupId>
-    <artifactId>jaxen</artifactId>
-    <version>1.1-beta-6</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/pull-parser/pull-parser -->
-<dependency>
-    <groupId>pull-parser</groupId>
-    <artifactId>pull-parser</artifactId>
-    <version>2</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.apache.bcel/bcel -->
-<dependency>
-    <groupId>org.apache.bcel</groupId>
-    <artifactId>bcel</artifactId>
-    <version>5.2</version>
-			<scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
-<!-- dependency>
-    <groupId>javax.xml.parsers</groupId>
-    <artifactId>jaxp-api</artifactId>
-    <version>1.4</version>
-</dependency-->
-<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
-<dependency>
-    <groupId>xml-apis</groupId>
-    <artifactId>xml-apis</artifactId>
-    <version>2.0.2</version>
-			<scope>provided</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1-beta-6</version>
+
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/pull-parser/pull-parser -->
+		<dependency>
+			<groupId>pull-parser</groupId>
+			<artifactId>pull-parser</artifactId>
+			<version>2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.bcel/bcel -->
+		<dependency>
+			<groupId>org.apache.bcel</groupId>
+			<artifactId>bcel</artifactId>
+			<version>5.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
+		<!-- dependency> <groupId>javax.xml.parsers</groupId> <artifactId>jaxp-api</artifactId> 
+			<version>1.4</version> </dependency -->
+		<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 
 
 
@@ -252,6 +233,8 @@
 								<include>org/slf4j/**</include>
 								<include>org/easymock/**</include>
 								<include>org/jmock/**</include>
+								<exclude>org/verapdf/report/**</exclude>
+
 								<!-- //org/jvnet/fastinfoset/ -->
 								<include>**/**</include>
 								<include>**/**.xsl</include>
