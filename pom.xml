@@ -6,23 +6,23 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3.0-SNAPSHOT</version>
+	<version>0.3.0</version>
 
-<licenses>
-  <license>
-    <name>Apache License, Version 2.0</name>
-    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    <distribution>repo</distribution>
-    <comments>A business-friendly OSS license</comments>
-  </license>
-</licenses>
-<developers>
-    <developer>
-      <id>jstaerk</id>
-      <name>Jochen Staerk</name>
-      <email>jstaerk@usegroup.de</email>
-    </developer>
-  </developers>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>jstaerk</id>
+			<name>Jochen Staerk</name>
+			<email>jstaerk@usegroup.de</email>
+		</developer>
+	</developers>
 	<repositories>
 		<repository>
 			<snapshots>
@@ -40,158 +40,8 @@
 		<dependency>
 			<groupId>org.verapdf</groupId>
 			<artifactId>core</artifactId>
-			<version><!--  [1.1.0,1.2.0)-->1.6.2</version>
+			<version>1.6.2</version>
 		</dependency>
-		<!-- Schematron -->
-		<dependency>
-			<groupId>com.helger</groupId>
-			<artifactId>ph-schematron</artifactId>
-			<version>4.3.1</version>
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/net.sf.saxon/Saxon-HE -->
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>9.7.0-18</version>
-		</dependency>
-		<!-- <dependency> <groupId>jaxen</groupId> <artifactId>jaxen</artifactId> 
-			<version>1.1.6</version> </dependency> <dependency> <groupId>xml-apis</groupId> 
-			<artifactId>xml-apis</artifactId> <version>2.0.2</version> </dependency> 
-			<dependency> <groupId>org.apache.bcel</groupId> <artifactId>bcel</artifactId> 
-			<version>6.0</version> </dependency> <dependency> <groupId>com.sun.msv.datatype.xsd</groupId> 
-			<artifactId>xsdlib</artifactId> <version>2013.2</version> </dependency> <dependency> 
-			<groupId>pull-parser</groupId> <artifactId>pull-parser</artifactId> <version>2.1.10</version> 
-			</dependency> <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb1-impl</artifactId> 
-			<version>2.2.1</version> </dependency> -->
-
-		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
-		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
-		<dependency>
-			<groupId>xml-resolver</groupId>
-			<artifactId>xml-resolver</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/xom/xom -->
-		<dependency>
-			<groupId>xom</groupId>
-			<artifactId>xom</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/msv/xsdlib -->
-		<dependency>
-			<groupId>msv</groupId>
-			<artifactId>xsdlib</artifactId>
-			<version>20030807</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/msv/relaxngDatatype -->
-		<dependency>
-			<groupId>msv</groupId>
-			<artifactId>relaxngDatatype</artifactId>
-			<version>20030807</version>
-		</dependency>
-
-
-		<!-- Apparently a hidden (runtime) ph-schematron(?) dependency -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-		</dependency>
-
-		<!-- Apparently another hidden (runtime) ph-schematron(?) dependency -->
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<!-- Apparently another hidden (runtime) ph-schematron(?) dependency -->
-
-
-		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.3.0-b170127.1453</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-core</artifactId>
-			<version>2.3.0-b170127.1453</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
-		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.8.2</version>
-
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.jmock/jmock -->
-		<dependency>
-			<groupId>jmock</groupId>
-			<artifactId>jmock</artifactId>
-			<version>1.2.0</version>
-
-		</dependency>
-
-
-		<!-- https://mvnrepository.com/artifact/org.easymock/easymock -->
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.4</version>
-
-		</dependency>
-
-		<dependency>
-			<groupId>com.sun.xml.fastinfoset</groupId>
-			<artifactId>FastInfoset</artifactId>
-			<version>1.2.13</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-			<version>1.1-beta-6</version>
-
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/pull-parser/pull-parser -->
-		<dependency>
-			<groupId>pull-parser</groupId>
-			<artifactId>pull-parser</artifactId>
-			<version>2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.bcel/bcel -->
-		<dependency>
-			<groupId>org.apache.bcel</groupId>
-			<artifactId>bcel</artifactId>
-			<version>5.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
-		<!-- dependency> <groupId>javax.xml.parsers</groupId> <artifactId>jaxp-api</artifactId> 
-			<version>1.4</version> </dependency -->
-		<!-- https://mvnrepository.com/artifact/xml-apis/xml-apis -->
-		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>2.0.2</version>
-		</dependency>
-
 
 
 	</dependencies>
@@ -206,7 +56,7 @@
 
 			<plugin>
 				<configuration>
-					<minimizeJar>false</minimizeJar>
+					<minimizeJar>true</minimizeJar>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -218,24 +68,6 @@
 							</excludes>
 							<includes>
 								<include>ZUV/**</include>
-								<include>net/sf/saxon/**</include>
-								<include>org/apache/xml/resolver/helpers/**</include>
-								<include>org/apache/tools/**</include>
-								<include>com/helger/schematron/**</include>
-								<include>com/helger/commons/**</include>
-								<include>com/helger/jaxb/**</include>
-								<include>com/helger/xml/**</include>
-								<include>org/oclc/purl/dsdl/**</include>
-								<include>junit/framework/**</include>
-								<include>org/junit/**</include>
-								<include>com/sun/xml/bind/marshaller/**</include>
-								<include>org/hamcrest/*</include>
-								<include>org/slf4j/**</include>
-								<include>org/easymock/**</include>
-								<include>org/jmock/**</include>
-								<exclude>org/verapdf/report/**</exclude>
-
-								<!-- //org/jvnet/fastinfoset/ -->
 								<include>**/**</include>
 								<include>**/**.xsl</include>
 							</includes>
@@ -260,15 +92,11 @@
 					<archive>
 						<manifest>
 							<mainClass>ZUV.Main</mainClass>
-
-
 						</manifest>
 					</archive>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-
-
 				</configuration>
 			</plugin>
 			<plugin>
@@ -288,7 +116,7 @@
 					</descriptorRefs>
 					<!-- http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven 
 						mvn clean compile assembly:single -->
-					<!-- or whatever version you use -->
+					<!-- and java -jar to create the XSLT style sheet in XSLT 1.0 (ZUGFeRDSchematronStylesheetXSLT1.xsl file)-->
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
