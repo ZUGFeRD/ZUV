@@ -22,7 +22,7 @@ Copy the ZUV jar file into the plugins-subdirectory of the [VeraPDF installation
     <name>ZUGFeRD Validator</name>
     <version>0.3.0</version>
     <description>Validates ZUGFeRD PDFs against the official Schematron. Developed by Jochen Staerk.</description>
-    <pluginJar>[VeraPDF installation directory]/plugins/ZUV-0.3.0-SNAPSHOT.jar</pluginJar>
+    <pluginJar>[VeraPDF installation directory]/plugins/ZUV-0.3.0.jar</pluginJar>
   </plugin>
 ```
 
@@ -35,6 +35,7 @@ the placeholder [VeraPDF installation directory] with the complete path of your 
 Run `verapdf-gui` . Check that embedded files is checked in Config|Features Config.
 Select a ZUGFeRD file like [the mustangproject sample file](http://www.mustangproject.org/MustangGnuaccountingBeispielRE-20170509_505.pdf).
 Select "Validation and Features" as report type and hit the execute button.
+This will currently still take an awful lot of time (10-20 Minutes!).
 
 
 ## Output
