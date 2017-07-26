@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +44,7 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 		try {
 	
 		    Date startDate = new Date();
-			   
+			  
 			ByteArrayOutputStream schematronValidationReport=new ByteArrayOutputStream();
 			SchematronPipeline.applySchematronXsl(embeddedFileFeaturesData.getStream(), schematronValidationReport);
 
@@ -52,6 +55,15 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 				filenameCheck="pass";
 			}
 			addObjectNode("Validation", "Check for filename:"+filenameCheck, res);
+			/*String path = "/tmp/valFail.txt";
+			Files.write( Paths.get(path), schematronValidationString.getBytes(), StandardOpenOption.CREATE);
+			*/
+		    //byte [] resu=Files.readAllBytes(Paths.get("/tmp/valFail.txt"));
+		    //schematronValidationString= new String(resu);
+		    
+		
+		    schematronValidationString=schematronValidationString.replaceAll("<svrl:fired-rule .*?\\/>", "");
+		    schematronValidationString=schematronValidationString.replace("<svrl:active-pattern/>\n", "");
 			addObjectNode("FullReport", schematronValidationString, res);
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    //get current date time with Date()
