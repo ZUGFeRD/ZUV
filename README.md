@@ -43,6 +43,56 @@ This will currently still take an awful lot of time (10-20 Minutes!).
 Click the "View XML" button. We're working on publishing the schematron validation results in the node
 Report/Jobs/job/featuresReport/embeddedFiles/customFeatures/pluginFeatures[name="ZUGFeRD Validator"].
 
+## Embed
+
+If you want to embed the functionality in your product please take note of 
+
+http://docs.verapdf.org/develop/
+and 
+http://docs.verapdf.org/develop/processor/
+
+From which it is relatively easy to derive 
+
+```java
+		PdfBoxFoundryProvider.initialise();
+		// Default validator config
+		ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
+		// Default features config
+		FeatureExtractorConfig featureConfig = FeatureFactory.configFromValues(EnumSet.of(FeatureObjectType.EMBEDDED_FILE));
+		// Default plugins config
+		List<Attribute> a =new ArrayList<Attribute>();
+		PluginConfig pc=PluginConfig.fromValues(true, "ZUV", "0.1", "ZUV description", Paths.get("/your/zuv/directory/andfilename.jar"), a);
+		
+		List<PluginConfig> pcl =new ArrayList<PluginConfig>();
+		pcl.add(pc);
+		PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.fromValues(pcl);
+		// Default fixer config
+		MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
+		// Tasks configuring
+		EnumSet tasks = EnumSet.noneOf(TaskType.class);
+		tasks.add(TaskType.VALIDATE);
+		tasks.add(TaskType.EXTRACT_FEATURES);
+		//tasks.add(TaskType.FIX_METADATA);
+		// Creating processor config
+		ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig, fixerConfig, tasks);
+		// Creating processor and output stream. In this example output stream is System.out
+		try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig);
+			 OutputStream reportStream = System.out) {
+			// Generating list of files for processing
+			List<File> files = new ArrayList<>();
+			files.add(new File("/directory/and/filenametovalidate.pdf"));
+			// starting the processor
+			processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream,
+							100, processorConfig.getValidatorConfig().isRecordPasses()));
+		} catch (VeraPDFException e) {
+			System.err.println("Exception raised while processing batch");
+			e.printStackTrace();
+		} catch (IOException excep) {
+			System.err.println("Exception raised closing MRR temp file.");
+			excep.printStackTrace();
+		}
+```
+
 ## License
 
 Permissive Open Source APL2, see LICENSE
