@@ -28,8 +28,9 @@ public class Main {
 		System.out.println("Creating xsl files...");
 
 		try {
-			
-			SchematronPipeline.processSchematron(cl.getResourceAsStream("ZUGFeRD_1p0.scmt"), new FileOutputStream("ZUGFeRDSchematronStylesheetXSLT1.xsl") );
+			String filename="ZUGFeRDSchematronStylesheetXSLT1.xsl";
+			SchematronPipeline.processSchematron(cl.getResourceAsStream("ZUGFeRD_1p0.scmt"), new FileOutputStream() );
+			System.err.println("Written "+filename);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
