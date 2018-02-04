@@ -40,16 +40,7 @@
 	<dependencies>
 <!-- for ph-schematron
  -->
- <dependency>
-<groupId>org.slf4j</groupId>
-<artifactId>slf4j-api</artifactId>
-<version>1.7.25</version>
-</dependency>
-<dependency>
-<groupId>org.slf4j</groupId>
-<artifactId>slf4j-nop</artifactId>
-<version>1.7.25</version>
-</dependency>
+
 <!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
 <dependency>
     <groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
@@ -91,7 +82,7 @@
 				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
 				<version>5.0.1</version>
 				<configuration>
-					<schematronDirectory>${basedir}/src/main/resources/cii16931schematron</schematronDirectory>
+					<schematronDirectory>${basedir}/src/main/resources/</schematronDirectory>
 					<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory>
 				</configuration>
 				<executions>

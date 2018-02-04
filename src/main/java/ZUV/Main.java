@@ -9,6 +9,13 @@ import java.util.List;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
+
+import org.oclc.purl.dsdl.svrl.FailedAssert;
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+
+import com.helger.schematron.ISchematronResource;
+import com.helger.schematron.xslt.SchematronResourceXSLT;
+
 /*
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
@@ -17,30 +24,14 @@ import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 */
 public class Main {
-	
+
 	static final ClassLoader cl = Main.class.getClassLoader();
 
-	
-
 	public static void main(String[] args) {
-		
 
-		System.out.println("Creating xsl files...");
-
-		try {
-			String filename="ZUGFeRDSchematronStylesheetXSLT1.xsl";
-			SchematronPipeline.processSchematron(cl.getResourceAsStream("ZUGFeRD_1p0.scmt"), new FileOutputStream() );
-			System.err.println("Written "+filename);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/***
+		 * prerequisite is a mvn generate-resources
+		 */
 
 		System.out.println("Validating...");
 
@@ -63,8 +54,9 @@ public class Main {
 			 * 
 			 */
 
-			//final ISchematronResource aResSCH = SchematronResourceXSLT.fromClassPath("/ZUGFeRDSchematronStylesheet.xsl");
-		/*	final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
+			final ISchematronResource aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt");
+			// final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new
+			// File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
 
 			// takes around 10 Seconds.
 			// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
@@ -76,7 +68,7 @@ public class Main {
 				throw new IllegalArgumentException("Invalid Schematron!");
 			}
 			SchematronOutputType sout = aResSCH.applySchematronValidationToSVRL(new StreamSource(
-					new FileInputStream(new File("/Users/jstaerk/workspace/ZUV/ZUGFeRD-invoice.xml"))));
+					new FileInputStream(new File("/Users/jstaerk/workspace/ZUV/factur-x.xml"))));
 			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
 			for (Object object : failedAsserts) {
 				if (object instanceof FailedAssert) {
@@ -89,13 +81,14 @@ public class Main {
 				System.out.print(".");
 				schematronValidationString += currentString;
 			}
-*/
+
 		} catch (
 
 		Exception ex) {
 			ex.printStackTrace();
 		}
 		System.out.println(schematronValidationString);
+		System.out.println("Done");
 
 	}
 }
