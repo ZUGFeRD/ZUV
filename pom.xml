@@ -33,11 +33,29 @@
 			<url>http://artifactory.opf-labs.org/artifactory/vera-dev</url>
 		</repository>
 	</repositories>
-<properties>
-    <dropwizard.version>1.1.2</dropwizard.version>
-</properties>
+	<properties>
+		<dropwizard.version>1.1.2</dropwizard.version>
+	</properties>
 
 	<dependencies>
+<!-- for ph-schematron
+ -->
+ <dependency>
+<groupId>org.slf4j</groupId>
+<artifactId>slf4j-api</artifactId>
+<version>1.7.25</version>
+</dependency>
+<dependency>
+<groupId>org.slf4j</groupId>
+<artifactId>slf4j-nop</artifactId>
+<version>1.7.25</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
+<dependency>
+    <groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
+    <artifactId>slf4j-maven-plugin-log</artifactId>
+    <version>1.0.0</version>
+</dependency>
 
 		<!-- Verapdf -->
 		<dependency>
@@ -45,12 +63,20 @@
 			<artifactId>core</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.helger/ph-schematron -->
+		<dependency>
+			<groupId>com.helger</groupId>
+			<artifactId>ph-schematron</artifactId>
+			<version>5.0.1</version>
+		</dependency>
 
-	    <dependency>
-	        <groupId>io.dropwizard</groupId>
-	        <artifactId>dropwizard-core</artifactId>
-	        <version>${dropwizard.version}</version>
-	    </dependency>
+
+
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-core</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -60,6 +86,22 @@
 			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>com.helger.maven</groupId>
+				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
+				<version>5.0.1</version>
+				<configuration>
+					<schematronDirectory>${basedir}/src/main/resources/cii16931schematron</schematronDirectory>
+					<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>convert</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<configuration>
@@ -91,28 +133,20 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ZUV.Main</mainClass>
-                </transformer>
-              </transformers>
-            </configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>ZUV.Main</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-		<!--  	<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>ZUV.Main</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>-->
+			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <configuration> 
+				<archive> <manifest> <mainClass>ZUV.Main</mainClass> </manifest> </archive> 
+				<descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> 
+				</configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -130,9 +164,10 @@
 					</descriptorRefs>
 					<!-- http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven 
 						mvn clean compile assembly:single -->
-					<!-- and java -jar to create the XSLT style sheet in XSLT 1.0 (ZUGFeRDSchematronStylesheetXSLT1.xsl file)-->
-					<source>1.7</source>
-					<target>1.7</target>
+					<!-- and java -jar to create the XSLT style sheet in XSLT 1.0 (ZUGFeRDSchematronStylesheetXSLT1.xsl 
+						file) -->
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

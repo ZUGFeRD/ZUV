@@ -21,10 +21,10 @@ public class SchematronPipeline {
 	static final ClassLoader cl = SchematronPipeline.class.getClassLoader();
 	private static final TransformerFactory factory = getTransformerFactory();
 	private static final String xslExt = ".xsl"; //$NON-NLS-1$
-	private static final String resourcePath = ""; //$NON-NLS-1$
+	private static final String resourcePath = "iso-schematron-xslt2/"; //$NON-NLS-1$
 	private static final String isoDsdlXsl = resourcePath + "iso_dsdl_include" + xslExt; //$NON-NLS-1$
 	private static final String isoExpXsl = resourcePath + "iso_abstract_expand" + xslExt; //$NON-NLS-1$
-	private static final String isoSvrlXsl = resourcePath + "iso_svrl_for_xslt1" + xslExt; //$NON-NLS-1$
+	private static final String isoSvrlXsl = resourcePath + "iso_svrl_for_xslt2" + xslExt; //$NON-NLS-1$
 	private static final Templates cachedIsoDsdXsl = createCachedTransform(isoDsdlXsl);
 	private static final Templates cachedExpXsl = createCachedTransform(isoExpXsl);
 	private static final Templates cachedIsoSvrlXsl = createCachedTransform(isoSvrlXsl);
