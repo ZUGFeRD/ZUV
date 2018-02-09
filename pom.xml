@@ -32,21 +32,24 @@
 			<name>Vera development</name>
 			<url>http://artifactory.opf-labs.org/artifactory/vera-dev</url>
 		</repository>
+		<repository>
+			<id>mustang-mvn-repo</id>
+			<url>https://raw.github.com/ZUGFeRD/mustangproject/mvn-repo/</url>
+		</repository>
 	</repositories>
 	<properties>
 		<dropwizard.version>1.1.2</dropwizard.version>
 	</properties>
 
 	<dependencies>
-<!-- for ph-schematron
- -->
+		<!-- for ph-schematron -->
 
-<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
-<dependency>
-    <groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
-    <artifactId>slf4j-maven-plugin-log</artifactId>
-    <version>1.0.0</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
+		<dependency>
+			<groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
+			<artifactId>slf4j-maven-plugin-log</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 		<!-- Verapdf -->
 		<dependency>
@@ -61,13 +64,13 @@
 			<version>5.0.1</version>
 		</dependency>
 
-
-
 		<dependency>
-			<groupId>io.dropwizard</groupId>
-			<artifactId>dropwizard-core</artifactId>
-			<version>${dropwizard.version}</version>
+			<groupId>org.mustangproject.ZUGFeRD</groupId>
+			<artifactId>mustang</artifactId>
+			<version>1.5.1</version>
 		</dependency>
+		<!-- <dependency> <groupId>io.dropwizard</groupId> <artifactId>dropwizard-core</artifactId> 
+			<version>${dropwizard.version}</version> </dependency> -->
 	</dependencies>
 	<build>
 		<resources>
