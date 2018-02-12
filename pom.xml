@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.0-SNAPSHOT</version>
+	<version>0.4.1-SNAPSHOT</version>
 
 	<licenses>
 		<license>
@@ -69,6 +69,12 @@
 			<artifactId>mustang</artifactId>
 			<version>1.5.1</version>
 		</dependency>
+		
+		<dependency><!-- for commandline options -->
+			<groupId>com.sanityinc</groupId>
+			<artifactId>jargs</artifactId>
+			<version>2.0-SNAPSHOT</version>
+		</dependency>
 		<!-- <dependency> <groupId>io.dropwizard</groupId> <artifactId>dropwizard-core</artifactId> 
 			<version>${dropwizard.version}</version> </dependency> -->
 	</dependencies>
@@ -79,7 +85,7 @@
 
 			</resource>
 		</resources>
-		<plugins>
+		<plugins><!-- re-genrates XSLT files from schematron but takes >30min
 			<plugin>
 				<groupId>com.helger.maven</groupId>
 				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
@@ -95,7 +101,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 
 			<plugin>
 				<configuration>

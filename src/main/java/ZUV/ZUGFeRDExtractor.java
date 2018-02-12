@@ -5,18 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,53 +33,65 @@ public class ZUGFeRDExtractor extends AbstractEmbeddedFileFeaturesExtractor {
 
 	private static final Logger LOGGER = Logger.getLogger(ZUGFeRDExtractor.class.getCanonicalName());
 
+	// source
+	// https://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
+	static String convertStreamToString(java.io.InputStream is) {
+		Scanner s = new Scanner(is).useDelimiter("\\A");
+		// in this case we separate tokens using "beginning of the input boundary" (\A)
+		// thus giving us only one token for the entire contents of the stream.
+		return s.hasNext() ? s.next() : "";
+	}
+
 	@Override
 	public List<FeatureTreeNode> getEmbeddedFileFeatures(EmbeddedFileFeaturesData embeddedFileFeaturesData) {
 		List<FeatureTreeNode> res = new ArrayList<>();
 		String schematronValidationString = "";
-	
-		try {
-	
-		    Date startDate = new Date();
-			  
-			ByteArrayOutputStream schematronValidationReport=new ByteArrayOutputStream();
-			SchematronPipeline.applySchematronXsl(embeddedFileFeaturesData.getStream(), schematronValidationReport);
 
-			schematronValidationString=schematronValidationReport.toString("UTF-8");
-			
-			String filenameCheck="fail";
-			if (embeddedFileFeaturesData.getName().equals("ZUGFeRD-invoice.xml")) {
-				filenameCheck="pass";
+		try {
+
+			Date startDate = new Date();
+			/*
+			 * ByteArrayOutputStream schematronValidationReport=new ByteArrayOutputStream();
+			 * SchematronPipeline.applySchematronXsl(embeddedFileFeaturesData.getStream(),
+			 * schematronValidationReport);
+			 * 
+			 * schematronValidationString=schematronValidationReport.toString("UTF-8");
+			 */
+			schematronValidationString = Main
+					.validateZUGFeRD(convertStreamToString(embeddedFileFeaturesData.getStream()));
+
+			String filenameCheck = "fail";
+			if (embeddedFileFeaturesData.getName().equals("ZUGFeRD-invoice.xml")
+					|| embeddedFileFeaturesData.getName().equals("factur-x.xml")) {
+				filenameCheck = "pass";
 			}
-			addObjectNode("Validation", "Check for filename:"+filenameCheck, res);
-			/*String path = "/tmp/valFail.txt";
-			Files.write( Paths.get(path), schematronValidationString.getBytes(), StandardOpenOption.CREATE);
-			*/
-		    //byte [] resu=Files.readAllBytes(Paths.get("/tmp/valFail.txt"));
-		    //schematronValidationString= new String(resu);
-		    
-		
-		    schematronValidationString=schematronValidationString.replaceAll("<svrl:fired-rule .*?\\/>", "");
-		    schematronValidationString=schematronValidationString.replace("<svrl:active-pattern/>\n", "");
+			addObjectNode("Validation", "Check for filename:" + filenameCheck, res);
+			/*
+			 * String path = "/tmp/valFail.txt"; Files.write( Paths.get(path),
+			 * schematronValidationString.getBytes(), StandardOpenOption.CREATE);
+			 */
+			// byte [] resu=Files.readAllBytes(Paths.get("/tmp/valFail.txt"));
+			// schematronValidationString= new String(resu);
+
+			schematronValidationString = schematronValidationString.replaceAll("<svrl:fired-rule .*?\\/>", "");
+			schematronValidationString = schematronValidationString.replace("<svrl:active-pattern/>\n", "");
 			addObjectNode("FullReport", schematronValidationString, res);
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		    //get current date time with Date()
-			 Date endDate = new Date();
-			   
+			// get current date time with Date()
+			Date endDate = new Date();
 
 			addObjectNode("ValidationStart", dateFormat.format(startDate), res);
 			addObjectNode("ValidationEnd", dateFormat.format(endDate), res);
-			
-			
+
 		} catch (Exception e) {
 
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			e.printStackTrace(pw);
-			
-			LOGGER.log(Level.WARNING, e.getMessage()+" @ "+sw.toString(), e);
+
+			LOGGER.log(Level.WARNING, e.getMessage() + " @ " + sw.toString(), e);
 		}
-		
+
 		return res;
 	}
 
