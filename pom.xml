@@ -8,21 +8,6 @@
 	<packaging>jar</packaging>
 	<version>0.4.1-SNAPSHOT</version>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>jstaerk</id>
-			<name>Jochen Staerk</name>
-			<email>jstaerk@usegroup.de</email>
-		</developer>
-	</developers>
 	<repositories>
 		<repository>
 			<snapshots>
@@ -51,11 +36,18 @@
 			<version>1.0.0</version>
 		</dependency>
 
-		<!-- Verapdf -->
+		<!-- Verapdf plugin 
 		<dependency>
 			<groupId>org.verapdf</groupId>
 			<artifactId>core</artifactId>
 			<version>1.6.2</version>
+		</dependency>-->
+		
+		<!-- embedded verapdf -->
+		<dependency>
+  			<groupId>org.verapdf</groupId>
+  			<artifactId>validation-model</artifactId>
+  			<version>1.10.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.helger/ph-schematron -->
 		<dependency>
@@ -78,85 +70,30 @@
 		<!-- <dependency> <groupId>io.dropwizard</groupId> <artifactId>dropwizard-core</artifactId> 
 			<version>${dropwizard.version}</version> </dependency> -->
 	</dependencies>
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
+		<build>
+		<pluginManagement>
+			<plugins>
+				<plugin><!-- mvn help:effective-pom will otherwise tell it just defaults 
+						to 2.3.2 - which does not release in the maven repo, and neither shows any 
+						error message :-( -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
 
-			</resource>
-		</resources>
-		<plugins><!-- re-genrates XSLT files from schematron but takes >30min
-			<plugin>
-				<groupId>com.helger.maven</groupId>
-				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
-				<version>5.0.1</version>
-				<configuration>
-					<schematronDirectory>${basedir}/src/main/resources/</schematronDirectory>
-					<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>convert</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
-
-			<plugin>
-				<configuration>
-					<minimizeJar>true</minimizeJar>
-					<filters>
-						<filter>
-							<artifact>*:*</artifact>
-							<excludes>
-								<exclude>META-INF/*.SF</exclude>
-								<exclude>META-INF/*.DSA</exclude>
-								<exclude>META-INF/*.RSA</exclude>
-								<exclude>org/verapdf/**</exclude>
-							</excludes>
-							<includes>
-								<include>ZUV/**</include>
-								<include>**/**</include>
-								<include>**/**.xsl</include>
-							</includes>
-						</filter>
-					</filters>
-				</configuration>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>ZUV.Main</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <configuration> 
-				<archive> <manifest> <mainClass>ZUV.Main</mainClass> </manifest> </archive> 
-				<descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> 
-				</configuration> </plugin> -->
+			<!-- ZUV -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>ZUV.Main</mainClass>
+							<mainClass>ZUV.main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -164,12 +101,95 @@
 					</descriptorRefs>
 					<!-- http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven 
 						mvn clean compile assembly:single -->
-					<!-- and java -jar to create the XSLT style sheet in XSLT 1.0 (ZUGFeRDSchematronStylesheetXSLT1.xsl 
-						file) -->
-					<source>1.8</source>
-					<target>1.8</target>
+					<!-- or whatever version you use -->
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
+			</plugin>
+
+
+			<!-- /ZUV -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<transformers>
+						<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>ZUV.Main</mainClass>
+						</transformer>
+					</transformers>
+					<minimizeJar>false</minimizeJar>
+					<filters>
+						<filter>
+												<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					
+						<filter>
+							<artifact>log4j:log4j</artifact>
+							<includes>
+								<include>**</include>
+							</includes>
+						</filter>
+						<filter>
+							<artifact>commons-logging:commons-logging</artifact>
+							<includes>
+								<include>**</include>
+							</includes>
+						</filter>
+						<filter>
+							<artifact>com.sun.xml.bind:jaxb-impl</artifact>
+							<includes>
+								<include>**</include>
+							</includes>
+						</filter>
+						<filter>
+							<artifact>com.sun.xml.bind:jaxb-core</artifact>
+							<includes>
+								<include>**</include>
+							</includes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<excludes>
+									
+								</excludes>
+							</artifactSet>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Jochen Stärk</name>
+			<email>jstaerk@usegroup.de</email>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 </project>
