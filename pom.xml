@@ -106,9 +106,24 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
-
 			<!-- /ZUV -->
+			<!--  generate XSLT files from schematron upon build (goal convert is part of the preparation of the "package" step) -->
+			<!-- <plugin>
+  				<groupId>com.helger.maven</groupId>
+  				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
+  				<version>5.0.1</version>
+  				<configuration>
+  					<schematronDirectory>${basedir}/src/main/resources/</schematronDirectory>
+  					<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory>
+  				</configuration>
+				<executions>
+    					<execution>
+      					<goals>
+        						<goal>convert</goal>
+      					</goals>
+    					</execution>
+  				</executions>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -122,7 +137,7 @@
 					<minimizeJar>false</minimizeJar>
 					<filters>
 						<filter>
-												<artifact>*:*</artifact>
+							<artifact>*:*</artifact>
 							<excludes>
 								<exclude>META-INF/*.SF</exclude>
 								<exclude>META-INF/*.DSA</exclude>
