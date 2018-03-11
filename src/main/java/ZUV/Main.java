@@ -53,14 +53,17 @@ import com.sanityinc.jargs.CmdLineParser.Option;
 public class Main {
 
 	static final ClassLoader cl = Main.class.getClassLoader();
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName());
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is ignored for the time being
 
 	public static void main(String[] args) {
+	
+		long startTime = Calendar.getInstance().getTimeInMillis();
 
 		/***
 		 * prerequisite is a mvn generate-resources
 		 */
-		
+
 		CmdLineParser parser = new CmdLineParser();
 		Option<String> filenameOption = parser.addStringOption('f', "filename");
 		try {
@@ -77,7 +80,6 @@ public class Main {
 			System.exit(-1);
 		}
 
-
 		System.err.println("<validation><pdf>");
 		// Validate PDF
 
@@ -93,131 +95,135 @@ public class Main {
 		// Tasks configuring
 		EnumSet tasks = EnumSet.noneOf(TaskType.class);
 		tasks.add(TaskType.VALIDATE);
-//		tasks.add(TaskType.EXTRACT_FEATURES);
-		//tasks.add(TaskType.FIX_METADATA);
+		// tasks.add(TaskType.EXTRACT_FEATURES);
+		// tasks.add(TaskType.FIX_METADATA);
 		// Creating processor config
-		ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig, fixerConfig, tasks);
+		ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig,
+				fixerConfig, tasks);
 		// Creating processor and output stream.
 		ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
-		String pdfReport="";
+		String pdfReport = "";
 		try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
 			// Generating list of files for processing
 			List<File> files = new ArrayList<>();
 			files.add(new File(fileName));
 			// starting the processor
-			processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream,
-							100, processorConfig.getValidatorConfig().isRecordPasses()));
+			processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
+					processorConfig.getValidatorConfig().isRecordPasses()));
 
-			pdfReport=reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>", "");
+			pdfReport = reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>",
+					"");
 		} catch (VeraPDFException e) {
-			System.err.println("<exception message='"+e.getMessage()+"'>"+e.getStackTrace()+"</exception>");
-			
+			System.err.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
+
 			LOGGER.error(e.getMessage());
 		} catch (IOException excep) {
-			System.err.println("<exception message='"+excep.getMessage()+"'>"+excep.getStackTrace()+"</exception>");
+			System.err.println(
+					"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
 			LOGGER.error(excep.getMessage());
 		}
-		
-		
+
+		long startXMLTime = Calendar.getInstance().getTimeInMillis();
+		LOGGER.info("Took " + (startXMLTime - startTime) + " ms.");
+		System.err.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
+
 		// Validate ZUGFeRD
-		System.err.println(pdfReport+"</pdf><xml>");
-		
+		System.err.println(pdfReport + "</pdf><xml>");
+
 		ZUGFeRDImporter zi = new ZUGFeRDImporter();
 		zi.extract(fileName);
 		if (zi.canParse()) {
 			System.err.println(validateZUGFeRD(zi.getMeta()));
 		}
+		long endTime = Calendar.getInstance().getTimeInMillis();
+		LOGGER.info("Took " + (endTime - startTime) + " ms.");
+		System.err.println("<info><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 		System.err.println("</xml>");
+		System.err.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
+
 		System.err.println("</validation>");
 
 	}
 
 	public static String validateZUGFeRD(String xmlString) {
-		Calendar rightNow = Calendar.getInstance();
-		long startTime = rightNow.getTimeInMillis();
-		{
-			ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(
-					xmlString.getBytes(StandardCharsets.UTF_8));
 
-			String schematronValidationString = "";
+		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
 
-			// final ISchematronResource aResSCH =
-			// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
-			// ... DOES work but is highly deprecated (and rightly so) because
-			// it takes 30-40min,
+		String schematronValidationString = "";
 
-			try {
+		// final ISchematronResource aResSCH =
+		// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
+		// ... DOES work but is highly deprecated (and rightly so) because
+		// it takes 30-40min,
 
-				/***
-				 * private static final String VALID_SCHEMATRON = "test-sch/valid01.sch";
-				 * private static final String VALID_XMLINSTANCE = "test-xml/valid01.xml";
-				 * 
-				 * @Test public void testWriteValid () throws Exception { final Document aDoc =
-				 *       SchematronResourceSCH.fromClassPath (VALID_SCHEMATRON)
-				 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
-				 * 
-				 */
+		try {
 
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-				DocumentBuilder db = dbf.newDocumentBuilder();
+			/***
+			 * private static final String VALID_SCHEMATRON = "test-sch/valid01.sch";
+			 * private static final String VALID_XMLINSTANCE = "test-xml/valid01.xml";
+			 * 
+			 * @Test public void testWriteValid () throws Exception { final Document aDoc =
+			 *       SchematronResourceSCH.fromClassPath (VALID_SCHEMATRON)
+			 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
+			 * 
+			 */
 
-				Document doc = db.parse(xmlByteInputStream);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
 
-				Element root = doc.getDocumentElement();
-				ISchematronResource aResSCH = null;
+			Document doc = db.parse(xmlByteInputStream);
 
-				if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) {
-					// ZUGFeRD 2.0
-					aResSCH = SchematronResourceXSLT
-							.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt");
-					// final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new
-					// File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
+			Element root = doc.getDocumentElement();
+			ISchematronResource aResSCH = null;
 
-					// takes around 10 Seconds.
-					// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
-					// explains that
-					// this xslt can be created using sth like
-					// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
-					// tcdl2.0.tsdtf.sch iso_svrl.xsl
+			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) {
+				// ZUGFeRD 2.0
+				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt");
+				// final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new
+				// File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
 
-				} else {
-					// ZUGFeRD 1.0
-					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
+				// takes around 10 Seconds.
+				// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
+				// explains that
+				// this xslt can be created using sth like
+				// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
+				// tcdl2.0.tsdtf.sch iso_svrl.xsl
 
-				}
-				if (!aResSCH.isValidSchematron()) {
-					throw new IllegalArgumentException("Invalid Schematron!");
-				}
+			} else {
+				// ZUGFeRD 1.0
+				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 
-				
-				SchematronOutputType sout = aResSCH
-						.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
-				List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-				for (Object object : failedAsserts) {
-					if (object instanceof FailedAssert) {
-
-						FailedAssert failedAssert = (FailedAssert) object;
-
-						schematronValidationString += "<error><criterion>"+failedAssert.getTest() +"</criterion><result>"+failedAssert.getText() + "</result>\n";
-					}
-					
-				}
-				for (String currentString : sout.getText()) {
-
-					schematronValidationString += "<output>"+currentString+"</output>";
-				}
-
-			} catch (
-
-			Exception ex) {
-				schematronValidationString += "<exception message='"+ex.getMessage()+"'>"+ex.getStackTrace()+"</exception>";
-				LOGGER.error(ex.getMessage());
 			}
-			rightNow = Calendar.getInstance();
-			long endTime = rightNow.getTimeInMillis();
-			LOGGER.info("Took " + (endTime - startTime) + " ms.");
-			return schematronValidationString;
+			if (!aResSCH.isValidSchematron()) {
+				throw new IllegalArgumentException("Invalid Schematron!");
+			}
 
+			SchematronOutputType sout = aResSCH
+					.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
+			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
+			for (Object object : failedAsserts) {
+				if (object instanceof FailedAssert) {
+
+					FailedAssert failedAssert = (FailedAssert) object;
+
+					schematronValidationString += "<error><criterion>" + failedAssert.getTest() + "</criterion><result>"
+							+ failedAssert.getText() + "</result>\n";
+				}
+
+			}
+			for (String currentString : sout.getText()) {
+
+				schematronValidationString += "<output>" + currentString + "</output>";
+			}
+
+		} catch (
+
+		Exception ex) {
+			schematronValidationString += "<exception message='" + ex.getMessage() + "'>" + ex.getStackTrace()
+					+ "</exception>";
+			LOGGER.error(ex.getMessage());
 		}
+		return schematronValidationString;
 	}
+
 }

@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
-	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="var" path="M2_REPO/org/verapdf/core/1.6.2/core-1.6.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/verapdf/pdf-model/1.6.1/pdf-model-1.6.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/verapdf/verapdf-xmp-core/0.12.1/verapdf-xmp-core-0.12.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/rhino/js/1.7R2/js-1.7R2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/net/java/dev/stax-utils/stax-utils/20070216/stax-utils-20070216.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/helger/ph-schematron/4.3.1/ph-schematron-4.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/helger/ph-commons/8.6.5/ph-commons-8.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/helger/ph-xml/8.6.5/ph-xml-8.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/helger/ph-jaxb/8.6.5/ph-jaxb-8.6.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/net/sf/saxon/Saxon-HE/9.7.0-18/Saxon-HE-9.7.0-18.jar"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-all/1.3/hamcrest-all-1.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.3.0-b170127.1453/jaxb-impl-2.3.0-b170127.1453.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-core/2.3.0-b170127.1453/jaxb-core-2.3.0-b170127.1453.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.2.12-b140109.1041/jaxb-api-2.2.12-b140109.1041.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+  <classpathentry kind="var" path="M2_REPO/com/googlecode/slf4j-maven-plugin-log/slf4j-maven-plugin-log/1.0.0/slf4j-maven-plugin-log-1.0.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-plugin-api/2.2.1/maven-plugin-api-2.2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/validation-model/1.10.5/validation-model-1.10.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/parser/1.10.4/parser-1.10.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/pdf-model/1.10.1/pdf-model-1.10.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/core/1.10.2/core-1.10.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/verapdf-xmp-core/0.12.1/verapdf-xmp-core-0.12.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/rhino/js/1.7R2/js-1.7R2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/java/dev/stax-utils/stax-utils/20070216/stax-utils-20070216.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/feature-reporting/1.10.5/feature-reporting-1.10.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/verapdf/metadata-fixer/1.10.5/metadata-fixer-1.10.5.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/helger/ph-schematron/5.0.1/ph-schematron-5.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/helger/ph-commons/9.0.1/ph-commons-9.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/helger/ph-xml/9.0.1/ph-xml-9.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/helger/ph-collection/9.0.1/ph-collection-9.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/helger/ph-jaxb/9.0.1/ph-jaxb-9.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/glassfish/jaxb/jaxb-runtime/2.2.11/jaxb-runtime-2.2.11.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/glassfish/jaxb/jaxb-core/2.2.11/jaxb-core-2.2.11.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/glassfish/jaxb/txw2/2.2.11/txw2-2.2.11.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/istack/istack-commons-runtime/2.21/istack-commons-runtime-2.21.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/jvnet/staxex/stax-ex/1.7.7/stax-ex-1.7.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/xml/fastinfoset/FastInfoset/1.2.13/FastInfoset-1.2.13.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/sf/saxon/Saxon-HE/9.8.0-7/Saxon-HE-9.8.0-7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mustangproject/ZUGFeRD/mustang/1.5.1/mustang-1.5.1.jar" sourcepath="M2_REPO/org/mustangproject/ZUGFeRD/mustang/1.5.1/mustang-1.5.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sanityinc/jargs/2.0-SNAPSHOT/jargs-2.0-SNAPSHOT.jar"/>
 </classpath>

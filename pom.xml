@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.1-SNAPSHOT</version>
+	<version>0.4.2-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -29,6 +29,12 @@
 	<dependencies>
 		<!-- for ph-schematron -->
 
+		<dependency><!-- disable logging. Switch to e.g. <artifactId>slf4j-simple</artifactId> to enable -->
+  			<groupId>org.slf4j</groupId>
+    			<artifactId>slf4j-nop</artifactId>
+    			<version>1.7.25</version> 
+		</dependency>
+  
 		<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
 		<dependency>
 			<groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
