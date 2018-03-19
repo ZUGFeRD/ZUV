@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.2-SNAPSHOT</version>
+	<version>0.4.3-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -27,6 +27,13 @@
 	</properties>
 
 	<dependencies>
+		<!-- for java9 -->
+		<dependency>
+  			<groupId>javax.xml.bind</groupId>
+    			<artifactId>jaxb-api</artifactId>
+    			<version>2.1</version> 
+		</dependency>
+  
 		<!-- for ph-schematron -->
 
 		<dependency><!-- disable logging. Switch to e.g. <artifactId>slf4j-simple</artifactId> to enable -->
