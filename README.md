@@ -46,10 +46,10 @@ Originally this was intended as VeraPDF plugin in which case you had to install 
     <duration start="1520759189547" finish="1520759191533">00:00:01.986</duration>
   </batchSummary>
 </report>
-</pdf><xml>
+</pdf><xml><errors>
 <error><criterion>@format</criterion><result>
 	Attribute '@format' is required in this context.</result>
-
+</error></errors>
 <info><duration unit='ms'>12612</duration></info>
 </xml>
 <info><duration unit='ms'>14677</duration></info>
