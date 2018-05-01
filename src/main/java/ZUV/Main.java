@@ -4,31 +4,29 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.SimpleFormatter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 
 import org.mustangproject.ZUGFeRD.ZUGFeRDImporter;
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.impl.StaticLoggerBinder;
 import org.verapdf.core.VeraPDFException;
 import org.verapdf.features.FeatureExtractorConfig;
 import org.verapdf.features.FeatureFactory;
-import org.verapdf.features.FeatureObjectType;
 import org.verapdf.metadata.fixer.FixerFactory;
 import org.verapdf.metadata.fixer.MetadataFixerConfig;
 import org.verapdf.pdfa.VeraGreenfieldFoundryProvider;
@@ -39,13 +37,14 @@ import org.verapdf.processor.FormatOption;
 import org.verapdf.processor.ProcessorConfig;
 import org.verapdf.processor.ProcessorFactory;
 import org.verapdf.processor.TaskType;
-import org.verapdf.processor.plugins.Attribute;
-import org.verapdf.processor.plugins.PluginConfig;
 import org.verapdf.processor.plugins.PluginsCollectionConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.helger.schematron.ISchematronResource;
+import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
@@ -53,11 +52,17 @@ import com.sanityinc.jargs.CmdLineParser.Option;
 public class Main {
 
 	static final ClassLoader cl = Main.class.getClassLoader();
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is ignored for the time being
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
+																									// ignored for the
+																									// time being
+
+	protected static String ZUGFeRDVersion = null;
+
+	protected static String ZUGFeRDProfile = null;
 
 	public static void main(String[] args) {
-	
+
 		long startTime = Calendar.getInstance().getTimeInMillis();
 
 		/***
@@ -80,7 +85,7 @@ public class Main {
 			System.exit(-1);
 		}
 
-		System.err.println("<validation><pdf>");
+		System.out.println("<validation><pdf>");
 		// Validate PDF
 
 		VeraGreenfieldFoundryProvider.initialise();
@@ -114,41 +119,40 @@ public class Main {
 			pdfReport = reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>",
 					"");
 		} catch (VeraPDFException e) {
-			System.err.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
+			System.out.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
 
 			LOGGER.error(e.getMessage());
 		} catch (IOException excep) {
-			System.err.println(
+			System.out.println(
 					"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
 			LOGGER.error(excep.getMessage());
 		}
 
 		long startXMLTime = Calendar.getInstance().getTimeInMillis();
 		LOGGER.info("Took " + (startXMLTime - startTime) + " ms.");
-		System.err.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
+		System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
 
 		// Validate ZUGFeRD
-		System.err.println(pdfReport + "</pdf><xml>");
+		System.out.println(pdfReport + "</pdf><xml>");
 
 		ZUGFeRDImporter zi = new ZUGFeRDImporter();
 		zi.extract(fileName);
-		if (zi.canParse()) {
-			System.err.println(validateZUGFeRD(zi.getMeta()));
-		}
+		System.out.println(validateZUGFeRD(zi.getMeta()));
 		long endTime = Calendar.getInstance().getTimeInMillis();
 		LOGGER.info("Took " + (endTime - startTime) + " ms.");
-		System.err.println("<info><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
-		System.err.println("</xml>");
-		System.err.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
+		System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
+				+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
+				+ "</profile><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
+		System.out.println("</xml>");
+		System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
 
-		System.err.println("</validation>");
+		System.out.println("</validation>");
 
 	}
 
 	public static String validateZUGFeRD(String xmlString) {
 
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
-
 		String schematronValidationString = "";
 
 		// final ISchematronResource aResSCH =
@@ -169,6 +173,9 @@ public class Main {
 			 */
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(true); // otherwise we can not act namespace independently, i.e. use
+											// document.getElementsByTagNameNS("*",...
+
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			Document doc = db.parse(xmlByteInputStream);
@@ -176,23 +183,49 @@ public class Main {
 			Element root = doc.getDocumentElement();
 			ISchematronResource aResSCH = null;
 
-			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) {
-				// ZUGFeRD 2.0
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt");
-				// final ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new
-				// File("/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"));
+			NodeList ndList;
 
-				// takes around 10 Seconds.
-				// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html
-				// explains that
+			// rootNode = document.getDocumentElement();
+			// ApplicableSupplyChainTradeSettlement
+
+			// Create XPathFactory object
+			XPathFactory xpathFactory = XPathFactory.newInstance();
+
+			// Create XPath object
+			XPath xpath = xpathFactory.newXPath();
+			XPathExpression expr = xpath.compile(
+					"//*[local-name()=\"GuidelineSpecifiedDocumentContextParameter\"]/*[local-name()=\"ID\"]/text()");
+			// evaluate expression result on XML document
+			ndList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+
+			for (int bookingIndex = 0; bookingIndex < ndList.getLength(); bookingIndex++) {
+				Node booking = ndList.item(bookingIndex);
+				// if there is a attribute in the tag number:value
+				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended
+				// setForeignReference(booking.getTextContent());
+
+				ZUGFeRDProfile = booking.getNodeValue();
+			}
+
+			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0
+				ZUGFeRDVersion = "2(public preview?)";
+				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt"); // final
+				/*
+				 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
+				 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
+				 * ));
+				 */
+
+				// takes around 10 Seconds. //
+				// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
 				// this xslt can be created using sth like
 				// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
 				// tcdl2.0.tsdtf.sch iso_svrl.xsl
 
-			} else {
-				// ZUGFeRD 1.0
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
+			} else { // ZUGFeRD 1.0
 
+				ZUGFeRDVersion = "1";
+				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 			}
 			if (!aResSCH.isValidSchematron()) {
 				throw new IllegalArgumentException("Invalid Schematron!");
@@ -200,21 +233,30 @@ public class Main {
 
 			SchematronOutputType sout = aResSCH
 					.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
+
 			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-			for (Object object : failedAsserts) {
-				if (object instanceof FailedAssert) {
+			if (failedAsserts.size() > 0) {
+				schematronValidationString += "<errors>";
+				for (Object object : failedAsserts) {
+					if (object instanceof FailedAssert) {
 
-					FailedAssert failedAssert = (FailedAssert) object;
+						FailedAssert failedAssert = (FailedAssert) object;
 
-					schematronValidationString += "<error><criterion>" + failedAssert.getTest() + "</criterion><result>"
-							+ failedAssert.getText() + "</result>\n";
+						schematronValidationString += "<error><criterion>" + failedAssert.getTest()
+								+ "</criterion><result>" + failedAssert.getText() + "</result></error>\n";
+					}
+
 				}
+				schematronValidationString += "</errors>";
 
 			}
 			for (String currentString : sout.getText()) {
 
 				schematronValidationString += "<output>" + currentString + "</output>";
 			}
+
+			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
+			// returns the complete SVRL
 
 		} catch (
 

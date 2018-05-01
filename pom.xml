@@ -6,42 +6,51 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.3-SNAPSHOT</version>
+	<version>0.4.4-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
+			<id>mavencentral</id>
+			<url>http://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository><!-- for jargs -->
+			<id>sonatype-oss-public</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-			<id>vera-dev</id>
-			<name>Vera development</name>
-			<url>http://artifactory.opf-labs.org/artifactory/vera-dev</url>
 		</repository>
 		<repository>
 			<id>mustang-mvn-repo</id>
 			<url>https://raw.github.com/ZUGFeRD/mustangproject/mvn-repo/</url>
 		</repository>
+
 	</repositories>
 	<properties>
 		<dropwizard.version>1.1.2</dropwizard.version>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
 		<!-- for java9 -->
 		<dependency>
-  			<groupId>javax.xml.bind</groupId>
-    			<artifactId>jaxb-api</artifactId>
-    			<version>2.1</version> 
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.1</version>
 		</dependency>
-  
+
 		<!-- for ph-schematron -->
 
-		<dependency><!-- disable logging. Switch to e.g. <artifactId>slf4j-simple</artifactId> to enable -->
-  			<groupId>org.slf4j</groupId>
-    			<artifactId>slf4j-nop</artifactId>
-    			<version>1.7.25</version> 
+		<dependency><!-- disable logging. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
+				to enable -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.25</version>
 		</dependency>
-  
+
 		<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
 		<dependency>
 			<groupId>com.googlecode.slf4j-maven-plugin-log</groupId>
@@ -49,24 +58,21 @@
 			<version>1.0.0</version>
 		</dependency>
 
-		<!-- Verapdf plugin 
+		<!-- Verapdf plugin <dependency> <groupId>org.verapdf</groupId> <artifactId>core</artifactId> 
+			<version>1.6.2</version> </dependency> -->
+
+		<!-- embedded verapdf -->
+		
 		<dependency>
 			<groupId>org.verapdf</groupId>
-			<artifactId>core</artifactId>
-			<version>1.6.2</version>
-		</dependency>-->
-		
-		<!-- embedded verapdf -->
-		<dependency>
-  			<groupId>org.verapdf</groupId>
-  			<artifactId>validation-model</artifactId>
-  			<version>1.10.5</version>
+			<artifactId>validation-model</artifactId>
+			<version>1.10.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.helger/ph-schematron -->
 		<dependency>
 			<groupId>com.helger</groupId>
 			<artifactId>ph-schematron</artifactId>
-			<version>5.0.1</version>
+			<version>5.0.2</version>
 		</dependency>
 
 		<dependency>
@@ -74,7 +80,7 @@
 			<artifactId>mustang</artifactId>
 			<version>1.5.1</version>
 		</dependency>
-		
+
 		<dependency><!-- for commandline options -->
 			<groupId>com.sanityinc</groupId>
 			<artifactId>jargs</artifactId>
@@ -82,8 +88,22 @@
 		</dependency>
 		<!-- <dependency> <groupId>io.dropwizard</groupId> <artifactId>dropwizard-core</artifactId> 
 			<version>${dropwizard.version}</version> </dependency> -->
+			    <!-- veraPDF Project dependencies -->
+<!-- 
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>preflight</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+ -->
+			
 	</dependencies>
-		<build>
+	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin><!-- mvn help:effective-pom will otherwise tell it just defaults 
@@ -120,30 +140,21 @@
 				</configuration>
 			</plugin>
 			<!-- /ZUV -->
-			<!--  generate XSLT files from schematron upon build (goal convert is part of the preparation of the "package" step) -->
-			<!-- <plugin>
-  				<groupId>com.helger.maven</groupId>
-  				<artifactId>ph-sch2xslt-maven-plugin</artifactId>
-  				<version>5.0.1</version>
-  				<configuration>
-  					<schematronDirectory>${basedir}/src/main/resources/</schematronDirectory>
-  					<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory>
-  				</configuration>
-				<executions>
-    					<execution>
-      					<goals>
-        						<goal>convert</goal>
-      					</goals>
-    					</execution>
-  				</executions>
-			</plugin> -->
+			<!-- generate XSLT files from schematron upon build (goal convert is part 
+				of the preparation of the "package" step) -->
+			<!-- <plugin> <groupId>com.helger.maven</groupId> <artifactId>ph-sch2xslt-maven-plugin</artifactId> 
+				<version>5.0.1</version> <configuration> <schematronDirectory>${basedir}/src/main/resources/</schematronDirectory> 
+				<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory> </configuration> 
+				<executions> <execution> <goals> <goal>convert</goal> </goals> </execution> 
+				</executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>2.4.3</version>
 				<configuration>
 					<transformers>
-						<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 							<mainClass>ZUV.Main</mainClass>
 						</transformer>
 					</transformers>
@@ -157,7 +168,7 @@
 								<exclude>META-INF/*.RSA</exclude>
 							</excludes>
 						</filter>
-					
+
 						<filter>
 							<artifact>log4j:log4j</artifact>
 							<includes>
@@ -193,7 +204,7 @@
 						<configuration>
 							<artifactSet>
 								<excludes>
-									
+
 								</excludes>
 							</artifactSet>
 						</configuration>
