@@ -3,14 +3,21 @@ package ZUV;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.stream.StreamSource;
@@ -48,6 +55,7 @@ import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
+import org.riversun.bigdoc.bin.BigFileSearcher;
 
 public class Main {
 
@@ -60,6 +68,11 @@ public class Main {
 	protected static String ZUGFeRDVersion = null;
 
 	protected static String ZUGFeRDProfile = null;
+	
+	/***
+	 * The signature is the library or SDK used to add ZUGFeRD information, if that can be determined
+	 */
+	protected static String Signature = null;
 
 	public static void main(String[] args) {
 
@@ -129,7 +142,6 @@ public class Main {
 		}
 
 		long startXMLTime = Calendar.getInstance().getTimeInMillis();
-		LOGGER.info("Took " + (startXMLTime - startTime) + " ms.");
 		System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
 
 		// Validate ZUGFeRD
@@ -139,17 +151,63 @@ public class Main {
 		zi.extract(fileName);
 		System.out.println(validateZUGFeRD(zi.getMeta()));
 		long endTime = Calendar.getInstance().getTimeInMillis();
-		LOGGER.info("Took " + (endTime - startTime) + " ms.");
 		System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
 				+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
-				+ "</profile><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
+				+ "</profile><signature>"+ ((Signature != null) ? Signature : "unknown")+"</signature><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 		System.out.println("</xml>");
+		try {
+			byte[] searchBytes = "via mustangproject".getBytes("UTF-8");
+			File file = new File(fileName);
+
+			BigFileSearcher searcher = new BigFileSearcher();
+
+			if (searcher.indexOf(file, searchBytes)!=-1) {
+				Signature="Mustang";
+			}
+		} catch (UnsupportedEncodingException e) {
+			LOGGER.error(e.getMessage());
+		}
+
+		
 		System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
+		LOGGER.info("Version: "+ ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")+" Profile: "+((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")+" Signature: "+((Signature != null) ? Signature : "unknown")+" Duration: " + (endTime - startTime) + " ms.");
 
 		System.out.println("</validation>");
 
 	}
 
+	/**
+	 * Read the file and calculate the SHA-1 checksum
+	 * 
+	 * @param file
+	 *            the file to read
+	 * @return the hex representation of the SHA-1 using uppercase chars
+	 * @throws FileNotFoundException
+	 *             if the file does not exist, is a directory rather than a
+	 *             regular file, or for some other reason cannot be opened for
+	 *             reading
+	 * @throws IOException
+	 *             if an I/O error occurs
+	 * @throws NoSuchAlgorithmException
+	 *             should never happen
+	 */
+	private static String calcSHA1(File file) throws FileNotFoundException,
+	        IOException, NoSuchAlgorithmException {
+
+	    MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+	    try (InputStream input = new FileInputStream(file)) {
+
+	        byte[] buffer = new byte[8192];
+	        int len = input.read(buffer);
+
+	        while (len != -1) {
+	            sha1.update(buffer, 0, len);
+	            len = input.read(buffer);
+	        }
+
+	        return new HexBinaryAdapter().marshal(sha1.digest());
+	    }
+	}
 	public static String validateZUGFeRD(String xmlString) {
 
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
@@ -206,7 +264,8 @@ public class Main {
 
 				ZUGFeRDProfile = booking.getNodeValue();
 			}
-
+//urn:ferd:CrossIndustryDocument:invoice:1p0:extended, urn:ferd:CrossIndustryDocument:invoice:1p0:comfort, urn:ferd:CrossIndustryDocument:invoice:1p0:basic, 
+			//urn:cen.eu:en16931:2017 urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic 
 			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0
 				ZUGFeRDVersion = "2(public preview?)";
 				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt"); // final
@@ -254,6 +313,8 @@ public class Main {
 
 				schematronValidationString += "<output>" + currentString + "</output>";
 			}
+			
+			LOGGER.info("Version "+ZUGFeRDVersion+" Profile "+ZUGFeRDProfile+ "Signature ");
 
 			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
 			// returns the complete SVRL

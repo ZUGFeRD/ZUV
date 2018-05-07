@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.4-SNAPSHOT</version>
+	<version>0.4.5-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -44,10 +44,10 @@
 
 		<!-- for ph-schematron -->
 
-		<dependency><!-- disable logging. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
+		<dependency><!-- disable logging with slf4j-nop. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
 				to enable -->
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-nop</artifactId>
+			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.25</version>
 		</dependency>
 
@@ -93,7 +93,7 @@
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>preflight</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
@@ -101,6 +101,12 @@
 			<version>2.0.9</version>
 		</dependency>
  -->
+ 
+		<dependency>
+			<groupId>org.riversun</groupId>
+			<artifactId>bigdoc</artifactId>
+			<version>0.3.0</version>
+		</dependency>
 			
 	</dependencies>
 	<build>
