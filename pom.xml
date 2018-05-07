@@ -44,13 +44,23 @@
 
 		<!-- for ph-schematron -->
 
-		<dependency><!-- disable logging with slf4j-nop. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
-				to enable -->
+		<!--  -dependency>- disable logging with slf4j-nop. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
+				to enable -
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.25</version>
-		</dependency>
+		</dependency>-->
 
+		<dependency>
+    			<groupId>ch.qos.logback</groupId>
+    			<artifactId>logback-classic</artifactId>
+    			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+    			<groupId>ch.qos.logback</groupId>
+    			<artifactId>logback-core</artifactId>
+    			<version>1.2.3</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.googlecode.slf4j-maven-plugin-log/slf4j-maven-plugin-log -->
 		<dependency>
 			<groupId>com.googlecode.slf4j-maven-plugin-log</groupId>

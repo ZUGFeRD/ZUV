@@ -314,8 +314,6 @@ public class Main {
 				schematronValidationString += "<output>" + currentString + "</output>";
 			}
 			
-			LOGGER.info("Version "+ZUGFeRDVersion+" Profile "+ZUGFeRDProfile+ "Signature ");
-
 			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
 			// returns the complete SVRL
 
