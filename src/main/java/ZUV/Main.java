@@ -85,97 +85,144 @@ public class Main {
 
 		CmdLineParser parser = new CmdLineParser();
 		Option<String> filenameOption = parser.addStringOption('f', "filename");
+		
+		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
+		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
+		
+		boolean optionsRecognized=false;
+		
+		
 		try {
 			parser.parse(args);
 		} catch (CmdLineParser.OptionException e) {
 			System.err.println(e.getMessage());
 			System.exit(-2);
 		}
+		
+		
+		
+		if (parser.getOptionValue(licenseOption)!=null) {
+			optionsRecognized=true;
+			
+			System.out.println("Copyright 2018 Jochen Stärk\n" + 
+					"\n" + 
+					"Licensed under the Apache License, Version 2.0 (the \"License\");\n" + 
+					"you may not use this file except in compliance with the License.\n" + 
+					"You may obtain a copy of the License at\n" + 
+					"\n" + 
+					"    http://www.apache.org/licenses/LICENSE-2.0\n" + 
+					"\n" + 
+					"Unless required by applicable law or agreed to in writing, software\n" + 
+					"distributed under the License is distributed on an \"AS IS\" BASIS,\n" + 
+					"WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" + 
+					"See the License for the specific language governing permissions and\n" + 
+					"limitations under the License.\n\n\n\n\n" +
+					"This software is embedding the PDF/A validator VeraPDF, "+
+					"http://verapdf.org/, which is available under GPL and MPL licenses."
+					);
 
+			System.exit(0);
+		}
 		String fileName = parser.getOptionValue(filenameOption);
-		if (fileName == null) {
-			System.err.println("usage: -f <ZUGFeRD PDF Filename.pdf>");
+				
+		if (fileName!=null) {
+			optionsRecognized=true;
+
+			System.out.println("<validation><pdf>");
+			// Validate PDF
+
+			VeraGreenfieldFoundryProvider.initialise();
+			// Default validator config
+			ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
+			// Default features config
+			FeatureExtractorConfig featureConfig = FeatureFactory.defaultConfig();
+			// Default plugins config
+			PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.defaultConfig();
+			// Default fixer config
+			MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
+			// Tasks configuring
+			EnumSet tasks = EnumSet.noneOf(TaskType.class);
+			tasks.add(TaskType.VALIDATE);
+			// tasks.add(TaskType.EXTRACT_FEATURES);
+			// tasks.add(TaskType.FIX_METADATA);
+			// Creating processor config
+			ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig,
+					fixerConfig, tasks);
+			// Creating processor and output stream.
+			ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
+			String pdfReport = "";
+			try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
+				// Generating list of files for processing
+				List<File> files = new ArrayList<>();
+				files.add(new File(fileName));
+				// starting the processor
+				processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
+						processorConfig.getValidatorConfig().isRecordPasses()));
+
+				pdfReport = reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>",
+						"");
+			} catch (VeraPDFException e) {
+				System.out.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
+
+				LOGGER.error(e.getMessage());
+			} catch (IOException excep) {
+				System.out.println(
+						"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
+				LOGGER.error(excep.getMessage());
+			}
+
+			long startXMLTime = Calendar.getInstance().getTimeInMillis();
+			System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
+
+			// Validate ZUGFeRD
+			System.out.println(pdfReport + "</pdf><xml>");
+
+			ZUGFeRDImporter zi = new ZUGFeRDImporter();
+			zi.extract(fileName);
+			System.out.println(validateZUGFeRD(zi.getMeta()));
+			long endTime = Calendar.getInstance().getTimeInMillis();
+			System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
+					+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
+					+ "</profile><signature>" + ((Signature != null) ? Signature : "unknown")
+					+ "</signature><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
+			System.out.println("</xml>");
+			try {
+				byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
+				byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
+				byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
+				byte[] konikSignature = "Konik".getBytes("UTF-8");
+				File file = new File(fileName);
+
+				BigFileSearcher searcher = new BigFileSearcher();
+
+				if (searcher.indexOf(file, mustangSignature) != -1) {
+					Signature = "Mustang";
+				} else if (searcher.indexOf(file, facturxpythonSignature) != -1) {
+					Signature = "Factur/X Python";
+				} else if (searcher.indexOf(file, intarsysSignature) != -1) {
+					Signature = "Intarsys";
+				} else if (searcher.indexOf(file, konikSignature) != -1) {
+					Signature = "Konik";
+				}
+			} catch (UnsupportedEncodingException e) {
+				LOGGER.error(e.getMessage());
+			}
+
+			System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
+			LOGGER.info("Version: " + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + " Profile: "
+					+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + " Signature: "
+					+ ((Signature != null) ? Signature : "unknown") + " Duration: " + (endTime - startTime) + " ms.");
+
+			System.out.println("</validation>");
+
+			
+		}
+		
+		if ((!optionsRecognized) || (helpOption!=null)) {
+			System.err.println("usage: -f <ZUGFeRD PDF Filename.pdf> or -l (shows license)");
 
 			System.exit(-1);
 		}
-
-		System.out.println("<validation><pdf>");
-		// Validate PDF
-
-		VeraGreenfieldFoundryProvider.initialise();
-		// Default validator config
-		ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
-		// Default features config
-		FeatureExtractorConfig featureConfig = FeatureFactory.defaultConfig();
-		// Default plugins config
-		PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.defaultConfig();
-		// Default fixer config
-		MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
-		// Tasks configuring
-		EnumSet tasks = EnumSet.noneOf(TaskType.class);
-		tasks.add(TaskType.VALIDATE);
-		// tasks.add(TaskType.EXTRACT_FEATURES);
-		// tasks.add(TaskType.FIX_METADATA);
-		// Creating processor config
-		ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig,
-				fixerConfig, tasks);
-		// Creating processor and output stream.
-		ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
-		String pdfReport = "";
-		try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
-			// Generating list of files for processing
-			List<File> files = new ArrayList<>();
-			files.add(new File(fileName));
-			// starting the processor
-			processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
-					processorConfig.getValidatorConfig().isRecordPasses()));
-
-			pdfReport = reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>",
-					"");
-		} catch (VeraPDFException e) {
-			System.out.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
-
-			LOGGER.error(e.getMessage());
-		} catch (IOException excep) {
-			System.out.println(
-					"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
-			LOGGER.error(excep.getMessage());
-		}
-
-		long startXMLTime = Calendar.getInstance().getTimeInMillis();
-		System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
-
-		// Validate ZUGFeRD
-		System.out.println(pdfReport + "</pdf><xml>");
-
-		ZUGFeRDImporter zi = new ZUGFeRDImporter();
-		zi.extract(fileName);
-		System.out.println(validateZUGFeRD(zi.getMeta()));
-		long endTime = Calendar.getInstance().getTimeInMillis();
-		System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
-				+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
-				+ "</profile><signature>" + ((Signature != null) ? Signature : "unknown")
-				+ "</signature><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
-		System.out.println("</xml>");
-		try {
-			byte[] searchBytes = "via mustangproject".getBytes("UTF-8");
-			File file = new File(fileName);
-
-			BigFileSearcher searcher = new BigFileSearcher();
-
-			if (searcher.indexOf(file, searchBytes) != -1) {
-				Signature = "Mustang";
-			}
-		} catch (UnsupportedEncodingException e) {
-			LOGGER.error(e.getMessage());
-		}
-
-		System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
-		LOGGER.info("Version: " + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + " Profile: "
-				+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + " Signature: "
-				+ ((Signature != null) ? Signature : "unknown") + " Duration: " + (endTime - startTime) + " ms.");
-
-		System.out.println("</validation>");
 
 	}
 
@@ -295,6 +342,7 @@ public class Main {
 				throw new IllegalArgumentException("Invalid Schematron!");
 			}
 
+			schematronValidationString += "<messages>";
 			if (ZUGFeRDVersion.equals("1")
 					|| (ZUGFeRDVersion.equals("2(public preview?)") && (ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017:compliant")))) {
 
@@ -328,6 +376,8 @@ public class Main {
 			} else {
 				schematronValidationString += "<notices><notice>XML validation not yet implemented for profile type '"+ZUGFeRDProfile+"'</notice></notices>";
 			}
+			schematronValidationString += "</messages>";
+
 		} catch (
 
 		Exception ex) {
