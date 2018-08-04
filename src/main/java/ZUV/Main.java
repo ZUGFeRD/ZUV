@@ -85,6 +85,7 @@ public class Main {
 
 		CmdLineParser parser = new CmdLineParser();
 		Option<String> filenameOption = parser.addStringOption('f', "filename");
+		Option<Boolean> overrideOption = parser.addBooleanOption('o', "overrideprofilecheck");
 		
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
@@ -99,7 +100,9 @@ public class Main {
 			System.exit(-2);
 		}
 		
-		
+		Boolean helpRequested=parser.getOptionValue(helpOption);
+		Boolean overrideRequested=parser.getOptionValue(overrideOption);
+	
 		
 		if (parser.getOptionValue(licenseOption)!=null) {
 			optionsRecognized=true;
@@ -179,7 +182,7 @@ public class Main {
 
 			ZUGFeRDImporter zi = new ZUGFeRDImporter();
 			zi.extract(fileName);
-			System.out.println(validateZUGFeRD(zi.getMeta()));
+			System.out.println(validateZUGFeRD(zi.getMeta(), overrideRequested!=null&&overrideRequested.booleanValue()));
 			long endTime = Calendar.getInstance().getTimeInMillis();
 			System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
 					+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
@@ -218,9 +221,8 @@ public class Main {
 			
 		}
 		
-		if ((!optionsRecognized) || (helpOption!=null)) {
-			System.err.println("usage: -f <ZUGFeRD PDF Filename.pdf> or -l (shows license)");
-
+		if ((!optionsRecognized) || (helpRequested!=null&&helpRequested.booleanValue())) {
+			System.out.println("usage: -f <ZUGFeRD PDF Filename.pdf>, -l (shows license)");
 			System.exit(-1);
 		}
 
@@ -257,7 +259,13 @@ public class Main {
 		}
 	}
 
-	public static String validateZUGFeRD(String xmlString) {
+	/***
+	 * 
+	 * @param xmlString
+	 * @param overrideProfileCheck if set to true, all ZF2 files will be checked against EN16931 schematron, since no other schematron is available
+	 * @return
+	 */
+	public static String validateZUGFeRD(String xmlString, boolean overrideProfileCheck) {
 
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
 		String schematronValidationString = "";
@@ -344,7 +352,7 @@ public class Main {
 
 			schematronValidationString += "<messages>";
 			if (ZUGFeRDVersion.equals("1")
-					|| (ZUGFeRDVersion.equals("2(public preview?)") && (ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017:compliant")))) {
+					|| (ZUGFeRDVersion.equals("2(public preview?)") && ((ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017"))||(overrideProfileCheck)))) {
 
 				SchematronOutputType sout = aResSCH
 						.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
@@ -374,7 +382,7 @@ public class Main {
 				// returns the complete SVRL
 
 			} else {
-				schematronValidationString += "<notices><notice>XML validation not yet implemented for profile type '"+ZUGFeRDProfile+"'</notice></notices>";
+				schematronValidationString += "<notices><notice>XML validation not yet implemented for profile type '"+ZUGFeRDProfile+"', you might try the override option -o to check nevertheless</notice></notices>";
 			}
 			schematronValidationString += "</messages>";
 

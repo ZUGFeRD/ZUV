@@ -65,11 +65,12 @@ Logging is disabled, this might be changed in the future, i.e. logging to a file
 ## License
 
 Permissive Open Source APL2, see LICENSE
+## History
+
+0.5.0 Added license text, upgraded to mustangproject 1.5.3, logging to file, finding signatures
 
 ## Todo
 
-* incorporate in a new version of Mustangproject
-* log to a file
 * Use https://github.com/veraPDF/veraPDF-rest as web interface
 
 
