@@ -131,6 +131,21 @@ public class Main {
 		if (fileName!=null) {
 			optionsRecognized=true;
 
+			File logdir = new File("log");
+			if (!logdir.exists()||!logdir.isDirectory()||!logdir.canWrite()) {
+				System.err.println("Need writable subdirectory 'log' for log files.");
+			}
+
+			File file = new File(fileName);
+
+			if (!file.exists()) {
+				System.out.println("<validation><xml><info><errors><error>File not found</error></errors></info></xml></validation>");
+				System.exit(-1);
+				
+			}
+
+			String sha1Checksum=calcSHA1(file);
+
 			System.out.println("<validation><pdf>");
 			// Validate PDF
 
@@ -167,11 +182,11 @@ public class Main {
 			} catch (VeraPDFException e) {
 				System.out.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
 
-				LOGGER.error(e.getMessage());
+				LOGGER.error(e.getMessage(), e);
 			} catch (IOException excep) {
 				System.out.println(
 						"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
-				LOGGER.error(excep.getMessage());
+				LOGGER.error(excep.getMessage(), excep);
 			}
 
 			long startXMLTime = Calendar.getInstance().getTimeInMillis();
@@ -194,8 +209,6 @@ public class Main {
 				byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
 				byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
 				byte[] konikSignature = "Konik".getBytes("UTF-8");
-				File file = new File(fileName);
-
 				BigFileSearcher searcher = new BigFileSearcher();
 
 				if (searcher.indexOf(file, mustangSignature) != -1) {
@@ -208,13 +221,13 @@ public class Main {
 					Signature = "Konik";
 				}
 			} catch (UnsupportedEncodingException e) {
-				LOGGER.error(e.getMessage());
+				LOGGER.error(e.getMessage(),  e);
 			}
 
-			System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration></info>");
-			LOGGER.info("Version: " + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + " Profile: "
-					+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + " Signature: "
-					+ ((Signature != null) ? Signature : "unknown") + " Duration: " + (endTime - startTime) + " ms.");
+			System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration><checksum type='sha1'>"+sha1Checksum+"</checksum></info>");
+			LOGGER.info("Validationresult: SHA1: {}, Version: " + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + ", Profile: "
+					+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + ", Signature: "
+					+ ((Signature != null) ? Signature : "unknown") + ", Duration: " + (endTime - startTime) + " ms.",  sha1Checksum);
 
 			System.out.println("</validation>");
 
@@ -242,11 +255,12 @@ public class Main {
 	 * @throws NoSuchAlgorithmException
 	 *             should never happen
 	 */
-	private static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+	private static String calcSHA1(File file) {
+		MessageDigest sha1 = null;
+		try {
 
-		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
-		try (InputStream input = new FileInputStream(file)) {
-
+			sha1 = MessageDigest.getInstance("SHA-1");
+			InputStream input = new FileInputStream(file);
 			byte[] buffer = new byte[8192];
 			int len = input.read(buffer);
 
@@ -255,7 +269,17 @@ public class Main {
 				len = input.read(buffer);
 			}
 
-			return new HexBinaryAdapter().marshal(sha1.digest());
+		} catch (FileNotFoundException e) {
+			LOGGER.error(e.getMessage(), e);
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage(), e);
+		} catch (NoSuchAlgorithmException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		if (sha1==null) {
+			return "";
+		} else {
+			return new HexBinaryAdapter().marshal(sha1.digest());			
 		}
 	}
 
@@ -391,7 +415,7 @@ public class Main {
 		Exception ex) {
 			schematronValidationString += "<exception message='" + ex.getMessage() + "'>" + ex.getStackTrace()
 					+ "</exception>";
-			LOGGER.error(ex.getMessage());
+			LOGGER.error(ex.getMessage(), ex);
 		}
 
 		return schematronValidationString;

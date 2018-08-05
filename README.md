@@ -67,7 +67,7 @@ Logging is disabled, this might be changed in the future, i.e. logging to a file
 Permissive Open Source APL2, see LICENSE
 ## History
 
-0.5.0 Added license text, upgraded to mustangproject 1.5.3, logging to file, finding signatures
+0.5.0 Added license text, upgraded to mustangproject 1.5.3, logging to file, finding signatures, by default disable schematron check for non-matching ZF2 profiles
 
 ## Todo
 

@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.5-SNAPSHOT</version>
+	<version>0.5.0-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -43,13 +43,6 @@
 		</dependency>
 
 		<!-- for ph-schematron -->
-
-		<!--  -dependency>- disable logging with slf4j-nop. Switch to e.g. <artifactId>slf4j-simple</artifactId> 
-				to enable -
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
-		</dependency>-->
 
 		<dependency>
     			<groupId>ch.qos.logback</groupId>
