@@ -10,6 +10,9 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -51,7 +54,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.schematron.ISchematronResource;
-import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
@@ -84,158 +86,201 @@ public class Main {
 		 */
 
 		CmdLineParser parser = new CmdLineParser();
-		Option<String> filenameOption = parser.addStringOption('f', "filename");
+		Option<String> actionOption = parser.addStringOption('a', "action");
+		Option<String> pdfFilenameOption = parser.addStringOption('z', "ZUGFeRDfilename");
+		Option<String> xmlFilenameOption = parser.addStringOption('x', "XMLfilename");
 		Option<Boolean> overrideOption = parser.addBooleanOption('o', "overrideprofilecheck");
-		
+
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
-		
-		boolean optionsRecognized=false;
-		
-		
+
+		boolean optionsRecognized = false;
+
 		try {
 			parser.parse(args);
 		} catch (CmdLineParser.OptionException e) {
 			System.err.println(e.getMessage());
 			System.exit(-2);
 		}
-		
-		Boolean helpRequested=parser.getOptionValue(helpOption);
-		Boolean overrideRequested=parser.getOptionValue(overrideOption);
-	
-		
-		if (parser.getOptionValue(licenseOption)!=null) {
-			optionsRecognized=true;
-			
-			System.out.println("Copyright 2018 Jochen Stärk\n" + 
-					"\n" + 
-					"Licensed under the Apache License, Version 2.0 (the \"License\");\n" + 
-					"you may not use this file except in compliance with the License.\n" + 
-					"You may obtain a copy of the License at\n" + 
-					"\n" + 
-					"    http://www.apache.org/licenses/LICENSE-2.0\n" + 
-					"\n" + 
-					"Unless required by applicable law or agreed to in writing, software\n" + 
-					"distributed under the License is distributed on an \"AS IS\" BASIS,\n" + 
-					"WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" + 
-					"See the License for the specific language governing permissions and\n" + 
-					"limitations under the License.\n\n\n\n\n" +
-					"This software is embedding the PDF/A validator VeraPDF, "+
-					"http://verapdf.org/, which is available under GPL and MPL licenses."
-					);
+
+		Boolean helpRequested = parser.getOptionValue(helpOption);
+		Boolean overrideRequested = parser.getOptionValue(overrideOption);
+
+		if (parser.getOptionValue(licenseOption) != null) {
+			optionsRecognized = true;
+
+			System.out.println("Copyright 2018 Jochen Stärk\n" + "\n"
+					+ "Licensed under the Apache License, Version 2.0 (the \"License\");\n"
+					+ "you may not use this file except in compliance with the License.\n"
+					+ "You may obtain a copy of the License at\n" + "\n"
+					+ "    http://www.apache.org/licenses/LICENSE-2.0\n" + "\n"
+					+ "Unless required by applicable law or agreed to in writing, software\n"
+					+ "distributed under the License is distributed on an \"AS IS\" BASIS,\n"
+					+ "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
+					+ "See the License for the specific language governing permissions and\n"
+					+ "limitations under the License.\n\n\n\n\n"
+					+ "This software is embedding the PDF/A validator VeraPDF, "
+					+ "http://verapdf.org/, which is available under GPL and MPL licenses.");
 
 			System.exit(0);
 		}
-		String fileName = parser.getOptionValue(filenameOption);
+		String pdfFileName = parser.getOptionValue(pdfFilenameOption);
+		String xmlFileName = parser.getOptionValue(xmlFilenameOption);
+		String action = parser.getOptionValue(actionOption);
+		File logdir = new File("log");
+		String zfXML = "";
+		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
+			System.err.println("Need writable subdirectory 'log' for log files.");
+		}
+		String sha1Checksum="";
+
+		if ((action!=null)&&(action.equals("validate"))) {
+
+			System.out.println("<validation>");
+			if (pdfFileName != null) {
+				optionsRecognized = true;
+				File file = new File(pdfFileName);
+				if (!file.exists()) {
+					System.out.println(
+							"<xml><info><errors><error code='1'>File not found</error></errors></info></xml></validation>");
+					LOGGER.error("Error 1: PDF file "+pdfFileName+" not found");
+
+					System.exit(-1);
+
+				}
+
+				sha1Checksum = calcSHA1(file);
+
+				System.out.println("<validation><pdf>");
+				// Validate PDF
+
+				VeraGreenfieldFoundryProvider.initialise();
+				// Default validator config
+				ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
+				// Default features config
+				FeatureExtractorConfig featureConfig = FeatureFactory.defaultConfig();
+				// Default plugins config
+				PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.defaultConfig();
+				// Default fixer config
+				MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
+				// Tasks configuring
+				EnumSet tasks = EnumSet.noneOf(TaskType.class);
+				tasks.add(TaskType.VALIDATE);
+				// tasks.add(TaskType.EXTRACT_FEATURES);
+				// tasks.add(TaskType.FIX_METADATA);
+				// Creating processor config
+				ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig,
+						pluginsConfig, fixerConfig, tasks);
+				// Creating processor and output stream.
+				ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
+				String pdfReport = "";
+				try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
+					// Generating list of files for processing
+					List<File> files = new ArrayList<>();
+					files.add(new File(pdfFileName));
+					// starting the processor
+					processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
+							processorConfig.getValidatorConfig().isRecordPasses()));
+
+					pdfReport = reportStream.toString("utf-8")
+							.replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>", "");
+				} catch (VeraPDFException e) {
+					System.out.println(
+							"<error code='6'>" + e.getMessage() + ":" + e.getStackTrace() + "</error>");
+
+					LOGGER.error(e.getMessage(), e);
+				} catch (IOException excep) {
+					System.out.println("<error code='7'>" + excep.getMessage() + ":" + excep.getStackTrace()
+							+ "</error>");
+					LOGGER.error(excep.getMessage(), excep);
+				}
+
 				
-		if (fileName!=null) {
-			optionsRecognized=true;
+				// step 2 find signature
+				try {
+					byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
+					byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
+					byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
+					byte[] konikSignature = "Konik".getBytes("UTF-8");
+					BigFileSearcher searcher = new BigFileSearcher();
 
-			File logdir = new File("log");
-			if (!logdir.exists()||!logdir.isDirectory()||!logdir.canWrite()) {
-				System.err.println("Need writable subdirectory 'log' for log files.");
+					if (searcher.indexOf(file, mustangSignature) != -1) {
+						Signature = "Mustang";
+					} else if (searcher.indexOf(file, facturxpythonSignature) != -1) {
+						Signature = "Factur/X Python";
+					} else if (searcher.indexOf(file, intarsysSignature) != -1) {
+						Signature = "Intarsys";
+					} else if (searcher.indexOf(file, konikSignature) != -1) {
+						Signature = "Konik";
+					}
+				} catch (UnsupportedEncodingException e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+
+				System.out.println(pdfReport + "</pdf>");
+
+				ZUGFeRDImporter zi = new ZUGFeRDImporter();
+				zi.extract(pdfFileName);
+				zfXML = zi.getUTF8();
 			}
+			// step 3 Validate ZUGFeRD
+			
+			System.out.println("<xml>");
 
-			File file = new File(fileName);
-
-			if (!file.exists()) {
-				System.out.println("<validation><xml><info><errors><error>File not found</error></errors></info></xml></validation>");
-				System.exit(-1);
+			if (xmlFileName != null) {
+				optionsRecognized = true;
+				File file = new File(xmlFileName);
 				
+				if (!file.exists()) {
+					System.out.println(
+							"<xml><info><errors><error code='2'>File not found</error></errors></info></xml></validation>");
+					LOGGER.error("XML file "+xmlFileName+" not found");
+
+					System.exit(-1);
+
+				}
+				
+				sha1Checksum = calcSHA1(file);
+
+				try {
+					zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(xmlFileName)));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-
-			String sha1Checksum=calcSHA1(file);
-
-			System.out.println("<validation><pdf>");
-			// Validate PDF
-
-			VeraGreenfieldFoundryProvider.initialise();
-			// Default validator config
-			ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
-			// Default features config
-			FeatureExtractorConfig featureConfig = FeatureFactory.defaultConfig();
-			// Default plugins config
-			PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.defaultConfig();
-			// Default fixer config
-			MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
-			// Tasks configuring
-			EnumSet tasks = EnumSet.noneOf(TaskType.class);
-			tasks.add(TaskType.VALIDATE);
-			// tasks.add(TaskType.EXTRACT_FEATURES);
-			// tasks.add(TaskType.FIX_METADATA);
-			// Creating processor config
-			ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig, pluginsConfig,
-					fixerConfig, tasks);
-			// Creating processor and output stream.
-			ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
-			String pdfReport = "";
-			try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
-				// Generating list of files for processing
-				List<File> files = new ArrayList<>();
-				files.add(new File(fileName));
-				// starting the processor
-				processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
-						processorConfig.getValidatorConfig().isRecordPasses()));
-
-				pdfReport = reportStream.toString("utf-8").replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>",
-						"");
-			} catch (VeraPDFException e) {
-				System.out.println("<exception message='" + e.getMessage() + "'>" + e.getStackTrace() + "</exception>");
-
-				LOGGER.error(e.getMessage(), e);
-			} catch (IOException excep) {
+			if (zfXML.isEmpty()) {
 				System.out.println(
-						"<exception message='" + excep.getMessage() + "'>" + excep.getStackTrace() + "</exception>");
-				LOGGER.error(excep.getMessage(), excep);
-			}
+						"<xml><info><errors><error code='3'>XML data not found: did you specify a pdf or xml file and does the xml file contain an embedded XML file?</error></errors></info></xml></validation>");
+				LOGGER.error("No XML data found ");
 
+				System.exit(-1);
+			}
 			long startXMLTime = Calendar.getInstance().getTimeInMillis();
 			System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
 
-			// Validate ZUGFeRD
-			System.out.println(pdfReport + "</pdf><xml>");
-
-			ZUGFeRDImporter zi = new ZUGFeRDImporter();
-			zi.extract(fileName);
-			System.out.println(validateZUGFeRD(zi.getMeta(), overrideRequested!=null&&overrideRequested.booleanValue()));
+			System.out.println(validateZUGFeRD(zfXML, overrideRequested != null && overrideRequested.booleanValue()));
 			long endTime = Calendar.getInstance().getTimeInMillis();
 			System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
 					+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
 					+ "</profile><signature>" + ((Signature != null) ? Signature : "unknown")
 					+ "</signature><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 			System.out.println("</xml>");
-			try {
-				byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
-				byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
-				byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
-				byte[] konikSignature = "Konik".getBytes("UTF-8");
-				BigFileSearcher searcher = new BigFileSearcher();
 
-				if (searcher.indexOf(file, mustangSignature) != -1) {
-					Signature = "Mustang";
-				} else if (searcher.indexOf(file, facturxpythonSignature) != -1) {
-					Signature = "Factur/X Python";
-				} else if (searcher.indexOf(file, intarsysSignature) != -1) {
-					Signature = "Intarsys";
-				} else if (searcher.indexOf(file, konikSignature) != -1) {
-					Signature = "Konik";
-				}
-			} catch (UnsupportedEncodingException e) {
-				LOGGER.error(e.getMessage(),  e);
-			}
-
-			System.out.println("<info><duration unit='ms'>" + (endTime - startTime) + "</duration><checksum type='sha1'>"+sha1Checksum+"</checksum></info>");
-			LOGGER.info("Validationresult: SHA1: {}, Version: " + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + ", Profile: "
+			System.out.println("<info><duration unit='ms'>" + (endTime - startTime)
+					+ "</duration><checksum type='sha1'>" + sha1Checksum + "</checksum></info>");
+			LOGGER.info("Validationresult: SHA1: {}, Version: "
+					+ ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + ", Profile: "
 					+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + ", Signature: "
-					+ ((Signature != null) ? Signature : "unknown") + ", Duration: " + (endTime - startTime) + " ms.",  sha1Checksum);
+					+ ((Signature != null) ? Signature : "unknown") + ", Duration: " + (endTime - startTime) + " ms.",
+					sha1Checksum);
 
 			System.out.println("</validation>");
 
-			
 		}
-		
-		if ((!optionsRecognized) || (helpRequested!=null&&helpRequested.booleanValue())) {
-			System.out.println("usage: -f <ZUGFeRD PDF Filename.pdf>, -l (shows license)");
+
+		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
+			System.out.println("usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)] [-o overrideprofilecheck: check all ZF2 against EN16931]");
 			System.exit(-1);
 		}
 
@@ -276,21 +321,40 @@ public class Main {
 		} catch (NoSuchAlgorithmException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
-		if (sha1==null) {
+		if (sha1 == null) {
 			return "";
 		} else {
-			return new HexBinaryAdapter().marshal(sha1.digest());			
+			return new HexBinaryAdapter().marshal(sha1.digest());
 		}
+	}
+	
+	protected static String removeBOMFromString(byte[] rawXML) {
+		byte[] bomlessData;
+		
+	    if ((rawXML!=null)&&(rawXML.length>3)&&(rawXML[0] == (byte) 0xEF)
+	                    && (rawXML[1] == (byte) 0xBB)
+	                    && (rawXML[2] == (byte) 0xBF)) {
+	            // I don't like BOMs, lets remove it
+	            bomlessData = new byte[rawXML.length - 3];
+	            System.arraycopy(rawXML, 3, bomlessData, 0,
+	            		rawXML.length - 3);
+	    } else {
+	    		bomlessData = rawXML;
+	    }
+		
+		return new String(bomlessData);
+	
 	}
 
 	/***
 	 * 
 	 * @param xmlString
-	 * @param overrideProfileCheck if set to true, all ZF2 files will be checked against EN16931 schematron, since no other schematron is available
+	 * @param overrideProfileCheck
+	 *            if set to true, all ZF2 files will be checked against EN16931
+	 *            schematron, since no other schematron is available
 	 * @return
 	 */
 	public static String validateZUGFeRD(String xmlString, boolean overrideProfileCheck) {
-
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
 		String schematronValidationString = "";
 
@@ -375,8 +439,8 @@ public class Main {
 			}
 
 			schematronValidationString += "<messages>";
-			if (ZUGFeRDVersion.equals("1")
-					|| (ZUGFeRDVersion.equals("2(public preview?)") && ((ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017"))||(overrideProfileCheck)))) {
+			if (ZUGFeRDVersion.equals("1") || (ZUGFeRDVersion.equals("2(public preview?)")
+					&& ((ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017")) || (overrideProfileCheck)))) {
 
 				SchematronOutputType sout = aResSCH
 						.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
@@ -389,7 +453,7 @@ public class Main {
 
 							FailedAssert failedAssert = (FailedAssert) object;
 
-							schematronValidationString += "<error><criterion>" + failedAssert.getTest()
+							schematronValidationString += "<error code='4'><criterion>" + failedAssert.getTest()
 									+ "</criterion><result>" + failedAssert.getText() + "</result></error>\n";
 						}
 
@@ -406,7 +470,9 @@ public class Main {
 				// returns the complete SVRL
 
 			} else {
-				schematronValidationString += "<notices><notice>XML validation not yet implemented for profile type '"+ZUGFeRDProfile+"', you might try the override option -o to check nevertheless</notice></notices>";
+				schematronValidationString += "<notices><notice code='5'>XML validation not yet implemented for profile type '"
+						+ ZUGFeRDProfile
+						+ "', you might try the override option -o to check nevertheless</notice></notices>";
 			}
 			schematronValidationString += "</messages>";
 
