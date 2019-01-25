@@ -346,6 +346,7 @@ public class Main {
 	
 	}
 
+	
 	/***
 	 * 
 	 * @param xmlString
@@ -454,7 +455,7 @@ public class Main {
 							FailedAssert failedAssert = (FailedAssert) object;
 
 							schematronValidationString += "<error code='4'><criterion>" + failedAssert.getTest()
-									+ "</criterion><result>" + failedAssert.getText() + "</result></error>\n";
+									+ "</criterion><result>" + failedAssert.getText() + "</result><location>"+failedAssert.getLocation()+"</location></error>\n";
 						}
 
 					}

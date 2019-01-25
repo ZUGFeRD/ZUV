@@ -1,3 +1,7 @@
+0.5.1
+
+Mention xpath location where the errors occurred
+
 0.5.0
 =====
 2018-09-10
