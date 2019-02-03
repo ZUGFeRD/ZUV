@@ -1,0 +1,91 @@
+package ZUV;
+
+import org.oclc.purl.dsdl.svrl.FailedAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ValidationResultItem {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
+	// ignored for the
+	// time being
+
+	
+	protected String message, location=null;
+	protected int section =-1;
+
+
+	private ESeverity severity=ESeverity.error;
+	private String criterion=null;
+
+
+	private String stacktrace=null;
+
+
+	private EPart part;
+
+	public ValidationResultItem(ESeverity sev, String msg) {
+		setSeverity(sev);
+		setMessage(msg);
+	}
+	public ValidationResultItem setMessage(String msg) {
+		message=msg;
+		return this;
+	}
+
+	public ValidationResultItem setSection(int sec) {
+		section=sec;
+		return this;
+	}	
+	public ValidationResultItem setLocation(String loc) {
+		location=loc;
+		return this;
+	}
+	public ValidationResultItem setPart(EPart loc) {
+		part=loc;
+		return this;
+	}
+	public ValidationResultItem setSeverity(ESeverity sev) {
+		severity=sev;
+		return this;
+	}
+	public ValidationResultItem setStacktrace(String stack) {
+		stacktrace=stack;
+		return this;
+	}
+	
+	
+	public String getXML() {
+		String tagname="error";
+		if (severity==ESeverity.exception) {
+			tagname="exception";
+		} else if (severity==ESeverity.warning) {
+			tagname="warning";
+		} else if (severity==ESeverity.notice) {
+			tagname="notice";
+		} else if (severity==ESeverity.info) {
+			tagname="info";
+		}
+		
+		String additionalAttributes="";
+		if (section!=-1) {
+			additionalAttributes+=" type='"+section+"'";
+		}
+		if (location!=null) {
+			additionalAttributes+=" location='"+location+"'";
+		}
+		if (criterion!=null) {
+			additionalAttributes+=" criterion='"+criterion+"'";
+		}
+		if (stacktrace!=null) {
+			additionalAttributes+=" stacktrace='"+stacktrace+"'";
+		}
+		
+		return "<"+tagname+" "+additionalAttributes+">"+message+"</"+tagname+">";
+	}
+	public ValidationResultItem setCriterion(String test) {
+		 criterion = test;
+		 return this;
+	}
+	
+
+}

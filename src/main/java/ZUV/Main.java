@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Vector;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import javax.xml.parsers.DocumentBuilder;
@@ -59,28 +60,22 @@ import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
 import org.riversun.bigdoc.bin.BigFileSearcher;
 
-public class Main {
+public class Main  {
 
 	static final ClassLoader cl = Main.class.getClassLoader();
+	private Vector<ValidationResultItem> results;
+	protected ValidationContext context=new ValidationContext();
+	private String customXML="";
+	private long startXMLTime;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
 																									// ignored for the
 																									// time being
 
-	protected static String ZUGFeRDVersion = null;
-
-	protected static String ZUGFeRDProfile = null;
-
-	/***
-	 * The signature is the library or SDK used to add ZUGFeRD information, if that
-	 * can be determined
-	 */
-	protected static String Signature = null;
-
-	public static void main(String[] args) {
+	public void run(String[] args){
 
 		long startTime = Calendar.getInstance().getTimeInMillis();
-
+		results=new Vector<ValidationResultItem>();
 		/***
 		 * prerequisite is a mvn generate-resources
 		 */
@@ -128,162 +123,92 @@ public class Main {
 		String xmlFileName = parser.getOptionValue(xmlFilenameOption);
 		String action = parser.getOptionValue(actionOption);
 		File logdir = new File("log");
-		String zfXML = "";
 		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
 			System.err.println("Need writable subdirectory 'log' for log files.");
 		}
-		String sha1Checksum="";
+		String sha1Checksum = "";
 
-		if ((action!=null)&&(action.equals("validate"))) {
+		Vector<ValidationResultItem> results = new Vector<ValidationResultItem>();
+		if ((action != null) && (action.equals("validate"))) {
 
 			System.out.println("<validation>");
+
 			if (pdfFileName != null) {
+				PDFValidator pdfv = new PDFValidator(context);
+				pdfv.setFilename(pdfFileName);
+				pdfv.validate();
+
 				optionsRecognized = true;
 				File file = new File(pdfFileName);
 				if (!file.exists()) {
-					System.out.println(
-							"<xml><info><errors><error code='1'>File not found</error></errors></info></xml></validation>");
-					LOGGER.error("Error 1: PDF file "+pdfFileName+" not found");
-
-					System.exit(-1);
+					results.add(new ValidationResultItem(ESeverity.exception, "File not found").setSection(1));
+					LOGGER.error("Error 1: PDF file " + pdfFileName + " not found");
 
 				}
 
 				sha1Checksum = calcSHA1(file);
 
-				System.out.println("<validation><pdf>");
+				System.out.println("<pdf>");
 				// Validate PDF
 
-				VeraGreenfieldFoundryProvider.initialise();
-				// Default validator config
-				ValidatorConfig validatorConfig = ValidatorFactory.defaultConfig();
-				// Default features config
-				FeatureExtractorConfig featureConfig = FeatureFactory.defaultConfig();
-				// Default plugins config
-				PluginsCollectionConfig pluginsConfig = PluginsCollectionConfig.defaultConfig();
-				// Default fixer config
-				MetadataFixerConfig fixerConfig = FixerFactory.defaultConfig();
-				// Tasks configuring
-				EnumSet tasks = EnumSet.noneOf(TaskType.class);
-				tasks.add(TaskType.VALIDATE);
-				// tasks.add(TaskType.EXTRACT_FEATURES);
-				// tasks.add(TaskType.FIX_METADATA);
-				// Creating processor config
-				ProcessorConfig processorConfig = ProcessorFactory.fromValues(validatorConfig, featureConfig,
-						pluginsConfig, fixerConfig, tasks);
-				// Creating processor and output stream.
-				ByteArrayOutputStream reportStream = new ByteArrayOutputStream();
-				String pdfReport = "";
-				try (BatchProcessor processor = ProcessorFactory.fileBatchProcessor(processorConfig)) {
-					// Generating list of files for processing
-					List<File> files = new ArrayList<>();
-					files.add(new File(pdfFileName));
-					// starting the processor
-					processor.process(files, ProcessorFactory.getHandler(FormatOption.MRR, true, reportStream, 100,
-							processorConfig.getValidatorConfig().isRecordPasses()));
+				System.out.println(pdfv.getXMLResult());
 
-					pdfReport = reportStream.toString("utf-8")
-							.replaceAll("<\\?xml version=\"1\\.0\" encoding=\"utf-8\"\\?>", "");
-				} catch (VeraPDFException e) {
-					System.out.println(
-							"<error code='6'>" + e.getMessage() + ":" + e.getStackTrace() + "</error>");
+				System.out.println("</pdf>");
 
-					LOGGER.error(e.getMessage(), e);
-				} catch (IOException excep) {
-					System.out.println("<error code='7'>" + excep.getMessage() + ":" + excep.getStackTrace()
-							+ "</error>");
-					LOGGER.error(excep.getMessage(), excep);
-				}
+			} else {
 
-				
-				// step 2 find signature
-				try {
-					byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
-					byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
-					byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
-					byte[] konikSignature = "Konik".getBytes("UTF-8");
-					BigFileSearcher searcher = new BigFileSearcher();
+				System.out.println("<xml>");
 
-					if (searcher.indexOf(file, mustangSignature) != -1) {
-						Signature = "Mustang";
-					} else if (searcher.indexOf(file, facturxpythonSignature) != -1) {
-						Signature = "Factur/X Python";
-					} else if (searcher.indexOf(file, intarsysSignature) != -1) {
-						Signature = "Intarsys";
-					} else if (searcher.indexOf(file, konikSignature) != -1) {
-						Signature = "Konik";
+				XMLValidator xv = new XMLValidator(context);
+
+				if (xmlFileName != null) {
+					optionsRecognized = true;
+					xv.setFilename(xmlFileName);
+					File file = new File(xmlFileName);
+
+					if (!file.exists()) {
+						results.add(new ValidationResultItem(ESeverity.exception, "XML file "+xmlFileName+" not found").setSection(1));
+					
+						LOGGER.error("XML file " + xmlFileName + " not found");
+
+						
 					}
-				} catch (UnsupportedEncodingException e) {
-					LOGGER.error(e.getMessage(), e);
+
+					sha1Checksum = calcSHA1(file);
 				}
+				startXMLTime = Calendar.getInstance().getTimeInMillis();
+				System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
 
-				System.out.println(pdfReport + "</pdf>");
+				xv.setOverrideProfileCheck(overrideRequested != null && overrideRequested.booleanValue());
 
-				ZUGFeRDImporter zi = new ZUGFeRDImporter();
-				zi.extract(pdfFileName);
-				zfXML = zi.getUTF8();
-			}
-			// step 3 Validate ZUGFeRD
-			
-			System.out.println("<xml>");
-
-			if (xmlFileName != null) {
-				optionsRecognized = true;
-				File file = new File(xmlFileName);
+				xv.validate();
 				
-				if (!file.exists()) {
-					System.out.println(
-							"<xml><info><errors><error code='2'>File not found</error></errors></info></xml></validation>");
-					LOGGER.error("XML file "+xmlFileName+" not found");
-
-					System.exit(-1);
-
-				}
-				
-				sha1Checksum = calcSHA1(file);
-
-				try {
-					zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(xmlFileName)));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
-			if (zfXML.isEmpty()) {
-				System.out.println(
-						"<xml><info><errors><error code='3'>XML data not found: did you specify a pdf or xml file and does the xml file contain an embedded XML file?</error></errors></info></xml></validation>");
-				LOGGER.error("No XML data found ");
 
-				System.exit(-1);
-			}
-			long startXMLTime = Calendar.getInstance().getTimeInMillis();
-			System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
-
-			System.out.println(validateZUGFeRD(zfXML, overrideRequested != null && overrideRequested.booleanValue()));
-			long endTime = Calendar.getInstance().getTimeInMillis();
-			System.out.println("<info><version>" + ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid")
-					+ "</version><profile>" + ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid")
-					+ "</profile><signature>" + ((Signature != null) ? Signature : "unknown")
-					+ "</signature><duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 			System.out.println("</xml>");
 
-			System.out.println("<info><duration unit='ms'>" + (endTime - startTime)
-					+ "</duration><checksum type='sha1'>" + sha1Checksum + "</checksum></info>");
-			LOGGER.info("Validationresult: SHA1: {}, Version: "
-					+ ((ZUGFeRDVersion != null) ? ZUGFeRDVersion : "invalid") + ", Profile: "
-					+ ((ZUGFeRDProfile != null) ? ZUGFeRDProfile : "invalid") + ", Signature: "
-					+ ((Signature != null) ? Signature : "unknown") + ", Duration: " + (endTime - startTime) + " ms.",
-					sha1Checksum);
+			String res="";
+			for (ValidationResultItem validationResultItem : results) {
+				res+=validationResultItem.getXML();
+			}
+			if (res.length()>0) {
+				System.out.println("<messages>"+res+"</messages>");
+			}
 
 			System.out.println("</validation>");
 
 		}
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
-			System.out.println("usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)] [-o overrideprofilecheck: check all ZF2 against EN16931]");
+			System.out.println(
+					"usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)] [-o overrideprofilecheck: check all ZF2 against EN16931]");
 			System.exit(-1);
 		}
 
+	}
+	
+	public static void main(String[] args) {
+		new Main().run(args);
 	}
 
 	/**
@@ -327,165 +252,6 @@ public class Main {
 			return new HexBinaryAdapter().marshal(sha1.digest());
 		}
 	}
-	
-	protected static String removeBOMFromString(byte[] rawXML) {
-		byte[] bomlessData;
-		
-	    if ((rawXML!=null)&&(rawXML.length>3)&&(rawXML[0] == (byte) 0xEF)
-	                    && (rawXML[1] == (byte) 0xBB)
-	                    && (rawXML[2] == (byte) 0xBF)) {
-	            // I don't like BOMs, lets remove it
-	            bomlessData = new byte[rawXML.length - 3];
-	            System.arraycopy(rawXML, 3, bomlessData, 0,
-	            		rawXML.length - 3);
-	    } else {
-	    		bomlessData = rawXML;
-	    }
-		
-		return new String(bomlessData);
-	
-	}
 
-	
-	/***
-	 * 
-	 * @param xmlString
-	 * @param overrideProfileCheck
-	 *            if set to true, all ZF2 files will be checked against EN16931
-	 *            schematron, since no other schematron is available
-	 * @return
-	 */
-	public static String validateZUGFeRD(String xmlString, boolean overrideProfileCheck) {
-		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8));
-		String schematronValidationString = "";
-
-		// final ISchematronResource aResSCH =
-		// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
-		// ... DOES work but is highly deprecated (and rightly so) because
-		// it takes 30-40min,
-
-		try {
-
-			/***
-			 * private static final String VALID_SCHEMATRON = "test-sch/valid01.sch";
-			 * private static final String VALID_XMLINSTANCE = "test-xml/valid01.xml";
-			 * 
-			 * @Test public void testWriteValid () throws Exception { final Document aDoc =
-			 *       SchematronResourceSCH.fromClassPath (VALID_SCHEMATRON)
-			 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
-			 * 
-			 */
-
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			dbf.setNamespaceAware(true); // otherwise we can not act namespace independently, i.e. use
-											// document.getElementsByTagNameNS("*",...
-
-			DocumentBuilder db = dbf.newDocumentBuilder();
-
-			Document doc = db.parse(xmlByteInputStream);
-
-			Element root = doc.getDocumentElement();
-			ISchematronResource aResSCH = null;
-
-			NodeList ndList;
-
-			// rootNode = document.getDocumentElement();
-			// ApplicableSupplyChainTradeSettlement
-
-			// Create XPathFactory object
-			XPathFactory xpathFactory = XPathFactory.newInstance();
-
-			// Create XPath object
-			XPath xpath = xpathFactory.newXPath();
-			XPathExpression expr = xpath.compile(
-					"//*[local-name()=\"GuidelineSpecifiedDocumentContextParameter\"]/*[local-name()=\"ID\"]/text()");
-			// evaluate expression result on XML document
-			ndList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-
-			for (int bookingIndex = 0; bookingIndex < ndList.getLength(); bookingIndex++) {
-				Node booking = ndList.item(bookingIndex);
-				// if there is a attribute in the tag number:value
-				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended
-				// setForeignReference(booking.getTextContent());
-
-				ZUGFeRDProfile = booking.getNodeValue();
-			}
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
-			// urn:cen.eu:en16931:2017
-			// urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
-			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0
-				ZUGFeRDVersion = "2(public preview?)";
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt"); // final
-				/*
-				 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
-				 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
-				 * ));
-				 */
-
-				// takes around 10 Seconds. //
-				// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
-				// this xslt can be created using sth like
-				// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
-				// tcdl2.0.tsdtf.sch iso_svrl.xsl
-
-			} else { // ZUGFeRD 1.0
-
-				ZUGFeRDVersion = "1";
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
-			}
-			if (!aResSCH.isValidSchematron()) {
-				throw new IllegalArgumentException("Invalid Schematron!");
-			}
-
-			schematronValidationString += "<messages>";
-			if (ZUGFeRDVersion.equals("1") || (ZUGFeRDVersion.equals("2(public preview?)")
-					&& ((ZUGFeRDProfile.startsWith("urn:cen.eu:en16931:2017")) || (overrideProfileCheck)))) {
-
-				SchematronOutputType sout = aResSCH
-						.applySchematronValidationToSVRL(new StreamSource(new StringReader(xmlString)));
-
-				List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-				if (failedAsserts.size() > 0) {
-					schematronValidationString += "<errors>";
-					for (Object object : failedAsserts) {
-						if (object instanceof FailedAssert) {
-
-							FailedAssert failedAssert = (FailedAssert) object;
-
-							schematronValidationString += "<error code='4'><criterion>" + failedAssert.getTest()
-									+ "</criterion><result>" + failedAssert.getText() + "</result><location>"+failedAssert.getLocation()+"</location></error>\n";
-						}
-
-					}
-					schematronValidationString += "</errors>";
-
-				}
-				for (String currentString : sout.getText()) {
-
-					schematronValidationString += "<output>" + currentString + "</output>";
-				}
-
-				// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
-				// returns the complete SVRL
-
-			} else {
-				schematronValidationString += "<notices><notice code='5'>XML validation not yet implemented for profile type '"
-						+ ZUGFeRDProfile
-						+ "', you might try the override option -o to check nevertheless</notice></notices>";
-			}
-			schematronValidationString += "</messages>";
-
-		} catch (
-
-		Exception ex) {
-			schematronValidationString += "<exception message='" + ex.getMessage() + "'>" + ex.getStackTrace()
-					+ "</exception>";
-			LOGGER.error(ex.getMessage(), ex);
-		}
-
-		return schematronValidationString;
-	}
 
 }

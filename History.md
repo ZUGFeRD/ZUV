@@ -1,6 +1,9 @@
 0.5.1
 
 Mention xpath location where the errors occurred
+JUnit tests
+new way to collect&handle errors
+XMP validation?
 
 0.5.0
 =====

@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.0</version>
+	<version>0.6.0-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -81,7 +81,7 @@
 		<dependency>
         <groupId>org.mustangproject.ZUGFeRD</groupId>
         <artifactId>mustang</artifactId>
-        <version>1.5.4</version>
+        <version>1.6.0</version>
         <!-- prototypes of new mustangproject versions can be installed by referring to them and installed to the local repo from a jar file with
         mvn install:install-file -Dfile=mustang-1.5.4-SNAPSHOT.jar -DgroupId=org.mustangproject.ZUGFeRD -DartifactId=mustang -Dversion=1.5.4 -Dpackaging=jar -DgeneratePom=true
         -->
@@ -113,6 +113,12 @@
 			<artifactId>bigdoc</artifactId>
 			<version>0.3.0</version>
 		</dependency>
+		 <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 			
 	</dependencies>
 	<build>
@@ -155,12 +161,13 @@
 			</plugin>
 			<!-- /ZUV -->
 			<!-- generate XSLT files from schematron upon build (goal convert is part 
-				of the preparation of the "package" step) -->
-			<!-- <plugin> <groupId>com.helger.maven</groupId> <artifactId>ph-sch2xslt-maven-plugin</artifactId> 
+				of the preparation of the "package" step) 
+			 <plugin> <groupId>com.helger.maven</groupId> <artifactId>ph-sch2xslt-maven-plugin</artifactId> 
 				<version>5.0.1</version> <configuration> <schematronDirectory>${basedir}/src/main/resources/</schematronDirectory> 
 				<xsltDirectory>${basedir}/src/main/resources/xslt</xsltDirectory> </configuration> 
 				<executions> <execution> <goals> <goal>convert</goal> </goals> </execution> 
-				</executions> </plugin> -->
+				</executions> </plugin> 
+				-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
