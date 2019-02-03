@@ -16,6 +16,7 @@ public class PDFValidatorTest extends ResourceCase  {
 		pv.setFilename(tempFile.getAbsolutePath());
 		pv.validate();
 		String actual=pv.getXMLResult();
+
 		assertEquals(true, actual.contains("validationReport profileName=\"PDF/A-3"));
 		assertEquals(true, actual.contains("batchSummary totalJobs=\"1\" failedToParse=\"0\" encrypted=\"0\""));
 		assertEquals(true, actual.contains("validationReports compliant=\"1\" nonCompliant=\"0\" failedJobs=\"0\">"));

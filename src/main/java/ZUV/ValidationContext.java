@@ -18,7 +18,7 @@ public class ValidationContext {
 	}
 	
 	public void addCustomXML(String XML) {
-		customXML=XML;
+		customXML+=XML;
 	}
 	public String getCustomXML() {
 		return customXML;

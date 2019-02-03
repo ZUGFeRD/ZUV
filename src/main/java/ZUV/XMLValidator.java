@@ -57,11 +57,8 @@ public class XMLValidator extends Validator {
 		}
 	}
 
-	public void setPDF(String filename) {
-		ZUGFeRDImporter zi = new ZUGFeRDImporter();
-		zi.extract(filename);
-		zfXML = zi.getUTF8();
-
+	public void setStringContent(String xml) {
+		zfXML=xml;
 	}
 
 
