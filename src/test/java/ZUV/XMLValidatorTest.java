@@ -1,13 +1,10 @@
 package ZUV;
 
 import java.io.File;
-import java.util.Vector;
 
 public class XMLValidatorTest extends ResourceCase  {
-	protected Vector<ValidationResultItem> results;
 
 	public void testXMLValidation() {
-		results = new Vector<ValidationResultItem>();
 		XMLValidator xv = new XMLValidator(new ValidationContext());
 		File tempFile = getResourceAsFile("factur-x.xml");
 

@@ -44,5 +44,12 @@ public class ValidationContext {
 	public String getSignature() {
 		return signature;
 	}
-	
+	public void clear() {
+		results.clear();
+		customXML="";
+		version=null;
+		profile=null;
+		signature=null;
+		
+	}
 }
