@@ -8,15 +8,19 @@ public class ValidationContext {
 	private String version=null;
 	private String profile=null;
 	private String signature=null;
+	private boolean isValid=true;
 	
 	public ValidationContext() {
 		results=new Vector<ValidationResultItem>();
 	}
-	
-	public Vector<ValidationResultItem> getResultItems() {
-		return results;
+	public void addResultItem(ValidationResultItem vr) {
+		results.add(vr);
+		if ((vr.getSeverity()==ESeverity.error)||(vr.getSeverity()==ESeverity.exception)) {
+			isValid=false;
+		}
+		
 	}
-	
+		
 	public void addCustomXML(String XML) {
 		customXML+=XML;
 	}
@@ -44,12 +48,33 @@ public class ValidationContext {
 	public String getSignature() {
 		return signature;
 	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
 	public void clear() {
 		results.clear();
+		isValid=true;
 		customXML="";
 		version=null;
 		profile=null;
 		signature=null;
 		
+	}
+
+	public String getXMLResult() {
+		String res=getCustomXML();
+		if (results.size() > 0) {
+			res+="<messages>";
+		}
+
+		for (ValidationResultItem validationResultItem : results) {
+			res+=validationResultItem.getXML()+"\n";
+		}
+		if (results.size() > 0) {
+			res+= "</messages>";
+		}
+		res+= "<summary status='"+(isValid?"valid":"invalid")+"'/>";
+		return res;
 	}
 }

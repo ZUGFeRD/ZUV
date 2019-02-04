@@ -6,9 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import junit.framework.TestCase;
 public class ResourceCase extends TestCase {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceCase.class.getCanonicalName()); // log output is
+	
 	public static File getResourceAsFile(String resourcePath) {
 		try {
 			InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(resourcePath);
@@ -29,7 +33,7 @@ public class ResourceCase extends TestCase {
 			}
 			return tempFile;
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 			return null;
 		}
 	}

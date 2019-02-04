@@ -60,22 +60,22 @@ import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
 import org.riversun.bigdoc.bin.BigFileSearcher;
 
-public class Main  {
+public class Main {
 
 	static final ClassLoader cl = Main.class.getClassLoader();
 	private Vector<ValidationResultItem> results;
-	protected ValidationContext context=new ValidationContext();
-	private String customXML="";
+	protected ValidationContext context = new ValidationContext();
+	private String customXML = "";
 	private long startXMLTime;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
 																									// ignored for the
 																									// time being
 
-	public void run(String[] args){
+	public void run(String[] args) {
 
 		long startTime = Calendar.getInstance().getTimeInMillis();
-		results=new Vector<ValidationResultItem>();
+		results = new Vector<ValidationResultItem>();
 		/***
 		 * prerequisite is a mvn generate-resources
 		 */
@@ -90,6 +90,7 @@ public class Main  {
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
 
 		boolean optionsRecognized = false;
+		boolean xmlReady = false;
 
 		try {
 			parser.parse(args);
@@ -100,7 +101,9 @@ public class Main  {
 
 		Boolean helpRequested = parser.getOptionValue(helpOption);
 		Boolean overrideRequested = parser.getOptionValue(overrideOption);
-
+		boolean pdfValidity = true;
+		boolean xmlValidity = true;
+		
 		if (parser.getOptionValue(licenseOption) != null) {
 			optionsRecognized = true;
 
@@ -128,13 +131,12 @@ public class Main  {
 		}
 		String sha1Checksum = "";
 
-		Vector<ValidationResultItem> results = new Vector<ValidationResultItem>();
 		if ((action != null) && (action.equals("validate"))) {
 
 			System.out.println("<validation>");
 
+			PDFValidator pdfv = new PDFValidator(context);
 			if (pdfFileName != null) {
-				PDFValidator pdfv = new PDFValidator(context);
 				pdfv.setFilename(pdfFileName);
 				pdfv.validate();
 
@@ -152,51 +154,55 @@ public class Main  {
 				// Validate PDF
 
 				System.out.println(pdfv.getXMLResult());
+				pdfValidity = context.isValid();
+				context.clear();
+				System.out.println("</pdf>\n");
 
-				System.out.println("</pdf>");
+			}
 
-			} else {
+			XMLValidator xv = new XMLValidator(context);
 
-				System.out.println("<xml>");
+			if (xmlFileName != null) {
+				optionsRecognized = true;
+				xv.setFilename(xmlFileName);
+				File file = new File(xmlFileName);
 
-				XMLValidator xv = new XMLValidator(context);
+				if (!file.exists()) {
+					results.add(new ValidationResultItem(ESeverity.exception, "XML file " + xmlFileName + " not found")
+							.setSection(1));
 
-				if (xmlFileName != null) {
-					optionsRecognized = true;
-					xv.setFilename(xmlFileName);
-					File file = new File(xmlFileName);
+					LOGGER.error("XML file " + xmlFileName + " not found");
 
-					if (!file.exists()) {
-						results.add(new ValidationResultItem(ESeverity.exception, "XML file "+xmlFileName+" not found").setSection(1));
 					
-						LOGGER.error("XML file " + xmlFileName + " not found");
-
-						
-					}
-
-					sha1Checksum = calcSHA1(file);
+				} else {
+					xmlReady=true;
 				}
-				startXMLTime = Calendar.getInstance().getTimeInMillis();
-				System.out.println("<info><duration unit='ms'>" + (startXMLTime - startTime) + "</duration></info>");
+
+				sha1Checksum = calcSHA1(file);
+			} else {
+				if (pdfv.getRawXML()!=null) {
+					xv.setStringContent(pdfv.getRawXML());
+					xmlReady=true;				
+				}
+			}
+
+			if ((optionsRecognized)&&(xmlReady)) {
+				System.out.println("<xml>");
 
 				xv.setOverrideProfileCheck(overrideRequested != null && overrideRequested.booleanValue());
 
 				xv.validate();
-				
+				System.out.println(xv.getXMLResult());
+				System.out.println("</xml>");
+
 			}
 
-			System.out.println("</xml>");
-
-			String res="";
-			for (ValidationResultItem validationResultItem : results) {
-				res+=validationResultItem.getXML();
-			}
-			if (res.length()>0) {
-				System.out.println("<messages>"+res+"</messages>");
-			}
-
+			
 			System.out.println("</validation>");
-
+			xmlValidity=context.isValid();
+			if ((!pdfValidity)||(!xmlValidity)) {
+				System.exit(-1);
+			}
 		}
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
@@ -206,7 +212,7 @@ public class Main  {
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
 		new Main().run(args);
 	}
@@ -252,6 +258,5 @@ public class Main  {
 			return new HexBinaryAdapter().marshal(sha1.digest());
 		}
 	}
-
 
 }

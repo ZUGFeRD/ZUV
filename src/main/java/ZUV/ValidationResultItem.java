@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ValidationResultItem {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
+	private static final Logger LOGGER = LoggerFactory.getLogger(ValidationResultItem.class.getCanonicalName()); // log output is
 	// ignored for the
 	// time being
 
@@ -62,11 +62,9 @@ public class ValidationResultItem {
 			tagname="warning";
 		} else if (severity==ESeverity.notice) {
 			tagname="notice";
-		} else if (severity==ESeverity.info) {
-			tagname="info";
-		}
-		
+		} 
 		String additionalAttributes="";
+		String additionalContents="";
 		if (section!=-1) {
 			additionalAttributes+=" type='"+section+"'";
 		}
@@ -77,14 +75,17 @@ public class ValidationResultItem {
 			additionalAttributes+=" criterion='"+criterion+"'";
 		}
 		if (stacktrace!=null) {
-			additionalAttributes+=" stacktrace='"+stacktrace+"'";
+			additionalContents+="<stacktrace>"+stacktrace+"</stacktrace>";
 		}
 		
-		return "<"+tagname+" "+additionalAttributes+">"+message+"</"+tagname+">";
+		return "<"+tagname+additionalAttributes+">"+message+additionalContents+"</"+tagname+">";
 	}
 	public ValidationResultItem setCriterion(String test) {
 		 criterion = test;
 		 return this;
+	}
+	public ESeverity getSeverity() {
+		return severity;
 	}
 	
 

@@ -2,7 +2,9 @@ package ZUV;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,7 +38,7 @@ public class XMLValidator extends Validator {
 		super(ctx);
 	}
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
+	private static final Logger LOGGER = LoggerFactory.getLogger(XMLValidator.class.getCanonicalName()); // log output is
 	// ignored for the
 	// time being
 
@@ -51,8 +53,14 @@ public class XMLValidator extends Validator {
 		try {
 			zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(name)));
 		} catch (IOException e) {
-			context.getResultItems().add(new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(9)
-					.setStacktrace(e.getStackTrace().toString()).setPart(EPart.pdf));
+			
+
+			ValidationResultItem vri=new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(9).setPart(EPart.xml);
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			vri.setStacktrace(sw.toString());
+			context.addResultItem(vri);
 			LOGGER.error(e.getMessage(), e);
 		}
 	}
@@ -94,7 +102,7 @@ public class XMLValidator extends Validator {
 
 		if (zfXML.isEmpty()) {
 			ValidationResultItem res=new ValidationResultItem(ESeverity.exception, "XML data not found in "+filename+": did you specify a pdf or xml file and does the xml file contain an embedded XML file?").setSection(3);
-			context.getResultItems().addElement(res);
+			context.addResultItem(res);
 			LOGGER.error("No XML data found");
 			return;
 		}
@@ -191,7 +199,7 @@ public class XMLValidator extends Validator {
 
 							FailedAssert failedAssert = (FailedAssert) object;
 
-							context.getResultItems().add(new ValidationResultItem(ESeverity.error, failedAssert.getText())
+							context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
 									.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setPart(EPart.xml));
 						}
 
@@ -207,7 +215,7 @@ public class XMLValidator extends Validator {
 				// returns the complete SVRL
 
 			} else {
-				context.getResultItems().add(new ValidationResultItem(ESeverity.notice,
+				context.addResultItem(new ValidationResultItem(ESeverity.notice,
 						"XML validation not yet implemented for profile type '\"\n"
 								+ "						+ ZUGFeRDProfile\n"
 								+ "						+ \"', you might try the override option -o to check nevertheless")
@@ -215,10 +223,14 @@ public class XMLValidator extends Validator {
 			}
 		} catch (
 
-		Exception ex) {
-			context.getResultItems().add(new ValidationResultItem(ESeverity.exception, ex.getMessage() + " " + ex.getStackTrace())
-					.setPart(EPart.xml));
-			LOGGER.error(ex.getMessage(), ex);
+		Exception e) {
+			ValidationResultItem vri=new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22).setPart(EPart.xml);
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			vri.setStacktrace(sw.toString());
+			context.addResultItem(vri);
+			LOGGER.error(e.getMessage(), e);
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
 		

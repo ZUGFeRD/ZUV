@@ -16,11 +16,7 @@ public abstract class Validator {
 	public abstract void validate();
 
 	public String getXMLResult() {
-		String res=context.getCustomXML();
-		for (ValidationResultItem validationResultItem : context.getResultItems()) {
-			res+=validationResultItem.getXML()+"\n";
-		}
-		return res;
+		return context.getXMLResult();
 	}
 
 
