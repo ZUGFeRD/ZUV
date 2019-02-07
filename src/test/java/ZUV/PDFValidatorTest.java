@@ -16,10 +16,10 @@ public class PDFValidatorTest extends ResourceCase  {
 		pv.validate();
 	
 		XMLValidator xv = new XMLValidator(vc);
-		
+		xv.setOverrideProfileCheck(true);		
 		xv.setStringContent(pv.getRawXML());
 		xv.validate();
-		String actual=pv.getXMLResult();
+		String actual=vc.getXMLResult();
 
 		assertEquals(true, actual.contains("validationReport profileName=\"PDF/A-3"));
 		assertEquals(true, actual.contains("batchSummary totalJobs=\"1\" failedToParse=\"0\" encrypted=\"0\""));

@@ -5,13 +5,21 @@ import java.io.File;
 public class XMLValidatorTest extends ResourceCase  {
 
 	public void testXMLValidation() {
-		XMLValidator xv = new XMLValidator(new ValidationContext());
+		ValidationContext ctx=new ValidationContext();
+		XMLValidator xv = new XMLValidator(ctx);
 		File tempFile = getResourceAsFile("invalidV2.xml");
 
 		xv.setFilename(tempFile.getAbsolutePath());
 		xv.validate();
+		assertTrue(xv.getXMLResult().contains("<notice"));
+		assertTrue(xv.getXMLResult().contains("not yet implemented for profile type"));
 
-//		assertEquals("",xv.getXMLResult());
+		xv.setOverrideProfileCheck(true);
+		ctx.clear();
+		
+		xv.validate();
+		assertTrue(xv.getXMLResult().contains("unsupported profile type"));
+
 		
 		
 		assertTrue(xv.getXMLResult().contains("<error location='/*:CrossIndustryInvoice[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]/*:ExchangedDocumentContext[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]' criterion='not(ram:TestIndicator)'>[CII-SR-002] - TestIndicator should not be present</error>\n" + 

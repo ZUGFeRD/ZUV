@@ -288,6 +288,14 @@ public class PDFValidator extends Validator {
 
 		long endTime = Calendar.getInstance().getTimeInMillis();
 
+		if (pdfReport.contains("isSuccess=\"false\"")) {
+			context.setInvalid();
+		}
+		if (!pdfReport.contains("PDF/A-3")) {
+			context.addResultItem(new ValidationResultItem(ESeverity.error, "Not a PDF/A-3").setSection(23)
+					.setPart(EPart.pdf));
+
+		}
 		context.addCustomXML(pdfReport + "<info><signature>"
 				+ ((context.getSignature() != null) ? context.getSignature() : "unknown")
 				+ "</signature><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></info>");

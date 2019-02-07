@@ -1,64 +1,22 @@
 package ZUV;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.Vector;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
 
-import org.mustangproject.ZUGFeRD.ZUGFeRDImporter;
-import org.oclc.purl.dsdl.svrl.FailedAssert;
-import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.verapdf.core.VeraPDFException;
-import org.verapdf.features.FeatureExtractorConfig;
-import org.verapdf.features.FeatureFactory;
-import org.verapdf.metadata.fixer.FixerFactory;
-import org.verapdf.metadata.fixer.MetadataFixerConfig;
-import org.verapdf.pdfa.VeraGreenfieldFoundryProvider;
-import org.verapdf.pdfa.validation.validators.ValidatorConfig;
-import org.verapdf.pdfa.validation.validators.ValidatorFactory;
-import org.verapdf.processor.BatchProcessor;
-import org.verapdf.processor.FormatOption;
-import org.verapdf.processor.ProcessorConfig;
-import org.verapdf.processor.ProcessorFactory;
-import org.verapdf.processor.TaskType;
-import org.verapdf.processor.plugins.PluginsCollectionConfig;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import com.helger.schematron.ISchematronResource;
-import com.helger.schematron.xslt.SchematronResourceXSLT;
 import com.sanityinc.jargs.CmdLineParser;
 import com.sanityinc.jargs.CmdLineParser.Option;
-import org.riversun.bigdoc.bin.BigFileSearcher;
 
 public class Main {
 
@@ -129,7 +87,9 @@ public class Main {
 		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
 			System.err.println("Need writable subdirectory 'log' for log files.");
 		}
+		String Signature = "no PDF";
 		String sha1Checksum = "";
+		String pdfLog="";
 
 		if ((action != null) && (action.equals("validate"))) {
 
@@ -155,6 +115,7 @@ public class Main {
 
 				System.out.println(pdfv.getXMLResult());
 				pdfValidity = context.isValid();
+				Signature=context.getSignature();
 				context.clear();
 				System.out.println("</pdf>\n");
 
@@ -169,7 +130,7 @@ public class Main {
 
 				if (!file.exists()) {
 					results.add(new ValidationResultItem(ESeverity.exception, "XML file " + xmlFileName + " not found")
-							.setSection(1));
+							.setSection(24));
 
 					LOGGER.error("XML file " + xmlFileName + " not found");
 
@@ -200,6 +161,9 @@ public class Main {
 			
 			System.out.println("</validation>");
 			xmlValidity=context.isValid();
+			long duration=Calendar.getInstance().getTimeInMillis()-startTime;
+			
+			LOGGER.info("Parsed PDF:"+(pdfValidity?"valid":"invalid")+" XML:"+(xmlValidity?"valid":"invalid")+" Signature:"+Signature+" Checksum:"+sha1Checksum+" Profile:"+context.getProfile()+" Version:"+context.getVersion()+ " Took:"+duration+"ms");
 			if ((!pdfValidity)||(!xmlValidity)) {
 				System.exit(-1);
 			}

@@ -77,4 +77,7 @@ public class ValidationContext {
 		res+= "<summary status='"+(isValid?"valid":"invalid")+"'/>";
 		return res;
 	}
+	public void setInvalid() {
+		isValid=false;
+	}
 }
