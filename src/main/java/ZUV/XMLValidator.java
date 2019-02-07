@@ -186,17 +186,17 @@ public class XMLValidator extends Validator {
 			if (!aResSCH.isValidSchematron()) {
 				throw new IllegalArgumentException("Invalid Schematron!");
 			}
-			boolean isEN16931= context.getProfile().startsWith("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931");
+			boolean isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
+					|| context.getProfile().equals("urn:cen.eu:en16931:2017");
 
+			if (context.getVersion().equals("1")
+					|| ((context.getVersion().equals("2")) && (isEN16931 || (!isEN16931 && overrideProfileCheck)))) {
 
-			if (context.getVersion().equals("1") ||  ((context.getVersion().equals("2"))
-					&& !isEN16931 && overrideProfileCheck)) {
+				if (context.getVersion().equals("2") && (!isEN16931)) {
+					context.addResultItem(
+							new ValidationResultItem(ESeverity.notice, "Validating against unsupported profile type")
+									.setSection(25).setPart(EPart.xml));
 
-				if (context.getVersion().equals("2")&&(!isEN16931)) {
-					context.addResultItem(new ValidationResultItem(ESeverity.notice,
-							"Validating against unsupported profile type")
-											.setSection(25).setPart(EPart.xml));
-					
 				}
 				SchematronOutputType sout = aResSCH
 						.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
@@ -223,17 +223,15 @@ public class XMLValidator extends Validator {
 
 				// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
 				// returns the complete SVRL
-			} else {
+			}
+			if ((context.getVersion().equals("2")) && (!isEN16931 && !overrideProfileCheck)) {
 				context.addResultItem(new ValidationResultItem(ESeverity.notice,
-						"XML validation not yet implemented for profile type '"
-								+ 					context.getProfile()
-								+ "', please use the override option -o to check nevertheless")
-										.setSection(5).setPart(EPart.xml));
+						"XML validation not yet implemented for profile type '" + context.getProfile()
+								+ "', please use the override option -o to check nevertheless").setSection(5)
+										.setPart(EPart.xml));
 			}
 
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22)
 					.setPart(EPart.xml);
 			StringWriter sw = new StringWriter();
@@ -252,7 +250,7 @@ public class XMLValidator extends Validator {
 	}
 
 	public void setOverrideProfileCheck(boolean b) {
-		overrideProfileCheck=b;
+		overrideProfileCheck = b;
 	}
 
 }
