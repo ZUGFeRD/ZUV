@@ -66,13 +66,13 @@ public class ValidationResultItem {
 		String additionalAttributes="";
 		String additionalContents="";
 		if (section!=-1) {
-			additionalAttributes+=" type='"+section+"'";
+			additionalAttributes+=" type=\""+section+"\"";
 		}
 		if (location!=null) {
-			additionalAttributes+=" location='"+location+"'";
+			additionalAttributes+=" location=\""+location+"\"";
 		}
 		if (criterion!=null) {
-			additionalAttributes+=" criterion='"+criterion+"'";
+			additionalAttributes+=" criterion=\""+criterion+"\"";
 		}
 		if (stacktrace!=null) {
 			additionalContents+="<stacktrace>"+stacktrace+"</stacktrace>";

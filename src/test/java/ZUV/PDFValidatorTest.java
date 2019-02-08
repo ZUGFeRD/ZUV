@@ -25,8 +25,8 @@ public class PDFValidatorTest extends ResourceCase  {
 		assertEquals(true, actual.contains("batchSummary totalJobs=\"1\" failedToParse=\"0\" encrypted=\"0\""));
 		assertEquals(true, actual.contains("validationReports compliant=\"1\" nonCompliant=\"0\" failedJobs=\"0\">"));
 	// test some xml
-		assertEquals(true, actual.contains("<error location='/*:CrossIndustryInvoice[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]/*:SupplyChainTradeTransaction[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]/*:ApplicableHeaderTradeSettlement[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]/*:SpecifiedTradeSettlementHeaderMonetarySummation[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]/*:DuePayableAmount[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]' criterion='not(@currencyID)'>[CII-DT-031] - currencyID should not be present</error>"));
-		// test some binary signature recognition
+		assertEquals(true, actual.contains("<error location=\"/*:CrossIndustryInvoice[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]/*:SupplyChainTradeTransaction[namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100'][1]/*:ApplicableHeaderTradeSettlement[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]/*:SpecifiedTradeSettlementHeaderMonetarySummation[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]/*:DuePayableAmount[namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100'][1]\" criterion=\"not(@currencyID)\">[CII-DT-031] - currencyID should not be present</error>"));
+			// test some binary signature recognition
 		assertEquals(true, actual.contains("<version>2</version>"));
 
 		// valid one
@@ -51,7 +51,7 @@ public class PDFValidatorTest extends ResourceCase  {
 		pv.validate();
 		actual=pv.getXMLResult();
 
-		assertEquals(true,actual.contains("<error type='12'>XMP Metadata: ConformanceLevel contains invalid value</error>"));
+		assertEquals(true,actual.contains("<error type=\"12\">XMP Metadata: ConformanceLevel contains invalid value</error>"));
 
 	}
 
