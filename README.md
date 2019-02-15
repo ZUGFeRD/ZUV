@@ -1,7 +1,7 @@
 # ZUV
-Proof of concept for a ZUgferd plugin (or policy) with [VeraPDF](http://VeraPDF.org) 
+ZUV (ZUgferd+[VeraPDF](http://VeraPDF.org)) is a open-source e-invoice validator for the [ZUGFeRD](https://www.ferd-net.de/zugferd/specification/index.html)/[Factur-X](http://fnfe-mpe.org/factur-x/) standard.
 
-It is supposed check both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2 (EN16931 profile only) XML correctness.
+It checks both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2 (EN16931 profile only) XML for correctness.
 The XML check is done by validating against the official ZUGFeRD schematron file for v1 and the EN16931 UN/CEFACT SCRDM v16B uncoupled schematron from the [CEN](https://github.com/CenPC434/validation).
 
 
