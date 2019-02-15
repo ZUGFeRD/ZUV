@@ -1,9 +1,10 @@
 0.5.1
-
+=====
+2019-02-15
 Mention xpath location where the errors occurred
 JUnit tests
 new way to collect&handle errors
-XMP validation?
+XMP/PDF-A-Schema extension validation
 
 0.5.0
 =====
