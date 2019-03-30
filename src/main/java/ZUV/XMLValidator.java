@@ -159,6 +159,9 @@ public class XMLValidator extends Validator {
 
 				context.setProfile(booking.getNodeValue());
 			}
+			boolean isMiniumum = false;
+			boolean isEN16931 = false;
+			boolean isExtended = false;
 			// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
 			// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
 			// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
@@ -166,7 +169,19 @@ public class XMLValidator extends Validator {
 			// urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
 			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0
 				context.setVersion("2");
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/cii16931schematron/EN16931-CII-validation2.xslt");
+
+				isMiniumum = context.getProfile().contains("minimum") || context.getProfile().contains("basic");
+				isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
+						|| context.getProfile().equals("urn:cen.eu:en16931:2017");
+
+				isExtended = context.getProfile().contains("extended");
+				if (isMiniumum) {					
+					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
+				} else if (isEN16931) {
+					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
+				} else if (isExtended) {
+					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
+				}
 				/*
 				 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
 				 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
@@ -183,53 +198,41 @@ public class XMLValidator extends Validator {
 				context.setVersion("1");
 				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 			}
+
 			if (!aResSCH.isValidSchematron()) {
 				throw new IllegalArgumentException("Invalid Schematron!");
 			}
-			boolean isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
-					|| context.getProfile().equals("urn:cen.eu:en16931:2017");
 
-			if (context.getVersion().equals("1")
-					|| ((context.getVersion().equals("2")) && (isEN16931 || (!isEN16931 && overrideProfileCheck)))) {
+			if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isExtended)) {
+				context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+						.setSection(25).setPart(EPart.xml));
 
-				if (context.getVersion().equals("2") && (!isEN16931)) {
-					context.addResultItem(
-							new ValidationResultItem(ESeverity.notice, "Validating against unsupported profile type")
-									.setSection(25).setPart(EPart.xml));
+			}
+			SchematronOutputType sout = aResSCH
+					.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
 
-				}
-				SchematronOutputType sout = aResSCH
-						.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
+			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
+			if (failedAsserts.size() > 0) {
+				for (Object object : failedAsserts) {
+					if (object instanceof FailedAssert) {
 
-				List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-				if (failedAsserts.size() > 0) {
-					for (Object object : failedAsserts) {
-						if (object instanceof FailedAssert) {
+						FailedAssert failedAssert = (FailedAssert) object;
 
-							FailedAssert failedAssert = (FailedAssert) object;
-
-							context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
-									.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
-									.setPart(EPart.xml));
-						}
-
+						context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
+								.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
+								.setPart(EPart.xml));
 					}
 
 				}
-				for (String currentString : sout.getText()) {
 
-					// schematronValidationString += "<output>" + currentString + "</output>";
-				}
+			}
+			for (String currentString : sout.getText()) {
 
-				// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
-				// returns the complete SVRL
+				// schematronValidationString += "<output>" + currentString + "</output>";
 			}
-			if ((context.getVersion().equals("2")) && (!isEN16931 && !overrideProfileCheck)) {
-				context.addResultItem(new ValidationResultItem(ESeverity.notice,
-						"XML validation not yet implemented for profile type '" + context.getProfile()
-								+ "', please use the override option -o to check nevertheless").setSection(5)
-										.setPart(EPart.xml));
-			}
+
+			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
+			// returns the complete SVRL
 
 		} catch (Exception e) {
 			ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22)

@@ -8,7 +8,12 @@ The XML check is done by validating against the official ZUGFeRD schematron file
 ## Build
 compile with `/opt/local/bin/mvn clean package`
 
+java -jar ./saxon9he.jar -o:minimum.xsl -s:ZUGFeRD20/Schema/BASIC\ und\ MINIMUM/zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl 
 
+
+  <!-- prototypes of new mustangproject versions can be installed by referring to them and installed to the local repo from a jar file with
+        mvn install:install-file -Dfile=mustang-1.5.4-SNAPSHOT.jar -DgroupId=org.mustangproject.ZUGFeRD -DartifactId=mustang -Dversion=1.5.4 -Dpackaging=jar -DgeneratePom=true
+      
 ## Install
 
 Originally this was intended as VeraPDF plugin in which case you had to install a VeraPDF. Due to deployment issues we switched from ZUV being embedded in VeraPDF to VeraPDF being embedded into UV.
