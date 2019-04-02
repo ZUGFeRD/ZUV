@@ -5263,6 +5263,7 @@
     <enumeration value="0106"/>
     <enumeration value="0135"/>
     <enumeration value="0142"/>
+<enumeration value="0151"/>
     <enumeration value="0184"/>
     <enumeration value="0190"/>
     <enumeration value="0191"/>
@@ -5270,6 +5271,10 @@
     <enumeration value="0193"/>
     <enumeration value="0195"/>
     <enumeration value="0196"/>
+<enumeration value="0198"/>
+<enumeration value="0199"/>
+<enumeration value="0200"/>
+<enumeration value="9901"/>
     <enumeration value="9902"/>
     <enumeration value="9904"/>
     <enumeration value="9905"/>
@@ -5320,6 +5325,12 @@
     <enumeration value="9956"/>
     <enumeration value="9957"/>
     <enumeration value="9958"/>
+
+<enumeration value="AN"/>
+<enumeration value="AQ"/>
+<enumeration value="AS"/>
+<enumeration value="AU"/>
+<enumeration value="EM"/>
   </cl>
   <cl id="11">
     <enumeration value="FC"/>

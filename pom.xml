@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.0-SNAPSHOT</version>
+	<version>0.7.0b-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
