@@ -42,16 +42,30 @@ public class PDFValidatorTest extends ResourceCase  {
 
 		assertEquals(false, actual.contains("<error"));
 		
+	}
+	public void testXMPValidation() {
+
+		ValidationContext vc=new ValidationContext();
+		PDFValidator pv = new PDFValidator(vc);
 		
-		
-	 tempFile = getResourceAsFile("invalidXMP.pdf");
+
+		File tempFile = getResourceAsFile("invalidXMP.pdf");
+
+		pv.setFilename(tempFile.getAbsolutePath());
+		vc.clear();
+		pv.validate();
+		String actual=pv.getXMLResult();
+
+		assertEquals(true,actual.contains("<error type=\"12\">XMP Metadata: ConformanceLevel contains invalid value</error>"));
+
+		tempFile = getResourceAsFile("attributeBasedXMP_zugferd_2p0_EN16931_Einfach.pdf");
 
 		pv.setFilename(tempFile.getAbsolutePath());
 		vc.clear();
 		pv.validate();
 		actual=pv.getXMLResult();
 
-		assertEquals(true,actual.contains("<error type=\"12\">XMP Metadata: ConformanceLevel contains invalid value</error>"));
+		assertEquals(false,actual.contains("<error"));//issue 18: "ConformanceLevel not found" should not be reported since it's actually there
 
 	}
 

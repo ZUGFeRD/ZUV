@@ -183,7 +183,7 @@ public class PDFValidator extends Validator {
 
 			// get the first element
 			Element element = docXMP.getDocumentElement();
-			XPathExpression xpr = xpath.compile("//*[local-name()=\"ConformanceLevel\"]");
+			XPathExpression xpr = xpath.compile("//*[local-name()=\"ConformanceLevel\"]|//*[local-name()=\"Description\"]/@ConformanceLevel");
 			NodeList nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
 
 			if (nodes.getLength() == 0) {
@@ -199,7 +199,7 @@ public class PDFValidator extends Validator {
 											.setPart(EPart.pdf));
 				}
 			}
-			xpr = xpath.compile("//*[local-name()=\"DocumentType\"]");
+			xpr = xpath.compile("//*[local-name()=\"DocumentType\"]|//*[local-name()=\"Description\"]/@DocumentType");
 			nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
 
 			if (nodes.getLength() == 0) {
@@ -214,7 +214,7 @@ public class PDFValidator extends Validator {
 
 				}
 			}
-			xpr = xpath.compile("//*[local-name()=\"DocumentFileName\"]");
+			xpr = xpath.compile("//*[local-name()=\"DocumentFileName\"]|//*[local-name()=\"Description\"]/@DocumentFileName");
 			nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
 
 			if (nodes.getLength() == 0) {
@@ -223,7 +223,7 @@ public class PDFValidator extends Validator {
 			}
 
 			for (int i = 0; i < nodes.getLength(); i++) {
-				String[] valueArray = { "factur-x.xml", "ZUGFeRD-invoice.xml" };
+				String[] valueArray = { "factur-x.xml", "ZUGFeRD-invoice.xml", "zugferd-invoice.xml" };
 				if (!stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
 					context.addResultItem(new ValidationResultItem(ESeverity.error,
 									"XMP Metadata: DocumentFileName contains invalid value").setSection(19)
@@ -232,7 +232,7 @@ public class PDFValidator extends Validator {
 
 				// e.g. ZUGFeRD-invoice.xml
 			}
-			xpr = xpath.compile("//*[local-name()=\"Version\"]");
+			xpr = xpath.compile("//*[local-name()=\"Version\"]|//*[local-name()=\"Description\"]/@Version");
 			nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
 
 			// get all child nodes
