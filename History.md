@@ -1,10 +1,26 @@
-0.5.1
+0.7.0
+======
+todo: angegebenes profil in xml muss gültig sein
+angegebenes profil in xml muss den pdf/a schema extensions entsprechen
+pdf-validator test assertion auskommentiert
+
+ZUGFeRD 2 final compatible
+profileoverride option no longer needed
+version dependent checks for profiles (i.e. comfort is not a valid ZF2 profile!)
+allow new ZF2 filename (zugferd-invoice.xml instead ZUGFeRD-invoice.xml)
+confirm ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ID matches PDF/A Schema extensions
+more JUnit tests
+
+
+0.6.0
 =====
 2019-02-15
+Factur-X compatible
 Mention xpath location where the errors occurred
 JUnit tests
 new way to collect&handle errors
 XMP/PDF-A-Schema extension validation
+
 
 0.5.0
 =====

@@ -265,7 +265,7 @@ public class PDFValidator extends Validator {
 
 		zfXML = zi.getUTF8();
 
-		// step 3 find signature
+		// step 3 find signatures
 		try {
 			byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
 			byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
@@ -282,6 +282,9 @@ public class PDFValidator extends Validator {
 			} else if (searcher.indexOf(file, konikSignature) != -1) {
 				Signature = "Konik";
 			}
+
+			context.setSignature(Signature);
+
 		} catch (UnsupportedEncodingException e) {
 			LOGGER.error(e.getMessage(), e);
 		}

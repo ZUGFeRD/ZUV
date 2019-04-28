@@ -1,6 +1,7 @@
 package ZUV;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -45,10 +46,17 @@ public class XMLValidator extends Validator {
 
 	protected String zfXML = "";
 	protected String filename = "";
-	private boolean overrideProfileCheck;
 
 	public void setFilename(String name) { // from XML Filename
 		filename = name;
+		File file = new File(filename);
+		if (!file.exists()) {
+			context.addResultItem(new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.xml));
+			LOGGER.error("Error 1: XML file " + filename + " not found");
+			return;
+		}
+
+		
 		try {
 			zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(name)));
 		} catch (IOException e) {
@@ -105,144 +113,153 @@ public class XMLValidator extends Validator {
 									.setSection(3);
 			context.addResultItem(res);
 			LOGGER.error("No XML data found");
-			return;
-		}
+			
+		} else {
 
-		// final ISchematronResource aResSCH =
-		// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
-		// ... DOES work but is highly deprecated (and rightly so) because
-		// it takes 30-40min,
+			// final ISchematronResource aResSCH =
+			// SchematronResourceSCH.fromFile (new File("ZUGFeRD_1p0.scmt"));
+			// ... DOES work but is highly deprecated (and rightly so) because
+			// it takes 30-40min,
 
-		try {
+			try {
 
-			/***
-			 * private static final String VALID_SCHEMATRON = "test-sch/valid01.sch";
-			 * private static final String VALID_XMLINSTANCE = "test-xml/valid01.xml";
-			 * 
-			 * @Test public void testWriteValid () throws Exception { final Document aDoc =
-			 *       SchematronResourceSCH.fromClassPath (VALID_SCHEMATRON)
-			 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
-			 * 
-			 */
-
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			dbf.setNamespaceAware(true); // otherwise we can not act namespace independently, i.e. use
-											// document.getElementsByTagNameNS("*",...
-
-			DocumentBuilder db = dbf.newDocumentBuilder();
-
-			Document doc = db.parse(xmlByteInputStream);
-
-			Element root = doc.getDocumentElement();
-			ISchematronResource aResSCH = null;
-
-			NodeList ndList;
-
-			// rootNode = document.getDocumentElement();
-			// ApplicableSupplyChainTradeSettlement
-
-			// Create XPathFactory object
-			XPathFactory xpathFactory = XPathFactory.newInstance();
-
-			// Create XPath object
-			XPath xpath = xpathFactory.newXPath();
-			XPathExpression expr = xpath.compile(
-					"//*[local-name()=\"GuidelineSpecifiedDocumentContextParameter\"]/*[local-name()=\"ID\"]/text()");
-			// evaluate expression result on XML document
-			ndList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-
-			for (int bookingIndex = 0; bookingIndex < ndList.getLength(); bookingIndex++) {
-				Node booking = ndList.item(bookingIndex);
-				// if there is a attribute in the tag number:value
-				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended
-				// setForeignReference(booking.getTextContent());
-
-				context.setProfile(booking.getNodeValue());
-			}
-			boolean isMiniumum = false;
-			boolean isEN16931 = false;
-			boolean isExtended = false;
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
-			// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
-			// urn:cen.eu:en16931:2017
-			// urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
-			if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0
-				context.setVersion("2");
-
-				isMiniumum = context.getProfile().contains("minimum") || context.getProfile().contains("basic");
-				isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
-						|| context.getProfile().equals("urn:cen.eu:en16931:2017");
-
-				isExtended = context.getProfile().contains("extended");
-				if (isMiniumum) {					
-					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
-				} else if (isEN16931) {
-					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
-				} else if (isExtended) {
-					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
-				}
-				/*
-				 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
-				 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
-				 * ));
+				/***
+				 * private static final String VALID_SCHEMATRON = "test-sch/valid01.sch";
+				 * private static final String VALID_XMLINSTANCE = "test-xml/valid01.xml";
+				 * 
+				 * @Test public void testWriteValid () throws Exception { final Document aDoc =
+				 *       SchematronResourceSCH.fromClassPath (VALID_SCHEMATRON)
+				 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
+				 * 
 				 */
 
-				// takes around 10 Seconds. //
-				// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
-				// this xslt can be created using sth like
-				// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
-				// tcdl2.0.tsdtf.sch iso_svrl.xsl
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				dbf.setNamespaceAware(true); // otherwise we can not act namespace independently, i.e. use
+												// document.getElementsByTagNameNS("*",...
 
-			} else { // ZUGFeRD 1.0
-				context.setVersion("1");
-				aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
-			}
+				DocumentBuilder db = dbf.newDocumentBuilder();
 
-			if (!aResSCH.isValidSchematron()) {
-				throw new IllegalArgumentException("Invalid Schematron!");
-			}
+				Document doc = db.parse(xmlByteInputStream);
 
-			if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isExtended)) {
-				context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
-						.setSection(25).setPart(EPart.xml));
+				Element root = doc.getDocumentElement();
+				ISchematronResource aResSCH = null;
 
-			}
-			SchematronOutputType sout = aResSCH
-					.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
+				NodeList ndList;
 
-			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-			if (failedAsserts.size() > 0) {
-				for (Object object : failedAsserts) {
-					if (object instanceof FailedAssert) {
+				// rootNode = document.getDocumentElement();
+				// ApplicableSupplyChainTradeSettlement
 
-						FailedAssert failedAssert = (FailedAssert) object;
+				// Create XPathFactory object
+				XPathFactory xpathFactory = XPathFactory.newInstance();
 
-						context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
-								.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
-								.setPart(EPart.xml));
+				// Create XPath object
+				XPath xpath = xpathFactory.newXPath();
+				XPathExpression expr = xpath.compile(
+						"//*[local-name()=\"GuidelineSpecifiedDocumentContextParameter\"]/*[local-name()=\"ID\"]/text()");
+				// evaluate expression result on XML document
+				ndList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+
+				for (int bookingIndex = 0; bookingIndex < ndList.getLength(); bookingIndex++) {
+					Node booking = ndList.item(bookingIndex);
+					// if there is a attribute in the tag number:value
+					// urn:ferd:CrossIndustryDocument:invoice:1p0:extended
+					// setForeignReference(booking.getTextContent());
+
+					context.setProfile(booking.getNodeValue());
+				}
+				boolean isMiniumum = false;
+				boolean isEN16931 = false;
+				boolean isExtended = false;
+				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
+				// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
+				// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
+				// urn:cen.eu:en16931:2017
+				// urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
+				if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0 or Factur-X
+					context.setVersion("2");
+
+					isMiniumum = context.getProfile().contains("minimum") || context.getProfile().contains("basic");
+					isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
+							|| context.getProfile().equals("urn:cen.eu:en16931:2017");
+
+					isExtended = context.getProfile().contains("extended");
+					if (isMiniumum) {					
+						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
+					} else if (isEN16931) {
+						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
+					} else if (isExtended) {
+						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
+					} /*
+					 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
+					 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
+					 * ));
+					 */
+
+					// takes around 10 Seconds. //
+					// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
+					// this xslt can be created using sth like
+					// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
+					// tcdl2.0.tsdtf.sch iso_svrl.xsl
+
+				} else { // ZUGFeRD 1.0
+					context.setVersion("1");
+					// 
+					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:minimum"))&&(!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))&&(!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
+						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+								.setSection(25).setPart(EPart.xml));				
 					}
-
+					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
 
+				if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isExtended)) {
+					context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+							.setSection(25).setPart(EPart.xml));
+
+				}
+				if (aResSCH!=null) {
+					if (!aResSCH.isValidSchematron()) {
+						throw new IllegalArgumentException("Invalid Schematron!");
+					}
+
+					SchematronOutputType sout = aResSCH
+							.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
+
+					List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
+					if (failedAsserts.size() > 0) {
+						for (Object object : failedAsserts) {
+							if (object instanceof FailedAssert) {
+
+								FailedAssert failedAssert = (FailedAssert) object;
+
+								context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
+										.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
+										.setPart(EPart.xml));
+							}
+
+						}
+
+					}
+					for (String currentString : sout.getText()) {
+
+						// schematronValidationString += "<output>" + currentString + "</output>";
+					}
+
+					// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
+					// returns the complete SVRL
+			
+				}
+
+			} catch (Exception e) {
+				ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22)
+						.setPart(EPart.xml);
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				e.printStackTrace(pw);
+				vri.setStacktrace(sw.toString());
+				context.addResultItem(vri);
+				LOGGER.error(e.getMessage(), e);
 			}
-			for (String currentString : sout.getText()) {
-
-				// schematronValidationString += "<output>" + currentString + "</output>";
-			}
-
-			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
-			// returns the complete SVRL
-
-		} catch (Exception e) {
-			ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22)
-					.setPart(EPart.xml);
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			vri.setStacktrace(sw.toString());
-			context.addResultItem(vri);
-			LOGGER.error(e.getMessage(), e);
+			
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
 
@@ -250,10 +267,6 @@ public class XMLValidator extends Validator {
 				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid")
 				+ "</profile>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 
-	}
-
-	public void setOverrideProfileCheck(boolean b) {
-		overrideProfileCheck = b;
 	}
 
 }

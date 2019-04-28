@@ -42,13 +42,12 @@ public class Main {
 		Option<String> actionOption = parser.addStringOption('a', "action");
 		Option<String> pdfFilenameOption = parser.addStringOption('z', "ZUGFeRDfilename");
 		Option<String> xmlFilenameOption = parser.addStringOption('x', "XMLfilename");
-		Option<Boolean> overrideOption = parser.addBooleanOption('o', "overrideprofilecheck");
 
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
 
 		boolean optionsRecognized = false;
-		boolean xmlReady = false;
+		boolean displayXMLValidationOutput = false;
 
 		try {
 			parser.parse(args);
@@ -58,7 +57,6 @@ public class Main {
 		}
 
 		Boolean helpRequested = parser.getOptionValue(helpOption);
-		Boolean overrideRequested = parser.getOptionValue(overrideOption);
 		boolean pdfValidity = true;
 		boolean xmlValidity = true;
 		
@@ -128,29 +126,21 @@ public class Main {
 				xv.setFilename(xmlFileName);
 				File file = new File(xmlFileName);
 
-				if (!file.exists()) {
-					results.add(new ValidationResultItem(ESeverity.exception, "XML file " + xmlFileName + " not found")
-							.setSection(24));
-
-					LOGGER.error("XML file " + xmlFileName + " not found");
-
-					
-				} else {
-					xmlReady=true;
-				}
-
-				sha1Checksum = calcSHA1(file);
+				if (file.exists()) {
+					sha1Checksum = calcSHA1(file);
+				} 
+				displayXMLValidationOutput=true;
+				
 			} else {
 				if (pdfv.getRawXML()!=null) {
 					xv.setStringContent(pdfv.getRawXML());
-					xmlReady=true;				
+					displayXMLValidationOutput=true;				
 				}
 			}
 
-			if ((optionsRecognized)&&(xmlReady)) {
+			if ((optionsRecognized)&&(displayXMLValidationOutput)) {
 				System.out.println("<xml>");
 
-				xv.setOverrideProfileCheck(overrideRequested != null && overrideRequested.booleanValue());
 
 				xv.validate();
 				System.out.println(xv.getXMLResult());
@@ -171,7 +161,7 @@ public class Main {
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
 			System.out.println(
-					"usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)] [-o overrideprofilecheck: check all ZF2 against EN16931]");
+					"usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)]");
 			System.exit(-1);
 		}
 

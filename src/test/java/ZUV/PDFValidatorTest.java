@@ -16,7 +16,6 @@ public class PDFValidatorTest extends ResourceCase  {
 		pv.validate();
 	
 		XMLValidator xv = new XMLValidator(vc);
-		xv.setOverrideProfileCheck(true);		
 		xv.setStringContent(pv.getRawXML());
 		xv.validate();
 		String actual=vc.getXMLResult();

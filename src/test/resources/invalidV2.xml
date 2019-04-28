@@ -8,8 +8,7 @@
 	</rsm:ExchangedDocumentContext>
 	<rsm:ExchangedDocument>
 		<ram:ID>RE-20171118/506</ram:ID>
-		<ram:Name>RECHNUNG</ram:Name>
-		<ram:TypeCode>380</ram:TypeCode>
+		<ram:TypeCode>381</ram:TypeCode>
 		<ram:IssueDateTime><udt:DateTimeString format="102">20171118</udt:DateTimeString></ram:IssueDateTime>
 	</rsm:ExchangedDocument>
 	<rsm:SupplyChainTradeTransaction>
@@ -64,7 +63,7 @@
 				</ram:NetPriceProductTradePrice>
 			</ram:SpecifiedLineTradeAgreement>
 			<ram:SpecifiedLineTradeDelivery>
-				<ram:BilledQuantity unitCode="C62">400.0000</ram:BilledQuantity>
+				<ram:BilledQuantity unitCode="PIECE">400.0000</ram:BilledQuantity>
 			</ram:SpecifiedLineTradeDelivery>
 			<ram:SpecifiedLineTradeSettlement>
 				<ram:ApplicableTradeTax>
@@ -126,7 +125,7 @@
 				</ram:SpecifiedTaxRegistration>
 			</ram:SellerTradeParty>
 			<ram:BuyerTradeParty>
-				<ram:Name>Theodor Est</ram:Name>
+				<ram:EntityName>Theodor Est</ram:EntityName>
 				<ram:PostalTradeAddress>
 					<ram:PostcodeCode>88802</ram:PostcodeCode>
 					<ram:LineOne>Bahnstr. 42</ram:LineOne>
@@ -167,7 +166,7 @@
 			<ram:ApplicableTradeTax>
 				<ram:CalculatedAmount currencyID="EUR">63.84</ram:CalculatedAmount>
 				<ram:TypeCode>VAT</ram:TypeCode>
-				<ram:BasisAmount currencyID="EUR">336.00</ram:BasisAmount>
+				<ram:BasisAmount currencyID="ECU">336.00</ram:BasisAmount>
 				<ram:CategoryCode>S</ram:CategoryCode>
 				<ram:RateApplicablePercent>19.00</ram:RateApplicablePercent>
 			</ram:ApplicableTradeTax>
@@ -176,10 +175,9 @@
 				<ram:DueDateDateTime><udt:DateTimeString format="102">20171209</udt:DateTimeString></ram:DueDateDateTime>
 			</ram:SpecifiedTradePaymentTerms>
 			<ram:SpecifiedTradeSettlementHeaderMonetarySummation>
-				<ram:LineTotalAmount currencyID="EUR">496.00</ram:LineTotalAmount>
 				<ram:ChargeTotalAmount currencyID="EUR">0.00</ram:ChargeTotalAmount>
 				<ram:AllowanceTotalAmount currencyID="EUR">0.00</ram:AllowanceTotalAmount>
-				<ram:TaxBasisTotalAmount currencyID="EUR">496.00</ram:TaxBasisTotalAmount>
+				<ram:TaxBasisTotalAmount currencyID="EUR">497.14</ram:TaxBasisTotalAmount>
 				<ram:TaxTotalAmount currencyID="EUR">75.04</ram:TaxTotalAmount>
 				<ram:GrandTotalAmount currencyID="EUR">571.04</ram:GrandTotalAmount>
 				<ram:DuePayableAmount currencyID="EUR">571.04</ram:DuePayableAmount>
