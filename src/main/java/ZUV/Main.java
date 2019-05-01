@@ -87,7 +87,6 @@ public class Main {
 		}
 		String Signature = "no PDF";
 		String sha1Checksum = "";
-		String pdfLog="";
 
 		if ((action != null) && (action.equals("validate"))) {
 
@@ -198,7 +197,7 @@ public class Main {
 				sha1.update(buffer, 0, len);
 				len = input.read(buffer);
 			}
-
+			input.close();
 		} catch (FileNotFoundException e) {
 			LOGGER.error(e.getMessage(), e);
 		} catch (IOException e) {

@@ -10,15 +10,25 @@ public class PDFValidatorTest extends ResourceCase  {
 		PDFValidator pv = new PDFValidator(vc);
 		
 		
-		File tempFile = getResourceAsFile("XMLinvalidV2PDF.pdf");
+		File tempFile = getResourceAsFile("XMLinvalidV2PDF.pdf");// need a more invalid file here
 
 		pv.setFilename(tempFile.getAbsolutePath());
 		pv.validate();
+	//	assertEquals("", pv.getXMLResult());
+	
+		//
+		tempFile = getResourceAsFile("Facture_F20180027.pdf");
+		pv.setFilename(tempFile.getAbsolutePath());
+		pv.validate();
+		String actual=pv.getXMLResult();
+		assertEquals(true, actual.contains("summary status='valid"));
+		assertEquals(false, actual.contains("summary status='invalid"));
+		
 	
 		XMLValidator xv = new XMLValidator(vc);
 		xv.setStringContent(pv.getRawXML());
 		xv.validate();
-		String actual=vc.getXMLResult();
+		actual=vc.getXMLResult();
 
 		assertEquals(true, actual.contains("validationReport profileName=\"PDF/A-3"));
 		assertEquals(true, actual.contains("batchSummary totalJobs=\"1\" failedToParse=\"0\" encrypted=\"0\""));

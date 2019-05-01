@@ -51,12 +51,12 @@ public class XMLValidator extends Validator {
 		filename = name;
 		File file = new File(filename);
 		if (!file.exists()) {
-			context.addResultItem(new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.xml));
+			context.addResultItem(
+					new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.xml));
 			LOGGER.error("Error 1: XML file " + filename + " not found");
 			return;
 		}
 
-		
 		try {
 			zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(name)));
 		} catch (IOException e) {
@@ -113,7 +113,7 @@ public class XMLValidator extends Validator {
 									.setSection(3);
 			context.addResultItem(res);
 			LOGGER.error("No XML data found");
-			
+
 		} else {
 
 			// final ISchematronResource aResSCH =
@@ -173,6 +173,7 @@ public class XMLValidator extends Validator {
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
+
 				// urn:cen.eu:en16931:2017
 				// urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
 				if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0 or Factur-X
@@ -183,17 +184,17 @@ public class XMLValidator extends Validator {
 							|| context.getProfile().equals("urn:cen.eu:en16931:2017");
 
 					isExtended = context.getProfile().contains("extended");
-					if (isMiniumum) {					
+					if (isMiniumum) {
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
 					} else if (isEN16931) {
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
 					} else if (isExtended) {
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
 					} /*
-					 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
-					 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
-					 * ));
-					 */
+						 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
+						 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
+						 * ));
+						 */
 
 					// takes around 10 Seconds. //
 					// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
@@ -203,20 +204,54 @@ public class XMLValidator extends Validator {
 
 				} else { // ZUGFeRD 1.0
 					context.setVersion("1");
-					// 
-					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:minimum"))&&(!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))&&(!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
+					//
+					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
+							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
+							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
 						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
-								.setSection(25).setPart(EPart.xml));				
+								.setSection(25).setPart(EPart.xml));
 					}
 					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
 
 				if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isExtended)) {
-					context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
-							.setSection(25).setPart(EPart.xml));
+					context.addResultItem(new ValidationResultItem(ESeverity.error,
+							"Unsupported profile type").setSection(25).setPart(EPart.xml));
 
 				}
-				if (aResSCH!=null) {
+				if (context.getVersion().equals("2")) {
+					if ((!context.getProfile().equals("urn:factur-x.eu:1p0:minimum"))
+							&& (!context.getProfile().equals("urn:zugferd.de:2p0:minimum"))
+							&& (!context.getProfile().equals("urn:factur-x.eu:1p0:basicwl"))
+							&& (!context.getProfile().equals("urn:zugferd.de:2p0:basicwl"))
+							&& (!context.getProfile()
+									.equals("urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic"))
+							&& (!context.getProfile()
+									.equals("urn:cen.eu:en16931:2017#compliant#urn:zugferd.de:2p0:basic"))
+							&& (!context.getProfile().equals("urn:cen.eu:en16931:2017"))
+							&& (!context.getProfile()
+									.equals("urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"))
+							&& (!context.getProfile()
+									.equals("urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended")))
+
+					{
+						context.addResultItem(
+								new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+										.setSection(25).setPart(EPart.xml));
+
+					}
+				} else /** v1 */
+				{//urn:ferd:invoice:rc:comfort
+					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
+							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
+							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
+						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+								.setSection(25).setPart(EPart.xml));
+
+					}
+				}
+
+				if (aResSCH != null) {
 					if (!aResSCH.isValidSchematron()) {
 						throw new IllegalArgumentException("Invalid Schematron!");
 					}
@@ -246,7 +281,7 @@ public class XMLValidator extends Validator {
 
 					// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
 					// returns the complete SVRL
-			
+
 				}
 
 			} catch (Exception e) {
@@ -259,7 +294,7 @@ public class XMLValidator extends Validator {
 				context.addResultItem(vri);
 				LOGGER.error(e.getMessage(), e);
 			}
-			
+
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
 
