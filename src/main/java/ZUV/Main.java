@@ -23,8 +23,6 @@ public class Main {
 	static final ClassLoader cl = Main.class.getClassLoader();
 	private Vector<ValidationResultItem> results;
 	protected ValidationContext context = new ValidationContext();
-	private String customXML = "";
-	private long startXMLTime;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
 																									// ignored for the
@@ -133,14 +131,14 @@ public class Main {
 			} else {
 				if (pdfv.getRawXML()!=null) {
 					xv.setStringContent(pdfv.getRawXML());
-					displayXMLValidationOutput=true;				
+					displayXMLValidationOutput=true;	
+				} else {
+					//no XML found. This could also be an error.
 				}
 			}
 
 			if ((optionsRecognized)&&(displayXMLValidationOutput)) {
 				System.out.println("<xml>");
-
-
 				xv.validate();
 				System.out.println(xv.getXMLResult());
 				System.out.println("</xml>");

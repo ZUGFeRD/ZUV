@@ -137,9 +137,7 @@ public class PDFValidator extends Validator {
 		}
 
 		// step 2 validate XMP
-		ZUGFeRDImporter zi = new ZUGFeRDImporter();
-
-		zi.extract(pdfFilename);
+		ZUGFeRDImporter zi = new ZUGFeRDImporter(pdfFilename);
 		String xmp = zi.getXMP();
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -251,7 +249,6 @@ public class PDFValidator extends Validator {
 		} catch (XPathExpressionException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
-
 		zfXML = zi.getUTF8();
 
 		// step 3 find signatures

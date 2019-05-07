@@ -6,7 +6,7 @@
 	<groupId>org.zugferd</groupId>
 	<artifactId>ZUV</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.0e-SNAPSHOT</version>
+	<version>0.7.0f-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -81,7 +81,7 @@
 		<dependency>
         <groupId>org.mustangproject.ZUGFeRD</groupId>
         <artifactId>mustang</artifactId>
-        <version>1.6.1</version>
+        <version>1.7.0</version>
         <!-- prototypes of new mustangproject versions can be installed by referring to them and installed to the local repo from a jar file with
         mvn install:install-file -Dfile=mustang-1.5.4-SNAPSHOT.jar -DgroupId=org.mustangproject.ZUGFeRD -DartifactId=mustang -Dversion=1.5.4 -Dpackaging=jar -DgeneratePom=true
         -->
