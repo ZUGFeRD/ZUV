@@ -4,7 +4,7 @@ import java.io.File;
 
 public class XMLValidatorTest extends ResourceCase  {
 
-	public void testXMLValidation() {
+	public void testZF2XMLValidation() {
 		ValidationContext ctx=new ValidationContext();
 		XMLValidator xv = new XMLValidator(ctx);
 		File tempFile = getResourceAsFile("invalidV2.xml");
@@ -38,6 +38,20 @@ public class XMLValidatorTest extends ResourceCase  {
 		xv.validate();
 		assertTrue(xv.getXMLResult().contains("<error type=\"25\""));
 
+
+	}
+	public void testZF1XMLValidation() {
+		ValidationContext ctx=new ValidationContext();
+		XMLValidator xv = new XMLValidator(ctx);
+		File tempFile = getResourceAsFile("invalidV1.xml");
+
+		xv.setFilename(tempFile.getAbsolutePath());
+		
+		xv.validate();
+		
+		
+	//	assertEquals(true, xv.getXMLResult().contains("<error"));
+	
 
 	}
 
