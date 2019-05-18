@@ -21,6 +21,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
 import org.oclc.purl.dsdl.svrl.FailedAssert;
+import org.oclc.purl.dsdl.svrl.FiredRule;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +102,8 @@ public class XMLValidator extends Validator {
 	@Override
 	public void validate() {
 		long startXMLTime = Calendar.getInstance().getTimeInMillis();
+		int firedRules=0;
+		int failedRules=0;
 
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(zfXML.getBytes(StandardCharsets.UTF_8));
 
@@ -130,7 +133,7 @@ public class XMLValidator extends Validator {
 				 *       .applySchematronValidation (new ClassPathResource (VALID_XMLINSTANCE));
 				 * 
 				 */
-
+			
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				dbf.setNamespaceAware(true); // otherwise we can not act namespace independently, i.e. use
 												// document.getElementsByTagNameNS("*",...
@@ -248,7 +251,7 @@ public class XMLValidator extends Validator {
 
 					}
 				}
-
+				
 				if (aResSCH != null) {
 					if (!aResSCH.isValidSchematron()) {
 						throw new IllegalArgumentException("Invalid Schematron!");
@@ -267,13 +270,19 @@ public class XMLValidator extends Validator {
 								context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
 										.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
 										.setPart(EPart.xml));
-							}
-
+								failedRules++;
+							} else if (object instanceof FiredRule) {
+								firedRules++;
+							} 
 						}
 
 					}
+					if (firedRules==0) {
+						context.addResultItem(new ValidationResultItem(ESeverity.error, "No rules matched, XML to minimal?").setSection(26)
+								.setPart(EPart.xml));
+				
+					}
 					for (String currentString : sout.getText()) {
-
 						// schematronValidationString += "<output>" + currentString + "</output>";
 					}
 
@@ -297,7 +306,7 @@ public class XMLValidator extends Validator {
 		long endTime = Calendar.getInstance().getTimeInMillis();
 
 		context.addCustomXML("<info><version>" + ((context.getVersion() != null) ? context.getVersion() : "invalid")
-				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid")
+				+ "</version><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid")
 				+ "</profile>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
 
 	}
