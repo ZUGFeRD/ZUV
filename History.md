@@ -1,21 +1,16 @@
 0.7.0
 ======
-todo: 
-angegebenes profil in xml muss den pdf/a schema extensions entsprechen
-pdf-validator test assertion auskommentiert
-factur-x automatischen test hinzufügen
-durch alle factur-x beispielrechnungen durchgehen
-afrelationship minimum und basic wl data
+2019-05-31
 
-ZUGFeRD 2 final compatible
-now displaying number of applied and failed rules
-now failing if no rule could be applied at all
-
-profileoverride option no longer needed
-version dependent checks for profiles (i.e. comfort is not a valid ZF2 profile!)
-allow new ZF2 filename (zugferd-invoice.xml instead ZUGFeRD-invoice.xml)
-confirm ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ID matches PDF/A Schema extensions
-more JUnit tests
+* ZUGFeRD 2 final compatible
+* now displaying number of applied and failed rules
+* now failing if no rule could be applied at all
+* profileoverride option no longer needed
+* version dependent checks for profiles (i.e. comfort is not a valid ZF2 profile!)
+* allow new ZF2 filename (zugferd-invoice.xml instead ZUGFeRD-invoice.xml)
+* confirm ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ID matches PDF/A Schema extensions
+* more JUnit tests
+* include own version number in XML report
 
 
 0.6.0

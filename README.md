@@ -63,16 +63,26 @@ Originally this was intended as VeraPDF plugin in which case you had to install 
 
 ## Embed
 
-Go wild.
-XML output is currently still on STDERR, this might change to STDOUT. 
-Logging is disabled, this might be changed in the future, i.e. logging to a file
+Feel free to embed this into your java software, send me a PR to use it as a library, or exec it and parse it's output to put on the web.
+
+For exec, you might try something like  
+```
+exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.7.0.jar --action validate -z '.escapeshellarg($uploadfile).' 2>/dev/null', $output);
+```
+* Redirecting stderr away (some logging messages might otherwise disturb XML well formedness)
+* Escaping any file names in case you use original file names at all (apart from security concerns please take into account that they might contain spaces)
+* Signal java to use UTF-8 even when otherwise it would not: You might run into trouble with XML files starting with a BOM otherwise and when you exec, keep in mind that you lose all env vars.  
 
 ## License
 
 Permissive Open Source APL2, see LICENSE
 ## History
 
-0.5.0 Added license text, upgraded to mustangproject 1.5.3, logging to file, finding signatures, by default disable schematron check for non-matching ZF2 profiles
+  * 0.7.0 (2019-05-31) ZUGFeRD 2 compatibility
+
+  * 0.6.0 (2019-02-15) Factur-X compatibility
+
+  * 0.5.0 (2018-09-10) Added license text, upgraded to mustangproject 1.5.3, logging to file, finding signatures, by default disable schematron check for non-matching ZF2 profiles
 
 ## Todo
 
