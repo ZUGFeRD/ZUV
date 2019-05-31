@@ -176,13 +176,19 @@ public class PDFValidator extends Validator {
 						new ValidationResultItem(ESeverity.error, "XMP Metadata: ConformanceLevel not found")
 								.setSection(11).setPart(EPart.pdf));
 			}
+	
+			boolean conformanceLevelValid=false;
 			for (int i = 0; i < nodes.getLength(); i++) {
 
 				String[] valueArray = { "BASIC WL", "BASIC", "MINIMUM", "EN 16931", "COMFORT", "CIUS", "EXTENDED" };
-				if (!stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
-					context.addResultItem(new ValidationResultItem(ESeverity.error,
-							"XMP Metadata: ConformanceLevel contains invalid value").setSection(12).setPart(EPart.pdf));
+				if (stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
+					conformanceLevelValid=true;
 				}
+			}
+			if (!conformanceLevelValid) {
+				context.addResultItem(new ValidationResultItem(ESeverity.error,
+						"XMP Metadata: ConformanceLevel contains invalid value").setSection(12).setPart(EPart.pdf));
+
 			}
 			xpr = xpath.compile("//*[local-name()=\"DocumentType\"]|//*[local-name()=\"Description\"]/@DocumentType");
 			nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
@@ -192,13 +198,17 @@ public class PDFValidator extends Validator {
 						.setSection(13).setPart(EPart.pdf));
 			}
 
+			boolean documentTypeValid=false;
 			for (int i = 0; i < nodes.getLength(); i++) {
-				if (!nodes.item(i).getTextContent().equals("INVOICE")) {
-					context.addResultItem(
-							new ValidationResultItem(ESeverity.error, "XMP Metadata: DocumentType invalid")
-									.setSection(14).setPart(EPart.pdf));
-
+				if (nodes.item(i).getTextContent().equals("INVOICE")) {
+					documentTypeValid=true;
 				}
+			}
+			if (!documentTypeValid) {
+				context.addResultItem(
+						new ValidationResultItem(ESeverity.error, "XMP Metadata: DocumentType invalid")
+								.setSection(14).setPart(EPart.pdf));
+
 			}
 			xpr = xpath.compile(
 					"//*[local-name()=\"DocumentFileName\"]|//*[local-name()=\"Description\"]/@DocumentFileName");
@@ -209,15 +219,19 @@ public class PDFValidator extends Validator {
 						new ValidationResultItem(ESeverity.error, "XMP Metadata: DocumentFileName not found")
 								.setSection(21).setPart(EPart.pdf));
 			}
-
+			boolean documentFilenameValid=false;
 			for (int i = 0; i < nodes.getLength(); i++) {
 				String[] valueArray = { "factur-x.xml", "ZUGFeRD-invoice.xml", "zugferd-invoice.xml" };
-				if (!stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
-					context.addResultItem(new ValidationResultItem(ESeverity.error,
-							"XMP Metadata: DocumentFileName contains invalid value").setSection(19).setPart(EPart.pdf));
+				if (stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
+					documentFilenameValid=true;
 				}
 
 				// e.g. ZUGFeRD-invoice.xml
+			}
+			if (!documentFilenameValid) {
+
+				context.addResultItem(new ValidationResultItem(ESeverity.error,
+						"XMP Metadata: DocumentFileName contains invalid value").setSection(19).setPart(EPart.pdf));
 			}
 			xpr = xpath.compile("//*[local-name()=\"Version\"]|//*[local-name()=\"Description\"]/@Version");
 			nodes = (NodeList) xpr.evaluate(docXMP, XPathConstants.NODESET);
@@ -231,13 +245,18 @@ public class PDFValidator extends Validator {
 						.setSection(15).setPart(EPart.pdf));
 			}
 
+			boolean versionValid=false;
 			for (int i = 0; i < nodes.getLength(); i++) {
 				String[] valueArray = { "1.0", "2.0" };
-				if (!stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
-					context.addResultItem(
-							new ValidationResultItem(ESeverity.error, "XMP Metadata: Version contains invalid value")
-									.setSection(16).setPart(EPart.pdf));
+				if (stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
+					versionValid=true;
 				} // e.g. 1.0
+			}
+			if (!versionValid) {
+				context.addResultItem(
+						new ValidationResultItem(ESeverity.error, "XMP Metadata: Version contains invalid value")
+								.setSection(16).setPart(EPart.pdf));
+
 			}
 
 		} catch (SAXException e) {
@@ -286,7 +305,7 @@ public class PDFValidator extends Validator {
 		}
 		context.addCustomXML(pdfReport + "<info><signature>"
 				+ ((context.getSignature() != null) ? context.getSignature() : "unknown")
-				+ "</signature><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></info>");
+				+ "</signature><validation><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></validation></info>");
 
 	}
 

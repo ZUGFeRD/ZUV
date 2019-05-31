@@ -9,7 +9,9 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -304,10 +306,12 @@ public class XMLValidator extends Validator {
 
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
-
+		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
+		Date date = new Date(); 
+		
 		context.addCustomXML("<info><version>" + ((context.getVersion() != null) ? context.getVersion() : "invalid")
-				+ "</version><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid")
-				+ "</profile>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></info>");
+				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid") + 
+				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
 	}
 

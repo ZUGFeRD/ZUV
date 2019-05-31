@@ -71,7 +71,23 @@ public class PDFValidatorTest extends ResourceCase  {
 
 		assertEquals(true, pdfvres.contains("valid")&&!pdfvres.contains("invalid"));
 		assertEquals(true, xmlvres.contains("valid")&&!xmlvres.contains("invalid"));
-			
+
+				
+		tempFile = getResourceAsFile("validV1WithAdditionalData.pdf");// need a more invalid file here
+		
+		pv.setFilename(tempFile.getAbsolutePath());
+		pv.validate();
+		pdfvres=pv.getXMLResult();
+		
+		xv = new XMLValidator(vc);
+		
+		xv.setStringContent(pv.getRawXML());
+		xv.validate();
+		xmlvres=xv.getXMLResult();
+		
+		assertEquals(true, pdfvres.contains("valid")&&!pdfvres.contains("invalid"));
+		assertEquals(true, xmlvres.contains("valid")&&!xmlvres.contains("invalid"));
+		
 	}
 	
 	public void testXMPValidation() {

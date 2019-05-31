@@ -9,7 +9,8 @@ afrelationship minimum und basic wl data
 
 ZUGFeRD 2 final compatible
 now displaying number of applied and failed rules
-now failing if no rule applied
+now failing if no rule could be applied at all
+
 profileoverride option no longer needed
 version dependent checks for profiles (i.e. comfort is not a valid ZF2 profile!)
 allow new ZF2 filename (zugferd-invoice.xml instead ZUGFeRD-invoice.xml)
