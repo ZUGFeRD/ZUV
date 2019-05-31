@@ -8,7 +8,6 @@
 * profileoverride option no longer needed
 * version dependent checks for profiles (i.e. comfort is not a valid ZF2 profile!)
 * allow new ZF2 filename (zugferd-invoice.xml instead ZUGFeRD-invoice.xml)
-* confirm ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ID matches PDF/A Schema extensions
 * more JUnit tests
 * include own version number in XML report
 
