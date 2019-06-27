@@ -113,7 +113,6 @@ public class XMLValidator extends Validator {
 		int firedRules=0;
 		int failedRules=0;
 
-		validateSchema();
 		
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(zfXML.getBytes(StandardCharsets.UTF_8));
 
@@ -196,10 +195,16 @@ public class XMLValidator extends Validator {
 
 					isExtended = context.getProfile().contains("extended");
 					if (isMiniumum) {
+						validateSchema("BASIC");
+						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
 					} else if (isEN16931) {
+						validateSchema("EN16931");
+						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
 					} else if (isExtended) {
+						validateSchema("EXTENDED");
+						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
 					} /*
 						 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
@@ -322,8 +327,8 @@ public class XMLValidator extends Validator {
 				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
 	}
-	protected void validateSchema() {
-		URL schemaFile = ClassLoader.getSystemResource("schema/EN16931/zugferd2p0_en16931.xsd");
+	protected void validateSchema(String path) {
+		URL schemaFile = ClassLoader.getSystemResource("schema/"+path+"/zugferd2p0_en16931.xsd");
 		Source xmlFile = new StreamSource(new StringReader(zfXML));
 		SchemaFactory schemaFactory = SchemaFactory
 		    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

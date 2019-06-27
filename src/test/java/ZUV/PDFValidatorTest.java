@@ -86,7 +86,7 @@ public class PDFValidatorTest extends ResourceCase  {
 		xmlvres=xv.getXMLResult();
 		
 		assertEquals(true, pdfvres.contains("valid")&&!pdfvres.contains("invalid"));
-//@todo		assertEquals(true, xmlvres.contains("valid")&&!xmlvres.contains("invalid"));
+		assertEquals(true, xmlvres.contains("valid")&&!xmlvres.contains("invalid"));
 		
 	}
 	
