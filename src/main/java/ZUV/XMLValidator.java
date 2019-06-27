@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,9 +15,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -31,6 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
@@ -107,6 +113,8 @@ public class XMLValidator extends Validator {
 		int firedRules=0;
 		int failedRules=0;
 
+		validateSchema();
+		
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(zfXML.getBytes(StandardCharsets.UTF_8));
 
 		if (zfXML.isEmpty()) {
@@ -313,6 +321,23 @@ public class XMLValidator extends Validator {
 				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid") + 
 				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
+	}
+	protected void validateSchema() {
+		URL schemaFile = ClassLoader.getSystemResource("schema/EN16931/zugferd2p0_en16931.xsd");
+		Source xmlFile = new StreamSource(new StringReader(zfXML));
+		SchemaFactory schemaFactory = SchemaFactory
+		    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		try {
+		  Schema schema = schemaFactory.newSchema(schemaFile);
+		  javax.xml.validation.Validator validator = schema.newValidator();
+		  validator.validate(xmlFile);
+		} catch (SAXException e) {
+			context.addResultItem(new ValidationResultItem(ESeverity.error, "schema validation fails:"+e).setSection(18)
+					.setPart(EPart.xml));
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		
 	}
 
 }
