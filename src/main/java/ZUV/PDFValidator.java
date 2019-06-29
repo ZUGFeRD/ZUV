@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -292,6 +293,15 @@ public class PDFValidator extends Validator {
 		} catch (UnsupportedEncodingException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
+
+		// step 4:validate additional data
+		HashMap<String, byte[]> additionalData=zi.getAdditionalData();
+		for (String filename : additionalData.keySet()) {
+			// validating xml in byte[]	additionalData.get(filename)
+		}
+		
+		
+		//end
 
 		long endTime = Calendar.getInstance().getTimeInMillis();
 

@@ -23,6 +23,12 @@ public class Main {
 	static final ClassLoader cl = Main.class.getClassLoader();
 	private Vector<ValidationResultItem> results;
 	protected ValidationContext context = new ValidationContext();
+	private long startTime;
+	private boolean optionsRecognized;
+	private String sha1Checksum;
+	private boolean pdfValidity;
+	private String Signature;
+	private boolean displayXMLValidationOutput;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
 																									// ignored for the
@@ -30,7 +36,7 @@ public class Main {
 
 	public void run(String[] args) {
 
-		long startTime = Calendar.getInstance().getTimeInMillis();
+		startTime = Calendar.getInstance().getTimeInMillis();
 		results = new Vector<ValidationResultItem>();
 		/***
 		 * prerequisite is a mvn generate-resources
@@ -44,8 +50,8 @@ public class Main {
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
 
-		boolean optionsRecognized = false;
-		boolean displayXMLValidationOutput = false;
+		optionsRecognized = false;
+		displayXMLValidationOutput = false;
 
 		try {
 			parser.parse(args);
@@ -55,8 +61,7 @@ public class Main {
 		}
 
 		Boolean helpRequested = parser.getOptionValue(helpOption);
-		boolean pdfValidity = true;
-		boolean xmlValidity = true;
+		pdfValidity = true;
 		
 		if (parser.getOptionValue(licenseOption) != null) {
 			optionsRecognized = true;
@@ -83,77 +88,13 @@ public class Main {
 		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
 			System.err.println("Need writable subdirectory 'log' for log files.");
 		}
-		String Signature = "no PDF";
-		String sha1Checksum = "";
+		Signature = "no PDF";
+		sha1Checksum = "";
 
 		if ((action != null) && (action.equals("validate"))) {
 
-			System.out.println("<validation>");
-
-			PDFValidator pdfv = new PDFValidator(context);
-			if (pdfFileName != null) {
-				pdfv.setFilename(pdfFileName);
-				pdfv.validate();
-
-				optionsRecognized = true;
-				File file = new File(pdfFileName);
-				if (!file.exists()) {
-					results.add(new ValidationResultItem(ESeverity.exception, "File not found").setSection(1));
-					LOGGER.error("Error 1: PDF file " + pdfFileName + " not found");
-
-				}
-
-				sha1Checksum = calcSHA1(file);
-
-				System.out.println("<pdf>");
-				// Validate PDF
-
-				System.out.println(pdfv.getXMLResult());
-				pdfValidity = context.isValid();
-				Signature=context.getSignature();
-				context.clear();
-				System.out.println("</pdf>\n");
-
-			}
-
-			XMLValidator xv = new XMLValidator(context);
-
-			if (xmlFileName != null) {
-				optionsRecognized = true;
-				xv.setFilename(xmlFileName);
-				File file = new File(xmlFileName);
-
-				if (file.exists()) {
-					sha1Checksum = calcSHA1(file);
-				} 
-				displayXMLValidationOutput=true;
-				
-			} else {
-				if (pdfv.getRawXML()!=null) {
-					xv.setStringContent(pdfv.getRawXML());
-					displayXMLValidationOutput=true;	
-				} else {
-					//no XML found. This could also be an error.
-				}
-			}
-
-			if ((optionsRecognized)&&(displayXMLValidationOutput)) {
-				System.out.println("<xml>");
-				xv.validate();
-				System.out.println(xv.getXMLResult());
-				System.out.println("</xml>");
-
-			}
-
-			
-			System.out.println("</validation>");
-			xmlValidity=context.isValid();
-			long duration=Calendar.getInstance().getTimeInMillis()-startTime;
-			
-			LOGGER.info("Parsed PDF:"+(pdfValidity?"valid":"invalid")+" XML:"+(xmlValidity?"valid":"invalid")+" Signature:"+Signature+" Checksum:"+sha1Checksum+" Profile:"+context.getProfile()+" Version:"+context.getVersion()+ " Took:"+duration+"ms");
-			if ((!pdfValidity)||(!xmlValidity)) {
-				System.exit(-1);
-			}
+			optionsRecognized = performValidation(
+					pdfFileName, xmlFileName);
 		}
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
@@ -162,6 +103,77 @@ public class Main {
 			System.exit(-1);
 		}
 
+	}
+
+	private boolean performValidation(String pdfFileName, String xmlFileName) {
+		boolean xmlValidity;
+		System.out.println("<validation>");
+
+		PDFValidator pdfv = new PDFValidator(context);
+		if (pdfFileName != null) {
+			pdfv.setFilename(pdfFileName);
+			pdfv.validate();
+
+			optionsRecognized = true;
+			File file = new File(pdfFileName);
+			if (!file.exists()) {
+				results.add(new ValidationResultItem(ESeverity.exception, "File not found").setSection(1));
+				LOGGER.error("Error 1: PDF file " + pdfFileName + " not found");
+
+			}
+
+			sha1Checksum = calcSHA1(file);
+
+			System.out.println("<pdf>");
+			// Validate PDF
+
+			System.out.println(pdfv.getXMLResult());
+			pdfValidity = context.isValid();
+			Signature=context.getSignature();
+			context.clear();
+			System.out.println("</pdf>\n");
+
+		}
+
+		XMLValidator xv = new XMLValidator(context);
+
+		if (xmlFileName != null) {
+			optionsRecognized = true;
+			xv.setFilename(xmlFileName);
+			File file = new File(xmlFileName);
+
+			if (file.exists()) {
+				sha1Checksum = calcSHA1(file);
+			} 
+			displayXMLValidationOutput=true;
+			
+		} else {
+			if (pdfv.getRawXML()!=null) {
+				xv.setStringContent(pdfv.getRawXML());
+				displayXMLValidationOutput=true;	
+			} else {
+				//no XML found. This could also be an error.
+			}
+		}
+
+		if ((optionsRecognized)&&(displayXMLValidationOutput)) {
+			System.out.println("<xml>");
+			xv.validate();
+			System.out.println(xv.getXMLResult());
+			System.out.println("</xml>");
+
+		}
+
+		
+		System.out.println("</validation>");
+		xmlValidity=context.isValid();
+		long duration=Calendar.getInstance().getTimeInMillis()-startTime;
+		
+		LOGGER.info("Parsed PDF:"+(pdfValidity?"valid":"invalid")+" XML:"+(xmlValidity?"valid":"invalid")+" Signature:"+Signature+" Checksum:"+sha1Checksum+" Profile:"+context.getProfile()+" Version:"+context.getVersion()+ " Took:"+duration+"ms");
+		if ((!pdfValidity)||(!xmlValidity)) {
+			System.exit(-1);
+		}
+		return optionsRecognized;
 	}
 
 	public static void main(String[] args) {
