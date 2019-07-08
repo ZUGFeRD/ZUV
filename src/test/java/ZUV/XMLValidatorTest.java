@@ -44,12 +44,19 @@ public class XMLValidatorTest extends ResourceCase  {
 	public void testZF1XMLValidation() {
 		ValidationContext ctx=new ValidationContext();
 		XMLValidator xv = new XMLValidator(ctx);
-		File tempFile = getResourceAsFile("invalidV1TooMinimal.xml");
-
+		File tempFile = getResourceAsFile("validV1.xml");
 		xv.setFilename(tempFile.getAbsolutePath());
-		
 		xv.validate();
-				
+		assertEquals(true, xv.getXMLResult().contains("valid")&&!xv.getXMLResult().contains("invalid"));
+		
+		tempFile = getResourceAsFile("invalidV1ExtraTags.xml");
+		xv.setFilename(tempFile.getAbsolutePath());
+		xv.validate();
+		assertEquals(true, xv.getXMLResult().contains("invalid"));
+
+		tempFile = getResourceAsFile("invalidV1TooMinimal.xml");
+		xv.setFilename(tempFile.getAbsolutePath());
+		xv.validate();
 		assertEquals(true, xv.getXMLResult().contains("<error type=\"26\""));
 	
 

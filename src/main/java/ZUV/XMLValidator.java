@@ -195,15 +195,15 @@ public class XMLValidator extends Validator {
 
 					isExtended = context.getProfile().contains("extended");
 					if (isMiniumum) {
-						validateSchema("BASIC");
+						validateSchema("zf2/BASIC/zugferd2p0_basicwl_minimum.xsd");
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
 					} else if (isEN16931) {
-						validateSchema("EN16931");
+						validateSchema("zf2/EN16931/zugferd2p0_en16931.xsd");
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
 					} else if (isExtended) {
-						validateSchema("EXTENDED");
+						validateSchema("zf2/EXTENDED/zugferd2p0_extended.xsd");
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
 					} /*
@@ -227,6 +227,8 @@ public class XMLValidator extends Validator {
 						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
 								.setSection(25).setPart(EPart.xml));
 					}
+					validateSchema("zf1/ZUGFeRD1p0.xsd");
+					
 					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
 
@@ -328,7 +330,7 @@ public class XMLValidator extends Validator {
 
 	}
 	protected void validateSchema(String path) {
-		URL schemaFile = ClassLoader.getSystemResource("schema/"+path+"/zugferd2p0_en16931.xsd");
+		URL schemaFile = ClassLoader.getSystemResource("schema/"+path);
 		Source xmlFile = new StreamSource(new StringReader(zfXML));
 		SchemaFactory schemaFactory = SchemaFactory
 		    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

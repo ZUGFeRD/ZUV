@@ -153,6 +153,7 @@ public class Main {
 				displayXMLValidationOutput=true;	
 			} else {
 				//no XML found. This could also be an error.
+				LOGGER.error("No XML could be extracted");
 			}
 		}
 

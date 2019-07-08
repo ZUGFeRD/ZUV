@@ -1,3 +1,10 @@
+0.8.0
+======
+2019-07-08
+
+* updated Mustang to mitigate #20 zf1 validation does not always return a <xml> section
+* validate not only against *schematron* but also against *schema* files
+
 0.7.0
 ======
 2019-05-31
