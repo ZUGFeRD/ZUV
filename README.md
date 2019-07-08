@@ -18,7 +18,14 @@ Originally this was intended as VeraPDF plugin in which case you had to install 
 
 ## Run
 
-`java -jar target/ZUV-0.4.2-SNAPSHOT.jar -f <filename of ZUGFeRD PDF.pdf>`
+To check a PDF file for ZUGFEeRD conformance use
+
+`java -jar ZUV-0.7.0.jar --action validate -z <filename of ZUGFeRD PDF.pdf>`
+
+If you just want to check an XML file use
+
+`java -jar ZUV-0.7.0.jar --action validate -x <filename of ZUGFeRD invoice.xml>`
+
 
 
 ## Output
