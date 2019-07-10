@@ -1,5 +1,6 @@
 package ZUV;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -14,9 +16,14 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -301,6 +308,8 @@ public class PDFValidator extends Validator {
 		HashMap<String, byte[]> additionalData=zi.getAdditionalData();
 		for (String filename : additionalData.keySet()) {
 			// validating xml in byte[]	additionalData.get(filename)
+			LOGGER.info("validating additionalData " + filename);
+			validateSchema(additionalData.get(filename), "ad/basic/additional_data_base_schema.xsd");
 		}
 		
 		
@@ -319,6 +328,23 @@ public class PDFValidator extends Validator {
 		context.addCustomXML(pdfReport + "<info><signature>"
 				+ ((context.getSignature() != null) ? context.getSignature() : "unknown")
 				+ "</signature><validation><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></validation></info>");
+
+	}
+
+	protected void validateSchema(byte[] xmlRawData, String schemaPath) {
+		URL schemaFile = ClassLoader.getSystemResource("schema/" + schemaPath);
+		Source xmlData = new StreamSource(new ByteArrayInputStream(xmlRawData));
+		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		try {
+			Schema schema = schemaFactory.newSchema(schemaFile);
+			javax.xml.validation.Validator validator = schema.newValidator();
+			validator.validate(xmlData);
+		} catch (SAXException e) {
+			context.addResultItem(new ValidationResultItem(ESeverity.error, "schema validation fails:" + e)
+					.setSection(18).setPart(EPart.xml));
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
 
 	}
 
