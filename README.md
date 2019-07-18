@@ -1,12 +1,12 @@
 # ZUV
-ZUV (ZUgferd+[VeraPDF](http://VeraPDF.org)) is a open-source e-invoice validator for the [ZUGFeRD](https://www.ferd-net.de/zugferd/specification/index.html)/[Factur-X](http://fnfe-mpe.org/factur-x/) standard.
+ZUV (ZUgferd+[VeraPDF](http://VeraPDF.org)) is an open-source e-invoice validator for the [ZUGFeRD](https://www.ferd-net.de/zugferd/specification/index.html)/[Factur-X](http://fnfe-mpe.org/factur-x/) standard.
 
-It checks both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2 (EN16931 profile only) XML for correctness.
+It checks both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2 (EN16931 profile only) XMLs for correctness.
 The XML check is done by validating against the official ZUGFeRD schematron file for v1 and the EN16931 UN/CEFACT SCRDM v16B uncoupled schematron from the [CEN](https://github.com/CenPC434/validation).
 
 
 ## Build
-compile with `/opt/local/bin/mvn clean package`
+In the pom.xml directory compile the jar with `/opt/local/bin/mvn clean package`
 
 java -jar ./saxon9he.jar -o:minimum.xsl -s:ZUGFeRD20/Schema/BASIC\ und\ MINIMUM/zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl 
 
@@ -14,7 +14,7 @@ java -jar ./saxon9he.jar -o:minimum.xsl -s:ZUGFeRD20/Schema/BASIC\ und\ MINIMUM/
       
 ## Install
 
-Originally this was intended as VeraPDF plugin in which case you had to install a VeraPDF. Due to deployment issues we switched from ZUV being embedded in VeraPDF to VeraPDF being embedded into UV.
+Originally this was intended as VeraPDF plugin in which case you had to install a VeraPDF. Due to deployment issues we switched from ZUV being embedded in VeraPDF to VeraPDF being embedded into ZUV.
 
 ## Run
 
