@@ -285,7 +285,7 @@ public class XMLValidator extends Validator {
 								FailedAssert failedAssert = (FailedAssert) object;
 
 								context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
-										.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest())
+										.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(4)
 										.setPart(EPart.xml));
 								failedRules++;
 							} else if (object instanceof FiredRule) {

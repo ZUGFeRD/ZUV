@@ -1,3 +1,6 @@
+* added Signature pdfMachine
+* added check for additional data correctness
+
 0.8.0
 ======
 2019-07-08

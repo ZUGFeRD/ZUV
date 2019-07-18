@@ -331,6 +331,12 @@ public class PDFValidator extends Validator {
 
 	}
 
+	/***
+	 * validates a schema, used for additional data, which can only be done in pdf validation (because multiple AD can be present in one PDF)
+	 * the usual schema validation is done in XMLvalidator
+	 * @param xmlRawData
+	 * @param schemaPath
+	 */
 	protected void validateSchema(byte[] xmlRawData, String schemaPath) {
 		URL schemaFile = ClassLoader.getSystemResource("schema/" + schemaPath);
 		Source xmlData = new StreamSource(new ByteArrayInputStream(xmlRawData));
@@ -340,8 +346,8 @@ public class PDFValidator extends Validator {
 			javax.xml.validation.Validator validator = schema.newValidator();
 			validator.validate(xmlData);
 		} catch (SAXException e) {
-			context.addResultItem(new ValidationResultItem(ESeverity.error, "schema validation fails:" + e)
-					.setSection(18).setPart(EPart.xml));
+			context.addResultItem(new ValidationResultItem(ESeverity.error, "additional data schema validation fails:" + e)
+					.setSection(2).setPart(EPart.xml));
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}

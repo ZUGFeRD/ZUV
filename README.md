@@ -81,6 +81,33 @@ exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.8.0.jar --action validate -
 ## License
 
 Permissive Open Source APL2, see LICENSE
+
+## Codes
+
+| section  | meaning  |
+|---|---|
+| 1  | file not found  |
+| 2  | additional data schema validation fails  |
+| 3  | xml data not found  |
+| 4  | schematron rule failed  |
+| 6  | VeraPDFException |
+| 7  | IOException PDF  |
+| 9  | IOException XML  |
+| 11  | XMP Metadata: ConformanceLevel not found  |
+| 12  | XMP Metadata: ConformanceLevel contains invalid value  |
+| 13  | XMP Metadata: DocumentType not found  |
+| 14  | XMP Metadata: DocumentType invalid  |
+| 15  | XMP Metadata: Version not found  |
+| 16  | XMP Metadata: Version contains invalid value  |
+| 18  | schema validation failed  |
+| 19  | XMP Metadata: DocumentFileName contains invalid value  |
+| 20  | not a pdf  |
+| 21  | XMP Metadata: DocumentFileName not found")  |
+| 22  | generic XML validation exception  |
+| 23  | Not a PDF/A-3  |
+| 25  | Unsupported profile type  |
+| 26  | No rules matched, XML to minimal?  |
+
 ## History
 
   * 0.8.0 (2019-07-08) XML validation not only against *schematron* but also against *schema* files
