@@ -195,15 +195,15 @@ public class XMLValidator extends Validator {
 
 					isExtended = context.getProfile().contains("extended");
 					if (isMiniumum) {
-						validateSchema("zf2/BASIC/zugferd2p0_basicwl_minimum.xsd");
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/zugferd2p0_basicwl_minimum.xsd", 18, EPart.xml);
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
 					} else if (isEN16931) {
-						validateSchema("zf2/EN16931/zugferd2p0_en16931.xsd");
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/zugferd2p0_en16931.xsd", 18, EPart.xml);
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
 					} else if (isExtended) {
-						validateSchema("zf2/EXTENDED/zugferd2p0_extended.xsd");
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/zugferd2p0_extended.xsd", 18, EPart.xml);
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
 					} /*
@@ -227,7 +227,7 @@ public class XMLValidator extends Validator {
 						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
 								.setSection(25).setPart(EPart.xml));
 					}
-					validateSchema("zf1/ZUGFeRD1p0.xsd");
+					validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf1/ZUGFeRD1p0.xsd", 18, EPart.xml);
 					
 					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
@@ -328,23 +328,6 @@ public class XMLValidator extends Validator {
 				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid") + 
 				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
-	}
-	protected void validateSchema(String path) {
-		URL schemaFile = ClassLoader.getSystemResource("schema/"+path);
-		Source xmlFile = new StreamSource(new StringReader(zfXML));
-		SchemaFactory schemaFactory = SchemaFactory
-		    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		try {
-		  Schema schema = schemaFactory.newSchema(schemaFile);
-		  javax.xml.validation.Validator validator = schema.newValidator();
-		  validator.validate(xmlFile);
-		} catch (SAXException e) {
-			context.addResultItem(new ValidationResultItem(ESeverity.error, "schema validation fails:"+e).setSection(18)
-					.setPart(EPart.xml));
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-		
 	}
 
 }

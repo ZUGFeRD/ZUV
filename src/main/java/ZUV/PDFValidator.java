@@ -309,7 +309,7 @@ public class PDFValidator extends Validator {
 		for (String filename : additionalData.keySet()) {
 			// validating xml in byte[]	additionalData.get(filename)
 			LOGGER.info("validating additionalData " + filename);
-			validateSchema(additionalData.get(filename), "ad/basic/additional_data_base_schema.xsd");
+			validateSchema(additionalData.get(filename), "ad/basic/additional_data_base_schema.xsd", 2, EPart.pdf);
 		}
 		
 		
@@ -331,29 +331,7 @@ public class PDFValidator extends Validator {
 
 	}
 
-	/***
-	 * validates a schema, used for additional data, which can only be done in pdf validation (because multiple AD can be present in one PDF)
-	 * the usual schema validation is done in XMLvalidator
-	 * @param xmlRawData
-	 * @param schemaPath
-	 */
-	protected void validateSchema(byte[] xmlRawData, String schemaPath) {
-		URL schemaFile = ClassLoader.getSystemResource("schema/" + schemaPath);
-		Source xmlData = new StreamSource(new ByteArrayInputStream(xmlRawData));
-		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		try {
-			Schema schema = schemaFactory.newSchema(schemaFile);
-			javax.xml.validation.Validator validator = schema.newValidator();
-			validator.validate(xmlData);
-		} catch (SAXException e) {
-			context.addResultItem(new ValidationResultItem(ESeverity.error, "additional data schema validation fails:" + e)
-					.setSection(2).setPart(EPart.xml));
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-
-	}
-
+	
 	@Override
 	public void setFilename(String filename) {
 		this.pdfFilename = filename;
