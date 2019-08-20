@@ -1,6 +1,7 @@
 * added Signature pdfMachine
 * added check for additional data correctness
 * #23
+* Merged -x and -z to -f
 
 0.8.0
 ======

@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+import org.riversun.bigdoc.bin.BigFileSearcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +45,7 @@ public class Main {
 
 		CmdLineParser parser = new CmdLineParser();
 		Option<String> actionOption = parser.addStringOption('a', "action");
-		Option<String> pdfFilenameOption = parser.addStringOption('z', "ZUGFeRDfilename");
-		Option<String> xmlFilenameOption = parser.addStringOption('x', "XMLfilename");
+		Option<String> filenameOption = parser.addStringOption('f', "Filename");
 
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
@@ -81,8 +81,7 @@ public class Main {
 
 			System.exit(0);
 		}
-		String pdfFileName = parser.getOptionValue(pdfFilenameOption);
-		String xmlFileName = parser.getOptionValue(xmlFilenameOption);
+		String filename = parser.getOptionValue(filenameOption);
 		String action = parser.getOptionValue(actionOption);
 		File logdir = new File("log");
 		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
@@ -94,31 +93,42 @@ public class Main {
 		if ((action != null) && (action.equals("validate"))) {
 
 			optionsRecognized = performValidation(
-					pdfFileName, xmlFileName);
+					filename);
 		}
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
 			System.out.println(
-					"usage: --action validate -z <ZUGFeRD PDF Filename.pdf>|-x <ZUGFeRD XML Filename.xml> [-l (shows license)]");
+					"usage: --action validate -f <ZUGFeRD PDF Filename.pdf>|<ZUGFeRD XML Filename.xml> [-l (shows license)]");
 			System.exit(-1);
 		}
 
 	}
 
-	private boolean performValidation(String pdfFileName, String xmlFileName) {
+	private boolean performValidation(String filename) {
 		boolean xmlValidity;
 		System.out.println("<validation>");
 
 		PDFValidator pdfv = new PDFValidator(context);
-		if (pdfFileName != null) {
-			pdfv.setFilename(pdfFileName);
+		File file = new File(filename);
+		if (!file.exists()) {
+			context.addResultItem(
+					new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.pdf));
+			LOGGER.error("Error 1: file " + filename + " not found");
+			return false;
+		}
+		BigFileSearcher searcher = new BigFileSearcher();
+		XMLValidator xv = new XMLValidator(context);
+
+		byte[] pdfSignature = { '%', 'P', 'D', 'F' };
+		boolean isPDF=searcher.indexOf(file, pdfSignature) == 0;
+		if (isPDF) {
+			pdfv.setFilename(filename);
 			pdfv.validate();
 
 			optionsRecognized = true;
-			File file = new File(pdfFileName);
 			if (!file.exists()) {
 				results.add(new ValidationResultItem(ESeverity.exception, "File not found").setSection(1));
-				LOGGER.error("Error 1: PDF file " + pdfFileName + " not found");
+				LOGGER.error("Error 1: PDF file " + filename + " not found");
 
 			}
 
@@ -132,22 +142,6 @@ public class Main {
 			Signature=context.getSignature();
 			context.clear();
 			System.out.println("</pdf>\n");
-
-		}
-
-		XMLValidator xv = new XMLValidator(context);
-
-		if (xmlFileName != null) {
-			optionsRecognized = true;
-			xv.setFilename(xmlFileName);
-			File file = new File(xmlFileName);
-
-			if (file.exists()) {
-				sha1Checksum = calcSHA1(file);
-			} 
-			displayXMLValidationOutput=true;
-			
-		} else {
 			if (pdfv.getRawXML()!=null) {
 				xv.setStringContent(pdfv.getRawXML());
 				displayXMLValidationOutput=true;	
@@ -155,8 +149,15 @@ public class Main {
 				//no XML found. This could also be an error.
 				LOGGER.error("No XML could be extracted");
 			}
-		}
-
+		} else {
+			optionsRecognized = true;
+			xv.setFilename(filename);
+			if (file.exists()) {
+				sha1Checksum = calcSHA1(file);
+			} 
+			displayXMLValidationOutput=true;
+			
+		} 
 		if ((optionsRecognized)&&(displayXMLValidationOutput)) {
 			System.out.println("<xml>");
 			xv.validate();
