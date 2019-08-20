@@ -1,5 +1,6 @@
 * added Signature pdfMachine
 * added check for additional data correctness
+* #23
 
 0.8.0
 ======

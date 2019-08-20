@@ -642,6 +642,7 @@
   </xs:complexType>
   <xs:simpleType name="DocumentCodeContentType">
     <xs:restriction base="xs:token">
+      <xs:enumeration value="380"/>
       <xs:enumeration value="751"/>
     </xs:restriction>
   </xs:simpleType>
