@@ -178,6 +178,7 @@ public class XMLValidator extends Validator {
 					context.setProfile(booking.getNodeValue());
 				}
 				boolean isMiniumum = false;
+				boolean isBasic = false;
 				boolean isEN16931 = false;
 				boolean isExtended = false;
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
@@ -189,7 +190,8 @@ public class XMLValidator extends Validator {
 				if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0 or Factur-X
 					context.setVersion("2");
 
-					isMiniumum = context.getProfile().contains("minimum") || context.getProfile().contains("basic");
+					isMiniumum = context.getProfile().contains("minimum");
+					isBasic = context.getProfile().contains("basic");
 					isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
 							|| context.getProfile().equals("urn:cen.eu:en16931:2017");
 
@@ -198,7 +200,7 @@ public class XMLValidator extends Validator {
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/zugferd2p0_basicwl_minimum.xsd", 18, EPart.xml);
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
-					} else if (isEN16931) {
+					} else if ((isBasic)||(isEN16931)) {
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/zugferd2p0_en16931.xsd", 18, EPart.xml);
 						
 						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
