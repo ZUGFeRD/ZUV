@@ -24,14 +24,12 @@ Originally this was intended as VeraPDF plugin in which case you had to install 
 
 ## Run
 
-To check a PDF file for ZUGFEeRD conformance use
+To check a file for ZUGFeRD conformance use
 
-`java -jar ZUV-0.8.0.jar --action validate -z <filename of ZUGFeRD PDF.pdf>`
+`java -jar ZUV-0.8.1.jar --action validate -f <filename of ZUGFeRD PDF.pdf>`
 
-If you just want to check an XML file use
-
-`java -jar ZUV-0.8.0.jar --action validate -x <filename of ZUGFeRD invoice.xml>`
-
+You can provide either the complete PDF which will be checked for XML and PDF correctness, or just a XML file, which of course
+will only be checked for XML correctness.
 
 
 ## Output
@@ -78,7 +76,7 @@ Feel free to embed this into your java software, send me a PR to use it as a lib
 
 For exec, you might try something like  
 ```
-exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.8.0.jar --action validate -z '.escapeshellarg($uploadfile).' 2>/dev/null', $output);
+exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.8.1.jar --action validate -f '.escapeshellarg($uploadfile).' 2>/dev/null', $output);
 ```
 * Redirecting stderr away (some logging messages might otherwise disturb XML well formedness)
 * Escaping any file names in case you use original file names at all (apart from security concerns please take into account that they might contain spaces)
@@ -117,6 +115,8 @@ Permissive Open Source APL2, see LICENSE
 | 26  | No rules matched, XML to minimal?  |
 
 ## History
+
+  * 0.8.1 (2019-09-01) Merged -x and -z to -f, added check for additional data correctness, #23
 
   * 0.8.0 (2019-07-08) XML validation not only against *schematron* but also against *schema* files
 
