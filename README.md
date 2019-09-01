@@ -96,8 +96,10 @@ Permissive Open Source APL2, see LICENSE
 | 2  | additional data schema validation fails  |
 | 3  | xml data not found  |
 | 4  | schematron rule failed  |
+| 5  | file too small  |
 | 6  | VeraPDFException |
 | 7  | IOException PDF  |
+| 8  | File does not look like PDF nor XML (contains neither %PDF nor <?xml)  |
 | 9  | IOException XML  |
 | 11  | XMP Metadata: ConformanceLevel not found  |
 | 12  | XMP Metadata: ConformanceLevel contains invalid value  |
