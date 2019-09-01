@@ -96,6 +96,7 @@ Permissive Open Source APL2, see LICENSE
 | 2  | additional data schema validation fails  |
 | 3  | xml data not found  |
 | 4  | schematron rule failed  |
+| 5  | file too small  |
 | 6  | VeraPDFException |
 | 7  | IOException PDF  |
 | 9  | IOException XML  |
