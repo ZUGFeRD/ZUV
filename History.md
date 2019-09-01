@@ -1,7 +1,8 @@
 * added Signature pdfMachine
 * added check for additional data correctness
-* #23
+* #23 ZF2 basic was incorrectly checked against Minimum/Basic Without lines Schema/Schematron
 * Merged -x and -z to -f
+* Created ZUGFeRDValidatorClass and MiscValidatorTests for e.g. tests without existing files
 
 0.8.0
 ======

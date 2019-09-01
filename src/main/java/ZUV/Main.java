@@ -22,14 +22,6 @@ import com.sanityinc.jargs.CmdLineParser.Option;
 public class Main {
 
 	static final ClassLoader cl = Main.class.getClassLoader();
-	private Vector<ValidationResultItem> results;
-	protected ValidationContext context = new ValidationContext();
-	private long startTime;
-	private boolean optionsRecognized;
-	private String sha1Checksum;
-	private boolean pdfValidity;
-	private String Signature;
-	private boolean displayXMLValidationOutput;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getCanonicalName()); // log output is
 																									// ignored for the
@@ -37,8 +29,6 @@ public class Main {
 
 	public void run(String[] args) {
 
-		startTime = Calendar.getInstance().getTimeInMillis();
-		results = new Vector<ValidationResultItem>();
 		/***
 		 * prerequisite is a mvn generate-resources
 		 */
@@ -50,8 +40,7 @@ public class Main {
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
 
-		optionsRecognized = false;
-		displayXMLValidationOutput = false;
+		boolean optionsRecognized = false;
 
 		try {
 			parser.parse(args);
@@ -61,7 +50,6 @@ public class Main {
 		}
 
 		Boolean helpRequested = parser.getOptionValue(helpOption);
-		pdfValidity = true;
 		
 		if (parser.getOptionValue(licenseOption) != null) {
 			optionsRecognized = true;
@@ -87,13 +75,16 @@ public class Main {
 		if (!logdir.exists() || !logdir.isDirectory() || !logdir.canWrite()) {
 			System.err.println("Need writable subdirectory 'log' for log files.");
 		}
-		Signature = "no PDF";
-		sha1Checksum = "";
 
 		if ((action != null) && (action.equals("validate"))) {
+			ZUGFeRDValidator zfv=new ZUGFeRDValidator();
+			System.out.println(zfv.validate(filename));
 
-			optionsRecognized = performValidation(
-					filename);
+			optionsRecognized = optionsRecognized&&(!zfv.hasOptionsError());
+			if (!zfv.wasCompletelyValid()) {
+				System.exit(-1);
+			}
+
 		}
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
@@ -104,124 +95,9 @@ public class Main {
 
 	}
 
-	private boolean performValidation(String filename) {
-		boolean xmlValidity;
-		System.out.println("<validation>");
-
-		PDFValidator pdfv = new PDFValidator(context);
-		File file = new File(filename);
-		if (!file.exists()) {
-			context.addResultItem(
-					new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.pdf));
-			LOGGER.error("Error 1: file " + filename + " not found");
-			return false;
-		}
-		BigFileSearcher searcher = new BigFileSearcher();
-		XMLValidator xv = new XMLValidator(context);
-
-		byte[] pdfSignature = { '%', 'P', 'D', 'F' };
-		boolean isPDF=searcher.indexOf(file, pdfSignature) == 0;
-		if (isPDF) {
-			pdfv.setFilename(filename);
-			pdfv.validate();
-
-			optionsRecognized = true;
-			if (!file.exists()) {
-				results.add(new ValidationResultItem(ESeverity.exception, "File not found").setSection(1));
-				LOGGER.error("Error 1: PDF file " + filename + " not found");
-
-			}
-
-			sha1Checksum = calcSHA1(file);
-
-			System.out.println("<pdf>");
-			// Validate PDF
-
-			System.out.println(pdfv.getXMLResult());
-			pdfValidity = context.isValid();
-			Signature=context.getSignature();
-			context.clear();
-			System.out.println("</pdf>\n");
-			if (pdfv.getRawXML()!=null) {
-				xv.setStringContent(pdfv.getRawXML());
-				displayXMLValidationOutput=true;	
-			} else {
-				//no XML found. This could also be an error.
-				LOGGER.error("No XML could be extracted");
-			}
-		} else {
-			optionsRecognized = true;
-			xv.setFilename(filename);
-			if (file.exists()) {
-				sha1Checksum = calcSHA1(file);
-			} 
-			displayXMLValidationOutput=true;
-			
-		} 
-		if ((optionsRecognized)&&(displayXMLValidationOutput)) {
-			System.out.println("<xml>");
-			xv.validate();
-			System.out.println(xv.getXMLResult());
-			System.out.println("</xml>");
-
-		}
-
-		
-		System.out.println("</validation>");
-		xmlValidity=context.isValid();
-		long duration=Calendar.getInstance().getTimeInMillis()-startTime;
-		
-		LOGGER.info("Parsed PDF:"+(pdfValidity?"valid":"invalid")+" XML:"+(xmlValidity?"valid":"invalid")+" Signature:"+Signature+" Checksum:"+sha1Checksum+" Profile:"+context.getProfile()+" Version:"+context.getVersion()+ " Took:"+duration+"ms");
-		if ((!pdfValidity)||(!xmlValidity)) {
-			System.exit(-1);
-		}
-		return optionsRecognized;
-	}
-
 	public static void main(String[] args) {
 		new Main().run(args);
 	}
 
-	/**
-	 * Read the file and calculate the SHA-1 checksum
-	 * 
-	 * @param file
-	 *            the file to read
-	 * @return the hex representation of the SHA-1 using uppercase chars
-	 * @throws FileNotFoundException
-	 *             if the file does not exist, is a directory rather than a regular
-	 *             file, or for some other reason cannot be opened for reading
-	 * @throws IOException
-	 *             if an I/O error occurs
-	 * @throws NoSuchAlgorithmException
-	 *             should never happen
-	 */
-	private static String calcSHA1(File file) {
-		MessageDigest sha1 = null;
-		try {
-
-			sha1 = MessageDigest.getInstance("SHA-1");
-			InputStream input = new FileInputStream(file);
-			byte[] buffer = new byte[8192];
-			int len = input.read(buffer);
-
-			while (len != -1) {
-				sha1.update(buffer, 0, len);
-				len = input.read(buffer);
-			}
-			input.close();
-		} catch (FileNotFoundException e) {
-			LOGGER.error(e.getMessage(), e);
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage(), e);
-		} catch (NoSuchAlgorithmException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-		if (sha1 == null) {
-			return "";
-		} else {
-			return new HexBinaryAdapter().marshal(sha1.digest());
-		}
-	}
 
 }

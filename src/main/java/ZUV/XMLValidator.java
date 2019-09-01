@@ -56,13 +56,7 @@ public class XMLValidator extends Validator {
 
 	public void setFilename(String name) { // from XML Filename
 		filename = name;
-		File file = new File(filename);
-		if (!file.exists()) {
-			context.addResultItem(
-					new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.xml));
-			LOGGER.error("Error 1: XML file " + filename + " not found");
-			return;
-		}
+		// file existence must have been checked before
 
 		try {
 			zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(name)));

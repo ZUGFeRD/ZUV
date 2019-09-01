@@ -79,12 +79,7 @@ public class PDFValidator extends Validator {
 
 		zfXML = null;
 		File file = new File(pdfFilename);
-		if (!file.exists()) {
-			context.addResultItem(
-					new ValidationResultItem(ESeverity.error, "File not found").setSection(1).setPart(EPart.pdf));
-			LOGGER.error("Error 1: PDF file " + pdfFilename + " not found");
-			return;
-		}
+		// file existence must have been checked before
 		BigFileSearcher searcher = new BigFileSearcher();
 
 		byte[] pdfSignature = { '%', 'P', 'D', 'F' };
