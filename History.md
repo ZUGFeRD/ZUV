@@ -1,3 +1,7 @@
+0.8.1
+======
+2019-09-01
+
 * added Signature pdfMachine
 * added check for additional data correctness
 * #23 ZF2 basic was incorrectly checked against Minimum/Basic Without lines Schema/Schematron
