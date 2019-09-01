@@ -14,7 +14,7 @@ public class XMLValidatorTest extends ResourceCase  {
 		xv.validate();
 		
 		
-		/* assertEquals(true, xv.getXMLResult().contains("<error location=\"/*[local-name()='CrossIndustryInvoice']/*[local-name()='SupplyChainTradeTransaction']/*[local-name()='ApplicableHeaderTradeSettlement']/*[local-name()='SpecifiedTradeSettlementHeaderMonetarySummation']\" criterion=\"(ram:LineTotalAmount)\">\n" + 
+		/*assertEquals(true, xv.getXMLResult().contains("<error location=\"/*[local-name()='CrossIndustryInvoice']/*[local-name()='SupplyChainTradeTransaction']/*[local-name()='ApplicableHeaderTradeSettlement']/*[local-name()='SpecifiedTradeSettlementHeaderMonetarySummation']\" criterion=\"(ram:LineTotalAmount)\">\n" + 
 				"	Eine Rechnung (INVOICE) muss die Summe der Rechnungspositionen-Nettobeträge „Sum of Invoice line net amount“ (BT-106) enthalten.</error>\n" + 
 				"<error location=\"/*[local-name()='CrossIndustryInvoice']/*[local-name()='SupplyChainTradeTransaction']/*[local-name()='ApplicableHeaderTradeSettlement']/*[local-name()='SpecifiedTradeSettlementHeaderMonetarySummation']\" criterion=\"(ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount + ram:ChargeTotalAmount) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount + ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))\">\n" + 
 				"	Der Inhalt des Elementes „Invoice total amount without VAT“ (BT-109) entspricht der Summe aller Inhalte der Elemente „Invoice line net amount“ (BT-131) abzüglich der Summe aller in der Rechnung enthaltenen Nachlässe der Dokumentenebene „Sum of allowances on document level“ (BT-107) zuzüglich der Summe aller in der Rechnung enthaltenen Abgaben der Dokumentenebene „Sum of charges on document level“ (BT-108).</error>\n" + 
@@ -31,7 +31,9 @@ public class XMLValidatorTest extends ResourceCase  {
 				"<error location=\"/*[local-name()='CrossIndustryInvoice']/*[local-name()='SupplyChainTradeTransaction']/*[local-name()='IncludedSupplyChainTradeLineItem'][2]/*[local-name()='SpecifiedLineTradeDelivery']/*[local-name()='BilledQuantity']\" criterion=\"document('zugferd2p0_extended_codedb.xml')//cl[@id=7]/enumeration[@value=$codeValue7]\">\n" + 
 				"	Wert von '@unitCode' ist unzulässig.</error>\n" + 
 				"</messages><summary status='invalid'/>"));
-				*/
+		*
+		*/
+		
 		tempFile = getResourceAsFile("invalidV2Profile.xml");
 
 		xv.setFilename(tempFile.getAbsolutePath());
@@ -39,6 +41,12 @@ public class XMLValidatorTest extends ResourceCase  {
 		xv.validate();
 		assertTrue(xv.getXMLResult().contains("<error type=\"25\""));
 
+		ctx.clear();
+		tempFile = getResourceAsFile("validV2Basic.xml");
+		xv.setFilename(tempFile.getAbsolutePath());
+		xv.validate();
+		assertEquals(true, xv.getXMLResult().contains("valid")&&!xv.getXMLResult().contains("invalid"));
+		
 
 	}
 	public void testZF1XMLValidation() {

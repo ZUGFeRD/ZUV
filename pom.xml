@@ -27,7 +27,6 @@
       </repository>
    </repositories>
    <properties>
-      <dropwizard.version>1.1.2</dropwizard.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
    <dependencies>
@@ -71,7 +70,7 @@
       <dependency>
          <groupId>org.mustangproject.ZUGFeRD</groupId>
          <artifactId>mustang</artifactId>
-         <version>1.7.2</version>
+         <version>1.7.4</version>
          <!-- prototypes of new mustangproject versions can be installed by referring to them and installed to the local repo from a jar file with
         mvn install:install-file -Dfile=mustang-1.5.4-SNAPSHOT.jar -DgroupId=org.mustangproject.ZUGFeRD -DartifactId=mustang -Dversion=1.5.4 -Dpackaging=jar -DgeneratePom=true
         -->
@@ -82,21 +81,6 @@
          <artifactId>jargs</artifactId>
          <version>2.0-SNAPSHOT</version>
       </dependency>
-      <!-- <dependency> <groupId>io.dropwizard</groupId> <artifactId>dropwizard-core</artifactId> 
-			<version>${dropwizard.version}</version> </dependency> -->
-      <!-- veraPDF Project dependencies -->
-      <!-- 
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>preflight</artifactId>
-			<version>2.0.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.9</version>
-		</dependency>
- -->
       <dependency>
          <groupId>org.riversun</groupId>
          <artifactId>bigdoc</artifactId>

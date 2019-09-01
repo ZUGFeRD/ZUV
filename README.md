@@ -8,7 +8,13 @@ The XML check is done by validating against the official ZUGFeRD schematron file
 ## Build
 In the pom.xml directory compile the jar with `/opt/local/bin/mvn clean package`
 
-java -jar ./saxon9he.jar -o:minimum.xsl -s:ZUGFeRD20/Schema/BASIC\ und\ MINIMUM/zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl 
+To prepare the schematron files they have to be converted to XSLT files, which is done with a XSLT transformation
+itself.
+Get [Saxon](http://saxon.sourceforge.net/#F9.9HE) and the [XSLT](https://github.com/Schematron/stf/tree/master/iso-schematron-xslt2) to convert schematron to XSLT 
+and run
+`java -jar ./saxon9he.jar -o:minimum.xsl -s:zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl`
+to do so.
+
 
 
       

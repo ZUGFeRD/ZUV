@@ -234,7 +234,7 @@ public class XMLValidator extends Validator {
 					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
 
-				if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isExtended)) {
+				if (context.getVersion().equals("2") && (!isEN16931) && (!isMiniumum) && (!isBasic) && (!isExtended)) {
 					context.addResultItem(new ValidationResultItem(ESeverity.error,
 							"Unsupported profile type").setSection(25).setPart(EPart.xml));
 
