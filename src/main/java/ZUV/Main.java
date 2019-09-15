@@ -80,7 +80,7 @@ public class Main {
 			ZUGFeRDValidator zfv=new ZUGFeRDValidator();
 			System.out.println(zfv.validate(filename));
 
-			optionsRecognized = optionsRecognized&&(!zfv.hasOptionsError());
+			optionsRecognized = !zfv.hasOptionsError();
 			if (!zfv.wasCompletelyValid()) {
 				System.exit(-1);
 			}
