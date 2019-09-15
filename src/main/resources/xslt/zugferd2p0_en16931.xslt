@@ -12988,10 +12988,10 @@
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="(ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount + ram:ChargeTotalAmount) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount) and not (ram:ChargeTotalAmount)) or     ((ram:TaxBasisTotalAmount = ram:LineTotalAmount + ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))"/>
+         <xsl:when test="(ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100) div 100)) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount * 100) div 100)) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount + ram:ChargeTotalAmount) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount - ram:AllowanceTotalAmount) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount + ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = ram:LineTotalAmount) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))">
+                                test="(ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100) div 100)) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount * 100) div 100)) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
@@ -13016,10 +13016,10 @@
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="(ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount + ram:RoundingAmount) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))"/>
+         <xsl:when test="(ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100)) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100) div 100)) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount + ram:RoundingAmount) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))">
+                                test="(ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100)) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100) div 100)) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>

@@ -31,7 +31,7 @@ public class ZUGFeRDValidator {
 
 	/***
 	 * within the validation it turned out something in the options was wrong, e.g. the file did not exist. 
-	 * recommendation to show the help text again
+	 * recommendation to show the help text again. Should be false if XML or PDF file was found
 	 */
 	public boolean hasOptionsError() {
 		return !optionsRecognized;
