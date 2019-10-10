@@ -1,3 +1,10 @@
+0.8.2
+======
+2019-10-10
+* #22 rounding errors when applying schematron
+
+
+
 0.8.1
 ======
 2019-09-01
