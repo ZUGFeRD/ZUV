@@ -250,7 +250,7 @@ public class PDFValidator extends Validator {
 
 			boolean versionValid=false;
 			for (int i = 0; i < nodes.getLength(); i++) {
-				String[] valueArray = { "1.0", "2.0" };
+				String[] valueArray = { "1.0", "2p0" };
 				if (stringArrayContains(valueArray, nodes.item(i).getTextContent())) {
 					versionValid=true;
 				} // e.g. 1.0
