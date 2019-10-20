@@ -1,9 +1,14 @@
-0.8.2
+0.8.3
 ======
-2019-10-
+2019-
 * #22 rounding errors when applying schematron
 * check for 1.0 or 2p0 in RDF, not 1.0 and 2.0 like before
 * updated to zf 2.0.1
+
+0.8.2
+======
+2019-10-10
+* #22 rounding errors when applying schematron
 
 0.8.1
 ======
