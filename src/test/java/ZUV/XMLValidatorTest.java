@@ -47,6 +47,18 @@ public class XMLValidatorTest extends ResourceCase  {
 		xv.validate();
 		assertEquals(true, xv.getXMLResult().contains("valid")&&!xv.getXMLResult().contains("invalid"));
 		
+		ctx.clear();
+		tempFile = getResourceAsFile("ZUGFeRD-invoice_rabatte_3_abschlag_duepayableamount.xml");
+		xv.setFilename(tempFile.getAbsolutePath());
+		xv.validate();
+		assertEquals(true, xv.getXMLResult().contains("valid")&&!xv.getXMLResult().contains("invalid"));
+		
+		ctx.clear();
+		tempFile = getResourceAsFile("ZUGFeRD-invoice_rabatte_4_abschlag_taxbasistotalamount.xml");
+		xv.setFilename(tempFile.getAbsolutePath());
+		xv.validate();
+		assertEquals(true, xv.getXMLResult().contains("valid")&&!xv.getXMLResult().contains("invalid"));
+		
 
 	}
 	public void testZF1XMLValidation() {
