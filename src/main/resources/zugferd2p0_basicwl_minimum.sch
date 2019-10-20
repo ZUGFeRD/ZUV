@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
     schemaVersion="iso">
-  <title>Schema for ZUGFeRD; 2.0; ACCOUNTING INFORMATION, No XML Invoice, (BASIC WITHOUT LINE)</title>
+  <title>Schema for FACTUR-X; 1.0; ACCOUNTING INFORMATION, No XML Invoice, (BASIC WITHOUT LINE)</title>
   <ns uri="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" prefix="rsm"/>
   <ns uri="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" prefix="qdt"/>
   <ns uri="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" prefix="ram"/>
@@ -368,7 +368,7 @@
 	Der Inhalt des Elementes „Invoice total amount without VAT“ (BT-109) entspricht der Summe aller Inhalte der Elemente „Invoice line net amount“ (BT-131) abzüglich der Summe aller in der Rechnung enthaltenen Nachlässe der Dokumentenebene „Sum of allowances on document level“ (BT-107) zuzüglich der Summe aller in der Rechnung enthaltenen Abgaben der Dokumentenebene „Sum of charges on document level“ (BT-108).</assert>
       <assert test="(ram:GrandTotalAmount = round(ram:TaxBasisTotalAmount*100 + ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]*100 +0) div 100) or ((ram:GrandTotalAmount = ram:TaxBasisTotalAmount) and not (ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]))">
 	Der Inhalt des Elementes „Invoice total amount with VAT“ (BT-112) entspricht der Summe des Inhalts des Elementes „Invoice total amount without VAT“ (BT-109) und des Elementes „Invoice total VAT amount“ (BT-110).</assert>
-      <assert test="(ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount + ram:RoundingAmount) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount - ram:TotalPrepaidAmount) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = ram:GrandTotalAmount) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))">
+      <assert test="(ram:DuePayableAmount = round (ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)&#13;&#10;or ((ram:DuePayableAmount = round (ram:GrandTotalAmount*100 + ram:RoundingAmount*100) div 100) and not (ram:TotalPrepaidAmount)) &#13;&#10;or ((ram:DuePayableAmount = round (ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100) and not (ram:RoundingAmount)) &#13;&#10;or ((ram:DuePayableAmount = round (ram:GrandTotalAmount*100) div 100) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))">
 	Der Inhalt des Elementes „Amount due for payment“ (BT-115) entspricht dem Inhalt des Elementes „Invoice total VAT amount“ (BT-110) abzüglich dem Inhalt des Elementes „Paid amount“ (BT-113) zuzüglich dem Inhalt des Elementes „Rounding amount“ (BT-114).</assert>
       <assert test="string-length(substring-after(ram:LineTotalAmount,&apos;.&apos;))&lt;=2">
 	The allowed maximum number of decimals for the Sum of Invoice line net amount (BT-106) is 2.</assert>
@@ -1331,6 +1331,13 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:GlobalID[@schemeID]">
+      <let name="codeValue8" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=8]/enumeration[@value=$codeValue8]">
+	Wert von '@schemeID' ist unzulässig.</assert>
+    </rule>
+  </pattern>
+  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:GlobalID[@schemeName]">
       <report test="true()">
 	Attribut '@schemeName' soll in diesem Kontext nicht verwendet werden.</report>
@@ -1663,6 +1670,13 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]">
+      <let name="codeValue9" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=9]/enumeration[@value=$codeValue9]">
+	Wert von '@schemeID' ist unzulässig.</assert>
+    </rule>
+  </pattern>
+  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeName]">
       <report test="true()">
 	Attribut '@schemeName' soll in diesem Kontext nicht verwendet werden.</report>
@@ -1696,6 +1710,8 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress">
       <assert test="count(ram:CountryID)=1">
 	Das Element 'ram:CountryID' muss genau 1 mal auftreten.</assert>
+      <assert test="count(ram:CountrySubDivisionName)&lt;=1">
+	Das Element 'ram:CountrySubDivisionName' darf höchstens 1 mal auftreten.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -1777,9 +1793,15 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress/ram:CountrySubDivisionName">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress/ram:CountrySubDivisionName[@languageID]">
       <report test="true()">
-	Element 'ram:CountrySubDivisionName' soll in diesem Kontext nicht verwendet werden.</report>
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress/ram:CountrySubDivisionName[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
     </rule>
   </pattern>
   <pattern>
@@ -1952,8 +1974,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID]">
-      <let name="codeValue6" value="@schemeID"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=6]/enumeration[@value=$codeValue6]">
+      <let name="codeValue10" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=10]/enumeration[@value=$codeValue10]">
 	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -2019,8 +2041,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID[@schemeID]">
-      <let name="codeValue4" value="@schemeID"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=4]/enumeration[@value=$codeValue4]">
+      <let name="codeValue6" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=6]/enumeration[@value=$codeValue6]">
 	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -2596,8 +2618,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID]">
-      <let name="codeValue7" value="@schemeID"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=7]/enumeration[@value=$codeValue7]">
+      <let name="codeValue11" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=11]/enumeration[@value=$codeValue11]">
 	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -2627,8 +2649,6 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty">
-      <assert test="count(ram:ID)&lt;=1">
-	Das Element 'ram:ID' darf höchstens 1 mal auftreten.</assert>
       <assert test="count(ram:Name)=1">
 	Das Element 'ram:Name' muss genau 1 mal auftreten.</assert>
       <assert test="count(ram:PostalTradeAddress)=1">
@@ -2677,6 +2697,13 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:GlobalID[@schemeDataURI]">
       <report test="true()">
 	Attribut '@schemeDataURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:GlobalID[@schemeID]">
+      <let name="codeValue4" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=4]/enumeration[@value=$codeValue4]">
+	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -2994,12 +3021,6 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID">
-      <assert test="@schemeID">
-	Das Attribut '@schemeID' ist erforderlich in diesem Kontext.</assert>
-    </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeAgencyID]">
       <report test="true()">
 	Attribut '@schemeAgencyID' soll in diesem Kontext nicht verwendet werden.</report>
@@ -3015,6 +3036,13 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeDataURI]">
       <report test="true()">
 	Attribut '@schemeDataURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]">
+      <let name="codeValue5" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=5]/enumeration[@value=$codeValue5]">
+	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -3103,8 +3131,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID]">
-      <let name="codeValue5" value="@schemeID"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=5]/enumeration[@value=$codeValue5]">
+      <let name="codeValue7" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=7]/enumeration[@value=$codeValue7]">
 	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -3170,8 +3198,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID[@schemeID]">
-      <let name="codeValue4" value="@schemeID"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=4]/enumeration[@value=$codeValue4]">
+      <let name="codeValue6" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=6]/enumeration[@value=$codeValue6]">
 	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -3508,8 +3536,377 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty">
+      <assert test="count(ram:ID)&lt;=1">
+	Das Element 'ram:ID' darf höchstens 1 mal auftreten.</assert>
+      <assert test="count(ram:GlobalID)&lt;=1">
+	Das Element 'ram:GlobalID' darf höchstens 1 mal auftreten.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:DefinedTradeContact">
       <report test="true()">
-	Element 'ram:ShipToTradeParty' soll in diesem Kontext nicht verwendet werden.</report>
+	Element 'ram:DefinedTradeContact' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:Description">
+      <report test="true()">
+	Element 'ram:Description' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:EndPointURIUniversalCommunication">
+      <report test="true()">
+	Element 'ram:EndPointURIUniversalCommunication' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID">
+      <assert test="@schemeID">
+	Das Attribut '@schemeID' ist erforderlich in diesem Kontext.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeAgencyID]">
+      <report test="true()">
+	Attribut '@schemeAgencyID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeAgencyName]">
+      <report test="true()">
+	Attribut '@schemeAgencyName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeDataURI]">
+      <report test="true()">
+	Attribut '@schemeDataURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeID]">
+      <let name="codeValue12" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=12]/enumeration[@value=$codeValue12]">
+	Wert von '@schemeID' ist unzulässig.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeName]">
+      <report test="true()">
+	Attribut '@schemeName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeURI]">
+      <report test="true()">
+	Attribut '@schemeURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID[@schemeVersionID]">
+      <report test="true()">
+	Attribut '@schemeVersionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeAgencyID]">
+      <report test="true()">
+	Attribut '@schemeAgencyID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeAgencyName]">
+      <report test="true()">
+	Attribut '@schemeAgencyName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeDataURI]">
+      <report test="true()">
+	Attribut '@schemeDataURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeID]">
+      <report test="true()">
+	Attribut '@schemeID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeName]">
+      <report test="true()">
+	Attribut '@schemeName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeURI]">
+      <report test="true()">
+	Attribut '@schemeURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID[@schemeVersionID]">
+      <report test="true()">
+	Attribut '@schemeVersionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:LogoAssociatedSpecifiedBinaryFile">
+      <report test="true()">
+	Element 'ram:LogoAssociatedSpecifiedBinaryFile' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:Name[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:Name[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress">
+      <assert test="count(ram:CountryID)=1">
+	Das Element 'ram:CountryID' muss genau 1 mal auftreten.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:AdditionalStreetName">
+      <report test="true()">
+	Element 'ram:AdditionalStreetName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:AttentionOf">
+      <report test="true()">
+	Element 'ram:AttentionOf' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:BuildingName">
+      <report test="true()">
+	Element 'ram:BuildingName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:BuildingNumber">
+      <report test="true()">
+	Element 'ram:BuildingNumber' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CareOf">
+      <report test="true()">
+	Element 'ram:CareOf' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CityName[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CityName[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CitySubDivisionName">
+      <report test="true()">
+	Element 'ram:CitySubDivisionName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeAgencyID]">
+      <report test="true()">
+	Attribut '@schemeAgencyID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeID]">
+      <report test="true()">
+	Attribut '@schemeID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeVersionID]">
+      <report test="true()">
+	Attribut '@schemeVersionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryName">
+      <report test="true()">
+	Element 'ram:CountryName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionID">
+      <report test="true()">
+	Element 'ram:CountrySubDivisionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName">
+      <report test="true()">
+	Element 'ram:CountrySubDivisionName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:DepartmentName">
+      <report test="true()">
+	Element 'ram:DepartmentName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:ID">
+      <report test="true()">
+	Element 'ram:ID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineFive">
+      <report test="true()">
+	Element 'ram:LineFive' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineFour">
+      <report test="true()">
+	Element 'ram:LineFour' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageLocaleID]">
+      <report test="true()">
+	Attribut '@languageLocaleID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostOfficeBox">
+      <report test="true()">
+	Element 'ram:PostOfficeBox' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@languageID]">
+      <report test="true()">
+	Attribut '@languageID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyID]">
+      <report test="true()">
+	Attribut '@listAgencyID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyName]">
+      <report test="true()">
+	Attribut '@listAgencyName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listID]">
+      <report test="true()">
+	Attribut '@listID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listName]">
+      <report test="true()">
+	Attribut '@listName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listSchemeURI]">
+      <report test="true()">
+	Attribut '@listSchemeURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listURI]">
+      <report test="true()">
+	Attribut '@listURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listVersionID]">
+      <report test="true()">
+	Attribut '@listVersionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@name]">
+      <report test="true()">
+	Attribut '@name' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:StreetName">
+      <report test="true()">
+	Element 'ram:StreetName' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:RoleCode">
+      <report test="true()">
+	Element 'ram:RoleCode' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:SpecifiedLegalOrganization">
+      <report test="true()">
+	Element 'ram:SpecifiedLegalOrganization' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:SpecifiedTaxRegistration">
+      <report test="true()">
+	Element 'ram:SpecifiedTaxRegistration' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:URIUniversalCommunication">
+      <report test="true()">
+	Element 'ram:URIUniversalCommunication' soll in diesem Kontext nicht verwendet werden.</report>
     </rule>
   </pattern>
   <pattern>
@@ -3612,8 +4009,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode">
-      <let name="codeValue9" value="."/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=9]/enumeration[@value=$codeValue9]">
+      <let name="codeValue16" value="."/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=16]/enumeration[@value=$codeValue16]">
 	Wert von 'ram:CategoryCode' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -3681,6 +4078,13 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:DueDateTypeCode[@name]">
       <report test="true()">
 	Attribut '@name' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:ExemptionReasonCode">
+      <let name="codeValue17" value="."/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=17]/enumeration[@value=$codeValue17]">
+	Wert von 'ram:ExemptionReasonCode' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -3823,8 +4227,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:TypeCode">
-      <let name="codeValue8" value="."/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=8]/enumeration[@value=$codeValue8]">
+      <let name="codeValue15" value="."/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=15]/enumeration[@value=$codeValue15]">
 	Wert von 'ram:TypeCode' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -3859,9 +4263,113 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:CompleteDateTime">
       <report test="true()">
-	Element 'ram:BillingSpecifiedPeriod' soll in diesem Kontext nicht verwendet werden.</report>
+	Element 'ram:CompleteDateTime' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:ContinuousIndicator">
+      <report test="true()">
+	Element 'ram:ContinuousIndicator' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:Description">
+      <report test="true()">
+	Element 'ram:Description' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:DurationMeasure">
+      <report test="true()">
+	Element 'ram:DurationMeasure' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTime">
+      <report test="true()">
+	Element 'udt:DateTime' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString">
+      <assert test="@format">
+	Das Attribut '@format' ist erforderlich in diesem Kontext.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString[@format]">
+      <let name="codeValue2" value="@format"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=2]/enumeration[@value=$codeValue2]">
+	Wert von '@format' ist unzulässig.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:ID">
+      <report test="true()">
+	Element 'ram:ID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:InclusiveIndicator">
+      <report test="true()">
+	Element 'ram:InclusiveIndicator' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:Name">
+      <report test="true()">
+	Element 'ram:Name' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:OpenIndicator">
+      <report test="true()">
+	Element 'ram:OpenIndicator' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:PurposeCode">
+      <report test="true()">
+	Element 'ram:PurposeCode' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:SeasonCode">
+      <report test="true()">
+	Element 'ram:SeasonCode' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:SequenceNumeric">
+      <report test="true()">
+	Element 'ram:SequenceNumeric' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateFlexibilityCode">
+      <report test="true()">
+	Element 'ram:StartDateFlexibilityCode' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTime">
+      <report test="true()">
+	Element 'udt:DateTime' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString">
+      <assert test="@format">
+	Das Attribut '@format' ist erforderlich in diesem Kontext.</assert>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString[@format]">
+      <let name="codeValue2" value="@format"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=2]/enumeration[@value=$codeValue2]">
+	Wert von '@format' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -4036,8 +4544,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:FormattedIssueDateTime/qdt:DateTimeString[@format]">
-      <let name="codeValue12" value="@format"/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=12]/enumeration[@value=$codeValue12]">
+      <let name="codeValue21" value="@format"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=21]/enumeration[@value=$codeValue21]">
 	Wert von '@format' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -4238,6 +4746,13 @@ haben.</assert>
     </rule>
   </pattern>
   <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:GlobalID[@schemeID]">
+      <let name="codeValue13" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=13]/enumeration[@value=$codeValue13]">
+	Wert von '@schemeID' ist unzulässig.</assert>
+    </rule>
+  </pattern>
+  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:GlobalID[@schemeName]">
       <report test="true()">
 	Attribut '@schemeName' soll in diesem Kontext nicht verwendet werden.</report>
@@ -4349,6 +4864,13 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeDataURI]">
       <report test="true()">
 	Attribut '@schemeDataURI' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]">
+      <let name="codeValue14" value="@schemeID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=14]/enumeration[@value=$codeValue14]">
+	Wert von '@schemeID' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
@@ -4659,8 +5181,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:CategoryCode">
-      <let name="codeValue11" value="."/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=11]/enumeration[@value=$codeValue11]">
+      <let name="codeValue19" value="."/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=19]/enumeration[@value=$codeValue19]">
 	Wert von 'ram:CategoryCode' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -4798,8 +5320,8 @@ haben.</assert>
   </pattern>
   <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:TypeCode">
-      <let name="codeValue10" value="."/>
-      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=10]/enumeration[@value=$codeValue10]">
+      <let name="codeValue18" value="."/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=18]/enumeration[@value=$codeValue18]">
 	Wert von 'ram:TypeCode' ist unzulässig.</assert>
     </rule>
   </pattern>
@@ -5194,6 +5716,13 @@ haben.</assert>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyCodeListVersionID]">
       <report test="true()">
 	Attribut '@currencyCodeListVersionID' soll in diesem Kontext nicht verwendet werden.</report>
+    </rule>
+  </pattern>
+  <pattern>
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyID]">
+      <let name="codeValue20" value="@currencyID"/>
+      <assert test="document(&apos;zugferd2p0_basicwl_minimum_codedb.xml&apos;)//cl[@id=20]/enumeration[@value=$codeValue20]">
+	Wert von '@currencyID' ist unzulässig.</assert>
     </rule>
   </pattern>
   <pattern>
