@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.Vector;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
@@ -108,6 +107,7 @@ public class ZUGFeRDValidator {
 					LOGGER.error("No XML could be extracted");
 				}
 			} else if (isXML){
+				pdfValidity = true;
 				optionsRecognized = true;
 				xv.setFilename(filename);
 				if (file.exists()) {

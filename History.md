@@ -1,3 +1,14 @@
+* be able to validate directories
+* probleme wenn xml dateien mit kommentaren anfangen
+* fail better if -f missing
+* fail better if only pdf w/o attachment
+* validate against CEN
+
+0.8.4
+======
+* check against URI allowing for different fragments
+* #27 wrong exit code
+
 0.8.3
 ======
 2019-10-20

@@ -92,6 +92,10 @@ public class XMLValidator extends Validator {
 		return new String(bomlessData);
 
 	}
+	
+	protected boolean matchesURI(String uri1, String uri2) {
+		return (uri1.equals(uri2)||uri1.startsWith(uri2+"#"));
+	}
 
 	/***
 	 * 
@@ -217,9 +221,9 @@ public class XMLValidator extends Validator {
 				} else { // ZUGFeRD 1.0
 					context.setVersion("1");
 					//
-					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
-							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
-							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
+					if ((!matchesURI(context.getProfile(),"urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
+							&& (!matchesURI(context.getProfile(), "urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
+							&& (!matchesURI(context.getProfile(), "urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
 						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
 								.setSection(25).setPart(EPart.xml));
 					}
@@ -228,19 +232,15 @@ public class XMLValidator extends Validator {
 					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
 				}
 				if (context.getVersion().equals("2")) {
-					if ((!context.getProfile().equals("urn:factur-x.eu:1p0:minimum"))
-							&& (!context.getProfile().equals("urn:zugferd.de:2p0:minimum"))
-							&& (!context.getProfile().equals("urn:factur-x.eu:1p0:basicwl"))
-							&& (!context.getProfile().equals("urn:zugferd.de:2p0:basicwl"))
-							&& (!context.getProfile()
-									.equals("urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic"))
-							&& (!context.getProfile()
-									.equals("urn:cen.eu:en16931:2017#compliant#urn:zugferd.de:2p0:basic"))
-							&& (!context.getProfile().equals("urn:cen.eu:en16931:2017"))
-							&& (!context.getProfile()
-									.equals("urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"))
-							&& (!context.getProfile()
-									.equals("urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended")))
+					if ((!matchesURI(context.getProfile(), "urn:factur-x.eu:1p0:minimum"))
+							&& (!matchesURI(context.getProfile(),"urn:zugferd.de:2p0:minimum"))
+							&& (!matchesURI(context.getProfile(),"urn:factur-x.eu:1p0:basicwl"))
+							&& (!matchesURI(context.getProfile(),"urn:zugferd.de:2p0:basicwl"))
+							&& (!matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic"))
+							&& (!matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017#compliant#urn:zugferd.de:2p0:basic"))
+							&& (!matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017"))
+							&& (!matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"))
+							&& (!matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended")))
 
 					{
 						context.addResultItem(
@@ -250,9 +250,9 @@ public class XMLValidator extends Validator {
 					}
 				} else /** v1 */
 				{//urn:ferd:invoice:rc:comfort
-					if ((!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
-							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
-							&& (!context.getProfile().equals("urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
+					if ((!matchesURI(context.getProfile(),"urn:ferd:CrossIndustryDocument:invoice:1p0:basic"))
+							&& (!matchesURI(context.getProfile(),"urn:ferd:CrossIndustryDocument:invoice:1p0:comfort"))
+							&& (!matchesURI(context.getProfile(),"urn:ferd:CrossIndustryDocument:invoice:1p0:extended"))) {
 						context.addResultItem(new ValidationResultItem(ESeverity.error, "Unsupported profile type")
 								.setSection(25).setPart(EPart.xml));
 

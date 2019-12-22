@@ -1,18 +1,7 @@
 package ZUV;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Vector;
 
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-
-import org.riversun.bigdoc.bin.BigFileSearcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
