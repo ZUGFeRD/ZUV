@@ -2,6 +2,8 @@ package ZUV;
 
 import java.util.Vector;
 
+import org.slf4j.Logger;
+
 public class ValidationContext {
 	protected Vector<ValidationResultItem> results;
 	protected String customXML="";
@@ -9,14 +11,28 @@ public class ValidationContext {
 	private String profile=null;
 	private String signature=null;
 	private boolean isValid=true;
+	protected Logger logger;
 	
-	public ValidationContext() {
+	public ValidationContext(Logger log) {
+		logger=log;
 		results=new Vector<ValidationResultItem>();
 	}
-	public void addResultItem(ValidationResultItem vr) {
+	public void addResultItem(ValidationResultItem vr) throws IrrecoverableValidationError {
 		results.add(vr);
-		if ((vr.getSeverity()==ESeverity.error)||(vr.getSeverity()==ESeverity.exception)) {
+
+		if ((vr.getSeverity()==ESeverity.fatal)||(vr.getSeverity()==ESeverity.exception)) {
+			logger.error("Fatal Error "+vr.getSection()+": "+vr.getMessage());
 			isValid=false;
+			throw new IrrecoverableValidationError(vr.getMessage());
+		} else if ((vr.getSeverity()==ESeverity.error)) {
+			logger.error("Error "+vr.getSection()+": "+vr.getMessage());
+			isValid=false;
+		} else if (vr.getSeverity()==ESeverity.warning) {
+			logger.warn("Warning "+vr.getSection()+": "+vr.getMessage());
+		}
+		else if (vr.getSeverity()==ESeverity.notice) {
+			logger.info("Notice "+vr.getSection()+": "+vr.getMessage());
+
 		}
 		
 	}

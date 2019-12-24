@@ -1,6 +1,5 @@
 package ZUV;
 
-import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +85,14 @@ public class ValidationResultItem {
 	}
 	public ESeverity getSeverity() {
 		return severity;
+	}
+
+	public int getSection() {
+		return section;
+	}
+
+	public String getMessage() {
+		return message;
 	}
 	
 

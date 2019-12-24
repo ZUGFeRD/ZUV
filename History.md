@@ -8,6 +8,8 @@
 ======
 * check against URI allowing for different fragments
 * #27 wrong exit code
+* now context also loggs
+* introduced fatal errors. new errors: filename empty (10), xml not extractable (17), En16931 CEN Schematron error (24)
 
 0.8.3
 ======

@@ -75,7 +75,7 @@ public class PDFValidator extends Validator {
 		return Arrays.asList(arr).contains(targetValue);
 	}
 
-	public void validate() {
+	public void validate() throws IrrecoverableValidationError {
 
 		zfXML = null;
 		File file = new File(pdfFilename);
@@ -85,9 +85,7 @@ public class PDFValidator extends Validator {
 		byte[] pdfSignature = { '%', 'P', 'D', 'F' };
 		if (searcher.indexOf(file, pdfSignature) != 0) {
 			context.addResultItem(
-					new ValidationResultItem(ESeverity.error, "Not a PDF file").setSection(20).setPart(EPart.pdf));
-			LOGGER.error("Error 20: no PDF file " + pdfFilename);
-			return;
+					new ValidationResultItem(ESeverity.fatal, "Not a PDF file "+pdfFilename).setSection(20).setPart(EPart.pdf));
 
 		}
 
@@ -132,11 +130,9 @@ public class PDFValidator extends Validator {
 			e.printStackTrace(pw);
 			vri.setStacktrace(sw.toString());
 			context.addResultItem(vri);
-			LOGGER.error(e.getMessage(), e);
 		} catch (IOException excep) {
 			context.addResultItem(new ValidationResultItem(ESeverity.exception, excep.getMessage()).setSection(7)
 					.setPart(EPart.pdf).setStacktrace(excep.getStackTrace().toString()));
-			LOGGER.error(excep.getMessage(), excep);
 		}
 
 		// step 2 validate XMP
@@ -328,7 +324,7 @@ public class PDFValidator extends Validator {
 
 	
 	@Override
-	public void setFilename(String filename) {
+	public void setFilename(String filename) throws IrrecoverableValidationError {
 		this.pdfFilename = filename;
 
 	}

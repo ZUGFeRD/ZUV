@@ -54,7 +54,7 @@ public class XMLValidator extends Validator {
 	protected String zfXML = "";
 	protected String filename = "";
 
-	public void setFilename(String name) { // from XML Filename
+	public void setFilename(String name) throws IrrecoverableValidationError { // from XML Filename
 		filename = name;
 		// file existence must have been checked before
 
@@ -69,7 +69,6 @@ public class XMLValidator extends Validator {
 			e.printStackTrace(pw);
 			vri.setStacktrace(sw.toString());
 			context.addResultItem(vri);
-			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
@@ -106,7 +105,7 @@ public class XMLValidator extends Validator {
 	 * @return
 	 */
 	@Override
-	public void validate() {
+	public void validate() throws IrrecoverableValidationError {
 		long startXMLTime = Calendar.getInstance().getTimeInMillis();
 		int firedRules=0;
 		int failedRules=0;
@@ -120,7 +119,6 @@ public class XMLValidator extends Validator {
 							+ ": did you specify a pdf or xml file and does the xml file contain an embedded XML file?")
 									.setSection(3);
 			context.addResultItem(res);
-			LOGGER.error("No XML data found");
 
 		} else {
 
@@ -306,7 +304,6 @@ public class XMLValidator extends Validator {
 				e.printStackTrace(pw);
 				vri.setStacktrace(sw.toString());
 				context.addResultItem(vri);
-				LOGGER.error(e.getMessage(), e);
 			}
 
 		}

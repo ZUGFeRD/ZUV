@@ -27,8 +27,8 @@ public abstract class Validator {
 	
 	//abstract method
 	
-	public abstract void setFilename(String filename);
-	public abstract void validate();
+	public abstract void setFilename(String filename) throws IrrecoverableValidationError;
+	public abstract void validate() throws IrrecoverableValidationError;
 
 	public String getXMLResult() {
 		return context.getXMLResult();
@@ -39,7 +39,7 @@ public abstract class Validator {
 	 * @param xmlRawData
 	 * @param schemaPath
 	 */
-	protected void validateSchema(byte[] xmlRawData, String schemaPath,int section, EPart part) {
+	protected void validateSchema(byte[] xmlRawData, String schemaPath,int section, EPart part) throws IrrecoverableValidationError {
 		URL schemaFile = ClassLoader.getSystemResource("schema/" + schemaPath);
 		Source xmlData = new StreamSource(new ByteArrayInputStream(xmlRawData));
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

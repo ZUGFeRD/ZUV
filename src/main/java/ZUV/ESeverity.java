@@ -1,5 +1,5 @@
 package ZUV;
 
 public enum ESeverity {
-	notice, warning, error, exception
+	notice, warning, error, fatal, exception
 }
