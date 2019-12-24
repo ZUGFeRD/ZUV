@@ -6,13 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XMLValidatorTest extends ResourceCase {
-	private static final Logger LOGGER = LoggerFactory.getLogger(XMLValidatorTest.class.getCanonicalName());
-
+	
 	public void testZF2XMLValidation() {
 		// ignored for the
 		// time being
 
-		ValidationContext ctx = new ValidationContext(LOGGER);
+		ValidationContext ctx = new ValidationContext(null);
 		XMLValidator xv = new XMLValidator(ctx);
 		File tempFile = getResourceAsFile("invalidV2.xml");
 
@@ -90,7 +89,7 @@ public class XMLValidatorTest extends ResourceCase {
 	}
 
 	public void testZF1XMLValidation() {
-		ValidationContext ctx = new ValidationContext(LOGGER);
+		ValidationContext ctx = new ValidationContext(null);
 		XMLValidator xv = new XMLValidator(ctx);
 		File tempFile = getResourceAsFile("validV1.xml");
 		try {

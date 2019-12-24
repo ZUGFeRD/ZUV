@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PDFValidatorTest extends ResourceCase {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PDFValidatorTest.class.getCanonicalName());
 
 	public void testPDFValidation() {
-		ValidationContext vc = new ValidationContext(LOGGER);
+		ValidationContext vc = new ValidationContext(null);
 		PDFValidator pv = new PDFValidator(vc);
 
 		try {
@@ -65,7 +64,7 @@ public class PDFValidatorTest extends ResourceCase {
 	}
 
 	public void testPDFXMLValidation() {
-		ValidationContext vc = new ValidationContext(LOGGER);
+		ValidationContext vc = new ValidationContext(null);
 		try {
 			PDFValidator pv = new PDFValidator(vc);
 
@@ -107,7 +106,7 @@ public class PDFValidatorTest extends ResourceCase {
 
 	public void testXMPValidation() {
 
-		ValidationContext vc = new ValidationContext(LOGGER);
+		ValidationContext vc = new ValidationContext(null);
 		PDFValidator pv = new PDFValidator(vc);
 		try {
 

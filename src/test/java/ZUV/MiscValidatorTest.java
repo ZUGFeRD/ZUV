@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.riversun.bigdoc.bin.BigFileSearcher;
-
 public class MiscValidatorTest extends ResourceCase  {
 
 
