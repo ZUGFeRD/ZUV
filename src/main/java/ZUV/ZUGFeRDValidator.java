@@ -103,14 +103,21 @@ public class ZUGFeRDValidator {
 					try {
 						pdfv.validate();
 
+
 						sha1Checksum = calcSHA1(file);
 
 						// Validate PDF
 
 						finalStringResult.append(pdfv.getXMLResult());
 						pdfValidity = context.isValid();
+
+				
 						Signature = context.getSignature();
 						context.clear();
+						if (!pdfValidity) {
+							// clear sets valid to true again
+							context.setInvalid();
+						}
 						if (pdfv.getRawXML() != null) {
 							xv.setStringContent(pdfv.getRawXML());
 							displayXMLValidationOutput = true;

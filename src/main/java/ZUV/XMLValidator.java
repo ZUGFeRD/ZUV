@@ -1,12 +1,10 @@
 package ZUV;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,13 +13,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -36,7 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.xslt.SchematronResourceXSLT;
@@ -53,6 +46,9 @@ public class XMLValidator extends Validator {
 
 	protected String zfXML = "";
 	protected String filename = "";
+	int firedRules=0;
+	int failedRules=0;
+	ISchematronResource aResSCH = null;
 
 	public void setFilename(String name) throws IrrecoverableValidationError { // from XML Filename
 		filename = name;
@@ -107,8 +103,8 @@ public class XMLValidator extends Validator {
 	@Override
 	public void validate() throws IrrecoverableValidationError {
 		long startXMLTime = Calendar.getInstance().getTimeInMillis();
-		int firedRules=0;
-		int failedRules=0;
+		firedRules=0;
+		failedRules=0;
 
 		
 		ByteArrayInputStream xmlByteInputStream = new ByteArrayInputStream(zfXML.getBytes(StandardCharsets.UTF_8));
@@ -148,7 +144,6 @@ public class XMLValidator extends Validator {
 				Document doc = db.parse(xmlByteInputStream);
 
 				Element root = doc.getDocumentElement();
-				ISchematronResource aResSCH = null;
 
 				NodeList ndList;
 
@@ -177,6 +172,7 @@ public class XMLValidator extends Validator {
 				boolean isBasic = false;
 				boolean isEN16931 = false;
 				boolean isExtended = false;
+				String xsltFilename = null;
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:extended,
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:comfort,
 				// urn:ferd:CrossIndustryDocument:invoice:1p0:basic,
@@ -195,15 +191,15 @@ public class XMLValidator extends Validator {
 					if (isMiniumum) {
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/zugferd2p0_basicwl_minimum.xsd", 18, EPart.xml);
 						
-						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_basicwl_minimum.xslt");
+						xsltFilename="/xslt/zugferd2p0_basicwl_minimum.xslt";
 					} else if ((isBasic)||(isEN16931)) {
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/zugferd2p0_en16931.xsd", 18, EPart.xml);
 						
-						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_en16931.xslt");
+						xsltFilename="/xslt/zugferd2p0_en16931.xslt";
 					} else if (isExtended) {
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/zugferd2p0_extended.xsd", 18, EPart.xml);
 						
-						aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/zugferd2p0_extended.xslt");
+						xsltFilename="/xslt/zugferd2p0_extended.xslt";
 					} /*
 						 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
 						 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
@@ -227,7 +223,7 @@ public class XMLValidator extends Validator {
 					}
 					validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf1/ZUGFeRD1p0.xsd", 18, EPart.xml);
 					
-					aResSCH = SchematronResourceXSLT.fromClassPath("/xslt/ZUGFeRD_1p0.xslt");
+					xsltFilename="/xslt/ZUGFeRD_1p0.xslt";
 				}
 				if (context.getVersion().equals("2")) {
 					if ((!matchesURI(context.getProfile(), "urn:factur-x.eu:1p0:minimum"))
@@ -257,46 +253,20 @@ public class XMLValidator extends Validator {
 					}
 				}
 				
-				if (aResSCH != null) {
-					if (!aResSCH.isValidSchematron()) {
-						throw new IllegalArgumentException("Invalid Schematron!");
-					}
+				// main schematron validation
+				validateSchematron(zfXML, xsltFilename, 4);
 
-					SchematronOutputType sout = aResSCH
-							.applySchematronValidationToSVRL(new StreamSource(new StringReader(zfXML)));
-
-					List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
-					if (failedAsserts.size() > 0) {
-						for (Object object : failedAsserts) {
-							if (object instanceof FailedAssert) {
-
-								FailedAssert failedAssert = (FailedAssert) object;
-
-								context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
-										.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(4)
-										.setPart(EPart.xml));
-								failedRules++;
-							} else if (object instanceof FiredRule) {
-								firedRules++;
-							} 
-						}
-
-					}
-					if (firedRules==0) {
-						context.addResultItem(new ValidationResultItem(ESeverity.error, "No rules matched, XML to minimal?").setSection(26)
-								.setPart(EPart.xml));
 				
-					}
-					for (String currentString : sout.getText()) {
-						// schematronValidationString += "<output>" + currentString + "</output>";
-					}
-
-					// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
-					// returns the complete SVRL
-
+				if (context.getVersion().equals("2")
+						&& matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017")) {
+					//additionally validate against CEN
+					validateSchematron(zfXML, "/xslt/cii16931schematron/EN16931-CII-validation.xslt", 24);
 				}
+		
 
-			} catch (Exception e) {
+			} catch (IrrecoverableValidationError er) {
+				throw er;
+			}	catch (Exception e) {
 				ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(22)
 						.setPart(EPart.xml);
 				StringWriter sw = new StringWriter();
@@ -316,5 +286,63 @@ public class XMLValidator extends Validator {
 				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
 	}
+	
+	public void validateSchematron(String xml, String xsltFilename,  int section) throws IrrecoverableValidationError{
+		ISchematronResource aResSCH = null;
+		aResSCH = SchematronResourceXSLT.fromClassPath(xsltFilename);
+		if (aResSCH != null) {
+			if (!aResSCH.isValidSchematron()) {
+				throw new IllegalArgumentException("Invalid Schematron!");
+			}
+
+			SchematronOutputType sout;
+			try {
+				sout = aResSCH
+						.applySchematronValidationToSVRL(new StreamSource(new StringReader(xml)));
+			} catch (Exception e) {
+				throw new IrrecoverableValidationError(e.getMessage());
+			}
+
+			List<Object> failedAsserts = sout.getActivePatternAndFiredRuleAndFailedAssert();
+			if (failedAsserts.size() > 0) {
+				for (Object object : failedAsserts) {
+					if (object instanceof FailedAssert) {
+
+						FailedAssert failedAssert = (FailedAssert) object;
+
+						context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
+								.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(section)
+								.setPart(EPart.xml));
+						failedRules++;
+					} else if (object instanceof FiredRule) {
+						firedRules++;
+					} 
+				}
+
+			}
+			if (firedRules==0) {
+				context.addResultItem(new ValidationResultItem(ESeverity.error, "No rules matched, XML to minimal?").setSection(26)
+						.setPart(EPart.xml));
+		
+			}
+			for (String currentString : sout.getText()) {
+				// schematronValidationString += "<output>" + currentString + "</output>";
+			}
+
+			// schematronValidationString += new SVRLMarshaller ().getAsString (sout);
+			// returns the complete SVRL
+			
+		}
+	}
+	
+
+	public int getFiredRules() {
+		return firedRules;
+	}
+	
+	public int getFailedRules() {
+		return failedRules;
+	}
+
 
 }

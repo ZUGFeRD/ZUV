@@ -1,8 +1,6 @@
 * be able to validate directories
 * probleme wenn xml dateien mit kommentaren anfangen
-* fail better if -f missing
 * fail better if only pdf w/o attachment
-* validate against CEN
 
 0.8.4
 ======
@@ -10,6 +8,9 @@
 * #27 wrong exit code
 * now context also loggs
 * introduced fatal errors. new errors: filename empty (10), xml not extractable (17), En16931 CEN Schematron error (24)
+* fail better if -f missing
+* validate against CEN 1.3
+* corrected invalidation of complete output status for broken pdfs
 
 0.8.3
 ======

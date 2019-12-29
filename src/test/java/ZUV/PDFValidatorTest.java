@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PDFValidatorTest extends ResourceCase {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZUGFeRDValidator.class.getCanonicalName()); // log
 
 	public void testPDFValidation() {
 		ValidationContext vc = new ValidationContext(null);
@@ -82,8 +83,9 @@ public class PDFValidatorTest extends ResourceCase {
 			String xmlvres = xv.getXMLResult();
 
 			assertEquals(true, pdfvres.contains("valid") && !pdfvres.contains("invalid"));
-			assertEquals(true, xmlvres.contains("valid") && !xmlvres.contains("invalid"));
+			assertEquals(true, xmlvres.contains("invalid"));
 
+			vc.clear();
 			tempFile = getResourceAsFile("validV1WithAdditionalData.pdf");// need a more invalid file here
 
 			pv.setFilename(tempFile.getAbsolutePath());
@@ -95,7 +97,6 @@ public class PDFValidatorTest extends ResourceCase {
 			xv.setStringContent(pv.getRawXML());
 			xv.validate();
 			xmlvres = xv.getXMLResult();
-
 			assertEquals(true, pdfvres.contains("valid") && !pdfvres.contains("invalid"));
 			assertEquals(true, xmlvres.contains("valid") && !xmlvres.contains("invalid"));
 		} catch (IrrecoverableValidationError e) {

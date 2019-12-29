@@ -307,8 +307,7 @@ public class PDFValidator extends Validator {
 		//end
 
 		long endTime = Calendar.getInstance().getTimeInMillis();
-
-		if (pdfReport.contains("isSuccess=\"false\"")) {
+		if (!pdfReport.contains("validationReports compliant=\"1\"")) {
 			context.setInvalid();
 		}
 		if (!pdfReport.contains("PDF/A-3")) {
