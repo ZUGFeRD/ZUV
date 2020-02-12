@@ -88,7 +88,7 @@ public class XMLValidator extends Validator {
 
 	}
 	
-	protected boolean matchesURI(String uri1, String uri2) {
+	public static boolean matchesURI(String uri1, String uri2) {
 		return (uri1.equals(uri2)||uri1.startsWith(uri2+"#"));
 	}
 
@@ -170,6 +170,7 @@ public class XMLValidator extends Validator {
 				}
 				boolean isMiniumum = false;
 				boolean isBasic = false;
+				boolean isBasicWithoutLines = false;
 				boolean isEN16931 = false;
 				boolean isExtended = false;
 				String xsltFilename = null;
@@ -184,22 +185,35 @@ public class XMLValidator extends Validator {
 
 					isMiniumum = context.getProfile().contains("minimum");
 					isBasic = context.getProfile().contains("basic");
-					isEN16931 = context.getProfile().equals("urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
-							|| context.getProfile().equals("urn:cen.eu:en16931:2017");
+					isBasicWithoutLines = context.getProfile().contains("basic-wl");
+					if(isBasicWithoutLines) {
+						isBasic=false;
+					}
+					isEN16931 = matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
+							|| matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017");
 
 					isExtended = context.getProfile().contains("extended");
 					if (isMiniumum) {
-						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/zugferd2p0_basicwl_minimum.xsd", 18, EPart.xml);
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/MINIMUM/FACTUR-X_MINIMUM.xsd", 18, EPart.xml);
 						
-						xsltFilename="/xslt/zugferd2p0_basicwl_minimum.xslt";
-					} else if ((isBasic)||(isEN16931)) {
-						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/zugferd2p0_en16931.xsd", 18, EPart.xml);
+						xsltFilename="/xslt/zugferd21_minimum.xsl";
+					} else if (isBasicWithoutLines) {
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC-WL/FACTUR-X-BASIC-WL.xsd", 18, EPart.xml);
 						
-						xsltFilename="/xslt/zugferd2p0_en16931.xslt";
+						xsltFilename="/xslt/zugferd21_basicwl.xsl";
+					} else if (isBasic) {
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/FACTUR-X_BASIC.xsd", 18, EPart.xml);
+						
+						xsltFilename="/xslt/zugferd21_basic.xsl";
+					} else if (isEN16931) {
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/FACTUR-X_EN16931.xsd", 18, EPart.xml);
+						
+						xsltFilename="/xslt/zugferd21_en16931.xsl";
+						
 					} else if (isExtended) {
-						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/zugferd2p0_extended.xsd", 18, EPart.xml);
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/FACTUR-X_EXTENDED.xsd", 18, EPart.xml);
 						
-						xsltFilename="/xslt/zugferd2p0_extended.xslt";
+						xsltFilename="/xslt/zugferd21_extended.xsl";
 					} /*
 						 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(
 						 * "/Users/jstaerk/workspace/ZUV/src/main/resources/ZUGFeRDSchematronStylesheet.xsl"
@@ -292,7 +306,7 @@ public class XMLValidator extends Validator {
 		aResSCH = SchematronResourceXSLT.fromClassPath(xsltFilename);
 		if (aResSCH != null) {
 			if (!aResSCH.isValidSchematron()) {
-				throw new IllegalArgumentException("Invalid Schematron!");
+				throw new IllegalArgumentException(xsltFilename+" is invalid Schematron!");
 			}
 
 			SchematronOutputType sout;

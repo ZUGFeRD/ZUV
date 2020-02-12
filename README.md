@@ -126,3 +126,20 @@ see the [history file](History.md)
 ## Authors
 
 Jochen Staerk "Mustangproject Chief ZUGFeRD amatuer" <jochen@zugferd.org>
+
+https://blog.eight02.com/2011/05/validating-xml-with-iso-schematron-on.html
+
+Saxon 9he from https://sourceforge.net/projects/saxon/
+https://github.com/Schematron/stf
+/Users/jstaerk/Downloads/stf-master/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl
+java -jar /Users/jstaerk/Downloads/SaxonHE9-9-1-6J\ \(1\)/saxon9he.jar -o:minimum.xsl -s:FACTUR-X_MINIMUM.scmt /Users/jstaerk/Downloads/stf-master/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl
+
+					// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
+					// this xslt can be created using sth like
+					// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
+					// tcdl2.0.tsdtf.sch iso_svrl.xsl
+
+Syntax error near {...radeAddress[ram:CountryID=7...} at char 158 in expression in xsl:when/@test on line 10762 column 187 of en16931.xsl:
+  XPST0003: expected ")", found "<eof>"
+
+  java -jar /Users/jstaerk/Downloads/SaxonHE9-9-1-6J\ \(1\)/saxon9he.jar -o:zugferd21_basic.xsl -s:/Users/jstaerk/workspace/zugferd/release/BASIC/FACTUR-X_BASIC.scmt /Users/jstaerk/Downloads/stf-master/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl  

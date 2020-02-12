@@ -100,7 +100,10 @@ public class ValidationContext {
 		}
 
 		for (ValidationResultItem validationResultItem : results) {
-			res += validationResultItem.getXML() + "\n";
+			if (validationResultItem.getPart()==EPart.none) {
+				// xml and pdf are handled in their respective sections
+				res += validationResultItem.getXML() + "\n";	
+			}
 		}
 		if (results.size() > 0) {
 			res += "</messages>";

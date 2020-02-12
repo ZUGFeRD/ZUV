@@ -43,6 +43,9 @@ public class ValidationResultItem {
 		part=loc;
 		return this;
 	}
+	public EPart getPart() {
+		return part;
+	}
 	public ValidationResultItem setSeverity(ESeverity sev) {
 		severity=sev;
 		return this;
