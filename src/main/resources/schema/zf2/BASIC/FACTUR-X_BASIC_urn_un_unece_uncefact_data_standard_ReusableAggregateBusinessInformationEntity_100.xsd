@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema agency:  UNCEFACT
+Schema version:  100.D16B (Decoupled Code List Schema Modules)
+Schema date:      10 October 2016
+
+Copyright (C) UN/CEFACT (2016). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to UN/CEFACT, except as needed for the purpose of developing UN/CEFACT specifications, in which case the procedures for copyrights defined in the UN/CEFACT Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by UN/CEFACT or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and UN/CEFACT DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
 <xs:schema xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100"
@@ -15,7 +28,7 @@
   </xs:complexType>
   <xs:complexType name="DebtorFinancialAccountType">
     <xs:sequence>
-      <xs:element name="IBANID" type="udt:IDType"/>
+      <xs:element name="IBANID" type="udt:IDType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="DocumentContextParameterType">
@@ -25,19 +38,19 @@
   </xs:complexType>
   <xs:complexType name="DocumentLineDocumentType">
     <xs:sequence>
-      <xs:element name="LineID" type="udt:IDType"/>
+      <xs:element name="LineID" type="udt:IDType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ExchangedDocumentContextType">
     <xs:sequence>
-      <xs:element name="BusinessProcessSpecifiedDocumentContextParameter" type="ram:DocumentContextParameterType" minOccurs="0"/>
-      <xs:element name="GuidelineSpecifiedDocumentContextParameter" type="ram:DocumentContextParameterType"/>
+      <xs:element name="BusinessProcessSpecifiedDocumentContextParameter" type="ram:DocumentContextParameterType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="GuidelineSpecifiedDocumentContextParameter" type="ram:DocumentContextParameterType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ExchangedDocumentType">
     <xs:sequence>
       <xs:element name="ID" type="udt:IDType"/>
-      <xs:element name="TypeCode" type="qdt:DocumentCodeType"/>
+      <xs:element name="TypeCode" type="qdt:DocumentCodeType" minOccurs="0"/>
       <xs:element name="IssueDateTime" type="udt:DateTimeType"/>
       <xs:element name="IncludedNote" type="ram:NoteType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -45,8 +58,8 @@
   <xs:complexType name="HeaderTradeAgreementType">
     <xs:sequence>
       <xs:element name="BuyerReference" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="SellerTradeParty" type="ram:TradePartyType"/>
-      <xs:element name="BuyerTradeParty" type="ram:TradePartyType"/>
+      <xs:element name="SellerTradeParty" type="ram:TradePartyType" minOccurs="0"/>
+      <xs:element name="BuyerTradeParty" type="ram:TradePartyType" minOccurs="0"/>
       <xs:element name="SellerTaxRepresentativeTradeParty" type="ram:TradePartyType" minOccurs="0"/>
       <xs:element name="BuyerOrderReferencedDocument" type="ram:ReferencedDocumentType" minOccurs="0"/>
       <xs:element name="ContractReferencedDocument" type="ram:ReferencedDocumentType" minOccurs="0"/>
@@ -62,17 +75,17 @@
   <xs:complexType name="HeaderTradeSettlementType">
     <xs:sequence>
       <xs:element name="CreditorReferenceID" type="udt:IDType" minOccurs="0"/>
-      <xs:element name="PaymentReference" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="InvoiceCurrencyCode" type="qdt:CurrencyCodeType"/>
+      <xs:element name="PaymentReference" type="udt:TextType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="InvoiceCurrencyCode" type="qdt:CurrencyCodeType" minOccurs="0"/>
       <xs:element name="PayeeTradeParty" type="ram:TradePartyType" minOccurs="0"/>
       <xs:element name="SpecifiedTradeSettlementPaymentMeans" type="ram:TradeSettlementPaymentMeansType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="ApplicableTradeTax" type="ram:TradeTaxType" maxOccurs="unbounded"/>
+      <xs:element name="ApplicableTradeTax" type="ram:TradeTaxType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="BillingSpecifiedPeriod" type="ram:SpecifiedPeriodType" minOccurs="0"/>
       <xs:element name="SpecifiedTradeAllowanceCharge" type="ram:TradeAllowanceChargeType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="SpecifiedTradePaymentTerms" type="ram:TradePaymentTermsType" minOccurs="0"/>
-      <xs:element name="SpecifiedTradeSettlementHeaderMonetarySummation" type="ram:TradeSettlementHeaderMonetarySummationType"/>
+      <xs:element name="SpecifiedTradePaymentTerms" type="ram:TradePaymentTermsType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="SpecifiedTradeSettlementHeaderMonetarySummation" type="ram:TradeSettlementHeaderMonetarySummationType" minOccurs="0"/>
       <xs:element name="InvoiceReferencedDocument" type="ram:ReferencedDocumentType" minOccurs="0"/>
-      <xs:element name="ReceivableSpecifiedTradeAccountingAccount" type="ram:TradeAccountingAccountType" minOccurs="0"/>
+      <xs:element name="ReceivableSpecifiedTradeAccountingAccount" type="ram:TradeAccountingAccountType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="LegalOrganizationType">
@@ -83,30 +96,47 @@
   </xs:complexType>
   <xs:complexType name="LineTradeAgreementType">
     <xs:sequence>
-      <xs:element name="NetPriceProductTradePrice" type="ram:TradePriceType"/>
+      <xs:element name="NetPriceProductTradePrice" type="ram:TradePriceType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="LineTradeDeliveryType">
     <xs:sequence>
-      <xs:element name="BilledQuantity" type="udt:QuantityType"/>
+      <xs:element name="BilledQuantity" type="udt:QuantityType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="LineTradeSettlementType">
     <xs:sequence>
-      <xs:element name="ApplicableTradeTax" type="ram:TradeTaxType"/>
+      <xs:element name="ApplicableTradeTax" type="ram:TradeTaxType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="SpecifiedTradeAllowanceCharge" type="ram:TradeAllowanceChargeType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="SpecifiedTradeSettlementLineMonetarySummation" type="ram:TradeSettlementLineMonetarySummationType"/>
+      <xs:element name="SpecifiedTradeSettlementLineMonetarySummation" type="ram:TradeSettlementLineMonetarySummationType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="NoteType">
     <xs:sequence>
-      <xs:element name="Content" type="udt:TextType"/>
-      <xs:element name="SubjectCode" type="udt:CodeType" minOccurs="0"/>
+      <xs:element name="Content" type="udt:TextType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="SubjectCode" type="udt:CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+UNTDID 4451
+Text subject code qualifier
+United nations
+http://www.unece.org/
+Vollständige Codeliste
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+UNTDID 4451
+Text subject code qualifier
+United nations
+http://www.unece.org/
+Entire code list
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ReferencedDocumentType">
     <xs:sequence>
-      <xs:element name="IssuerAssignedID" type="udt:IDType"/>
+      <xs:element name="IssuerAssignedID" type="udt:IDType" minOccurs="0"/>
       <xs:element name="FormattedIssueDateTime" type="qdt:FormattedDateTimeType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -124,15 +154,15 @@
   <xs:complexType name="SupplyChainTradeLineItemType">
     <xs:sequence>
       <xs:element name="AssociatedDocumentLineDocument" type="ram:DocumentLineDocumentType"/>
-      <xs:element name="SpecifiedTradeProduct" type="ram:TradeProductType"/>
-      <xs:element name="SpecifiedLineTradeAgreement" type="ram:LineTradeAgreementType"/>
+      <xs:element name="SpecifiedTradeProduct" type="ram:TradeProductType" minOccurs="0"/>
+      <xs:element name="SpecifiedLineTradeAgreement" type="ram:LineTradeAgreementType" minOccurs="0"/>
       <xs:element name="SpecifiedLineTradeDelivery" type="ram:LineTradeDeliveryType" minOccurs="0"/>
       <xs:element name="SpecifiedLineTradeSettlement" type="ram:LineTradeSettlementType"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="SupplyChainTradeTransactionType">
     <xs:sequence>
-      <xs:element name="IncludedSupplyChainTradeLineItem" type="ram:SupplyChainTradeLineItemType" maxOccurs="unbounded"/>
+      <xs:element name="IncludedSupplyChainTradeLineItem" type="ram:SupplyChainTradeLineItemType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="ApplicableHeaderTradeAgreement" type="ram:HeaderTradeAgreementType"/>
       <xs:element name="ApplicableHeaderTradeDelivery" type="ram:HeaderTradeDeliveryType"/>
       <xs:element name="ApplicableHeaderTradeSettlement" type="ram:HeaderTradeSettlementType"/>
@@ -140,7 +170,7 @@
   </xs:complexType>
   <xs:complexType name="TaxRegistrationType">
     <xs:sequence>
-      <xs:element name="ID" type="udt:IDType"/>
+      <xs:element name="ID" type="udt:IDType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeAccountingAccountType">
@@ -149,13 +179,176 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeAddressType">
+    <xs:annotation>
+      <xs:documentation xml:lang="DE">
+Detailinformationen zur Anschrift
+O
+0..1
+      </xs:documentation>
+      <xs:documentation xml:lang="EN">
+Details on Address
+O
+0..1
+      </xs:documentation>
+      <xs:documentation>0..1</xs:documentation>
+      <xs:documentation xml:lang="FR">
+Adresse postale
+O
+0..1
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element name="PostcodeCode" type="udt:CodeType" minOccurs="0"/>
-      <xs:element name="LineOne" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="LineTwo" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="LineThree" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="CityName" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="CountryID" type="qdt:CountryIDType"/>
+      <xs:element name="PostcodeCode" type="udt:CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Postleitzahl
+80333
+A
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Postcode
+80333
+A
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Code postal du vendeur
+Identifiant d'un groupe adressable de propriétés, conforme au service postal concerné.
+Exemple : code postal ou numéro postal d'acheminement.
+80300
+A
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LineOne" type="udt:TextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Adresszeile 1
+Angabe der Strasse oder des Postfachs. Bei Großkundenanschriften muss dieses Feld mit "-" belegt werden.
+Lieferantenstraße 20
+A
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Line one of address
+Indication of street or postal box. For addresses indicating the postcode and locality, "-" must be entered.
+A
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Adresse légale du vendeur - Ligne 1
+Ligne principale d'une adresse.
+Généralement, le nom et le numéro de la rue ou la boîte postale.
+20 rue du fournisseur
+A
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LineTwo" type="udt:TextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Adresszeile 2
+Gebäude 3
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Line two
+Gebäude 3
+O
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Adresse légale du vendeur - Ligne 2
+Ligne supplémentaire d'une adresse, qui peut être utilisée pour donner des précisions et compléter la ligne principale.
+Bâtiment 3
+O
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LineThree" type="udt:TextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Adresszeile 3
+Tür B
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Line three
+Door B
+O
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Adresse légale du vendeur - Ligne 3
+Ligne supplémentaire d'une adresse, qui peut être utilisée pour donner des précisions et compléter la ligne principale.
+Porte B
+O
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CityName" type="udt:TextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Ort
+München
+A
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+City
+München
+A
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Localité
+Nom usuel de la commune, ville ou village, dans laquelle se trouve l'adresse.
+Thiepval
+A
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CountryID" type="qdt:CountryIDType">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Land (Code)
+DE
+R
+1..1
+ISO 3166-1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Country (Code)
+DE
+R
+1..1
+ISO 3166-1
+          </xs:documentation>
+          <xs:documentation>1..1</xs:documentation>
+          <xs:documentation xml:lang="FR">
+Code de pays
+Code d'identification du pays.
+Les listes de pays valides sont enregistrées auprès de l'Agence de maintenance de la norme ISO 3166-1 « Codes pour la représentation des noms de pays et de leurs subdivisions ». Il est recommandé d'utiliser la représentation alpha-2.
+FR
+R
+1..1
+ISO 3166-1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeAllowanceChargeType">
@@ -163,80 +356,233 @@
       <xs:element name="ChargeIndicator" type="udt:IndicatorType" minOccurs="0"/>
       <xs:element name="CalculationPercent" type="udt:PercentType" minOccurs="0"/>
       <xs:element name="BasisAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="ActualAmount" type="udt:AmountType"/>
+      <xs:element name="ActualAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="ReasonCode" type="qdt:AllowanceChargeReasonCodeType" minOccurs="0"/>
       <xs:element name="Reason" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="CategoryTradeTax" type="ram:TradeTaxType" minOccurs="0"/>
+      <xs:element name="CategoryTradeTax" type="ram:TradeTaxType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradePartyType">
+    <xs:annotation>
+      <xs:documentation xml:lang="DE">
+Geschäftspartner
+O
+0..1
+      </xs:documentation>
+      <xs:documentation xml:lang="FR">
+Partenaire commercial
+O
+0..1
+      </xs:documentation>
+      <xs:documentation xml:lang="EN">
+Trade party
+O
+0..1
+      </xs:documentation>
+      <xs:documentation>0..1</xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element name="ID" type="udt:IDType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="GlobalID" type="udt:IDType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="Name" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="SpecifiedLegalOrganization" type="ram:LegalOrganizationType" minOccurs="0"/>
+      <xs:element name="ID" type="udt:IDType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="DE">
+Identifier
+P123456
+O
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Identifiant
+P123456
+O
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Id
+P123456
+O
+0..n
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GlobalID" type="udt:IDType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>0..n</xs:documentation>
+          <xs:documentation xml:lang="DE">
+Globaler Identifier
+1234567890123
+O
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Identifiant global
+1234567890123
+O
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Global Id
+1234567890123
+O
+0..n
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name" type="udt:TextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Name
+A
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Nom
+A
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Name
+A
+0..1
+          </xs:documentation>
+          <xs:documentation>0..1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SpecifiedLegalOrganization" type="ram:LegalOrganizationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="DE">
+Details zur Organisation
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Details on organization
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Détails sur l'organisation légale
+O
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="PostalTradeAddress" type="ram:TradeAddressType" minOccurs="0"/>
-      <xs:element name="URIUniversalCommunication" type="ram:UniversalCommunicationType" minOccurs="0"/>
-      <xs:element name="SpecifiedTaxRegistration" type="ram:TaxRegistrationType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="URIUniversalCommunication" type="ram:UniversalCommunicationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>0..1</xs:documentation>
+          <xs:documentation xml:lang="DE">
+Details zur elektronischen Adresse
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Details about the electronic address
+O
+0..1
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Détails sur une adresse électronique
+O
+0..1
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SpecifiedTaxRegistration" type="ram:TaxRegistrationType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+Detailinformationen zu Steuernummern
+D
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="FR">
+Détail d'enregistrement fiscal
+D
+0..n
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+Details on tax registration
+D
+0..n
+          </xs:documentation>
+          <xs:documentation>0..n</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradePaymentTermsType">
     <xs:sequence>
       <xs:element name="DueDateDateTime" type="udt:DateTimeType" minOccurs="0"/>
-      <xs:element name="DirectDebitMandateID" type="udt:IDType" minOccurs="0"/>
+      <xs:element name="DirectDebitMandateID" type="udt:IDType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradePriceType">
     <xs:sequence>
-      <xs:element name="ChargeAmount" type="udt:AmountType"/>
+      <xs:element name="ChargeAmount" type="udt:AmountType" maxOccurs="unbounded"/>
       <xs:element name="BasisQuantity" type="udt:QuantityType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeProductType">
     <xs:sequence>
       <xs:element name="GlobalID" type="udt:IDType" minOccurs="0"/>
-      <xs:element name="Name" type="udt:TextType"/>
+      <xs:element name="Name" type="udt:TextType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeSettlementHeaderMonetarySummationType">
     <xs:sequence>
-      <xs:element name="LineTotalAmount" type="udt:AmountType"/>
-      <xs:element name="ChargeTotalAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="AllowanceTotalAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="TaxBasisTotalAmount" type="udt:AmountType"/>
-      <xs:element name="TaxTotalAmount" type="udt:AmountType"/>
-      <xs:element name="GrandTotalAmount" type="udt:AmountType"/>
-      <xs:element name="TotalPrepaidAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="DuePayableAmount" type="udt:AmountType"/>
+      <xs:element name="LineTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ChargeTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AllowanceTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TaxBasisTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TaxTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="GrandTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TotalPrepaidAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="DuePayableAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeSettlementLineMonetarySummationType">
     <xs:sequence>
-      <xs:element name="LineTotalAmount" type="udt:AmountType"/>
+      <xs:element name="LineTotalAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeSettlementPaymentMeansType">
     <xs:sequence>
-      <xs:element name="TypeCode" type="qdt:PaymentMeansCodeType"/>
+      <xs:element name="TypeCode" type="qdt:PaymentMeansCodeType" minOccurs="0"/>
       <xs:element name="PayerPartyDebtorFinancialAccount" type="ram:DebtorFinancialAccountType" minOccurs="0"/>
       <xs:element name="PayeePartyCreditorFinancialAccount" type="ram:CreditorFinancialAccountType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="TradeTaxType">
     <xs:sequence>
-      <xs:element name="CalculatedAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="TypeCode" type="qdt:TaxTypeCodeType"/>
+      <xs:element name="CalculatedAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TypeCode" type="qdt:TaxTypeCodeType" minOccurs="0"/>
       <xs:element name="ExemptionReason" type="udt:TextType" minOccurs="0"/>
-      <xs:element name="BasisAmount" type="udt:AmountType" minOccurs="0"/>
-      <xs:element name="CategoryCode" type="qdt:TaxCategoryCodeType"/>
-      <xs:element name="ExemptionReasonCode" type="udt:CodeType" minOccurs="0"/>
+      <xs:element name="BasisAmount" type="udt:AmountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="CategoryCode" type="qdt:TaxCategoryCodeType" minOccurs="0"/>
+      <xs:element name="ExemptionReasonCode" type="udt:CodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="DE">
+VAT exemption reason code
+CEF
+https://ec.europa.eu/cefdigital/wiki/download/attachments/106234259/VAT%20Exemption%20Reason%20Code%20list%20VATEX%20-%20verion%202%20-published.xlsx?version=3&amp;modificationDate=1578305762920&amp;api=v2
+Vollständig
+          </xs:documentation>
+          <xs:documentation xml:lang="EN">
+VAT exemption reason code
+CEF
+https://ec.europa.eu/cefdigital/wiki/download/attachments/106234259/VAT%20Exemption%20Reason%20Code%20list%20VATEX%20-%20verion%202%20-published.xlsx?version=3&amp;modificationDate=1578305762920&amp;api=v2
+Entire code list
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="DueDateTypeCode" type="qdt:TimeReferenceCodeType" minOccurs="0"/>
       <xs:element name="RateApplicablePercent" type="udt:PercentType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="UniversalCommunicationType">
     <xs:sequence>
-      <xs:element name="URIID" type="udt:IDType"/>
+      <xs:element name="URIID" type="udt:IDType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

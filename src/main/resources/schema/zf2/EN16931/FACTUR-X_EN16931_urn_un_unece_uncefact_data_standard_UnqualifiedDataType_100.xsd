@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema agency:  UNCEFACT
+Schema version:  100.D16B (Decoupled Code List Schema Modules)
+Schema date:      10 October 2016
+
+Copyright (C) UN/CEFACT (2016). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to UN/CEFACT, except as needed for the purpose of developing UN/CEFACT specifications, in which case the procedures for copyrights defined in the UN/CEFACT Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by UN/CEFACT or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and UN/CEFACT DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
 <xs:schema xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100"
@@ -7,7 +20,28 @@
   <xs:complexType name="AmountType">
     <xs:simpleContent>
       <xs:extension base="xs:decimal">
-        <xs:attribute name="currencyID" type="xs:token" use="optional"/>
+        <xs:attribute name="currencyID" type="xs:token" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="DE">
+ISO 4217
+Currency codes
+Mindestens ISO 4217:2015
+ISO
+http://www.currency-iso.org/en/home/tables/table-a1.html
+Vollständige Liste
+Nur die alphabetische Darstellung darf verwendet werden.
+            </xs:documentation>
+            <xs:documentation xml:lang="EN">
+ISO 4217
+Currency codes
+Mindestens ISO 4217:2015
+ISO
+http://www.currency-iso.org/en/home/tables/table-a1.html
+Entire code list
+Only the alphabetical representation is to be used.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -33,7 +67,26 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
-              <xs:attribute name="format" type="xs:string" use="required"/>
+              <xs:attribute name="format" type="xs:string" use="required">
+                <xs:annotation>
+                  <xs:documentation xml:lang="DE">
+UNTDID 2379
+Date time format
+D16B
+United nations
+http://www.unece.org/
+Untermenge
+                  </xs:documentation>
+                  <xs:documentation xml:lang="EN">
+UNTDID 2379
+Date time format
+D16B
+United nations
+http://www.unece.org/
+Subset
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -46,7 +99,26 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
-              <xs:attribute name="format" type="xs:string" use="required"/>
+              <xs:attribute name="format" type="xs:string" use="required">
+                <xs:annotation>
+                  <xs:documentation xml:lang="DE">
+UNTDID 2379
+Date time format
+D16B
+United nations
+http://www.unece.org/
+Untermenge
+                  </xs:documentation>
+                  <xs:documentation xml:lang="EN">
+UNTDID 2379
+Date time format
+D16B
+United nations
+http://www.unece.org/
+Subset
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -73,7 +145,44 @@
   <xs:complexType name="QuantityType">
     <xs:simpleContent>
       <xs:extension base="xs:decimal">
-        <xs:attribute name="unitCode" type="xs:token" use="required"/>
+        <xs:attribute name="unitCode" type="xs:token" use="required">
+          <xs:annotation>
+            <xs:documentation></xs:documentation>
+            <xs:documentation xml:lang="DE">
+Rec. N°20
+UN/ECE Recommendation N°20: Codes für Mengeneinheiten im internationalen Handel
+United Nations
+http://www.unece.org/
+Vollständige Liste
+In Recommendation N°20 Intro 2.a ist beschrieben, dass beide Listen kombiniert anzuwenden sind.
+            </xs:documentation>
+            <xs:documentation xml:lang="DE">
+Rec. N°21
+UN/ECE Recommendation N°21: Codes für Passagiere, Frachtarten, Pakete und Verpackungsmaterialien (mit ergänzenden Codes für Verpackungen)
+United Nations
+http://www.unece.org/
+Vollständige Liste
+In Recommendation N°20 Intro 2.a ist beschrieben, dass beide Listen kombiniert anzuwenden sind.
+            </xs:documentation>
+            <xs:documentation xml:lang="EN">
+Rec. N°20
+UN/ECE Recommendation N°20: Codes for Units of Measure Used in International Trade
+United Nations
+http://www.unece.org/
+Entire code list
+Recommendation N°20 Intro 2.a describes that both lists should be used in combination.
+            </xs:documentation>
+            <xs:documentation xml:lang="EN">
+Rec. N°21
+UN/ECE Recommendation N°21: Codes for passengers, types of cargo, packages and packaging materials (with complementary codes for package names)
+United Nations
+http://www.unece.org/
+Entire code list
+Recommendation N°20 Intro 2.a describes that both lists must be used in combination.
+            </xs:documentation>
+            <xs:documentation></xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>

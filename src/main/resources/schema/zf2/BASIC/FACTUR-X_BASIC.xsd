@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--303-->
+<!--
+Schema agency:  UNCEFACT
+Schema version:  100.D16B (Decoupled Code List Schema Modules)
+Schema date:      10 October 2016
+
+Copyright (C) UN/CEFACT (2016). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to UN/CEFACT, except as needed for the purpose of developing UN/CEFACT specifications, in which case the procedures for copyrights defined in the UN/CEFACT Intellectual Property Rights document must be followed, or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by UN/CEFACT or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS" basis and UN/CEFACT DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
 <xs:schema xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100"
@@ -9,7 +23,1012 @@
   <xs:import namespace="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" schemaLocation="FACTUR-X_BASIC_urn_un_unece_uncefact_data_standard_QualifiedDataType_100.xsd"/>
   <xs:import namespace="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" schemaLocation="FACTUR-X_BASIC_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100.xsd"/>
   <xs:import namespace="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" schemaLocation="FACTUR-X_BASIC_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd"/>
-  <xs:element name="CrossIndustryInvoice" type="rsm:CrossIndustryInvoiceType"/>
+  <xs:element name="CrossIndustryInvoice" type="rsm:CrossIndustryInvoiceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="DE">
+Rechnung
+Der Inhalt der ZUGFeRD-XML-Rechnung muss unabhänig vom Belegbild eine vollständige, eigenständige Rechnung abbilden. Sie soll den gleichen fachlichen Inhalt widerspiegeln, wie das Belegbild.
+R
+      </xs:documentation>
+      <xs:documentation>390</xs:documentation>
+      <xs:documentation>1..n</xs:documentation>
+      <xs:documentation xml:lang="EN">
+Invoice
+The XML part of a ZUGFeRD invoice always represents a complete and autonomous invoice and so is not dependent on the PDF image. It should represent the same information as the image.
+R
+      </xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation>Invoice</xs:documentation>
+      <xs:documentation>MINIMUM</xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation>X</xs:documentation>
+      <xs:documentation xml:lang="FR">
+Facture
+R
+      </xs:documentation>
+      <xs:documentation>10344</xs:documentation>
+      <xs:documentation>
+//ram:AdditionalReferencedDocument
+(ram:IssuerAssignedID!='')
+BR-52
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableTradeSettlementFinancialCard
+string-length(ram:ID)&lt;=6 and string-length(ram:ID)&gt;=4
+BR-51
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementPaymentMeans[ram:TypeCode='30' or ram:TypeCode='58']/ram:PayerPartyDebtorFinancialAccount
+(ram:IBANID) or (ram:ProprietaryID)
+BR-50
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementPaymentMeans[ram:TypeCode='30' or ram:TypeCode='58']/ram:PayerPartyDebtorFinancialAccount
+(ram:IBANID) or (ram:ProprietaryID)
+BR-61
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery
+(ram:ShipToTradeParty/ram:PostalTradeAddress and ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID!='') or not (ram:ShipToTradeParty/ram:PostalTradeAddress)
+BR-57
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+(ram:ActualAmount)
+BR-31
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+(ram:CategoryTradeTax/ram:CategoryCode)
+BR-32
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+(ram:Reason) or (ram:ReasonCode)
+BR-33
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+true()
+BR-CO-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+(ram:Reason) or (ram:ReasonCode)
+BR-CO-21
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+string-length(substring-after(ram:ActualAmount,'.'))&lt;=2
+BR-DEC-01
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']
+string-length(substring-after(ram:BasisAmount,'.'))&lt;=2
+BR-DEC-02
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+(ram:ActualAmount)
+BR-36
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+(ram:CategoryTradeTax/ram:CategoryCode)
+BR-37
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+(ram:Reason) or (ram:ReasonCode)
+BR-38
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+true()
+BR-CO-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+(ram:Reason) or (ram:ReasonCode)
+BR-CO-22
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+string-length(substring-after(ram:ActualAmount,'.'))&lt;=2
+BR-DEC-05
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']
+string-length(substring-after(ram:BasisAmount,'.'))&lt;=2
+BR-DEC-06
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:LineTotalAmount)
+BR-12
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:TaxBasisTotalAmount)
+BR-13
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:GrandTotalAmount)
+BR-14
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:DuePayableAmount)
+BR-15
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false'])and not (ram:AllowanceTotalAmount)) or ram:AllowanceTotalAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:ActualAmount)* 10 * 10 ) div 100)
+BR-CO-11
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true'])and not (ram:ChargeTotalAmount)) or ram:ChargeTotalAmount = 
+((round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:ActualAmount)* 10 * 10 ) div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedLogisticsServiceCharge/ram:AppliedAmount)* 10 * 10 ) div 100))
+BR-CO-12
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100) div 100)) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount * 100) div 100)) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))
+BR-CO-13
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:GrandTotalAmount = round(ram:TaxBasisTotalAmount*100 + ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]*100 +0) div 100) or ((ram:GrandTotalAmount = ram:TaxBasisTotalAmount) and not (ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]))
+BR-CO-15
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+(ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100)) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100) div 100)) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))
+BR-CO-16
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:LineTotalAmount,'.'))&lt;=2
+BR-DEC-09
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:AllowanceTotalAmount,'.'))&lt;=2
+BR-DEC-10
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:ChargeTotalAmount,'.'))&lt;=2
+BR-DEC-11
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:TaxBasisTotalAmount,'.'))&lt;=2
+BR-DEC-12
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+not(ram:TaxTotalAmount) or ram:TaxTotalAmount[(@currencyID =/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode and . = round(. * 100) div 100) or not (@currencyID =/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode)]
+BR-DEC-13
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:GrandTotalAmount,'.'))&lt;=2
+BR-DEC-14
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+not(ram:TaxTotalAmount) or ram:TaxTotalAmount[(@currencyID =/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode and . = round(. * 100) div 100) or not (/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode)]
+BR-DEC-15
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:TotalPrepaidAmount,'.'))&lt;=2
+BR-DEC-16
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:RoundingAmount,'.'))&lt;=2
+BR-DEC-17
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+string-length(substring-after(ram:DuePayableAmount,'.'))&lt;=2
+BR-DEC-18
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID != '')
+BR-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:ExchangedDocument/ram:ID !='')
+BR-2
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString[@format='102']!='')
+BR-3
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:ExchangedDocument/ram:TypeCode!='')
+BR-4
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode!='')
+BR-5
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Name!='')
+BR-6
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:Name!='')
+BR-7
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+//ram:SellerTradeParty/ram:PostalTradeAddress
+BR-8
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+//ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID!=''
+BR-9
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+//ram:BuyerTradeParty/ram:PostalTradeAddress
+BR-10
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+//ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID!=''
+BR-11
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID/@schemeID!='' or not (rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication)
+BR-62
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID/@schemeID!='' or not (rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication)
+BR-63
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+((count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='S']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='S'])) &gt;=2 or not (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='S'])) and     ((count(//ram:CategoryTradeTax[ram:CategoryCode='S']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='S'])) &gt;=2 or not (//ram:CategoryTradeTax[ram:CategoryCode='S']))
+BR-S-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='Z'])=0 and count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='Z'])=0 and count(//ram:CategoryTradeTax[ram:CategoryCode='Z'])=0) or ( count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='Z'])=1 and (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='Z'] or //ram:CategoryTradeTax[ram:CategoryCode='Z']))
+BR-Z-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='E'])=0 and count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='E'])=0 and count(//ram:CategoryTradeTax[ram:CategoryCode='E'])=0) or ( count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='E'])=1 and (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='E'] or //ram:CategoryTradeTax[ram:CategoryCode='E']))
+BR-E-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='AE'])=0 and count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='AE'])=0 and count(//ram:CategoryTradeTax[ram:CategoryCode='AE'])=0) or ( count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='AE'])=1 and (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='AE'] or //ram:CategoryTradeTax[ram:CategoryCode='AE']))
+BR-AE-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='K'])=0 and count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='K'])=0 and count(//ram:CategoryTradeTax[ram:CategoryCode='K'])=0) or ( count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='K'])=1 and (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='K'] or //ram:CategoryTradeTax[ram:CategoryCode='K']))
+BR-IC-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+(count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='G'])=0 and count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='G'])=0 and count(//ram:CategoryTradeTax[ram:CategoryCode='G'])=0) or ( count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='G'])=1 and (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='G'] or //ram:CategoryTradeTax[ram:CategoryCode='G']))
+BR-G-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+not(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='O']) or (     count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='O'])=1 and     (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='O'] or    //ram:CategoryTradeTax[ram:CategoryCode='O']))
+BR-O-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+((count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='L']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='L'])) &gt;=2 or not (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='L'])) and     ((count(//ram:CategoryTradeTax[ram:CategoryCode='L']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='L'])) &gt;=2 or not (//ram:CategoryTradeTax[ram:CategoryCode='L']))
+BR-IG-1
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice
+((count(//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='M']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='M'])) &gt;=2 or not (//ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='M'])) and     ((count(//ram:CategoryTradeTax[ram:CategoryCode='M']) + count(//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode='M'])) &gt;=2 or not (//ram:CategoryTradeTax[ram:CategoryCode='M']))
+BR-IP-1
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:AssociatedDocumentLineDocument/ram:LineID!='')
+BR-21
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeDelivery/ram:BilledQuantity)
+BR-22
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeDelivery/ram:BilledQuantity/@unitCode)
+BR-23
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)
+BR-24
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedTradeProduct/ram:Name!='')
+BR-25
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:ChargeAmount)
+BR-26
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:ChargeAmount) &gt;= 0
+BR-27
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:ChargeAmount &gt;= 0) or not(ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:ChargeAmount)
+BR-28
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+ram:SpecifiedTradeProduct/ram:GlobalID/@schemeID!='' or not (ram:SpecifiedTradeProduct/ram:GlobalID)
+BR-64
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedTradeProduct/ram:DesignatedProductClassification/ram:ClassCode/@listID!='') or not (ram:SpecifiedTradeProduct/ram:DesignatedProductClassification)
+BR-65
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+(ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode)
+BR-CO-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+BR-CO-18
+      </xs:documentation>
+      <xs:documentation>
+//ram:IncludedSupplyChainTradeLineItem
+string-length(substring-after(ram:SpecifiedTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount,'.'))&lt;=2
+BR-DEC-23
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+(ram:ActualAmount)
+BR-41
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+(ram:Reason) or (ram:ReasonCode)
+BR-42
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+true()
+BR-CO-7
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+(ram:Reason) or (ram:ReasonCode)
+BR-CO-23
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+string-length(substring-after(ram:ActualAmount,'.'))&lt;=2
+BR-DEC-24
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']
+string-length(substring-after(ram:BasisAmount,'.'))&lt;=2
+BR-DEC-25
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+(ram:ActualAmount)
+BR-43
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+(ram:Reason) or (ram:ReasonCode)
+BR-44
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+true()
+BR-CO-8
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+(ram:Reason) or (ram:ReasonCode)
+BR-CO-24
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+string-length(substring-after(ram:ActualAmount,'.'))&lt;=2
+BR-DEC-27
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']
+string-length(substring-after(ram:BasisAmount,'.'))&lt;=2
+BR-DEC-28
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod
+(ram:EndDateTime/udt:DateTimeString[@format = '102']) &gt;= (ram:StartDateTime/udt:DateTimeString[@format = '102']) or not (ram:EndDateTime) or not (ram:StartDateTime)
+BR-30
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod
+(ram:StartDateTime) or (ram:EndDateTime)
+BR-CO-20
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod
+(ram:EndDateTime/udt:DateTimeString[@format = '102']) &gt;= (ram:StartDateTime/udt:DateTimeString[@format = '102']) or not (ram:EndDateTime) or not (ram:StartDateTime)
+BR-29
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod
+(ram:StartDateTime) or (ram:EndDateTime)
+BR-CO-19
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableProductCharacteristic
+(ram:Description) and (ram:Value)
+BR-54
+      </xs:documentation>
+      <xs:documentation>
+//ram:PayeeTradeParty
+(ram:Name) and (not(ram:Name = ../ram:SellerTradeParty/ram:Name) and not(ram:ID = ../ram:SellerTradeParty/ram:ID) and not(ram:SpecifiedLegalOrganization/ram:ID = ../ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID))
+BR-17
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementPaymentMeans
+(ram:TypeCode)
+BR-49
+      </xs:documentation>
+      <xs:documentation>
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument
+(ram:IssuerAssignedID!='')
+BR-55
+      </xs:documentation>
+      <xs:documentation>
+//ram:SellerTradeParty
+(ram:ID) or (ram:GlobalID) or (ram:SpecifiedLegalOrganization/ram:ID) or (ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA'])
+BR-CO-26
+      </xs:documentation>
+      <xs:documentation>
+//ram:SellerTaxRepresentativeTradeParty
+(ram:Name)
+BR-18
+      </xs:documentation>
+      <xs:documentation>
+//ram:SellerTaxRepresentativeTradeParty
+(ram:PostalTradeAddress)
+BR-19
+      </xs:documentation>
+      <xs:documentation>
+//ram:SellerTaxRepresentativeTradeParty
+(ram:PostalTradeAddress/ram:CountryID)
+BR-20
+      </xs:documentation>
+      <xs:documentation>
+//ram:SellerTaxRepresentativeTradeParty
+(ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA']!='')
+BR-56
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeSettlementHeaderMonetarySummation
+not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode) or (/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode and (ram:TaxTotalAmount/@currencyID = /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode) and not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode = /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode))
+BR-53
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA']
+contains(' EL AD AE AF AG AI AL AM AN AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BL BJ BM BN BO BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR ST SV SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW ', concat(' ', substring(.,1,2), ' '))
+BR-CO-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'AE']
+../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'AE']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='AE']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='AE']/ram:ActualAmount)*10*10)div 100)
+BR-AE-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'AE']
+../ram:CalculatedAmount = 0
+BR-AE-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'AE']
+(../ram:ExemptionReason) or (../ram:ExemptionReasonCode)
+BR-AE-10
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and (//ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID)
+BR-AE-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']
+ram:RateApplicablePercent = 0
+BR-AE-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and (//ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID)
+BR-AE-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']
+ram:RateApplicablePercent = 0
+BR-AE-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'AE']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and (//ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID)
+BR-AE-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'AE']
+ram:RateApplicablePercent = 0
+BR-AE-5
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']
+ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'L' and ram:RateApplicablePercent=ram:ApplicableTradeTax/ram:RateApplicablePercent]/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='L' and ram:RateApplicablePercent=ram:CategoryTradeTax/ram:RateApplicablePercent]/ram:ActualAmount)*10*10) div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='L' and ram:RateApplicablePercent=ram:CategoryTradeTax/ram:RateApplicablePercent]/ram:ActualAmount)*10*10) div 100)
+BR-IG-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']
+true()
+BR-IG-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']
+not(ram:ExemptionReason) and not (ram:ExemptionReasonCode)
+BR-IG-10
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IG-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']
+ram:RateApplicablePercent &gt; 0
+BR-IG-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'L']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IG-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'L']
+ram:RateApplicablePercent &gt; 0
+BR-IG-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'L']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IG-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'L']
+ram:RateApplicablePercent &gt; 0
+BR-IG-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']
+ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'M' and ram:RateApplicablePercent=ram:ApplicableTradeTax/ram:RateApplicablePercent]/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='M' and ram:RateApplicablePercent=ram:CategoryTradeTax/ram:RateApplicablePercent]/ram:ActualAmount)*10*10) div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='M' and ram:RateApplicablePercent=ram:CategoryTradeTax/ram:RateApplicablePercent]/ram:ActualAmount)*10*10) div 100)
+BR-IP-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']
+true()
+BR-IP-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']
+not(ram:ExemptionReason) and not (ram:ExemptionReasonCode)
+BR-IP-10
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IP-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']
+ram:RateApplicablePercent &gt; 0
+BR-IP-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'M']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IP-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'M']
+ram:RateApplicablePercent &gt; 0
+BR-IP-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'M']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IP-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'M']
+ram:RateApplicablePercent &gt; 0
+BR-IP-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'E']
+../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'E']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100)
+BR-E-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'E']
+../ram:CalculatedAmount = 0
+BR-E-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'E']
+(../ram:ExemptionReason) or (../ram:ExemptionReasonCode)
+BR-E-10
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'E']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-E-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'E']
+ram:RateApplicablePercent = 0
+BR-E-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'E']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-E-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'E']
+ram:RateApplicablePercent = 0
+BR-E-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'E']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-E-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'E']
+ram:RateApplicablePercent = 0
+BR-E-5
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'G']
+../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'G']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='G']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='G']/ram:ActualAmount)*10*10)div 100)
+BR-G-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'G']
+../ram:CalculatedAmount = 0
+BR-G-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'G']
+(../ram:ExemptionReason) or (../ram:ExemptionReasonCode)
+BR-G-10
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'G']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-G-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'G']
+ram:RateApplicablePercent = 0
+BR-G-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'G']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-G-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'G']
+ram:RateApplicablePercent = 0
+BR-G-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'G']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-G-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'G']
+ram:RateApplicablePercent = 0
+BR-G-5
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']
+../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'K']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='K']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='K']/ram:ActualAmount)*10*10)div 100)
+BR-IC-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']
+../ram:CalculatedAmount = 0
+BR-IG-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']
+(../ram:ExemptionReason) or (../ram:ExemptionReasonCode)
+BR-IC-10
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']
+(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString) or (../../ram:BillingSpecifiedPeriod/ram:StartDateTime) or (../../ram:BillingSpecifiedPeriod/ram:EndDateTime)
+BR-IC-11
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID
+BR-IC-12
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'K']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and //ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IC-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'K']
+ram:RateApplicablePercent = 0
+BR-IG-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'K']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and //ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IC-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'K']
+ram:RateApplicablePercent = 0
+BR-IC-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'K']
+(//ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'] or //ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and //ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-IC-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'K']
+ram:RateApplicablePercent = 0
+BR-IC-5
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'O' and ram:RateApplicablePercent=ram:ApplicableTradeTax/ram:RateApplicablePercent]/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='O' and ram:RateApplicablePercent=ram:CategoryTradeTax/ram:RateApplicablePercent]/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='O']/ram:ActualAmount)*10*10)div 100)
+BR-O-8
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+ram:CalculatedAmount = 0
+BR-O-9
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+(ram:ExemptionReason) or (ram:ExemptionReasonCode)
+BR-O-10
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(//ram:ApplicableTradeTax[ram:CategoryCode != 'O'])
+BR-O-11
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(//ram:ApplicableTradeTax[ram:CategoryCode != 'O'])
+BR-O-12
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(//ram:CategoryTradeTax[ram:CategoryCode != 'O'])
+BR-O-13
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(//ram:CategoryTradeTax[ram:CategoryCode != 'O'])
+BR-O-14
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'O']
+not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-O-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'O']
+not(ram:RateApplicablePercent)
+BR-O-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'O']
+not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-O-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'O']
+not(ram:RateApplicablePercent)
+BR-O-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']) and not (/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA'])
+BR-O-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']
+not(ram:RateApplicablePercent)
+BR-O-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.='S']
+every $rate in ../ram:RateApplicablePercent satisfies (../ram:BasisAmount = (sum( /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'S' and ram:ApplicableTradeTax/ram:RateApplicablePercent =$rate]/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount) + sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true'  and ram:CategoryTradeTax/ram:CategoryCode='S' and ram:CategoryTradeTax/ram:RateApplicablePercent=$rate]/ram:ActualAmount) - sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='S' and ram:CategoryTradeTax/ram:RateApplicablePercent=$rate]/ram:ActualAmount)))
+BR-S-08
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.='S']
+../ram:CalculatedAmount = round(../ram:BasisAmount * ../ram:RateApplicablePercent) div 100 +0
+BR-S-9
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.='S']
+not(../ram:ExemptionReason) and not (../ram:ExemptionReasonCode)
+BR-S-10
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'S']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-S-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'S']
+ram:RateApplicablePercent &gt; 0
+BR-S-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'S']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-S-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'S']
+ram:RateApplicablePercent &gt; 0
+BR-S-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'S']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-S-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'S']
+ram:RateApplicablePercent &gt; 0
+BR-S-7
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'Z']
+../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'Z']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='Z']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='Z']/ram:ActualAmount)*10*10)div 100)
+BR-Z-8
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'Z']
+../ram:CalculatedAmount = 0
+BR-Z-9
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'Z']
+not(../ram:ExemptionReason) and not (../ram:ExemptionReasonCode)
+BR-Z-10
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-Z-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']
+ram:RateApplicablePercent = 0
+BR-Z-6
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-Z-4
+      </xs:documentation>
+      <xs:documentation>
+//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']
+ram:RateApplicablePercent = 0
+BR-Z-7
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'Z']
+/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA' or @schemeID = 'FC'] or /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID = 'VA']
+BR-Z-2
+      </xs:documentation>
+      <xs:documentation>
+//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'Z']
+ram:RateApplicablePercent = 0
+BR-Z-5
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+(ram:BasisAmount)
+BR-45
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+(ram:CalculatedAmount)
+BR-46
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+(ram:CategoryCode)
+BR-47
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+(ram:RateApplicablePercent) or (ram:CategoryCode = 'O')
+BR-48
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+((ram:TaxPointDate) and not (ram:DueDateTypeCode)) or (not (ram:TaxPointDate) and (ram:DueDateTypeCode)) or (not (ram:TaxPointDate) and not (ram:DueDateTypeCode))
+BR-CO-3
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+ram:CalculatedAmount = round(ram:BasisAmount * ram:RateApplicablePercent) div 100 +0 or not (ram:RateApplicablePercent)
+BR-CO-17
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+string-length(substring-after(ram:BasisAmount,'.'))&lt;=2
+BR-DEC-19
+      </xs:documentation>
+      <xs:documentation>
+//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax
+string-length(substring-after(ram:CalculatedAmount,'.'))&lt;=2
+BR-DEC-20
+      </xs:documentation>
+      <xs:documentation>1000001</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:complexType name="CrossIndustryInvoiceType">
     <xs:sequence>
       <xs:element name="ExchangedDocumentContext" type="ram:ExchangedDocumentContextType"/>
