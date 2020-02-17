@@ -18,6 +18,7 @@ public class ValidationResultItem {
 
 
 	private String stacktrace=null;
+	private boolean hasBeenOutputted=false;
 
 
 	private EPart part;
@@ -79,9 +80,18 @@ public class ValidationResultItem {
 		if (stacktrace!=null) {
 			additionalContents+="<stacktrace>"+stacktrace+"</stacktrace>";
 		}
-		
+		hasBeenOutputted=true;
 		return "<"+tagname+additionalAttributes+">"+message+additionalContents+"</"+tagname+">";
 	}
+	
+	public String getXMLOnce() {
+		if (!hasBeenOutputted) {
+			return getXML();
+		} else {
+			return "";
+		}
+	}
+	
 	public ValidationResultItem setCriterion(String test) {
 		 criterion = test;
 		 return this;

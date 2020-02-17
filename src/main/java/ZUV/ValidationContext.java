@@ -101,7 +101,7 @@ public class ValidationContext {
 
 		for (ValidationResultItem validationResultItem : results) {
 			// xml and pdf are handled in their respective sections
-			res += validationResultItem.getXML() + "\n";	
+			res += validationResultItem.getXMLOnce() + "\n";	
 		}
 		if (results.size() > 0) {
 			res += "</messages>";
