@@ -7,1525 +7,256 @@
     version="100.D16B">
   <xs:import namespace="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" schemaLocation="FACTUR-X_MINIMUM_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd"/>
   <xs:simpleType name="CountryIDContentType">
-    <xs:annotation>
-      <xs:documentation xml:lang="DE">
-ISO 3166-1
-Codes für die Darstellung von Ländernamen und deren Unterteilungen
-Mindestens ISO 3166-1:2013
-ISO
-http://www.iso.org
-Vollständig
-Nur die Alpha-2 Darstellung darf verwendet werden
-      </xs:documentation>
-      <xs:documentation xml:lang="EN">
-ISO 3166-1
-Codes for the representation of names of countries and their subdivisions
-Minimum ISO 3166-1:2013
-ISO
-http://www.iso.org
-Entire code list
-Only the Alpha-2 representation may be used.
-      </xs:documentation>
-    </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="AD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ANDORRA</xs:documentation>
-          <xs:documentation xml:lang="DE">Andorra</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UNITED ARAB EMIRATES</xs:documentation>
-          <xs:documentation xml:lang="DE">Vereinigte Arabische Emirate</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">AFGHANISTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Afghanistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ANTIGUA AND BARBUDA</xs:documentation>
-          <xs:documentation xml:lang="DE">Antigua und Barbuda</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ANGUILLA</xs:documentation>
-          <xs:documentation xml:lang="DE">Anguilla</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ALBANIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Albanien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ARMENIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Armenien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ANGOLA</xs:documentation>
-          <xs:documentation xml:lang="DE">Angola</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ANTARCTICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Antarktis</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ARGENTINA</xs:documentation>
-          <xs:documentation xml:lang="DE">Argentinien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">AMERICAN SAMOA</xs:documentation>
-          <xs:documentation xml:lang="DE">Amerikanisch-Samoa</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">AUSTRIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Österreich</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">AUSTRALIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Australien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ARUBA</xs:documentation>
-          <xs:documentation xml:lang="DE">Aruba</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ÅLAND ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Ålandinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">AZERBAIJAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Aserbaidschan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BOSNIA AND HERZEGOVINA</xs:documentation>
-          <xs:documentation xml:lang="DE">Bosnien und Herzegowina</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BARBADOS</xs:documentation>
-          <xs:documentation xml:lang="DE">Barbados</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BANGLADESH</xs:documentation>
-          <xs:documentation xml:lang="DE">Bangladesch</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BELGIUM</xs:documentation>
-          <xs:documentation xml:lang="DE">Belgien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BURKINA FASO</xs:documentation>
-          <xs:documentation xml:lang="DE">Burkina Faso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BULGARIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Bulgarien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BAHRAIN</xs:documentation>
-          <xs:documentation xml:lang="DE">Bahrain</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BURUNDI</xs:documentation>
-          <xs:documentation xml:lang="DE">Burundi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BJ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BENIN</xs:documentation>
-          <xs:documentation xml:lang="DE">Benin</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT BARTHÉLEMY</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Barthélemy</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BERMUDA</xs:documentation>
-          <xs:documentation xml:lang="DE">Bermuda</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BRUNEI DARUSSALAM</xs:documentation>
-          <xs:documentation xml:lang="DE">Brunei Darussalam</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BOLIVIA (PLURINATIONAL STATE OF)</xs:documentation>
-          <xs:documentation xml:lang="DE">Bolivien, Plurinationaler Staat</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BONAIRE, SINT EUSTATIUS AND SABA</xs:documentation>
-          <xs:documentation xml:lang="DE">Bonaire, St. Eustatius und Saba</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BRAZIL</xs:documentation>
-          <xs:documentation xml:lang="DE">Brasilien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BAHAMAS</xs:documentation>
-          <xs:documentation xml:lang="DE">Bahamas</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BHUTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Bhutan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BOUVET ISLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Bouvetinsel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BOTSWANA</xs:documentation>
-          <xs:documentation xml:lang="DE">Botsuana</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BELARUS</xs:documentation>
-          <xs:documentation xml:lang="DE">Belarus</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BELIZE</xs:documentation>
-          <xs:documentation xml:lang="DE">Belize</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CANADA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kanada</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COCOS (KEELING) ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Kokosinseln (Keeling)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CONGO, DEMOCRATIC REPUBLIC OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Kongo, Demokratische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CENTRAL AFRICAN REPUBLIC</xs:documentation>
-          <xs:documentation xml:lang="DE">Zentralafrikanische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CONGO</xs:documentation>
-          <xs:documentation xml:lang="DE">Kongo</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SWITZERLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Schweiz</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COTE D'IVOIRE</xs:documentation>
-          <xs:documentation xml:lang="DE">Côte d'Ivoire</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COOK ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Cookinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CHILE</xs:documentation>
-          <xs:documentation xml:lang="DE">Chile</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CAMEROON</xs:documentation>
-          <xs:documentation xml:lang="DE">Kamerun</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CHINA</xs:documentation>
-          <xs:documentation xml:lang="DE">China</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COLOMBIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kolumbien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COSTA RICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Costa Rica</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CUBA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kuba</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CAPE VERDE</xs:documentation>
-          <xs:documentation xml:lang="DE">Capo Verde</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CURAÇAO</xs:documentation>
-          <xs:documentation xml:lang="DE">Curaçao</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CHRISTMAS ISLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Weihnachtsinsel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CYPRUS</xs:documentation>
-          <xs:documentation xml:lang="DE">Zypern</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CZECHIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Tschechische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GERMANY</xs:documentation>
-          <xs:documentation xml:lang="DE">Deutschland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DJ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">DJIBOUTI</xs:documentation>
-          <xs:documentation xml:lang="DE">Dschibuti</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">DENMARK</xs:documentation>
-          <xs:documentation xml:lang="DE">Dänemark</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">DOMINICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Dominica</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">DOMINICAN REPUBLIC</xs:documentation>
-          <xs:documentation xml:lang="DE">Dominikanische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ALGERIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Algerien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ECUADOR</xs:documentation>
-          <xs:documentation xml:lang="DE">Ecuador</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ESTONIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Estland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">EGYPT</xs:documentation>
-          <xs:documentation xml:lang="DE">Ägypten</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">WESTERN SAHARA</xs:documentation>
-          <xs:documentation xml:lang="DE">Westsahara</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ER">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ERITREA</xs:documentation>
-          <xs:documentation xml:lang="DE">Eritrea</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ES">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SPAIN</xs:documentation>
-          <xs:documentation xml:lang="DE">Spanien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ET">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ETHIOPIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Äthiopien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FINLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Finnland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FJ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FIJI</xs:documentation>
-          <xs:documentation xml:lang="DE">Fidschi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FALKLAND ISLANDS (MALVINAS)</xs:documentation>
-          <xs:documentation xml:lang="DE">Falklandinseln (Malwinen)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MICRONESIA (FEDERATED STATES OF)</xs:documentation>
-          <xs:documentation xml:lang="DE">Mikronesien, Föderierte Staaten von</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FAROE ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Färöer</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FRANCE</xs:documentation>
-          <xs:documentation xml:lang="DE">Frankreich</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GABON</xs:documentation>
-          <xs:documentation xml:lang="DE">Gabun</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Vereinigtes Königreich</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GRENADA</xs:documentation>
-          <xs:documentation xml:lang="DE">Grenada</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GEORGIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Georgien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FRENCH GUIANA</xs:documentation>
-          <xs:documentation xml:lang="DE">Französisch-Guayana</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUERNSEY</xs:documentation>
-          <xs:documentation xml:lang="DE">Guernsey</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GHANA</xs:documentation>
-          <xs:documentation xml:lang="DE">Ghana</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GIBRALTAR</xs:documentation>
-          <xs:documentation xml:lang="DE">Gibraltar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GREENLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Grönland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GAMBIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Gambia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUINEA</xs:documentation>
-          <xs:documentation xml:lang="DE">Guinea</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUADELOUPE</xs:documentation>
-          <xs:documentation xml:lang="DE">Guadeloupe</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">EQUATORIAL GUINEA</xs:documentation>
-          <xs:documentation xml:lang="DE">Äquatorialguinea</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GREECE</xs:documentation>
-          <xs:documentation xml:lang="DE">Griechenland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Südgeorgien und die Südlichen Sandwichinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUATEMALA</xs:documentation>
-          <xs:documentation xml:lang="DE">Guatemala</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUAM</xs:documentation>
-          <xs:documentation xml:lang="DE">Guam</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUINEA-BISSAU</xs:documentation>
-          <xs:documentation xml:lang="DE">Guinea-Bissau</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">GUYANA</xs:documentation>
-          <xs:documentation xml:lang="DE">Guyana</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HONG KONG</xs:documentation>
-          <xs:documentation xml:lang="DE">Hongkong</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HEARD ISLAND AND MCDONALD ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Heard und die McDonaldinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HONDURAS</xs:documentation>
-          <xs:documentation xml:lang="DE">Honduras</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CROATIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kroatien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HAITI</xs:documentation>
-          <xs:documentation xml:lang="DE">Haiti</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HUNGARY</xs:documentation>
-          <xs:documentation xml:lang="DE">Ungarn</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ID">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">INDONESIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Indonesien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">IRELAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Irland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ISRAEL</xs:documentation>
-          <xs:documentation xml:lang="DE">Israel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ISLE OF MAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Insel Man</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">INDIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Indien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">BRITISH INDIAN OCEAN TERRITORY</xs:documentation>
-          <xs:documentation xml:lang="DE">Britisches Territorium im Indischen Ozean</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">IRAQ</xs:documentation>
-          <xs:documentation xml:lang="DE">Irak</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">IRAN (ISLAMIC REPUBLIC OF)</xs:documentation>
-          <xs:documentation xml:lang="DE">Iran, Islamische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ICELAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Island</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ITALY</xs:documentation>
-          <xs:documentation xml:lang="DE">Italien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">JERSEY</xs:documentation>
-          <xs:documentation xml:lang="DE">Jersey</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">JAMAICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Jamaika</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">JORDAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Jordanien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">JAPAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Japan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KENYA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kenia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KYRGYZSTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Kirgisistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CAMBODIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Kambodscha</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KIRIBATI</xs:documentation>
-          <xs:documentation xml:lang="DE">Kiribati</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">COMOROS</xs:documentation>
-          <xs:documentation xml:lang="DE">Komoren</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT KITTS AND NEVIS</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Kitts und Nevis</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KOREA (DEMOCRATIC PEOPLE'S REPUBLIC OF)</xs:documentation>
-          <xs:documentation xml:lang="DE">Korea, Demokratische Volksrepublik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KOREA, REPUBLIC OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Korea, Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KUWAIT</xs:documentation>
-          <xs:documentation xml:lang="DE">Kuwait</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CAYMAN ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Kaymaninseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">KAZAKHSTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Kasachstan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LAO PEOPLE'S DEMOCRATIC REPUBLIC</xs:documentation>
-          <xs:documentation xml:lang="DE">Laos, Demokratische Volksrepublik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LEBANON</xs:documentation>
-          <xs:documentation xml:lang="DE">Libanon</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT LUCIA</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Lucia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LIECHTENSTEIN</xs:documentation>
-          <xs:documentation xml:lang="DE">Liechtenstein</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SRI LANKA</xs:documentation>
-          <xs:documentation xml:lang="DE">Sri Lanka</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LIBERIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Liberia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LESOTHO</xs:documentation>
-          <xs:documentation xml:lang="DE">Lesotho</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LITHUANIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Litauen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LUXEMBOURG</xs:documentation>
-          <xs:documentation xml:lang="DE">Luxemburg</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LATVIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Lettland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">LIBYA</xs:documentation>
-          <xs:documentation xml:lang="DE">Libyen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MOROCCO</xs:documentation>
-          <xs:documentation xml:lang="DE">Marokko</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MONACO</xs:documentation>
-          <xs:documentation xml:lang="DE">Monaco</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MOLDOVA, REPUBLIC OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Moldau, Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ME">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MONTENEGRO</xs:documentation>
-          <xs:documentation xml:lang="DE">Montenegro</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT MARTIN (FRENCH PART)</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Martin (französischer Teil)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MADAGASCAR</xs:documentation>
-          <xs:documentation xml:lang="DE">Madagaskar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MARSHALL ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Marshallinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Mazedonien, die ehemalige jugoslawische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ML">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MALI</xs:documentation>
-          <xs:documentation xml:lang="DE">Mali</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MYANMAR</xs:documentation>
-          <xs:documentation xml:lang="DE">Myanmar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MONGOLIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Mongolei</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MACAO</xs:documentation>
-          <xs:documentation xml:lang="DE">Macau</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NORTHERN MARIANA ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Marianen, Nördliche</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MARTINIQUE</xs:documentation>
-          <xs:documentation xml:lang="DE">Martinique</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MAURITANIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Mauretanien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MONTSERRAT</xs:documentation>
-          <xs:documentation xml:lang="DE">Montserrat</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MALTA</xs:documentation>
-          <xs:documentation xml:lang="DE">Malta</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MAURITIUS</xs:documentation>
-          <xs:documentation xml:lang="DE">Mauritius</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MALDIVES</xs:documentation>
-          <xs:documentation xml:lang="DE">Malediven</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MALAWI</xs:documentation>
-          <xs:documentation xml:lang="DE">Malawi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MEXICO</xs:documentation>
-          <xs:documentation xml:lang="DE">Mexiko</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MALAYSIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Malaysia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MOZAMBIQUE</xs:documentation>
-          <xs:documentation xml:lang="DE">Mosambik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NAMIBIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Namibia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NEW CALEDONIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Neukaledonien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NIGER</xs:documentation>
-          <xs:documentation xml:lang="DE">Niger</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NORFOLK ISLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Norfolkinsel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NIGERIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Nigeria</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NICARAGUA</xs:documentation>
-          <xs:documentation xml:lang="DE">Nicaragua</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NETHERLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Niederlande</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NORWAY</xs:documentation>
-          <xs:documentation xml:lang="DE">Norwegen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NEPAL</xs:documentation>
-          <xs:documentation xml:lang="DE">Nepal</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NAURU</xs:documentation>
-          <xs:documentation xml:lang="DE">Nauru</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NIUE</xs:documentation>
-          <xs:documentation xml:lang="DE">Niue</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">NEW ZEALAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Neuseeland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">OMAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Oman</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PANAMA</xs:documentation>
-          <xs:documentation xml:lang="DE">Panama</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PERU</xs:documentation>
-          <xs:documentation xml:lang="DE">Peru</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FRENCH POLYNESIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Französisch-Polynesien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PAPUA NEW GUINEA</xs:documentation>
-          <xs:documentation xml:lang="DE">Papua-Neuguinea</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PHILIPPINES</xs:documentation>
-          <xs:documentation xml:lang="DE">Philippinen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PAKISTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Pakistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">POLAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Polen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT PIERRE AND MIQUELON</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Pierre und Miquelon</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PITCAIRN</xs:documentation>
-          <xs:documentation xml:lang="DE">Pitcairninseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PUERTO RICO</xs:documentation>
-          <xs:documentation xml:lang="DE">Puerto Rico</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PALESTINE, STATE OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Palestine, State of</xs:documentation>
-          <xs:documentation xml:lang="DE">
-AT, CH, DE: Es gibt keinen deutschen Ländernamen (weder Kurzbezeichnung noch amtliche Vollform) für diesen Eintrag.
-DE: Die Bundesrepublik Deutschland erkennt einen palästinensischen Staat nicht an.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PORTUGAL</xs:documentation>
-          <xs:documentation xml:lang="DE">Portugal</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PALAU</xs:documentation>
-          <xs:documentation xml:lang="DE">Palau</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">PARAGUAY</xs:documentation>
-          <xs:documentation xml:lang="DE">Paraguay</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="QA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">QATAR</xs:documentation>
-          <xs:documentation xml:lang="DE">Katar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">REUNION</xs:documentation>
-          <xs:documentation xml:lang="DE">Réunion</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ROMANIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Rumänien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SERBIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Serbien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">RUSSIAN FEDERATION</xs:documentation>
-          <xs:documentation xml:lang="DE">Russische Föderation</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">RWANDA</xs:documentation>
-          <xs:documentation xml:lang="DE">Ruanda</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAUDI ARABIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Saudi-Arabien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SOLOMON ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Salomonen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SEYCHELLES</xs:documentation>
-          <xs:documentation xml:lang="DE">Seychellen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SUDAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Sudan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SWEDEN</xs:documentation>
-          <xs:documentation xml:lang="DE">Schweden</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SINGAPORE</xs:documentation>
-          <xs:documentation xml:lang="DE">Singapur</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Helena, Ascension und Tristan da Cunha</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SLOVENIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Slowenien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SJ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SVALBARD AND JAN MAYEN</xs:documentation>
-          <xs:documentation xml:lang="DE">Svalbard und Jan Mayen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SLOVAKIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Slowakei</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SIERRA LEONE</xs:documentation>
-          <xs:documentation xml:lang="DE">Sierra Leone</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAN MARINO</xs:documentation>
-          <xs:documentation xml:lang="DE">San Marino</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SENEGAL</xs:documentation>
-          <xs:documentation xml:lang="DE">Senegal</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SOMALIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Somalia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SURINAME</xs:documentation>
-          <xs:documentation xml:lang="DE">Suriname</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SOUTH SUDAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Südsudan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ST">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAO TOME AND PRINCIPE</xs:documentation>
-          <xs:documentation xml:lang="DE">São Tomé und Príncipe</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">EL SALVADOR</xs:documentation>
-          <xs:documentation xml:lang="DE">El Salvador</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SINT MAARTEN (DUTCH PART)</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Martin (niederländischer Teil)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SYRIAN ARAB REPUBLIC</xs:documentation>
-          <xs:documentation xml:lang="DE">Syrien, Arabische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SWAZILAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Swasiland</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TURKS AND CAICOS ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Turks- und Caicosinseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CHAD</xs:documentation>
-          <xs:documentation xml:lang="DE">Tschad</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">FRENCH SOUTHERN TERRITORIES</xs:documentation>
-          <xs:documentation xml:lang="DE">Französische Süd- und Antarktisgebiete</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TOGO</xs:documentation>
-          <xs:documentation xml:lang="DE">Togo</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">THAILAND</xs:documentation>
-          <xs:documentation xml:lang="DE">Thailand</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TJ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TAJIKISTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Tadschikistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TOKELAU</xs:documentation>
-          <xs:documentation xml:lang="DE">Tokelau</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TIMOR-LESTE</xs:documentation>
-          <xs:documentation xml:lang="DE">Timor-Leste</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TURKMENISTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Turkmenistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TUNISIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Tunesien</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TONGA</xs:documentation>
-          <xs:documentation xml:lang="DE">Tonga</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TURKEY</xs:documentation>
-          <xs:documentation xml:lang="DE">Türkei</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TRINIDAD AND TOBAGO</xs:documentation>
-          <xs:documentation xml:lang="DE">Trinidad und Tobago</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TUVALU</xs:documentation>
-          <xs:documentation xml:lang="DE">Tuvalu</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TAIWAN, PROVINCE OF CHINA</xs:documentation>
-          <xs:documentation xml:lang="DE">Taiwan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">TANZANIA, UNITED REPUBLIC OF</xs:documentation>
-          <xs:documentation xml:lang="DE">Tansania, Vereinigte Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UKRAINE</xs:documentation>
-          <xs:documentation xml:lang="DE">Ukraine</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UGANDA</xs:documentation>
-          <xs:documentation xml:lang="DE">Uganda</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UNITED STATES MINOR OUTLYING ISLANDS</xs:documentation>
-          <xs:documentation xml:lang="DE">Amerikanische Überseeinseln, Kleinere</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="US">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UNITED STATES OF AMERICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Vereinigte Staaten</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">URUGUAY</xs:documentation>
-          <xs:documentation xml:lang="DE">Uruguay</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UZ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UZBEKISTAN</xs:documentation>
-          <xs:documentation xml:lang="DE">Usbekistan</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">HOLY SEE</xs:documentation>
-          <xs:documentation xml:lang="DE">Heiliger Stuhl (Vatikanstadt)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAINT VINCENT AND THE GRENADINES</xs:documentation>
-          <xs:documentation xml:lang="DE">St. Vincent und die Grenadinen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">VENEZUELA (BOLIVARIAN REPUBLIC OF)</xs:documentation>
-          <xs:documentation xml:lang="DE">Venezuela, Bolivarische Republik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">VIRGIN ISLANDS, BRITISH</xs:documentation>
-          <xs:documentation xml:lang="DE">Britische Jungferninseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">VIRGIN ISLANDS, U.S.</xs:documentation>
-          <xs:documentation xml:lang="DE">Amerikanische Jungferninseln</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">VIET NAM</xs:documentation>
-          <xs:documentation xml:lang="DE">Vietnam</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">VANUATU</xs:documentation>
-          <xs:documentation xml:lang="DE">Vanuatu</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="WF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">WALLIS AND FUTUNA</xs:documentation>
-          <xs:documentation xml:lang="DE">Wallis und Futuna</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="WS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SAMOA</xs:documentation>
-          <xs:documentation xml:lang="DE">Samoa</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="YE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">YEMEN</xs:documentation>
-          <xs:documentation xml:lang="DE">Jemen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="YT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">MAYOTTE</xs:documentation>
-          <xs:documentation xml:lang="DE">Mayotte</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SOUTH AFRICA</xs:documentation>
-          <xs:documentation xml:lang="DE">Südafrika</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ZAMBIA</xs:documentation>
-          <xs:documentation xml:lang="DE">Sambia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ZIMBABWE</xs:documentation>
-          <xs:documentation xml:lang="DE">Simbabwe</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
+      <xs:enumeration value="AD"/>
+      <xs:enumeration value="AE"/>
+      <xs:enumeration value="AF"/>
+      <xs:enumeration value="AG"/>
+      <xs:enumeration value="AI"/>
+      <xs:enumeration value="AL"/>
+      <xs:enumeration value="AM"/>
+      <xs:enumeration value="AO"/>
+      <xs:enumeration value="AQ"/>
+      <xs:enumeration value="AR"/>
+      <xs:enumeration value="AS"/>
+      <xs:enumeration value="AT"/>
+      <xs:enumeration value="AU"/>
+      <xs:enumeration value="AW"/>
+      <xs:enumeration value="AX"/>
+      <xs:enumeration value="AZ"/>
+      <xs:enumeration value="BA"/>
+      <xs:enumeration value="BB"/>
+      <xs:enumeration value="BD"/>
+      <xs:enumeration value="BE"/>
+      <xs:enumeration value="BF"/>
+      <xs:enumeration value="BG"/>
+      <xs:enumeration value="BH"/>
+      <xs:enumeration value="BI"/>
+      <xs:enumeration value="BJ"/>
+      <xs:enumeration value="BL"/>
+      <xs:enumeration value="BM"/>
+      <xs:enumeration value="BN"/>
+      <xs:enumeration value="BO"/>
+      <xs:enumeration value="BQ"/>
+      <xs:enumeration value="BR"/>
+      <xs:enumeration value="BS"/>
+      <xs:enumeration value="BT"/>
+      <xs:enumeration value="BV"/>
+      <xs:enumeration value="BW"/>
+      <xs:enumeration value="BY"/>
+      <xs:enumeration value="BZ"/>
+      <xs:enumeration value="CA"/>
+      <xs:enumeration value="CC"/>
+      <xs:enumeration value="CD"/>
+      <xs:enumeration value="CF"/>
+      <xs:enumeration value="CG"/>
+      <xs:enumeration value="CH"/>
+      <xs:enumeration value="CI"/>
+      <xs:enumeration value="CK"/>
+      <xs:enumeration value="CL"/>
+      <xs:enumeration value="CM"/>
+      <xs:enumeration value="CN"/>
+      <xs:enumeration value="CO"/>
+      <xs:enumeration value="CR"/>
+      <xs:enumeration value="CU"/>
+      <xs:enumeration value="CV"/>
+      <xs:enumeration value="CW"/>
+      <xs:enumeration value="CX"/>
+      <xs:enumeration value="CY"/>
+      <xs:enumeration value="CZ"/>
+      <xs:enumeration value="DE"/>
+      <xs:enumeration value="DJ"/>
+      <xs:enumeration value="DK"/>
+      <xs:enumeration value="DM"/>
+      <xs:enumeration value="DO"/>
+      <xs:enumeration value="DZ"/>
+      <xs:enumeration value="EC"/>
+      <xs:enumeration value="EE"/>
+      <xs:enumeration value="EG"/>
+      <xs:enumeration value="EH"/>
+      <xs:enumeration value="ER"/>
+      <xs:enumeration value="ES"/>
+      <xs:enumeration value="ET"/>
+      <xs:enumeration value="FI"/>
+      <xs:enumeration value="FJ"/>
+      <xs:enumeration value="FK"/>
+      <xs:enumeration value="FM"/>
+      <xs:enumeration value="FO"/>
+      <xs:enumeration value="FR"/>
+      <xs:enumeration value="GA"/>
+      <xs:enumeration value="GB"/>
+      <xs:enumeration value="GD"/>
+      <xs:enumeration value="GE"/>
+      <xs:enumeration value="GF"/>
+      <xs:enumeration value="GG"/>
+      <xs:enumeration value="GH"/>
+      <xs:enumeration value="GI"/>
+      <xs:enumeration value="GL"/>
+      <xs:enumeration value="GM"/>
+      <xs:enumeration value="GN"/>
+      <xs:enumeration value="GP"/>
+      <xs:enumeration value="GQ"/>
+      <xs:enumeration value="GR"/>
+      <xs:enumeration value="GS"/>
+      <xs:enumeration value="GT"/>
+      <xs:enumeration value="GU"/>
+      <xs:enumeration value="GW"/>
+      <xs:enumeration value="GY"/>
+      <xs:enumeration value="HK"/>
+      <xs:enumeration value="HM"/>
+      <xs:enumeration value="HN"/>
+      <xs:enumeration value="HR"/>
+      <xs:enumeration value="HT"/>
+      <xs:enumeration value="HU"/>
+      <xs:enumeration value="ID"/>
+      <xs:enumeration value="IE"/>
+      <xs:enumeration value="IL"/>
+      <xs:enumeration value="IM"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="IO"/>
+      <xs:enumeration value="IQ"/>
+      <xs:enumeration value="IR"/>
+      <xs:enumeration value="IS"/>
+      <xs:enumeration value="IT"/>
+      <xs:enumeration value="JE"/>
+      <xs:enumeration value="JM"/>
+      <xs:enumeration value="JO"/>
+      <xs:enumeration value="JP"/>
+      <xs:enumeration value="KE"/>
+      <xs:enumeration value="KG"/>
+      <xs:enumeration value="KH"/>
+      <xs:enumeration value="KI"/>
+      <xs:enumeration value="KM"/>
+      <xs:enumeration value="KN"/>
+      <xs:enumeration value="KP"/>
+      <xs:enumeration value="KR"/>
+      <xs:enumeration value="KW"/>
+      <xs:enumeration value="KY"/>
+      <xs:enumeration value="KZ"/>
+      <xs:enumeration value="LA"/>
+      <xs:enumeration value="LB"/>
+      <xs:enumeration value="LC"/>
+      <xs:enumeration value="LI"/>
+      <xs:enumeration value="LK"/>
+      <xs:enumeration value="LR"/>
+      <xs:enumeration value="LS"/>
+      <xs:enumeration value="LT"/>
+      <xs:enumeration value="LU"/>
+      <xs:enumeration value="LV"/>
+      <xs:enumeration value="LY"/>
+      <xs:enumeration value="MA"/>
+      <xs:enumeration value="MC"/>
+      <xs:enumeration value="MD"/>
+      <xs:enumeration value="ME"/>
+      <xs:enumeration value="MF"/>
+      <xs:enumeration value="MG"/>
+      <xs:enumeration value="MH"/>
+      <xs:enumeration value="MK"/>
+      <xs:enumeration value="ML"/>
+      <xs:enumeration value="MM"/>
+      <xs:enumeration value="MN"/>
+      <xs:enumeration value="MO"/>
+      <xs:enumeration value="MP"/>
+      <xs:enumeration value="MQ"/>
+      <xs:enumeration value="MR"/>
+      <xs:enumeration value="MS"/>
+      <xs:enumeration value="MT"/>
+      <xs:enumeration value="MU"/>
+      <xs:enumeration value="MV"/>
+      <xs:enumeration value="MW"/>
+      <xs:enumeration value="MX"/>
+      <xs:enumeration value="MY"/>
+      <xs:enumeration value="MZ"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="NC"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="NF"/>
+      <xs:enumeration value="NG"/>
+      <xs:enumeration value="NI"/>
+      <xs:enumeration value="NL"/>
+      <xs:enumeration value="NO"/>
+      <xs:enumeration value="NP"/>
+      <xs:enumeration value="NR"/>
+      <xs:enumeration value="NU"/>
+      <xs:enumeration value="NZ"/>
+      <xs:enumeration value="OM"/>
+      <xs:enumeration value="PA"/>
+      <xs:enumeration value="PE"/>
+      <xs:enumeration value="PF"/>
+      <xs:enumeration value="PG"/>
+      <xs:enumeration value="PH"/>
+      <xs:enumeration value="PK"/>
+      <xs:enumeration value="PL"/>
+      <xs:enumeration value="PM"/>
+      <xs:enumeration value="PN"/>
+      <xs:enumeration value="PR"/>
+      <xs:enumeration value="PS"/>
+      <xs:enumeration value="PT"/>
+      <xs:enumeration value="PW"/>
+      <xs:enumeration value="PY"/>
+      <xs:enumeration value="QA"/>
+      <xs:enumeration value="RE"/>
+      <xs:enumeration value="RO"/>
+      <xs:enumeration value="RS"/>
+      <xs:enumeration value="RU"/>
+      <xs:enumeration value="RW"/>
+      <xs:enumeration value="SA"/>
+      <xs:enumeration value="SB"/>
+      <xs:enumeration value="SC"/>
+      <xs:enumeration value="SD"/>
+      <xs:enumeration value="SE"/>
+      <xs:enumeration value="SG"/>
+      <xs:enumeration value="SH"/>
+      <xs:enumeration value="SI"/>
+      <xs:enumeration value="SJ"/>
+      <xs:enumeration value="SK"/>
+      <xs:enumeration value="SL"/>
+      <xs:enumeration value="SM"/>
+      <xs:enumeration value="SN"/>
+      <xs:enumeration value="SO"/>
+      <xs:enumeration value="SR"/>
+      <xs:enumeration value="SS"/>
+      <xs:enumeration value="ST"/>
+      <xs:enumeration value="SV"/>
+      <xs:enumeration value="SX"/>
+      <xs:enumeration value="SY"/>
+      <xs:enumeration value="SZ"/>
+      <xs:enumeration value="TC"/>
+      <xs:enumeration value="TD"/>
+      <xs:enumeration value="TF"/>
+      <xs:enumeration value="TG"/>
+      <xs:enumeration value="TH"/>
+      <xs:enumeration value="TJ"/>
+      <xs:enumeration value="TK"/>
+      <xs:enumeration value="TL"/>
+      <xs:enumeration value="TM"/>
+      <xs:enumeration value="TN"/>
+      <xs:enumeration value="TO"/>
+      <xs:enumeration value="TR"/>
+      <xs:enumeration value="TT"/>
+      <xs:enumeration value="TV"/>
+      <xs:enumeration value="TW"/>
+      <xs:enumeration value="TZ"/>
+      <xs:enumeration value="UA"/>
+      <xs:enumeration value="UG"/>
+      <xs:enumeration value="UM"/>
+      <xs:enumeration value="US"/>
+      <xs:enumeration value="UY"/>
+      <xs:enumeration value="UZ"/>
+      <xs:enumeration value="VA"/>
+      <xs:enumeration value="VC"/>
+      <xs:enumeration value="VE"/>
+      <xs:enumeration value="VG"/>
+      <xs:enumeration value="VI"/>
+      <xs:enumeration value="VN"/>
+      <xs:enumeration value="VU"/>
+      <xs:enumeration value="WF"/>
+      <xs:enumeration value="WS"/>
+      <xs:enumeration value="YE"/>
+      <xs:enumeration value="YT"/>
+      <xs:enumeration value="ZA"/>
+      <xs:enumeration value="ZM"/>
+      <xs:enumeration value="ZW"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="CountryIDType">
@@ -1534,922 +265,186 @@ DE: Die Bundesrepublik Deutschland erkennt einen palästinensischen Staat nicht 
     </xs:simpleContent>
   </xs:complexType>
   <xs:simpleType name="CurrencyCodeContentType">
-    <xs:annotation>
-      <xs:documentation xml:lang="DE">
-ISO 4217
-Currency codes
-Mindestens ISO 4217:2015
-ISO
-http://www.currency-iso.org/en/home/tables/table-a1.html
-Vollständige Liste
-Nur die alphabetische Darstellung darf verwendet werden.
-      </xs:documentation>
-      <xs:documentation xml:lang="EN">
-ISO 4217
-Currency codes
-Mindestens ISO 4217:2015
-ISO
-http://www.currency-iso.org/en/home/tables/table-a1.html
-Entire code list
-Only the alphabetical representation is to be used.
-      </xs:documentation>
-    </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="AED">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">UAE Dirham</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AFN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Afghani</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ALL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lek</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AMD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Armenian Dram</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ANG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Netherlands Antillean Guilder</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AOA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kwanza</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ARS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Argentine Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AUD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Australian Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AWG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Aruban Florin</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AZN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Azerbaijan Manat</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BAM">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Convertible Mark</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BBD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Barbados Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BDT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Taka</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BGN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bulgarian Lev</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BHD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bahraini Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BIF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Burundi Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BMD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bermudian Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BND">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Brunei Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BOB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Boliviano</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BOV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Mvdol</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BRL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Brazilian Real</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BSD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bahamian Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BTN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Ngultrum</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BWP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Pula</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BYN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Belarusian Ruble</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BZD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Belize Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CAD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Canadian Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CDF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Congolese Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CHE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">WIR Euro</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CHF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Swiss Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CHW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">WIR Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CLF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Unidad de Fomento</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CLP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Chilean Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CNY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Yuan Renminbi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="COP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Colombian Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="COU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Unidad de Valor Real</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CRC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Costa Rican Colon</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CUC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Peso Convertible</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CUP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Cuban Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CVE">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Cabo Verde Escudo</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CZK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Czech Koruna</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DJF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Djibouti Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DKK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Danish Krone</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DOP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Dominican Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DZD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Algerian Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EGP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Egyptian Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ERN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Nakfa</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ETB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Ethiopian Birr</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EUR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Euro</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FJD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Fiji Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FKP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Falkland Islands Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GBP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Pound Sterling</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GEL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lari</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GHS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Ghana Cedi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GIP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Gibraltar Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GMD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Dalasi</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GNF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Guinean Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GTQ">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Quetzal</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GYD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Guyana Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HKD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Hong Kong Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HNL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lempira</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HRK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kuna</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HTG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Gourde</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HUF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Forint</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IDR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Rupiah</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ILS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">New Israeli Sheqel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="INR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Indian Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IQD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Iraqi Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="IRR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Iranian Rial</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ISK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Iceland Krona</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JMD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Jamaican Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JOD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Jordanian Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="JPY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Yen</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KES">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kenyan Shilling</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KGS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Som</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KHR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Riel</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KMF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Comorian Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KPW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">North Korean Won</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KRW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Won</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KWD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kuwaiti Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KYD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Cayman Islands Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KZT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tenge</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LAK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lao Kip</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LBP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lebanese Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LKR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Sri Lanka Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LRD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Liberian Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LSL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Loti</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LYD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Libyan Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MAD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Moroccan Dirham</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MDL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Moldovan Leu</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MGA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Malagasy Ariary</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MKD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Denar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MMK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kyat</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MNT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tugrik</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MOP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Pataca</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MRU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Ouguiya</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MUR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Mauritius Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MVR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Rufiyaa</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MWK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Malawi Kwacha</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MXN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Mexican Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MXV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Mexican Unidad de Inversion (UDI)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MYR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Malaysian Ringgit</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MZN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Mozambique Metical</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NAD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Namibia Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NGN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Naira</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NIO">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Cordoba Oro</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NOK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Norwegian Krone</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NPR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Nepalese Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NZD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">New Zealand Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OMR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Rial Omani</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PAB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Balboa</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PEN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Sol</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PGK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Kina</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PHP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Philippine Peso</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PKR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Pakistan Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PLN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Zloty</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PYG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Guarani</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="QAR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Qatari Rial</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RON">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Romanian Leu</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RSD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Serbian Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RUB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Russian Ruble</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RWF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Rwanda Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SAR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Saudi Riyal</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SBD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Solomon Islands Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SCR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Seychelles Rupee</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SDG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Sudanese Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SEK">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Swedish Krona</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SGD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Singapore Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SHP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Saint Helena Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SLL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Leone</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SOS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Somali Shilling</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SRD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Surinam Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SSP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">South Sudanese Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="STN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Dobra</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SVC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">El Salvador Colon</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SYP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Syrian Pound</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SZL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lilangeni</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="THB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Baht</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TJS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Somoni</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TMT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Turkmenistan New Manat</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TND">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tunisian Dinar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TOP">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Pa’anga</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TRY">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Turkish Lira</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TTD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Trinidad and Tobago Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TWD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">New Taiwan Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TZS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tanzanian Shilling</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UAH">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Hryvnia</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UGX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Uganda Shilling</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="USD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">US Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="USN">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">US Dollar (Next day)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UYI">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Uruguay Peso en Unidades Indexadas (UI)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UYU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Peso Uruguayo</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UYW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Unidad Previsional</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UZS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Uzbekistan Sum</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VES">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bolívar Soberano</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VND">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Dong</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="VUV">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Vatu</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="WST">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tala</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XAF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CFA Franc BEAC</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XAG">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Silver</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XAU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Gold</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XBA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bond Markets Unit European Composite Unit (EURCO)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XBB">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bond Markets Unit European Monetary Unit (E.M.U.-6)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XBC">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bond Markets Unit European Unit of Account 9 (E.U.A.-9)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XBD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Bond Markets Unit European Unit of Account 17 (E.U.A.-17)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XCD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">East Caribbean Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XDR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">SDR (Special Drawing Right)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XOF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CFA Franc BCEAO</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XPD">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Palladium</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XPF">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">CFP Franc</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XPT">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Platinum</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XSU">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Sucre</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XTS">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Codes specifically reserved for testing purposes</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XUA">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">ADB Unit of Account</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XXX">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">The codes assigned for transactions where no currency is involved</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="YER">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Yemeni Rial</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZAR">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Rand</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZMW">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Zambian Kwacha</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZWL">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Zimbabwe Dollar</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
+      <xs:enumeration value="AED"/>
+      <xs:enumeration value="AFN"/>
+      <xs:enumeration value="ALL"/>
+      <xs:enumeration value="AMD"/>
+      <xs:enumeration value="ANG"/>
+      <xs:enumeration value="AOA"/>
+      <xs:enumeration value="ARS"/>
+      <xs:enumeration value="AUD"/>
+      <xs:enumeration value="AWG"/>
+      <xs:enumeration value="AZN"/>
+      <xs:enumeration value="BAM"/>
+      <xs:enumeration value="BBD"/>
+      <xs:enumeration value="BDT"/>
+      <xs:enumeration value="BGN"/>
+      <xs:enumeration value="BHD"/>
+      <xs:enumeration value="BIF"/>
+      <xs:enumeration value="BMD"/>
+      <xs:enumeration value="BND"/>
+      <xs:enumeration value="BOB"/>
+      <xs:enumeration value="BOV"/>
+      <xs:enumeration value="BRL"/>
+      <xs:enumeration value="BSD"/>
+      <xs:enumeration value="BTN"/>
+      <xs:enumeration value="BWP"/>
+      <xs:enumeration value="BYN"/>
+      <xs:enumeration value="BZD"/>
+      <xs:enumeration value="CAD"/>
+      <xs:enumeration value="CDF"/>
+      <xs:enumeration value="CHE"/>
+      <xs:enumeration value="CHF"/>
+      <xs:enumeration value="CHW"/>
+      <xs:enumeration value="CLF"/>
+      <xs:enumeration value="CLP"/>
+      <xs:enumeration value="CNY"/>
+      <xs:enumeration value="COP"/>
+      <xs:enumeration value="COU"/>
+      <xs:enumeration value="CRC"/>
+      <xs:enumeration value="CUC"/>
+      <xs:enumeration value="CUP"/>
+      <xs:enumeration value="CVE"/>
+      <xs:enumeration value="CZK"/>
+      <xs:enumeration value="DJF"/>
+      <xs:enumeration value="DKK"/>
+      <xs:enumeration value="DOP"/>
+      <xs:enumeration value="DZD"/>
+      <xs:enumeration value="EGP"/>
+      <xs:enumeration value="ERN"/>
+      <xs:enumeration value="ETB"/>
+      <xs:enumeration value="EUR"/>
+      <xs:enumeration value="FJD"/>
+      <xs:enumeration value="FKP"/>
+      <xs:enumeration value="GBP"/>
+      <xs:enumeration value="GEL"/>
+      <xs:enumeration value="GHS"/>
+      <xs:enumeration value="GIP"/>
+      <xs:enumeration value="GMD"/>
+      <xs:enumeration value="GNF"/>
+      <xs:enumeration value="GTQ"/>
+      <xs:enumeration value="GYD"/>
+      <xs:enumeration value="HKD"/>
+      <xs:enumeration value="HNL"/>
+      <xs:enumeration value="HRK"/>
+      <xs:enumeration value="HTG"/>
+      <xs:enumeration value="HUF"/>
+      <xs:enumeration value="IDR"/>
+      <xs:enumeration value="ILS"/>
+      <xs:enumeration value="INR"/>
+      <xs:enumeration value="IQD"/>
+      <xs:enumeration value="IRR"/>
+      <xs:enumeration value="ISK"/>
+      <xs:enumeration value="JMD"/>
+      <xs:enumeration value="JOD"/>
+      <xs:enumeration value="JPY"/>
+      <xs:enumeration value="KES"/>
+      <xs:enumeration value="KGS"/>
+      <xs:enumeration value="KHR"/>
+      <xs:enumeration value="KMF"/>
+      <xs:enumeration value="KPW"/>
+      <xs:enumeration value="KRW"/>
+      <xs:enumeration value="KWD"/>
+      <xs:enumeration value="KYD"/>
+      <xs:enumeration value="KZT"/>
+      <xs:enumeration value="LAK"/>
+      <xs:enumeration value="LBP"/>
+      <xs:enumeration value="LKR"/>
+      <xs:enumeration value="LRD"/>
+      <xs:enumeration value="LSL"/>
+      <xs:enumeration value="LYD"/>
+      <xs:enumeration value="MAD"/>
+      <xs:enumeration value="MDL"/>
+      <xs:enumeration value="MGA"/>
+      <xs:enumeration value="MKD"/>
+      <xs:enumeration value="MMK"/>
+      <xs:enumeration value="MNT"/>
+      <xs:enumeration value="MOP"/>
+      <xs:enumeration value="MRU"/>
+      <xs:enumeration value="MUR"/>
+      <xs:enumeration value="MVR"/>
+      <xs:enumeration value="MWK"/>
+      <xs:enumeration value="MXN"/>
+      <xs:enumeration value="MXV"/>
+      <xs:enumeration value="MYR"/>
+      <xs:enumeration value="MZN"/>
+      <xs:enumeration value="NAD"/>
+      <xs:enumeration value="NGN"/>
+      <xs:enumeration value="NIO"/>
+      <xs:enumeration value="NOK"/>
+      <xs:enumeration value="NPR"/>
+      <xs:enumeration value="NZD"/>
+      <xs:enumeration value="OMR"/>
+      <xs:enumeration value="PAB"/>
+      <xs:enumeration value="PEN"/>
+      <xs:enumeration value="PGK"/>
+      <xs:enumeration value="PHP"/>
+      <xs:enumeration value="PKR"/>
+      <xs:enumeration value="PLN"/>
+      <xs:enumeration value="PYG"/>
+      <xs:enumeration value="QAR"/>
+      <xs:enumeration value="RON"/>
+      <xs:enumeration value="RSD"/>
+      <xs:enumeration value="RUB"/>
+      <xs:enumeration value="RWF"/>
+      <xs:enumeration value="SAR"/>
+      <xs:enumeration value="SBD"/>
+      <xs:enumeration value="SCR"/>
+      <xs:enumeration value="SDG"/>
+      <xs:enumeration value="SEK"/>
+      <xs:enumeration value="SGD"/>
+      <xs:enumeration value="SHP"/>
+      <xs:enumeration value="SLL"/>
+      <xs:enumeration value="SOS"/>
+      <xs:enumeration value="SRD"/>
+      <xs:enumeration value="SSP"/>
+      <xs:enumeration value="STN"/>
+      <xs:enumeration value="SVC"/>
+      <xs:enumeration value="SYP"/>
+      <xs:enumeration value="SZL"/>
+      <xs:enumeration value="THB"/>
+      <xs:enumeration value="TJS"/>
+      <xs:enumeration value="TMT"/>
+      <xs:enumeration value="TND"/>
+      <xs:enumeration value="TOP"/>
+      <xs:enumeration value="TRY"/>
+      <xs:enumeration value="TTD"/>
+      <xs:enumeration value="TWD"/>
+      <xs:enumeration value="TZS"/>
+      <xs:enumeration value="UAH"/>
+      <xs:enumeration value="UGX"/>
+      <xs:enumeration value="USD"/>
+      <xs:enumeration value="USN"/>
+      <xs:enumeration value="UYI"/>
+      <xs:enumeration value="UYU"/>
+      <xs:enumeration value="UYW"/>
+      <xs:enumeration value="UZS"/>
+      <xs:enumeration value="VES"/>
+      <xs:enumeration value="VND"/>
+      <xs:enumeration value="VUV"/>
+      <xs:enumeration value="WST"/>
+      <xs:enumeration value="XAF"/>
+      <xs:enumeration value="XAG"/>
+      <xs:enumeration value="XAU"/>
+      <xs:enumeration value="XBA"/>
+      <xs:enumeration value="XBB"/>
+      <xs:enumeration value="XBC"/>
+      <xs:enumeration value="XBD"/>
+      <xs:enumeration value="XCD"/>
+      <xs:enumeration value="XDR"/>
+      <xs:enumeration value="XOF"/>
+      <xs:enumeration value="XPD"/>
+      <xs:enumeration value="XPF"/>
+      <xs:enumeration value="XPT"/>
+      <xs:enumeration value="XSU"/>
+      <xs:enumeration value="XTS"/>
+      <xs:enumeration value="XUA"/>
+      <xs:enumeration value="XXX"/>
+      <xs:enumeration value="YER"/>
+      <xs:enumeration value="ZAR"/>
+      <xs:enumeration value="ZMW"/>
+      <xs:enumeration value="ZWL"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="CurrencyCodeType">
@@ -2458,335 +453,49 @@ Only the alphabetical representation is to be used.
     </xs:simpleContent>
   </xs:complexType>
   <xs:simpleType name="DocumentCodeContentType">
-    <xs:annotation>
-      <xs:documentation xml:lang="DE">
-UNTDID 1001
-Document name code
-D16B
-United nations
-http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tredi2.htm
-Untermenge
-      </xs:documentation>
-      <xs:documentation xml:lang="EN">
-UNTDID 1001
-Document name code
-D16B
-United nations
-http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tredi2.htm
-Subset
-      </xs:documentation>
-    </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="80">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Debit note related to goods or services</xs:documentation>
-          <xs:documentation xml:lang="EN">Debit information related to a transaction for goods or services to the relevant party.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="81">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Credit note related to goods or services</xs:documentation>
-          <xs:documentation xml:lang="EN">Document message used to provide credit information related to a transaction for goods or services to the relevant party.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="82">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Metered services invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message claiming payment for the supply of metered services (e.g., gas, electricity, etc.) supplied to a fixed meter whose consumption is measured over a period of time.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="83">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Credit note related to financial adjustments</xs:documentation>
-          <xs:documentation xml:lang="EN">Document message for providing credit information related to financial adjustments to the relevant party, e.g., bonuses.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="84">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Debit note related to financial adjustments</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message for providing debit information related to financial adjustments to the relevant party.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="130">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Invoicing data sheet</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message issued within an enterprise containing data about goods sold, to be used as the basis for the preparation of an invoice.</xs:documentation>
-          <xs:documentation xml:lang="DE">Rechnungsdatenblatt</xs:documentation>
-          <xs:documentation xml:lang="DE">Unternehmensinterne Nachricht über verkaufte Waren, die die Basis für die Erstellung einer Rechnung bildet. (Nationale Anmerkung: Für elektronische Geschäftsprozesse nicht mehr anwendbar)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="202">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Direct payment valuation</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message addressed, for instance, by a general contractor to the owner, in order that a direct payment be made to a subcontractor.</xs:documentation>
-          <xs:documentation xml:lang="DE">Verkürzte Baurechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, das/die beispielsweise vom Generalunternehmer an den Eigentümer (Bauherrn) gerichtet ist, damit eine direkte Zahlung an den Subunternehmer geleistet wird.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="203">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Provisional payment valuation</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message establishing a provisional payment valuation.</xs:documentation>
-          <xs:documentation xml:lang="DE">Vorläufige Baurechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, das/die eine vorläufige Baurechnung darstellt.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="204">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Payment valuation</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message establishing the financial elements of a situation of works.</xs:documentation>
-          <xs:documentation xml:lang="DE">Baurechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, in dem/der die finanziellen Beträge der jeweils erbrachten Leistung ermittelt werden.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="211">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Interim application for payment</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message containing a provisional assessment in support of a request for payment for completed work for a construction contract.</xs:documentation>
-          <xs:documentation xml:lang="DE">Zwischen-(abschlags-)rechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, das/die eine vorläufige Festlegung für die Rechnungsaufforderung einer abgeschlossenen Leistung (Arbeit) des Bauvertrages enthält.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="261">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Self billed credit note</xs:documentation>
-          <xs:documentation xml:lang="EN">A document which indicates that the customer is claiming credit in a self billing environment.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="262">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Consolidated credit note - goods and services</xs:documentation>
-          <xs:documentation xml:lang="EN">Credit note for goods and services that covers multiple transactions involving more than one invoice.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="295">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Price variation invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">An invoice which requests payment for the difference in price between an original invoice and the result of the application of a price variation formula.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="296">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Credit note for price variation</xs:documentation>
-          <xs:documentation xml:lang="EN">A credit note which is issued against a price variation invoice.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="308">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Delcredere credit note</xs:documentation>
-          <xs:documentation xml:lang="EN">A credit note sent to the party paying on behalf of a number of buyers.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="325">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Proforma invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message serving as a preliminary invoice, containing - on the whole - the same information as the final invoice, but not actually claiming payment.</xs:documentation>
-          <xs:documentation xml:lang="DE">Proformarechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Die Nachricht dient als vorläufige Rechnung. Sie enthält im Großen und Ganzen dieselbe Information wie die endgültige Rechnung, löst aber keine Zahlung aus.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="326">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Partial invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message specifying details of an incomplete invoice.</xs:documentation>
-          <xs:documentation xml:lang="DE">Teilrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Selbsterklärend.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="380">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Commercial invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">(1334) Document/message claiming payment for goods or services supplied under conditions agreed between seller and buyer.</xs:documentation>
-          <xs:documentation xml:lang="DE">Handelsrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, mit dem/der die Zahlung für gelieferte Waren oder Dienstleistungen entsprechend den zwischen Verkäufer und Käufer vereinbarten Bedingungen angefordert wird.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="381">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Credit note</xs:documentation>
-          <xs:documentation xml:lang="EN">(1113) Document/message for providing credit information to the relevant party.</xs:documentation>
-          <xs:documentation xml:lang="DE">Gutschriftanzeige</xs:documentation>
-          <xs:documentation xml:lang="DE">Mit diesem Dokument oder dieser Nachricht werden dem Begünstigten Gutschrift-Informationen übermittelt.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="383">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Debit note</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message for providing debit information to the relevant party.</xs:documentation>
-          <xs:documentation xml:lang="DE">Belastungsanzeige</xs:documentation>
-          <xs:documentation xml:lang="DE">Mit diesem Dokument oder dieser Nachricht wird die betroffene Partei über eine Belastung informiert.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="384">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Corrected invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Commercial invoice that includes revised information differing from an earlier submission of the same invoice.</xs:documentation>
-          <xs:documentation xml:lang="DE">Rechnungskorrektur</xs:documentation>
-          <xs:documentation xml:lang="DE">Diese Nachricht enthält modifizierte Informationen über eine frühere Handelsrechnung. (Nationale Anmerkung: Darf in Deutschland für buchhalterische Zwecke nicht verwendet werden.)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="385">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Consolidated invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Commercial invoice that covers multiple transactions involving more than one vendor.</xs:documentation>
-          <xs:documentation xml:lang="DE">Konsolidierte Rechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Diese Nachricht enthält die Zusammenfassung von Handelsrechnungen verschiedener Verkäufer für einen Kunden.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="386">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Prepayment invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">An invoice to pay amounts for goods and services in advance; these amounts will be subtracted from the final invoice.</xs:documentation>
-          <xs:documentation xml:lang="DE">Vorauszahlungsrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Eine Rechnung, die die Vorauszahlung für Produkte anfordert. Die darin enthaltenen Beträge werden in der Schlussrechnung abgezogen.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="387">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Hire invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message for invoicing the hiring of human resources or renting goods or equipment.</xs:documentation>
-          <xs:documentation xml:lang="DE">Mietrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Diese/s Dokument/Nachricht dient dazu, die Ausleihe von Personal oder die Anmietung von Produkten abzurechnen.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="388">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Tax invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">An invoice for tax purposes.</xs:documentation>
-          <xs:documentation xml:lang="DE">Steuerrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Diese Rechnung dient steuerlichen Zwecken.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="389">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Self-billed invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">An invoice the invoicee is producing instead of the seller.</xs:documentation>
-          <xs:documentation xml:lang="DE">Selbst ausgestellte Rechnung (Gutschrift im Gutschriftsverfahren)</xs:documentation>
-          <xs:documentation xml:lang="DE">Eine Rechnung, die der Zahlungsverpflichtete selbst ausstellt anstelle des Verkäufers.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="390">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Delcredere invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">An invoice sent to the party paying for a number of buyers.</xs:documentation>
-          <xs:documentation xml:lang="DE">Delkredere-Rechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Eine Rechnung, die an ein Unternehmen, welches für eine Anzahl von Käufern bezahlt (Zentralregulierer), gesandt wird.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="393">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Factored invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Invoice assigned to a third party for collection.</xs:documentation>
-          <xs:documentation xml:lang="DE">Inkasso-Rechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Eine Rechnung, die einem Dritten zum Inkasso gesandt wird.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="394">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Lease invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Usage of INVOIC-message for goods in leasing contracts.</xs:documentation>
-          <xs:documentation xml:lang="DE">Leasing-Rechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Eine Rechnung für Produkte aus Leasing-Verträgen.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="395">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Consignment invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Commercial invoice that covers a transaction other than one involving a sale.</xs:documentation>
-          <xs:documentation xml:lang="DE">Konsignationsrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Die Nachricht umfasst einen Geschäftsvorfall, der kein Verkauf ist.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="396">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Factored credit note</xs:documentation>
-          <xs:documentation xml:lang="EN">Credit note related to assigned invoice(s).</xs:documentation>
-          <xs:documentation xml:lang="DE">Inkasso-Gutschrift</xs:documentation>
-          <xs:documentation xml:lang="DE">Gutschrift, die sich auf eine Inkassorechnung bezieht.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="420">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Optical Character Reading (OCR) payment credit note</xs:documentation>
-          <xs:documentation xml:lang="EN">Payment credit note effected by an Optical Character Reading (OCR) document.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="456">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Debit advice</xs:documentation>
-          <xs:documentation xml:lang="EN">Advice on a debit.</xs:documentation>
-          <xs:documentation xml:lang="DE">Belastungsanzeige</xs:documentation>
-          <xs:documentation xml:lang="DE">Belastungsanzeige.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="457">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Reversal of debit</xs:documentation>
-          <xs:documentation xml:lang="EN">Reversal of debit accounting entry by bank.</xs:documentation>
-          <xs:documentation xml:lang="DE">Storno einer Belastung.</xs:documentation>
-          <xs:documentation xml:lang="DE">Storno einer Belastung.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="458">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Reversal of credit</xs:documentation>
-          <xs:documentation xml:lang="EN">Reversal of credit accounting entry by bank.</xs:documentation>
-          <xs:documentation xml:lang="DE">Storno einer Gutschrift</xs:documentation>
-          <xs:documentation xml:lang="DE">Storno einer Gutschrift.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="527">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Self billed debit note</xs:documentation>
-          <xs:documentation xml:lang="EN">A document which indicates that the customer is claiming debit in a self billing environment.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="575">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Insurer's invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message issued by an insurer specifying the cost of an insurance which has been effected and claiming payment therefore.</xs:documentation>
-          <xs:documentation xml:lang="DE">Rechnung des Versicherers</xs:documentation>
-          <xs:documentation xml:lang="DE">Vom Versicherer ausgestellte/s Dokument/Nachricht, in dem/der er die Kosten für die abgeschlossene Versicherung aufführt und deren Zahlung verlangt.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="623">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Forwarder's invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Invoice issued by a freight forwarder specifying services rendered and costs incurred and claiming payment therefore.</xs:documentation>
-          <xs:documentation xml:lang="DE">Speditionsrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Rechnung des Spediteurs, die die erbrachten Leistungen und die entstandenen Kosten aufführt und deren Zahlung verlangt.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="633">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Port charges documents</xs:documentation>
-          <xs:documentation xml:lang="EN">Documents/messages specifying services rendered, storage and handling costs, demurrage and other charges due to the owner of goods described therein.</xs:documentation>
-          <xs:documentation xml:lang="DE">Hafenkostenrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokumente/Nachrichten, in denen erbrachte Leistungen, Kosten für Lagerung und Umschlag, Standgeld/Liegegeld und andere Dienstleistungen bzw. Kosten, die der Eigentümer der beschriebenen Güter zu bezahlen hat, aufgeführt sind.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="751">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Invoice information for accounting purposes</xs:documentation>
-          <xs:documentation xml:lang="EN">A document / message containing accounting related information such as monetary summations, seller id and VAT information. This may not be a complete invoice according to legal requirements. For instance the line item information might be excluded.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="780">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Freight invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message issued by a transport operation specifying freight costs and charges incurred for a transport operation and stating conditions of payment.</xs:documentation>
-          <xs:documentation xml:lang="DE">Frachtrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Dokument/Nachricht, ausgestellt von einem Frachtführer, in dem/der die Frachtkosten und Gebühren für einen Transportvorgang und die Zahlungsbedingungen aufgeführt sind.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="935">
-        <xs:annotation>
-          <xs:documentation xml:lang="EN">Customs invoice</xs:documentation>
-          <xs:documentation xml:lang="EN">Document/message required by the Customs in an importing country in which an exporter states the invoice or other price (e.g. selling price, price of identical goods), and specifies costs for freight, insurance and packing, etc., terms of delivery and payment, for the purpose of determining the Customs value in the importing country of goods consigned to that country.</xs:documentation>
-          <xs:documentation xml:lang="DE">Zollrechnung</xs:documentation>
-          <xs:documentation xml:lang="DE">Von der Zollverwaltung eines Einfuhrlandes geforderte/s Dokument/Nachricht, in dem/der ein Ausführer den Rechnungspreis oder einen anderen Preis (z. B. Verkaufspreis für gleiche Waren) und die Frachtkosten, Versicherungs- und Verpackungskosten usw., die Liefer- und Zahlungsbedingungen zum Zweck der Feststellung des Zollwertes im Einfuhrland für Waren, die für dieses Land bestimmt sind, einzeln angibt.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
+      <xs:enumeration value="80"/>
+      <xs:enumeration value="81"/>
+      <xs:enumeration value="82"/>
+      <xs:enumeration value="83"/>
+      <xs:enumeration value="84"/>
+      <xs:enumeration value="130"/>
+      <xs:enumeration value="202"/>
+      <xs:enumeration value="203"/>
+      <xs:enumeration value="204"/>
+      <xs:enumeration value="211"/>
+      <xs:enumeration value="261"/>
+      <xs:enumeration value="262"/>
+      <xs:enumeration value="295"/>
+      <xs:enumeration value="296"/>
+      <xs:enumeration value="308"/>
+      <xs:enumeration value="325"/>
+      <xs:enumeration value="326"/>
+      <xs:enumeration value="380"/>
+      <xs:enumeration value="381"/>
+      <xs:enumeration value="383"/>
+      <xs:enumeration value="384"/>
+      <xs:enumeration value="385"/>
+      <xs:enumeration value="386"/>
+      <xs:enumeration value="387"/>
+      <xs:enumeration value="388"/>
+      <xs:enumeration value="389"/>
+      <xs:enumeration value="390"/>
+      <xs:enumeration value="393"/>
+      <xs:enumeration value="394"/>
+      <xs:enumeration value="395"/>
+      <xs:enumeration value="396"/>
+      <xs:enumeration value="420"/>
+      <xs:enumeration value="456"/>
+      <xs:enumeration value="457"/>
+      <xs:enumeration value="458"/>
+      <xs:enumeration value="527"/>
+      <xs:enumeration value="575"/>
+      <xs:enumeration value="623"/>
+      <xs:enumeration value="633"/>
+      <xs:enumeration value="751"/>
+      <xs:enumeration value="780"/>
+      <xs:enumeration value="935"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="DocumentCodeType">
