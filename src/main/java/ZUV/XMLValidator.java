@@ -185,7 +185,7 @@ public class XMLValidator extends Validator {
 
 					isMiniumum = context.getProfile().contains("minimum");
 					isBasic = context.getProfile().contains("basic");
-					isBasicWithoutLines = context.getProfile().contains("basic-wl");
+					isBasicWithoutLines = context.getProfile().contains("basicwl");
 					if(isBasicWithoutLines) {
 						isBasic=false;
 					}
@@ -194,25 +194,24 @@ public class XMLValidator extends Validator {
 
 					isExtended = context.getProfile().contains("extended");
 					if (isMiniumum) {
+						LOGGER.debug("is Minimum");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/MINIMUM/FACTUR-X_MINIMUM.xsd", 18, EPart.xml);
-						
 						xsltFilename="/xslt/zugferd21_minimum.xsl";
 					} else if (isBasicWithoutLines) {
-						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC-WL/FACTUR-X-BASIC-WL.xsd", 18, EPart.xml);
-						
+						LOGGER.debug("is Basic/WL");
+						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC-WL/FACTUR-X_BASIC-WL.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_basicwl.xsl";
 					} else if (isBasic) {
+						LOGGER.debug("is Basic");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/FACTUR-X_BASIC.xsd", 18, EPart.xml);
-						
 						xsltFilename="/xslt/zugferd21_basic.xsl";
 					} else if (isEN16931) {
+						LOGGER.debug("is EN16931");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/FACTUR-X_EN16931.xsd", 18, EPart.xml);
-						
 						xsltFilename="/xslt/zugferd21_en16931.xsl";
-						
 					} else if (isExtended) {
+						LOGGER.debug("is EXTENDED");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/FACTUR-X_EXTENDED.xsd", 18, EPart.xml);
-						
 						xsltFilename="/xslt/zugferd21_extended.xsl";
 					} /*
 						 * ISchematronResource aResSCH = SchematronResourceXSLT.fromFile(new File(

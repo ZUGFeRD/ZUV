@@ -11,6 +11,14 @@ public class ZUGFeRDValidatorTest extends ResourceCase {
 		String report = zfv.validate(tempFile.getAbsolutePath());
 		assertEquals(true, report.contains("status='invalid'/></pdf>"));
 		assertEquals(true, report.contains("status='invalid'/></validation>"));
+		
+		 tempFile = getResourceAsFile("validAvoir_FR_type380_BASICWL.pdf");
+		 zfv = new ZUGFeRDValidator();
 
+		 report = zfv.validate(tempFile.getAbsolutePath());
+		assertEquals(true, report.contains("status='valid'"));
+		assertEquals(false, report.contains("status='invalid'"));
+
+		
 	}
 }
