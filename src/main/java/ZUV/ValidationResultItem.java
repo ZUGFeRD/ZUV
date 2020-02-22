@@ -72,16 +72,16 @@ public class ValidationResultItem {
 			additionalAttributes+=" type=\""+section+"\"";
 		}
 		if (location!=null) {
-			additionalAttributes+=" location=\""+location+"\"";
+			additionalAttributes+=" location=\""+XMLTools.encodeXML(location)+"\"";
 		}
 		if (criterion!=null) {
-			additionalAttributes+=" criterion=\""+criterion+"\"";
+			additionalAttributes+=" criterion=\""+XMLTools.encodeXML(criterion)+"\"";
 		}
 		if (stacktrace!=null) {
-			additionalContents+="<stacktrace>"+stacktrace+"</stacktrace>";
+			additionalContents+="<stacktrace>"+XMLTools.encodeXML(stacktrace)+"</stacktrace>";
 		}
 		hasBeenOutputted=true;
-		return "<"+tagname+additionalAttributes+">"+message+additionalContents+"</"+tagname+">";
+		return "<"+tagname+additionalAttributes+">"+XMLTools.encodeXML(message+additionalContents)+"</"+tagname+">";
 	}
 	
 	public String getXMLOnce() {

@@ -12,6 +12,7 @@ public class ValidationContext {
 	private String signature = null;
 	private boolean isValid = true;
 	protected Logger logger;
+	private String filename;
 
 	public ValidationContext(Logger log) {
 		logger = log;
@@ -112,5 +113,16 @@ public class ValidationContext {
 
 	public void setInvalid() {
 		isValid = false;
+	}
+
+	public void setFilename(String filename) {
+		this.filename=filename;
+	}
+	public String getFilename() {
+		if (filename==null) {
+			return "";
+		} else {
+			return filename;			
+		}
 	}
 }

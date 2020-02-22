@@ -5,9 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
@@ -58,7 +62,9 @@ public class ZUGFeRDValidator {
 		boolean xmlValidity;
 		context.clear();
 		StringBuffer finalStringResult = new StringBuffer();
-		finalStringResult.append("<validation>");
+		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
+		Date date = new Date(); 
+	
 		try {
 
 			if (filename == null) {
@@ -66,15 +72,17 @@ public class ZUGFeRDValidator {
 				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "Filename not specified").setSection(10)
 						.setPart(EPart.pdf));
 			}
+			Path path = Paths.get(filename); 
+			context.setFilename(path.getFileName().toString());// set filename without path
 
 			PDFValidator pdfv = new PDFValidator(context);
 			File file = new File(filename);
 			if (!file.exists()) {
-				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File " + filename + " not found")
+				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File not found")
 						.setSection(1).setPart(EPart.pdf));
 			} else if (file.length() < 32) {
 				// with less then 32 bytes it can not even be a proper XML file
-				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File " + filename + " too small")
+				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File too small")
 						.setSection(5).setPart(EPart.pdf));
 			} else {
 				BigFileSearcher searcher = new BigFileSearcher();
@@ -165,10 +173,11 @@ public class ZUGFeRDValidator {
 		catch (IrrecoverableValidationError irx) {
 			// @todo log
 		} finally {
+			finalStringResult.append("<validation filename='"+context.getFilename()+"' datetime='"+isoDF.format(date)+"'>");
 			finalStringResult.append(context.getXMLResult());
+			finalStringResult.append("</validation>");
 
 		}
-		finalStringResult.append("</validation>");
 		xmlValidity = context.isValid();
 		long duration = Calendar.getInstance().getTimeInMillis() - startTime;
 

@@ -291,12 +291,10 @@ public class XMLValidator extends Validator {
 
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
-		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
-		Date date = new Date(); 
 		
 		context.addCustomXML("<info><version>" + ((context.getVersion() != null) ? context.getVersion() : "invalid")
 				+ "</version><profile>" + ((context.getProfile() != null) ? context.getProfile() : "invalid") + 
-				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><validation datetime=\""+isoDF.format(date)+"\"><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
+				  "</profile><validator version=\""+Main.class.getPackage().getImplementationVersion()+"\"></validator><rules><fired>"+firedRules+"</fired><failed>"+failedRules+"</failed></rules>" + "<duration unit='ms'>" + (endTime - startXMLTime) + "</duration></validation></info>");
 
 	}
 	

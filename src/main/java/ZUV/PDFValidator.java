@@ -317,7 +317,7 @@ public class PDFValidator extends Validator {
 		}
 		context.addCustomXML(pdfReport + "<info><signature>"
 				+ ((context.getSignature() != null) ? context.getSignature() : "unknown")
-				+ "</signature><validation><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></validation></info>");
+				+ "</signature><duration unit='ms'>" + (endTime - startPDFTime) + "</duration></info>");
 
 	}
 

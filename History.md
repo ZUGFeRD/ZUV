@@ -11,6 +11,10 @@
 * fail better if -f missing
 * validate against CEN 1.3
 * corrected invalidation of complete output status for broken pdfs
+* mention filename in report 
+* escape xml in report elements, e.g. < in criterion to become &lt;
+* validation element has been removed from pdf info and added as attribute in root, duration is now direct child of info
+* file not found and file too small now without filename
 
 0.8.3
 ======
