@@ -64,6 +64,16 @@ public class ZUGFeRDValidator {
 		StringBuffer finalStringResult = new StringBuffer();
 		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
 		Date date = new Date(); 
+
+		try {
+			Path path = Paths.get(filename); 
+			context.setFilename(path.getFileName().toString());// set filename without path
+			
+		} catch (NullPointerException ex) {
+			// ignore
+		}
+		finalStringResult.append("<validation filename='"+context.getFilename()+"' datetime='"+isoDF.format(date)+"'>");
+		
 	
 		try {
 
@@ -72,8 +82,6 @@ public class ZUGFeRDValidator {
 				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "Filename not specified").setSection(10)
 						.setPart(EPart.pdf));
 			}
-			Path path = Paths.get(filename); 
-			context.setFilename(path.getFileName().toString());// set filename without path
 
 			PDFValidator pdfv = new PDFValidator(context);
 			File file = new File(filename);
@@ -173,7 +181,6 @@ public class ZUGFeRDValidator {
 		catch (IrrecoverableValidationError irx) {
 			// @todo log
 		} finally {
-			finalStringResult.append("<validation filename='"+context.getFilename()+"' datetime='"+isoDF.format(date)+"'>");
 			finalStringResult.append(context.getXMLResult());
 			finalStringResult.append("</validation>");
 
