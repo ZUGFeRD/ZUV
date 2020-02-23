@@ -36,6 +36,12 @@
          <artifactId>jaxb-api</artifactId>
          <version>2.1</version>
       </dependency>
+      <!-- for xml pretty print -->
+	  <dependency>
+	 	<groupId>org.dom4j</groupId>
+		<artifactId>dom4j</artifactId>
+		<version>2.1.1</version>
+	  </dependency>
       <!-- for ph-schematron -->
       <dependency>
          <groupId>ch.qos.logback</groupId>
@@ -74,6 +80,11 @@
          <!-- prototypes of new mustangproject versions can be installed by referring to them and installed to the local repo from a jar file with
         mvn install:install-file -Dfile=mustang-1.5.4-SNAPSHOT.jar -DgroupId=org.mustangproject.ZUGFeRD -DartifactId=mustang -Dversion=1.5.4 -Dpackaging=jar -DgeneratePom=true
         -->
+      </dependency>
+      <dependency>
+  		<groupId>org.xmlunit</groupId>
+  		<artifactId>xmlunit-core</artifactId>
+  		<version>2.6.3</version>
       </dependency>
       <dependency>
          <!-- for commandline options -->

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -12,9 +13,16 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.mustangproject.ZUGFeRD.ZUGFeRD2PullProvider;
 import org.riversun.bigdoc.bin.BigFileSearcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -185,6 +193,22 @@ public class ZUGFeRDValidator {
 			finalStringResult.append("</validation>");
 
 		}
+		
+		OutputFormat format = OutputFormat.createPrettyPrint();
+		StringWriter sw = new StringWriter();
+		Document document = null;
+		try {
+			document = DocumentHelper.parseText(new String(finalStringResult));
+		} catch (DocumentException e1) {
+			LOGGER.error(e1.getMessage());
+		}
+		XMLWriter writer = new XMLWriter(sw, format);
+		try {
+			writer.write(document);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
+
 		xmlValidity = context.isValid();
 		long duration = Calendar.getInstance().getTimeInMillis() - startTime;
 
@@ -192,7 +216,7 @@ public class ZUGFeRDValidator {
 				+ " Signature:" + Signature + " Checksum:" + sha1Checksum + " Profile:" + context.getProfile()
 				+ " Version:" + context.getVersion() + " Took:" + duration + "ms");
 		wasCompletelyValid = ((pdfValidity) && (xmlValidity));
-		return finalStringResult.toString();
+		return sw.toString();
 	}
 
 	/**

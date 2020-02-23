@@ -2,6 +2,14 @@ package ZUV;
 
 import java.io.File;
 
+import javax.xml.transform.Source;
+
+import org.w3c.dom.Node;
+import org.xmlunit.builder.Input;
+import org.xmlunit.xpath.JAXPXPathEngine;
+import org.xmlunit.xpath.XPathEngine;
+
+
 public class XMLValidatorTest extends ResourceCase {
 	
 	public void testZF2XMLValidation() {
@@ -78,6 +86,12 @@ public class XMLValidatorTest extends ResourceCase {
 			tempFile = getResourceAsFile("valid_Avoir_FR_type380_minimum_factur-x.xml");
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
+			
+			Source source = Input.fromString("<validation>"+xv.getXMLResult()+"</validation>").build();
+			XPathEngine xpath = new JAXPXPathEngine();
+			String content = xpath.evaluate("/validation/summary/@status", source);
+			assertEquals("invalid",content);
+			
 			//assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
 
 		/* this test failure might have to be upstreamed
