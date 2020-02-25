@@ -15,8 +15,9 @@
 * escape xml in report elements, e.g. < in criterion to become &lt;
 * validation element has been removed from pdf info and added as attribute in root, duration is now direct child of info
 * file not found and file too small now without filename
-* XML pretty print output. XML report may now contain <?xml...
+* XML pretty print output. (XML report may now contain header <?xml...)
 * First XMLUnit test
+* Better Check of XML Validity also against documents which start with comments or not with xml header <?xml...
 
 0.8.3
 ======

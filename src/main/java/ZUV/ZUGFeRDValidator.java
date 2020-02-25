@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,19 +14,21 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.mustangproject.ZUGFeRD.ZUGFeRD2PullProvider;
 import org.riversun.bigdoc.bin.BigFileSearcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 //abstract class
 public class ZUGFeRDValidator {
@@ -71,18 +74,18 @@ public class ZUGFeRDValidator {
 		context.clear();
 		StringBuffer finalStringResult = new StringBuffer();
 		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
-		Date date = new Date(); 
+		Date date = new Date();
 
 		try {
-			Path path = Paths.get(filename); 
+			Path path = Paths.get(filename);
 			context.setFilename(path.getFileName().toString());// set filename without path
-			
+
 		} catch (NullPointerException ex) {
 			// ignore
 		}
-		finalStringResult.append("<validation filename='"+context.getFilename()+"' datetime='"+isoDF.format(date)+"'>");
-		
-	
+		finalStringResult
+				.append("<validation filename='" + context.getFilename() + "' datetime='" + isoDF.format(date) + "'>");
+
 		try {
 
 			if (filename == null) {
@@ -94,17 +97,15 @@ public class ZUGFeRDValidator {
 			PDFValidator pdfv = new PDFValidator(context);
 			File file = new File(filename);
 			if (!file.exists()) {
-				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File not found")
-						.setSection(1).setPart(EPart.pdf));
+				context.addResultItem(
+						new ValidationResultItem(ESeverity.fatal, "File not found").setSection(1).setPart(EPart.pdf));
 			} else if (file.length() < 32) {
 				// with less then 32 bytes it can not even be a proper XML file
-				context.addResultItem(new ValidationResultItem(ESeverity.fatal, "File too small")
-						.setSection(5).setPart(EPart.pdf));
+				context.addResultItem(
+						new ValidationResultItem(ESeverity.fatal, "File too small").setSection(5).setPart(EPart.pdf));
 			} else {
 				BigFileSearcher searcher = new BigFileSearcher();
 				XMLValidator xv = new XMLValidator(context);
-
-				boolean isXML = searcher.indexOf(file, "<?xml".getBytes()) != -1;
 
 				byte[] pdfSignature = { '%', 'P', 'D', 'F' };
 				boolean isPDF = searcher.indexOf(file, pdfSignature) == 0;
@@ -127,7 +128,6 @@ public class ZUGFeRDValidator {
 					try {
 						pdfv.validate();
 
-
 						sha1Checksum = calcSHA1(file);
 
 						// Validate PDF
@@ -135,7 +135,6 @@ public class ZUGFeRDValidator {
 						finalStringResult.append(pdfv.getXMLResult());
 						pdfValidity = context.isValid();
 
-				
 						Signature = context.getSignature();
 						context.clear();
 						if (!pdfValidity) {
@@ -155,21 +154,38 @@ public class ZUGFeRDValidator {
 					}
 
 					finalStringResult.append("</pdf>\n");
-				} else if (isXML) {
-					pdfValidity = true;
-					optionsRecognized = true;
-					xv.setFilename(filename);
-					if (file.exists()) {
-						sha1Checksum = calcSHA1(file);
-					}
-
-					displayXMLValidationOutput = true;
-
 				} else {
-					optionsRecognized = false;
-					context.addResultItem(new ValidationResultItem(ESeverity.exception,
-							"File does not look like PDF nor XML (contains neither %PDF nor <?xml)").setSection(8));
+					boolean isXML = false;
+					try {
 
+					    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+					    DocumentBuilder db = dbf.newDocumentBuilder();
+					    
+					    Document doc = db.parse(file);
+					    
+					    Element root = doc.getDocumentElement();
+					    isXML=true;//no exception so far
+					    	
+					}
+					catch (Exception ex) {
+						//ignore isXML is already false
+					}
+					if (isXML) {
+						pdfValidity = true;
+						optionsRecognized = true;
+						xv.setFilename(filename);
+						if (file.exists()) {
+							sha1Checksum = calcSHA1(file);
+						}
+
+						displayXMLValidationOutput = true;
+
+					} else {
+						optionsRecognized = false;
+						context.addResultItem(new ValidationResultItem(ESeverity.exception,
+								"File does not look like PDF nor XML (contains neither %PDF nor <?xml)").setSection(8));
+
+					}
 				}
 				if ((optionsRecognized) && (displayXMLValidationOutput)) {
 					finalStringResult.append("<xml>");
@@ -193,10 +209,10 @@ public class ZUGFeRDValidator {
 			finalStringResult.append("</validation>");
 
 		}
-		
+
 		OutputFormat format = OutputFormat.createPrettyPrint();
 		StringWriter sw = new StringWriter();
-		Document document = null;
+		org.dom4j.Document document = null;
 		try {
 			document = DocumentHelper.parseText(new String(finalStringResult));
 		} catch (DocumentException e1) {
