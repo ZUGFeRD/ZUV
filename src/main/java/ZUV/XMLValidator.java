@@ -185,12 +185,15 @@ public class XMLValidator extends Validator {
 					isBasic = context.getProfile().contains("basic");
 					isBasicWithoutLines = context.getProfile().contains("basicwl");
 					if(isBasicWithoutLines) {
-						isBasic=false;
+						isBasic=false;// basicwl also contains the string basic...
 					}
 					isEN16931 = matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:en16931")
 							|| matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017");
 
 					isExtended = context.getProfile().contains("extended");
+					if(isExtended) {
+						isEN16931=false;// the uri for extended is urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended and thus contains en16931...
+					}
 					if (isMiniumum) {
 						LOGGER.debug("is Minimum");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/MINIMUM/FACTUR-X_MINIMUM.xsd", 18, EPart.xml);
