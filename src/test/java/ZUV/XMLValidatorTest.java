@@ -87,9 +87,9 @@ public class XMLValidatorTest extends ResourceCase {
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
 			
-			Source source = Input.fromString("<validation>"+xv.getXMLResult()+"</validation>").build();
+			Source source = Input.fromString("<xml>"+xv.getXMLResult()+"</xml>").build();
 			XPathEngine xpath = new JAXPXPathEngine();
-			String content = xpath.evaluate("/validation/summary/@status", source);
+			String content = xpath.evaluate("/xml/summary/@status", source);
 			assertEquals("invalid",content);
 			
 			//assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
@@ -106,6 +106,17 @@ public class XMLValidatorTest extends ResourceCase {
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
 			assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
+			
+			ctx.clear();
+			tempFile = getResourceAsFile("validZREtestZugferd.xml");
+			xv.setFilename(tempFile.getAbsolutePath());
+			xv.validate();
+		
+			source = Input.fromString("<xml>"+xv.getXMLResult()+"</xml>").build();
+			content = xpath.evaluate("/xml/summary/@status", source);
+			assertEquals("invalid",content);
+			
+			
 			
 		} catch (IrrecoverableValidationError e) {
 			// ignore, will be in XML output anyway
