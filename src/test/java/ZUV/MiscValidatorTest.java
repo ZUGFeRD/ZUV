@@ -33,13 +33,14 @@ public class MiscValidatorTest extends ResourceCase  {
 				"  <summary status=\"invalid\"/>\n" + 
 				"</validation>\n"));
 
+		boolean noExceptionOccurred=true;
 		File tempFile=null;
 		try {
 			tempFile = File.createTempFile("hello", ".tmp");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			noExceptionOccurred=true;
 		}
+		assertTrue(noExceptionOccurred);
 
 		res=zfv.validate(tempFile.getAbsolutePath());
 		assertTrue(res.matches("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>\n" + 
@@ -55,17 +56,17 @@ public class MiscValidatorTest extends ResourceCase  {
 		
 		String fileContent = "ladhvkdbfk  wkhfbkhdhkb svbkfsvbksfbvk sdvsdvbksjdvbkfdsv sdvbskdvbsjhkvbfskh dvbskfvbkfsbvke"
 				+ "ladhvkdbfk  wkhfbkhdhkb svbkfsvbksfbvk sdvsdvbksjdvbkfdsv sdvbskdvbsjhkvbfskh dvbskfvbkfsbvke";
-	     
+		noExceptionOccurred=true;
 	    BufferedWriter writer;
 		try {
 			writer = new BufferedWriter(new FileWriter(tempFile));
 		    writer.write(fileContent);
 		    writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			noExceptionOccurred=false;
 		}
-		 
+		assertTrue(noExceptionOccurred);
+ 
 
 		res=zfv.validate(tempFile.getAbsolutePath());
 		assertTrue(res.matches("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>\n" + 
