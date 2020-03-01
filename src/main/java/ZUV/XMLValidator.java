@@ -195,23 +195,23 @@ public class XMLValidator extends Validator {
 						isEN16931=false;// the uri for extended is urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended and thus contains en16931...
 					}
 					if (isMiniumum) {
-						LOGGER.debug("is Minimum");
+						LOGGER.info("is Minimum");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/MINIMUM/FACTUR-X_MINIMUM.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_minimum.xsl";
 					} else if (isBasicWithoutLines) {
-						LOGGER.debug("is Basic/WL");
+						LOGGER.info("is Basic/WL");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC-WL/FACTUR-X_BASIC-WL.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_basicwl.xsl";
 					} else if (isBasic) {
-						LOGGER.debug("is Basic");
+						LOGGER.info("is Basic");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/FACTUR-X_BASIC.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_basic.xsl";
 					} else if (isEN16931) {
-						LOGGER.debug("is EN16931");
+						LOGGER.info("is EN16931");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/FACTUR-X_EN16931.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_en16931.xsl";
 					} else if (isExtended) {
-						LOGGER.debug("is EXTENDED");
+						LOGGER.info("is EXTENDED");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/FACTUR-X_EXTENDED.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_extended.xsl";
 					} /*
@@ -272,7 +272,7 @@ public class XMLValidator extends Validator {
 
 				
 				if (context.getVersion().equals("2")
-						&& matchesURI(context.getProfile(),"urn:cen.eu:en16931:2017")) {
+						&& isEN16931) {
 					//additionally validate against CEN
 					validateSchematron(zfXML, "/xslt/cii16931schematron/EN16931-CII-validation.xslt", 24);
 				}
