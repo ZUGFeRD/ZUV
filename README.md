@@ -15,6 +15,10 @@ and run
 `java -jar ./saxon9he.jar -o:minimum.xsl -s:zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl`
 to do so.
 
+To create a new en16931 run 
+git clone https://github.com/ConnectingEurope/eInvoicing-EN16931.git 
+mvn -f pom-xslt.xml package
+
 
 
       

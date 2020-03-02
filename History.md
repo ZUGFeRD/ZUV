@@ -18,6 +18,8 @@
 * XML pretty print output. (XML report may now contain header <?xml...)
 * First XMLUnit test
 * Better Check of XML Validity also against documents which start with comments or not with xml header <?xml...
+* ZF 2.1 Schema/Schematrons
+* prevent accidental CEN EN16931 application on extended profile 
 
 0.8.3
 ======
