@@ -271,13 +271,16 @@ public class PDFValidator extends Validator {
 
 		// step 3 find signatures
 		try {
+			byte[] symtraxSignature = "Symtrax".getBytes("UTF-8");
 			byte[] mustangSignature = "via mustangproject".getBytes("UTF-8");
 			byte[] facturxpythonSignature = "by Alexis de Lattre".getBytes("UTF-8");
 			byte[] intarsysSignature = "intarsys ".getBytes("UTF-8");
 			byte[] konikSignature = "Konik".getBytes("UTF-8");
 			byte[] pdfMachineSignature = "pdfMachine from Broadgun Software".getBytes("UTF-8");
 
-			if (searcher.indexOf(file, mustangSignature) != -1) {
+			if (searcher.indexOf(file, symtraxSignature) != -1) {
+				Signature = "Symtrax";
+			} else if (searcher.indexOf(file, mustangSignature) != -1) {
 				Signature = "Mustang";
 			} else if (searcher.indexOf(file, facturxpythonSignature) != -1) {
 				Signature = "Factur/X Python";

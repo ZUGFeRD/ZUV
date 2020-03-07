@@ -115,6 +115,7 @@ Permissive Open Source APL2, see LICENSE
 | 21  | XMP Metadata: DocumentFileName not found")  |
 | 22  | generic XML validation exception  |
 | 23  | Not a PDF/A-3  |
+| 24  | Issues in CEN EN16931 Schematron Check |
 | 25  | Unsupported profile type  |
 | 26  | No rules matched, XML to minimal?  |
 

@@ -2,8 +2,9 @@
 * probleme wenn xml dateien mit kommentaren anfangen
 * fail better if only pdf w/o attachment
 
-0.8.4
+0.9.0
 ======
+* ZF 2.1 Schema/Schematrons
 * check against URI allowing for different fragments
 * #27 wrong exit code
 * now context also loggs
@@ -18,8 +19,8 @@
 * XML pretty print output. (XML report may now contain header <?xml...)
 * First XMLUnit test
 * Better Check of XML Validity also against documents which start with comments or not with xml header <?xml...
-* ZF 2.1 Schema/Schematrons
 * prevent accidental CEN EN16931 application on extended profile 
+* added Symtrax signatur
 
 0.8.3
 ======
