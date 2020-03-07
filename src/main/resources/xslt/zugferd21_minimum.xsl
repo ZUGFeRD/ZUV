@@ -1693,10 +1693,6 @@
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M386"/>
-         <svrl:active-pattern>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M387"/>
       </svrl:schematron-output>
    </xsl:template>
    <!--SCHEMATRON PATTERNS-->
@@ -1705,38 +1701,9 @@
               xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Schema for FACTUR-X; 1.0; ACCOUNTING INFORMATION, No XML Invoice, (MINIMUM)</svrl:text>
    <!--PATTERN -->
    <!--RULE -->
-   <xsl:template match="//TypeCode" priority="1000" mode="M5">
-      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                       xmlns:schold="http://www.ascc.net/xml/schematron"
-                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="//TypeCode"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="(not(rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress[ram:CountryID=751]))"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(not(rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress[ram:CountryID=751]))">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	Sum of charges on document level (BT-108) = S Document level charge amount (BT-99).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M5"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M5"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M5">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M5"/>
-   </xsl:template>
-   <!--PATTERN -->
-   <!--RULE -->
    <xsl:template match="//ram:AdditionalReferencedDocument"
                  priority="1000"
-                 mode="M6">
+                 mode="M5">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1757,17 +1724,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M6"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M5"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M6"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M6">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M6"/>
+   <xsl:template match="text()" priority="-1" mode="M5"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M5">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M5"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax"
                  priority="1000"
-                 mode="M7">
+                 mode="M6">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1900,17 +1867,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M7"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M6"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M7"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M7">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M7"/>
+   <xsl:template match="text()" priority="-1" mode="M6"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M6">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M6"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'Z']"
                  priority="1000"
-                 mode="M8">
+                 mode="M7">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1963,17 +1930,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M8"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M7"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M8"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M8">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M8"/>
+   <xsl:template match="text()" priority="-1" mode="M7"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M7">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M7"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.='S']"
                  priority="1000"
-                 mode="M9">
+                 mode="M8">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2010,17 +1977,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M9"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M8"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M9"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M9">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M9"/>
+   <xsl:template match="text()" priority="-1" mode="M8"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M8">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M8"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod"
                  priority="1000"
-                 mode="M10">
+                 mode="M9">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2057,17 +2024,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M10"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M9"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M10"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M10">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M10"/>
+   <xsl:template match="text()" priority="-1" mode="M9"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M9">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M9"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']"
                  priority="1000"
-                 mode="M11">
+                 mode="M10">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2184,17 +2151,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M11"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M10"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M11"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M11">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M11"/>
+   <xsl:template match="text()" priority="-1" mode="M10"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M10">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M10"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']"
                  priority="1000"
-                 mode="M12">
+                 mode="M11">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2311,17 +2278,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M11"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   <xsl:template match="text()" priority="-1" mode="M11"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M11">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M11"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableProductCharacteristic"
                  priority="1000"
-                 mode="M13">
+                 mode="M12">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2342,17 +2309,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:ApplicableTradeSettlementFinancialCard"
                  priority="1000"
-                 mode="M14">
+                 mode="M13">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2373,17 +2340,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:IncludedSupplyChainTradeLineItem"
                  priority="1000"
-                 mode="M15">
+                 mode="M14">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2596,15 +2563,15 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
-   <xsl:template match="//ram:PayeeTradeParty" priority="1000" mode="M16">
+   <xsl:template match="//ram:PayeeTradeParty" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2625,17 +2592,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SellerTaxRepresentativeTradeParty"
                  priority="1000"
-                 mode="M17">
+                 mode="M16">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2704,15 +2671,15 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
-   <xsl:template match="//ram:SellerTradeParty" priority="1000" mode="M18">
+   <xsl:template match="//ram:SellerTradeParty" priority="1000" mode="M17">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2733,17 +2700,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod"
                  priority="1000"
-                 mode="M19">
+                 mode="M18">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2780,17 +2747,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'false']"
                  priority="1000"
-                 mode="M20">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2891,17 +2858,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator = 'true']"
                  priority="1000"
-                 mode="M21">
+                 mode="M20">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3002,17 +2969,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTaxRegistration/ram:ID[@schemeID='VA']"
                  priority="1000"
-                 mode="M22">
+                 mode="M21">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3033,17 +3000,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']"
                  priority="1000"
-                 mode="M23">
+                 mode="M22">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3080,17 +3047,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'E']"
                  priority="1000"
-                 mode="M24">
+                 mode="M23">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3127,17 +3094,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M24"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M24"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M24">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M24"/>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'G']"
                  priority="1000"
-                 mode="M25">
+                 mode="M24">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3174,17 +3141,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M24"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   <xsl:template match="text()" priority="-1" mode="M24"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M24">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M24"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'K']"
                  priority="1000"
-                 mode="M26">
+                 mode="M25">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3221,17 +3188,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'L']"
                  priority="1000"
-                 mode="M27">
+                 mode="M26">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3268,17 +3235,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'M']"
                  priority="1000"
-                 mode="M28">
+                 mode="M27">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3315,17 +3282,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'O']"
                  priority="1000"
-                 mode="M29">
+                 mode="M28">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3362,17 +3329,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'S']"
                  priority="1000"
-                 mode="M30">
+                 mode="M29">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3409,17 +3376,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']"
                  priority="1000"
-                 mode="M31">
+                 mode="M30">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3456,17 +3423,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M31"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M31"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M31">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M31"/>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'AE']"
                  priority="1000"
-                 mode="M32">
+                 mode="M31">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3503,17 +3470,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M32"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M31"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M32"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M32">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M32"/>
+   <xsl:template match="text()" priority="-1" mode="M31"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M31">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M31"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'E']"
                  priority="1000"
-                 mode="M33">
+                 mode="M32">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3550,17 +3517,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M33"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M32"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M33"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M33">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M33"/>
+   <xsl:template match="text()" priority="-1" mode="M32"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M32">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M32"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'G']"
                  priority="1000"
-                 mode="M34">
+                 mode="M33">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3597,17 +3564,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M34"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M33"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M34"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M34">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M34"/>
+   <xsl:template match="text()" priority="-1" mode="M33"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M33">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M33"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'K']"
                  priority="1000"
-                 mode="M35">
+                 mode="M34">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3644,17 +3611,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M35"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M34"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M35"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M35">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M35"/>
+   <xsl:template match="text()" priority="-1" mode="M34"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M34">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M34"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'L']"
                  priority="1000"
-                 mode="M36">
+                 mode="M35">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3691,17 +3658,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M36"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M35"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M36"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M36">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M36"/>
+   <xsl:template match="text()" priority="-1" mode="M35"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M35">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M35"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'M']"
                  priority="1000"
-                 mode="M37">
+                 mode="M36">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3738,17 +3705,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M37"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M36"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M37"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M37">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M37"/>
+   <xsl:template match="text()" priority="-1" mode="M36"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M36">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M36"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'O']"
                  priority="1000"
-                 mode="M38">
+                 mode="M37">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3785,17 +3752,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M38"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M37"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M38"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M38">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M38"/>
+   <xsl:template match="text()" priority="-1" mode="M37"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M37">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M37"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'S']"
                  priority="1000"
-                 mode="M39">
+                 mode="M38">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3832,17 +3799,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M39"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M38"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M39"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M39">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M39"/>
+   <xsl:template match="text()" priority="-1" mode="M38"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M38">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M38"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true']/ram:CategoryTradeTax[ram:CategoryCode = 'Z']"
                  priority="1000"
-                 mode="M40">
+                 mode="M39">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -3879,17 +3846,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M40"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M39"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M40"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M40">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M40"/>
+   <xsl:template match="text()" priority="-1" mode="M39"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M39">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M39"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeSettlementHeaderMonetarySummation"
                  priority="1000"
-                 mode="M41">
+                 mode="M40">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4214,17 +4181,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M41"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M40"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M41"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M41">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M41"/>
+   <xsl:template match="text()" priority="-1" mode="M40"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M40">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M40"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeSettlementPaymentMeans"
                  priority="1000"
-                 mode="M42">
+                 mode="M41">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4245,17 +4212,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M42"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M41"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M42"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M42">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M42"/>
+   <xsl:template match="text()" priority="-1" mode="M41"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M41">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M41"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//ram:SpecifiedTradeSettlementPaymentMeans[ram:TypeCode='30' or ram:TypeCode='58']/ram:PayerPartyDebtorFinancialAccount"
                  priority="1000"
-                 mode="M43">
+                 mode="M42">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4292,17 +4259,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M43"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M42"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M43"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M43">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M43"/>
+   <xsl:template match="text()" priority="-1" mode="M42"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M42">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M42"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID"
                  priority="1000"
-                 mode="M44">
+                 mode="M43">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4323,17 +4290,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M44"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M43"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M44"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M44">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M44"/>
+   <xsl:template match="text()" priority="-1" mode="M43"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M43">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M43"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'AE']"
                  priority="1000"
-                 mode="M45">
+                 mode="M44">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4386,17 +4353,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M45"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M44"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M45"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M45">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M45"/>
+   <xsl:template match="text()" priority="-1" mode="M44"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M44">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M44"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'E']"
                  priority="1000"
-                 mode="M46">
+                 mode="M45">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4449,17 +4416,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M46"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M45"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M46"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M46">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M46"/>
+   <xsl:template match="text()" priority="-1" mode="M45"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M45">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M45"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'G']"
                  priority="1000"
-                 mode="M47">
+                 mode="M46">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4512,17 +4479,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M47"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M46"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M47"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M47">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M47"/>
+   <xsl:template match="text()" priority="-1" mode="M46"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M46">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M46"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[.= 'K']"
                  priority="1000"
-                 mode="M48">
+                 mode="M47">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4607,17 +4574,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M48"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M47"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M48"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M48">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M48"/>
+   <xsl:template match="text()" priority="-1" mode="M47"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M47">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M47"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']"
                  priority="1000"
-                 mode="M49">
+                 mode="M48">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4670,17 +4637,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M49"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M48"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M49"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M49">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M49"/>
+   <xsl:template match="text()" priority="-1" mode="M48"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M48">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M48"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']"
                  priority="1000"
-                 mode="M50">
+                 mode="M49">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4733,17 +4700,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M50"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M49"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M50"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M50">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M50"/>
+   <xsl:template match="text()" priority="-1" mode="M49"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M49">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M49"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']"
                  priority="1000"
-                 mode="M51">
+                 mode="M50">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4860,17 +4827,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M51"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M50"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M51"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M51">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M51"/>
+   <xsl:template match="text()" priority="-1" mode="M50"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M50">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M50"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'AE']"
                  priority="1000"
-                 mode="M52">
+                 mode="M51">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4907,17 +4874,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M52"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M51"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M52"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M52">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M52"/>
+   <xsl:template match="text()" priority="-1" mode="M51"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M51">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M51"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'E']"
                  priority="1000"
-                 mode="M53">
+                 mode="M52">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -4954,17 +4921,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M53"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M52"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M53"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M53">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M53"/>
+   <xsl:template match="text()" priority="-1" mode="M52"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M52">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M52"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'G']"
                  priority="1000"
-                 mode="M54">
+                 mode="M53">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5001,17 +4968,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M54"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M53"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M54"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M54">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M54"/>
+   <xsl:template match="text()" priority="-1" mode="M53"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M53">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M53"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'K']"
                  priority="1000"
-                 mode="M55">
+                 mode="M54">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5048,17 +5015,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M55"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M54"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M55"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M55">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M55"/>
+   <xsl:template match="text()" priority="-1" mode="M54"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M54">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M54"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'L']"
                  priority="1000"
-                 mode="M56">
+                 mode="M55">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5095,17 +5062,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M56"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M55"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M56"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M56">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M56"/>
+   <xsl:template match="text()" priority="-1" mode="M55"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M55">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M55"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'M']"
                  priority="1000"
-                 mode="M57">
+                 mode="M56">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5142,17 +5109,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M57"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M56"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M57"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M57">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M57"/>
+   <xsl:template match="text()" priority="-1" mode="M56"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M56">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M56"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'O']"
                  priority="1000"
-                 mode="M58">
+                 mode="M57">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5189,17 +5156,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M58"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M57"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M58"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M58">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M58"/>
+   <xsl:template match="text()" priority="-1" mode="M57"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M57">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M57"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'S']"
                  priority="1000"
-                 mode="M59">
+                 mode="M58">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5236,17 +5203,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M59"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M58"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M59"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M59">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M59"/>
+   <xsl:template match="text()" priority="-1" mode="M58"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M58">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M58"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="//rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax[ram:CategoryCode = 'Z']"
                  priority="1000"
-                 mode="M60">
+                 mode="M59">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5283,15 +5250,15 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M60"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M59"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M60"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M60">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M60"/>
+   <xsl:template match="text()" priority="-1" mode="M59"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M59">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M59"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
-   <xsl:template match="/rsm:CrossIndustryInvoice" priority="1000" mode="M61">
+   <xsl:template match="/rsm:CrossIndustryInvoice" priority="1000" mode="M60">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5648,17 +5615,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M61"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M60"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M61"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M61">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M61"/>
+   <xsl:template match="text()" priority="-1" mode="M60"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M60">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M60"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument"
                  priority="1000"
-                 mode="M62">
+                 mode="M61">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5679,17 +5646,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M62"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M61"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M62"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M62">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M62"/>
+   <xsl:template match="text()" priority="-1" mode="M61"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M61">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M61"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:CategoryCode"
                  priority="1000"
-                 mode="M63">
+                 mode="M62">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5707,17 +5674,17 @@
 	Element 'ram:CategoryCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M63"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M62"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M63"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M63">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M63"/>
+   <xsl:template match="text()" priority="-1" mode="M62"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M62">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M62"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ControlRequirementIndicator"
                  priority="1000"
-                 mode="M64">
+                 mode="M63">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5735,17 +5702,17 @@
 	Element 'ram:ControlRequirementIndicator' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M64"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M63"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M64"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M64">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M64"/>
+   <xsl:template match="text()" priority="-1" mode="M63"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M63">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M63"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:CopyIndicator"
                  priority="1000"
-                 mode="M65">
+                 mode="M64">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5763,17 +5730,17 @@
 	Element 'ram:CopyIndicator' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M65"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M64"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M65"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M65">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M65"/>
+   <xsl:template match="text()" priority="-1" mode="M64"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M64">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M64"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:EffectiveSpecifiedPeriod"
                  priority="1000"
-                 mode="M66">
+                 mode="M65">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5791,17 +5758,17 @@
 	Element 'ram:EffectiveSpecifiedPeriod' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M66"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M65"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M66"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M66">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M66"/>
+   <xsl:template match="text()" priority="-1" mode="M65"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M65">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M65"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:GlobalID"
                  priority="1000"
-                 mode="M67">
+                 mode="M66">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5819,17 +5786,17 @@
 	Element 'ram:GlobalID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M67"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M66"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M67"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M67">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M67"/>
+   <xsl:template match="text()" priority="-1" mode="M66"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M66">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M66"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M68">
+                 mode="M67">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5847,17 +5814,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M68"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M67"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M68"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M68">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M68"/>
+   <xsl:template match="text()" priority="-1" mode="M67"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M67">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M67"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M69">
+                 mode="M68">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5875,17 +5842,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M69"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M68"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M69"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M69">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M69"/>
+   <xsl:template match="text()" priority="-1" mode="M68"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M68">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M68"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M70">
+                 mode="M69">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5903,17 +5870,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M70"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M69"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M70"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M70">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M70"/>
+   <xsl:template match="text()" priority="-1" mode="M69"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M69">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M69"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M71">
+                 mode="M70">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5931,17 +5898,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M71"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M70"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M71"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M71">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M71"/>
+   <xsl:template match="text()" priority="-1" mode="M70"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M70">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M70"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M72">
+                 mode="M71">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5959,17 +5926,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M72"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M71"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M72"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M72">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M72"/>
+   <xsl:template match="text()" priority="-1" mode="M71"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M71">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M71"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M73">
+                 mode="M72">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -5987,17 +5954,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M73"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M72"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M73"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M73">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M73"/>
+   <xsl:template match="text()" priority="-1" mode="M72"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M72">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M72"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M74">
+                 mode="M73">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6015,17 +5982,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M74"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M73"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M74"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M74">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M74"/>
+   <xsl:template match="text()" priority="-1" mode="M73"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M73">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M73"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IncludedNote"
                  priority="1000"
-                 mode="M75">
+                 mode="M74">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6043,17 +6010,17 @@
 	Element 'ram:IncludedNote' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M75"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M74"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M75"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M75">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M75"/>
+   <xsl:template match="text()" priority="-1" mode="M74"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M74">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M74"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTime"
                  priority="1000"
-                 mode="M76">
+                 mode="M75">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6071,17 +6038,17 @@
 	Element 'udt:DateTime' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M76"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M75"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M76"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M76">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M76"/>
+   <xsl:template match="text()" priority="-1" mode="M75"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M75">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M75"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString[@format]"
                  priority="1000"
-                 mode="M77">
+                 mode="M76">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6103,17 +6070,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M77"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M76"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M77"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M77">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M77"/>
+   <xsl:template match="text()" priority="-1" mode="M76"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M76">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M76"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssuerTradeParty"
                  priority="1000"
-                 mode="M78">
+                 mode="M77">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6131,17 +6098,17 @@
 	Element 'ram:IssuerTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M78"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M77"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M78"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M78">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M78"/>
+   <xsl:template match="text()" priority="-1" mode="M77"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M77">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M77"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:LanguageID"
                  priority="1000"
-                 mode="M79">
+                 mode="M78">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6159,17 +6126,17 @@
 	Element 'ram:LanguageID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M79"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M78"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M79"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M79">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M79"/>
+   <xsl:template match="text()" priority="-1" mode="M78"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M78">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M78"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:Name"
                  priority="1000"
-                 mode="M80">
+                 mode="M79">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6187,17 +6154,17 @@
 	Element 'ram:Name' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M80"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M79"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M80"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M80">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M80"/>
+   <xsl:template match="text()" priority="-1" mode="M79"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M79">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M79"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:PreviousRevisionID"
                  priority="1000"
-                 mode="M81">
+                 mode="M80">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6215,17 +6182,17 @@
 	Element 'ram:PreviousRevisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M81"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M80"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M81"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M81">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M81"/>
+   <xsl:template match="text()" priority="-1" mode="M80"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M80">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M80"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:Purpose"
                  priority="1000"
-                 mode="M82">
+                 mode="M81">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6243,17 +6210,17 @@
 	Element 'ram:Purpose' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M82"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M81"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M82"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M82">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M82"/>
+   <xsl:template match="text()" priority="-1" mode="M81"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M81">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M81"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:PurposeCode"
                  priority="1000"
-                 mode="M83">
+                 mode="M82">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6271,17 +6238,17 @@
 	Element 'ram:PurposeCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M83"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M82"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M83"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M83">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M83"/>
+   <xsl:template match="text()" priority="-1" mode="M82"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M82">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M82"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:RevisionDateTime"
                  priority="1000"
-                 mode="M84">
+                 mode="M83">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6299,17 +6266,17 @@
 	Element 'ram:RevisionDateTime' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M84"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M83"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M84"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M84">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M84"/>
+   <xsl:template match="text()" priority="-1" mode="M83"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M83">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M83"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:RevisionID"
                  priority="1000"
-                 mode="M85">
+                 mode="M84">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6327,17 +6294,17 @@
 	Element 'ram:RevisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M85"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M84"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M85"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M85">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M85"/>
+   <xsl:template match="text()" priority="-1" mode="M84"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M84">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M84"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode"
                  priority="1000"
-                 mode="M86">
+                 mode="M85">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6359,17 +6326,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M86"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M85"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M86"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M86">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M86"/>
+   <xsl:template match="text()" priority="-1" mode="M85"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M85">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M85"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode[@listAgencyID]"
                  priority="1000"
-                 mode="M87">
+                 mode="M86">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6387,17 +6354,17 @@
 	Attribute @listAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M87"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M86"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M87"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M87">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M87"/>
+   <xsl:template match="text()" priority="-1" mode="M86"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M86">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M86"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode[@listID]"
                  priority="1000"
-                 mode="M88">
+                 mode="M87">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6415,17 +6382,17 @@
 	Attribute @listID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M88"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M87"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M88"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M88">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M88"/>
+   <xsl:template match="text()" priority="-1" mode="M87"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M87">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M87"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode[@listURI]"
                  priority="1000"
-                 mode="M89">
+                 mode="M88">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6443,17 +6410,17 @@
 	Attribute @listURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M89"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M88"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M89"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M89">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M89"/>
+   <xsl:template match="text()" priority="-1" mode="M88"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M88">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M88"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode[@listVersionID]"
                  priority="1000"
-                 mode="M90">
+                 mode="M89">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6471,17 +6438,17 @@
 	Attribute @listVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M90"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M89"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M90"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M90">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M90"/>
+   <xsl:template match="text()" priority="-1" mode="M89"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M89">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M89"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode[@name]"
                  priority="1000"
-                 mode="M91">
+                 mode="M90">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6499,17 +6466,17 @@
 	Attribute @name' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M91"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M90"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M91"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M91">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M91"/>
+   <xsl:template match="text()" priority="-1" mode="M90"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M90">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M90"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:VersionID"
                  priority="1000"
-                 mode="M92">
+                 mode="M91">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6527,17 +6494,17 @@
 	Element 'ram:VersionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M92"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M91"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M92"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M92">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M92"/>
+   <xsl:template match="text()" priority="-1" mode="M91"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M91">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M91"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext"
                  priority="1000"
-                 mode="M93">
+                 mode="M92">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6574,17 +6541,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M93"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M92"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M93"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M93">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M93"/>
+   <xsl:template match="text()" priority="-1" mode="M92"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M92">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M92"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:ApplicationSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M94">
+                 mode="M93">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6602,17 +6569,17 @@
 	Element 'ram:ApplicationSpecifiedDocumentContextParameter' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M94"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M93"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M94"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M94">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M94"/>
+   <xsl:template match="text()" priority="-1" mode="M93"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M93">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M93"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BIMSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M95">
+                 mode="M94">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6630,17 +6597,17 @@
 	Element 'ram:BIMSpecifiedDocumentContextParameter' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M95"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M94"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M95"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M95">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M95"/>
+   <xsl:template match="text()" priority="-1" mode="M94"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M94">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M94"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M96">
+                 mode="M95">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6658,17 +6625,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M96"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M95"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M96"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M96">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M96"/>
+   <xsl:template match="text()" priority="-1" mode="M95"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M95">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M95"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M97">
+                 mode="M96">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6686,17 +6653,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M97"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M96"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M97"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M97">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M97"/>
+   <xsl:template match="text()" priority="-1" mode="M96"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M96">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M96"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M98">
+                 mode="M97">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6714,17 +6681,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M98"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M97"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M98"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M98">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M98"/>
+   <xsl:template match="text()" priority="-1" mode="M97"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M97">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M97"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M99">
+                 mode="M98">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6742,17 +6709,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M99"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M98"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M99"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M99">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M99"/>
+   <xsl:template match="text()" priority="-1" mode="M98"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M98">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M98"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M100">
+                 mode="M99">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6770,17 +6737,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M100"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M99"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M100"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M100">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M100"/>
+   <xsl:template match="text()" priority="-1" mode="M99"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M99">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M99"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M101">
+                 mode="M100">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6798,17 +6765,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M101"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M100"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M101"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M101">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M101"/>
+   <xsl:template match="text()" priority="-1" mode="M100"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M100">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M100"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M102">
+                 mode="M101">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6826,17 +6793,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M102"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M101"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M102"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M102">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M102"/>
+   <xsl:template match="text()" priority="-1" mode="M101"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M101">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M101"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:SpecifiedDocumentVersion"
                  priority="1000"
-                 mode="M103">
+                 mode="M102">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6854,17 +6821,17 @@
 	Element 'ram:SpecifiedDocumentVersion' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M103"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M102"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M103"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M103">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M103"/>
+   <xsl:template match="text()" priority="-1" mode="M102"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M102">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M102"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:Value"
                  priority="1000"
-                 mode="M104">
+                 mode="M103">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6882,17 +6849,17 @@
 	Element 'ram:Value' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M104"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M103"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M104"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M104">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M104"/>
+   <xsl:template match="text()" priority="-1" mode="M103"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M103">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M103"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M105">
+                 mode="M104">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6913,17 +6880,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M105"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M104"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M105"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M105">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M105"/>
+   <xsl:template match="text()" priority="-1" mode="M104"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M104">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M104"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M106">
+                 mode="M105">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6941,17 +6908,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M106"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M105"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M106"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M106">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M106"/>
+   <xsl:template match="text()" priority="-1" mode="M105"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M105">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M105"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M107">
+                 mode="M106">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6969,17 +6936,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M107"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M106"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M107"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M107">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M107"/>
+   <xsl:template match="text()" priority="-1" mode="M106"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M106">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M106"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M108">
+                 mode="M107">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -6997,17 +6964,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M108"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M107"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M108"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M108">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M108"/>
+   <xsl:template match="text()" priority="-1" mode="M107"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M107">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M107"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M109">
+                 mode="M108">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7025,17 +6992,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M109"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M108"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M109"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M109">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M109"/>
+   <xsl:template match="text()" priority="-1" mode="M108"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M108">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M108"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M110">
+                 mode="M109">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7053,17 +7020,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M110"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M109"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M110"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M110">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M110"/>
+   <xsl:template match="text()" priority="-1" mode="M109"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M109">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M109"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M111">
+                 mode="M110">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7081,17 +7048,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M111"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M110"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M111"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M111">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M111"/>
+   <xsl:template match="text()" priority="-1" mode="M110"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M110">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M110"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M112">
+                 mode="M111">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7109,17 +7076,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M112"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M111"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M112"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M112">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M112"/>
+   <xsl:template match="text()" priority="-1" mode="M111"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M111">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M111"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:SpecifiedDocumentVersion"
                  priority="1000"
-                 mode="M113">
+                 mode="M112">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7137,17 +7104,17 @@
 	Element 'ram:SpecifiedDocumentVersion' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M113"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M112"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M113"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M113">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M113"/>
+   <xsl:template match="text()" priority="-1" mode="M112"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M112">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M112"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:Value"
                  priority="1000"
-                 mode="M114">
+                 mode="M113">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7165,17 +7132,17 @@
 	Element 'ram:Value' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M114"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M113"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M114"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M114">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M114"/>
+   <xsl:template match="text()" priority="-1" mode="M113"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M113">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M113"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:MessageStandardSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M115">
+                 mode="M114">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7193,17 +7160,17 @@
 	Element 'ram:MessageStandardSpecifiedDocumentContextParameter' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M115"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M114"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M115"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M115">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M115"/>
+   <xsl:template match="text()" priority="-1" mode="M114"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M114">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M114"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:ScenarioSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M116">
+                 mode="M115">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7221,17 +7188,17 @@
 	Element 'ram:ScenarioSpecifiedDocumentContextParameter' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M116"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M115"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M116"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M116">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M116"/>
+   <xsl:template match="text()" priority="-1" mode="M115"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M115">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M115"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:SpecifiedTransactionID"
                  priority="1000"
-                 mode="M117">
+                 mode="M116">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7249,17 +7216,17 @@
 	Element 'ram:SpecifiedTransactionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M117"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M116"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M117"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M117">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M117"/>
+   <xsl:template match="text()" priority="-1" mode="M116"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M116">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M116"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:SubsetSpecifiedDocumentContextParameter"
                  priority="1000"
-                 mode="M118">
+                 mode="M117">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7277,17 +7244,17 @@
 	Element 'ram:SubsetSpecifiedDocumentContextParameter' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M118"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M117"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M118"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M118">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M118"/>
+   <xsl:template match="text()" priority="-1" mode="M117"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M117">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M117"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:TestIndicator"
                  priority="1000"
-                 mode="M119">
+                 mode="M118">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7305,17 +7272,17 @@
 	Element 'ram:TestIndicator' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M119"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M118"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M119"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M119">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M119"/>
+   <xsl:template match="text()" priority="-1" mode="M118"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M118">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M118"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement"
                  priority="1000"
-                 mode="M120">
+                 mode="M119">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7352,17 +7319,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M120"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M119"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M120"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M120">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M120"/>
+   <xsl:template match="text()" priority="-1" mode="M119"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M119">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M119"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument"
                  priority="1000"
-                 mode="M121">
+                 mode="M120">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7380,17 +7347,17 @@
 	Element 'ram:AdditionalReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M121"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M120"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M121"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M121">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M121"/>
+   <xsl:template match="text()" priority="-1" mode="M120"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M120">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M120"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:ApplicableTradeDeliveryTerms"
                  priority="1000"
-                 mode="M122">
+                 mode="M121">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7408,17 +7375,17 @@
 	Element 'ram:ApplicableTradeDeliveryTerms' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M122"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M121"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M122"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M122">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M122"/>
+   <xsl:template match="text()" priority="-1" mode="M121"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M121">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M121"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerAgentTradeParty"
                  priority="1000"
-                 mode="M123">
+                 mode="M122">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7436,17 +7403,17 @@
 	Element 'ram:BuyerAgentTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M123"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M122"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M123"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M123">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M123"/>
+   <xsl:template match="text()" priority="-1" mode="M122"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M122">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M122"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerAssignedAccountantTradeParty"
                  priority="1000"
-                 mode="M124">
+                 mode="M123">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7464,17 +7431,17 @@
 	Element 'ram:BuyerAssignedAccountantTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M124"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M123"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M124"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M124">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M124"/>
+   <xsl:template match="text()" priority="-1" mode="M123"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M123">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M123"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument"
                  priority="1000"
-                 mode="M125">
+                 mode="M124">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7495,17 +7462,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M125"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M124"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M125"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M125">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M125"/>
+   <xsl:template match="text()" priority="-1" mode="M124"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M124">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M124"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:AttachedSpecifiedBinaryFile"
                  priority="1000"
-                 mode="M126">
+                 mode="M125">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7523,17 +7490,17 @@
 	Element 'ram:AttachedSpecifiedBinaryFile' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M126"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M125"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M126"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M126">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M126"/>
+   <xsl:template match="text()" priority="-1" mode="M125"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M125">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M125"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:AttachmentBinaryObject"
                  priority="1000"
-                 mode="M127">
+                 mode="M126">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7551,17 +7518,17 @@
 	Element 'ram:AttachmentBinaryObject' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M127"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M126"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M127"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M127">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M127"/>
+   <xsl:template match="text()" priority="-1" mode="M126"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M126">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M126"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:CopyIndicator"
                  priority="1000"
-                 mode="M128">
+                 mode="M127">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7579,17 +7546,17 @@
 	Element 'ram:CopyIndicator' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M128"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M127"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M128"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M128">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M128"/>
+   <xsl:template match="text()" priority="-1" mode="M127"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M127">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M127"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:EffectiveSpecifiedPeriod"
                  priority="1000"
-                 mode="M129">
+                 mode="M128">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7607,17 +7574,17 @@
 	Element 'ram:EffectiveSpecifiedPeriod' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M129"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M128"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M129"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M129">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M129"/>
+   <xsl:template match="text()" priority="-1" mode="M128"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M128">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M128"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:FormattedIssueDateTime"
                  priority="1000"
-                 mode="M130">
+                 mode="M129">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7635,17 +7602,17 @@
 	Element 'ram:FormattedIssueDateTime' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M130"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M129"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M130"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M130">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M130"/>
+   <xsl:template match="text()" priority="-1" mode="M129"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M129">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M129"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:GlobalID"
                  priority="1000"
-                 mode="M131">
+                 mode="M130">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7663,17 +7630,17 @@
 	Element 'ram:GlobalID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M131"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M130"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M131"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M131">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M131"/>
+   <xsl:template match="text()" priority="-1" mode="M130"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M130">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M130"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:Information"
                  priority="1000"
-                 mode="M132">
+                 mode="M131">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7691,17 +7658,17 @@
 	Element 'ram:Information' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M132"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M131"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M132"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M132">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M132"/>
+   <xsl:template match="text()" priority="-1" mode="M131"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M131">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M131"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M133">
+                 mode="M132">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7719,17 +7686,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M133"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M132"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M133"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M133">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M133"/>
+   <xsl:template match="text()" priority="-1" mode="M132"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M132">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M132"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M134">
+                 mode="M133">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7747,17 +7714,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M134"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M133"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M134"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M134">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M134"/>
+   <xsl:template match="text()" priority="-1" mode="M133"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M133">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M133"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeDataURI]"
                  priority="1000"
-                 mode="M135">
+                 mode="M134">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7775,17 +7742,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M135"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M134"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M135"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M135">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M135"/>
+   <xsl:template match="text()" priority="-1" mode="M134"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M134">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M134"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeID]"
                  priority="1000"
-                 mode="M136">
+                 mode="M135">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7803,17 +7770,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M136"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M135"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M136"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M136">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M136"/>
+   <xsl:template match="text()" priority="-1" mode="M135"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M135">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M135"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeName]"
                  priority="1000"
-                 mode="M137">
+                 mode="M136">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7831,17 +7798,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M137"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M136"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M137"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M137">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M137"/>
+   <xsl:template match="text()" priority="-1" mode="M136"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M136">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M136"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeURI]"
                  priority="1000"
-                 mode="M138">
+                 mode="M137">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7859,17 +7826,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M138"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M137"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M138"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M138">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M138"/>
+   <xsl:template match="text()" priority="-1" mode="M137"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M137">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M137"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeVersionID]"
                  priority="1000"
-                 mode="M139">
+                 mode="M138">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7887,17 +7854,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M139"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M138"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M139"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M139">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M139"/>
+   <xsl:template match="text()" priority="-1" mode="M138"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M138">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M138"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerTradeParty"
                  priority="1000"
-                 mode="M140">
+                 mode="M139">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7915,17 +7882,17 @@
 	Element 'ram:IssuerTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M140"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M139"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M140"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M140">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M140"/>
+   <xsl:template match="text()" priority="-1" mode="M139"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M139">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M139"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:LineID"
                  priority="1000"
-                 mode="M141">
+                 mode="M140">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7943,17 +7910,17 @@
 	Element 'ram:LineID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M141"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M140"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M141"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M141">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M141"/>
+   <xsl:template match="text()" priority="-1" mode="M140"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M140">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M140"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:Name"
                  priority="1000"
-                 mode="M142">
+                 mode="M141">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7971,17 +7938,17 @@
 	Element 'ram:Name' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M142"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M141"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M142"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M142">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M142"/>
+   <xsl:template match="text()" priority="-1" mode="M141"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M141">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M141"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:PreviousRevisionID"
                  priority="1000"
-                 mode="M143">
+                 mode="M142">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -7999,17 +7966,17 @@
 	Element 'ram:PreviousRevisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M143"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M142"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M143"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M143">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M143"/>
+   <xsl:template match="text()" priority="-1" mode="M142"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M142">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M142"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:ReferenceTypeCode"
                  priority="1000"
-                 mode="M144">
+                 mode="M143">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8027,17 +7994,17 @@
 	Element 'ram:ReferenceTypeCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M144"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M143"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M144"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M144">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M144"/>
+   <xsl:template match="text()" priority="-1" mode="M143"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M143">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M143"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:RevisionID"
                  priority="1000"
-                 mode="M145">
+                 mode="M144">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8055,17 +8022,17 @@
 	Element 'ram:RevisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M145"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M144"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M145"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M145">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M145"/>
+   <xsl:template match="text()" priority="-1" mode="M144"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M144">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M144"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:SectionName"
                  priority="1000"
-                 mode="M146">
+                 mode="M145">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8083,17 +8050,17 @@
 	Element 'ram:SectionName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M146"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M145"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M146"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M146">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M146"/>
+   <xsl:template match="text()" priority="-1" mode="M145"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M145">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M145"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:StatusCode"
                  priority="1000"
-                 mode="M147">
+                 mode="M146">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8111,17 +8078,17 @@
 	Element 'ram:StatusCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M147"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M146"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M147"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M147">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M147"/>
+   <xsl:template match="text()" priority="-1" mode="M146"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M146">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M146"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:TypeCode"
                  priority="1000"
-                 mode="M148">
+                 mode="M147">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8139,17 +8106,17 @@
 	Element 'ram:TypeCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M148"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M147"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M148"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M148">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M148"/>
+   <xsl:template match="text()" priority="-1" mode="M147"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M147">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M147"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:URIID"
                  priority="1000"
-                 mode="M149">
+                 mode="M148">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8167,17 +8134,17 @@
 	Element 'ram:URIID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M149"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M148"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M149"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M149">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M149"/>
+   <xsl:template match="text()" priority="-1" mode="M148"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M148">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M148"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerReference[@languageID]"
                  priority="1000"
-                 mode="M150">
+                 mode="M149">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8195,17 +8162,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M150"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M149"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M150"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M150">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M150"/>
+   <xsl:template match="text()" priority="-1" mode="M149"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M149">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M149"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerReference[@languageLocaleID]"
                  priority="1000"
-                 mode="M151">
+                 mode="M150">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8223,17 +8190,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M151"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M150"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M151"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M151">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M151"/>
+   <xsl:template match="text()" priority="-1" mode="M150"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M150">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M150"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerRequisitionerTradeParty"
                  priority="1000"
-                 mode="M152">
+                 mode="M151">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8251,17 +8218,17 @@
 	Element 'ram:BuyerRequisitionerTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M152"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M151"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M152"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M152">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M152"/>
+   <xsl:template match="text()" priority="-1" mode="M151"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M151">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M151"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTaxRepresentativeTradeParty"
                  priority="1000"
-                 mode="M153">
+                 mode="M152">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8279,17 +8246,17 @@
 	Element 'ram:BuyerTaxRepresentativeTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M153"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M152"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M153"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M153">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M153"/>
+   <xsl:template match="text()" priority="-1" mode="M152"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M152">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M152"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty"
                  priority="1000"
-                 mode="M154">
+                 mode="M153">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8310,17 +8277,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M154"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M153"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M154"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M154">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M154"/>
+   <xsl:template match="text()" priority="-1" mode="M153"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M153">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M153"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact"
                  priority="1000"
-                 mode="M155">
+                 mode="M154">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8338,17 +8305,17 @@
 	Element 'ram:DefinedTradeContact' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M155"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M154"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M155"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M155">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M155"/>
+   <xsl:template match="text()" priority="-1" mode="M154"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M154">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M154"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:Description"
                  priority="1000"
-                 mode="M156">
+                 mode="M155">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8366,17 +8333,17 @@
 	Element 'ram:Description' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M156"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M155"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M156"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M156">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M156"/>
+   <xsl:template match="text()" priority="-1" mode="M155"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M155">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M155"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:EndPointURIUniversalCommunication"
                  priority="1000"
-                 mode="M157">
+                 mode="M156">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8394,17 +8361,17 @@
 	Element 'ram:EndPointURIUniversalCommunication' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M157"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M156"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M157"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M157">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M157"/>
+   <xsl:template match="text()" priority="-1" mode="M156"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M156">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M156"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:GlobalID"
                  priority="1000"
-                 mode="M158">
+                 mode="M157">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8422,17 +8389,17 @@
 	Element 'ram:GlobalID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M158"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M157"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M158"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M158">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M158"/>
+   <xsl:template match="text()" priority="-1" mode="M157"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M157">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M157"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:ID"
                  priority="1000"
-                 mode="M159">
+                 mode="M158">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8450,17 +8417,17 @@
 	Element 'ram:ID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M159"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M158"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M159"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M159">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M159"/>
+   <xsl:template match="text()" priority="-1" mode="M158"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M158">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M158"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:LogoAssociatedSpecifiedBinaryFile"
                  priority="1000"
-                 mode="M160">
+                 mode="M159">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8478,17 +8445,17 @@
 	Element 'ram:LogoAssociatedSpecifiedBinaryFile' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M160"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M159"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M160"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M160">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M160"/>
+   <xsl:template match="text()" priority="-1" mode="M159"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M159">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M159"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:Name[@languageID]"
                  priority="1000"
-                 mode="M161">
+                 mode="M160">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8506,17 +8473,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M161"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M160"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M161"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M161">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M161"/>
+   <xsl:template match="text()" priority="-1" mode="M160"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M160">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M160"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:Name[@languageLocaleID]"
                  priority="1000"
-                 mode="M162">
+                 mode="M161">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8534,17 +8501,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M162"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M161"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M162"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M162">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M162"/>
+   <xsl:template match="text()" priority="-1" mode="M161"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M161">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M161"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress"
                  priority="1000"
-                 mode="M163">
+                 mode="M162">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8581,17 +8548,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M163"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M162"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M163"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M163">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M163"/>
+   <xsl:template match="text()" priority="-1" mode="M162"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M162">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M162"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:AdditionalStreetName"
                  priority="1000"
-                 mode="M164">
+                 mode="M163">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8609,17 +8576,17 @@
 	Element 'ram:AdditionalStreetName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M164"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M163"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M164"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M164">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M164"/>
+   <xsl:template match="text()" priority="-1" mode="M163"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M163">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M163"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:AttentionOf"
                  priority="1000"
-                 mode="M165">
+                 mode="M164">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8637,17 +8604,17 @@
 	Element 'ram:AttentionOf' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M165"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M164"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M165"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M165">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M165"/>
+   <xsl:template match="text()" priority="-1" mode="M164"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M164">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M164"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:BuildingName"
                  priority="1000"
-                 mode="M166">
+                 mode="M165">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8665,17 +8632,17 @@
 	Element 'ram:BuildingName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M166"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M165"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M166"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M166">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M166"/>
+   <xsl:template match="text()" priority="-1" mode="M165"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M165">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M165"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:BuildingNumber"
                  priority="1000"
-                 mode="M167">
+                 mode="M166">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8693,17 +8660,17 @@
 	Element 'ram:BuildingNumber' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M167"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M166"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M167"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M167">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M167"/>
+   <xsl:template match="text()" priority="-1" mode="M166"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M166">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M166"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CareOf"
                  priority="1000"
-                 mode="M168">
+                 mode="M167">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8721,17 +8688,17 @@
 	Element 'ram:CareOf' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M168"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M167"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M168"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M168">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M168"/>
+   <xsl:template match="text()" priority="-1" mode="M167"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M167">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M167"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CityName[@languageID]"
                  priority="1000"
-                 mode="M169">
+                 mode="M168">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8749,17 +8716,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M169"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M168"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M169"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M169">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M169"/>
+   <xsl:template match="text()" priority="-1" mode="M168"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M168">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M168"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CityName[@languageLocaleID]"
                  priority="1000"
-                 mode="M170">
+                 mode="M169">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8777,17 +8744,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M170"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M169"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M170"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M170">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M170"/>
+   <xsl:template match="text()" priority="-1" mode="M169"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M169">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M169"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CitySubDivisionName"
                  priority="1000"
-                 mode="M171">
+                 mode="M170">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8805,17 +8772,17 @@
 	Element 'ram:CitySubDivisionName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M171"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M170"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M171"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M171">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M171"/>
+   <xsl:template match="text()" priority="-1" mode="M170"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M170">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M170"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M172">
+                 mode="M171">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8833,17 +8800,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M172"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M171"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M172"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M172">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M172"/>
+   <xsl:template match="text()" priority="-1" mode="M171"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M171">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M171"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeID]"
                  priority="1000"
-                 mode="M173">
+                 mode="M172">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8861,17 +8828,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M173"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M172"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M173"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M173">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M173"/>
+   <xsl:template match="text()" priority="-1" mode="M172"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M172">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M172"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeVersionID]"
                  priority="1000"
-                 mode="M174">
+                 mode="M173">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8889,17 +8856,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M174"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M173"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M174"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M174">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M174"/>
+   <xsl:template match="text()" priority="-1" mode="M173"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M173">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M173"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryName"
                  priority="1000"
-                 mode="M175">
+                 mode="M174">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8917,17 +8884,17 @@
 	Element 'ram:CountryName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M175"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M174"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M175"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M175">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M175"/>
+   <xsl:template match="text()" priority="-1" mode="M174"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M174">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M174"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionID"
                  priority="1000"
-                 mode="M176">
+                 mode="M175">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8945,17 +8912,17 @@
 	Element 'ram:CountrySubDivisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M176"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M175"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M176"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M176">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M176"/>
+   <xsl:template match="text()" priority="-1" mode="M175"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M175">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M175"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName[@languageID]"
                  priority="1000"
-                 mode="M177">
+                 mode="M176">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -8973,17 +8940,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M177"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M176"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M177"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M177">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M177"/>
+   <xsl:template match="text()" priority="-1" mode="M176"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M176">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M176"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName[@languageLocaleID]"
                  priority="1000"
-                 mode="M178">
+                 mode="M177">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9001,17 +8968,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M178"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M177"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M178"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M178">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M178"/>
+   <xsl:template match="text()" priority="-1" mode="M177"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M177">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M177"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:DepartmentName"
                  priority="1000"
-                 mode="M179">
+                 mode="M178">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9029,17 +8996,17 @@
 	Element 'ram:DepartmentName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M179"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M178"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M179"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M179">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M179"/>
+   <xsl:template match="text()" priority="-1" mode="M178"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M178">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M178"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:ID"
                  priority="1000"
-                 mode="M180">
+                 mode="M179">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9057,17 +9024,17 @@
 	Element 'ram:ID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M180"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M179"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M180"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M180">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M180"/>
+   <xsl:template match="text()" priority="-1" mode="M179"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M179">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M179"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineFive"
                  priority="1000"
-                 mode="M181">
+                 mode="M180">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9085,17 +9052,17 @@
 	Element 'ram:LineFive' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M181"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M180"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M181"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M181">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M181"/>
+   <xsl:template match="text()" priority="-1" mode="M180"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M180">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M180"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineFour"
                  priority="1000"
-                 mode="M182">
+                 mode="M181">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9113,17 +9080,17 @@
 	Element 'ram:LineFour' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M182"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M181"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M182"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M182">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M182"/>
+   <xsl:template match="text()" priority="-1" mode="M181"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M181">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M181"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageID]"
                  priority="1000"
-                 mode="M183">
+                 mode="M182">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9141,17 +9108,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M183"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M182"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M183"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M183">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M183"/>
+   <xsl:template match="text()" priority="-1" mode="M182"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M182">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M182"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageLocaleID]"
                  priority="1000"
-                 mode="M184">
+                 mode="M183">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9169,17 +9136,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M184"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M183"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M184"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M184">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M184"/>
+   <xsl:template match="text()" priority="-1" mode="M183"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M183">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M183"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageID]"
                  priority="1000"
-                 mode="M185">
+                 mode="M184">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9197,17 +9164,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M185"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M184"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M185"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M185">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M185"/>
+   <xsl:template match="text()" priority="-1" mode="M184"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M184">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M184"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageLocaleID]"
                  priority="1000"
-                 mode="M186">
+                 mode="M185">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9225,17 +9192,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M186"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M185"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M186"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M186">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M186"/>
+   <xsl:template match="text()" priority="-1" mode="M185"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M185">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M185"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageID]"
                  priority="1000"
-                 mode="M187">
+                 mode="M186">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9253,17 +9220,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M187"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M186"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M187"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M187">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M187"/>
+   <xsl:template match="text()" priority="-1" mode="M186"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M186">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M186"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageLocaleID]"
                  priority="1000"
-                 mode="M188">
+                 mode="M187">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9281,17 +9248,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M188"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M187"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M188"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M188">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M188"/>
+   <xsl:template match="text()" priority="-1" mode="M187"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M187">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M187"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostOfficeBox"
                  priority="1000"
-                 mode="M189">
+                 mode="M188">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9309,17 +9276,17 @@
 	Element 'ram:PostOfficeBox' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M189"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M188"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M189"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M189">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M189"/>
+   <xsl:template match="text()" priority="-1" mode="M188"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M188">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M188"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@languageID]"
                  priority="1000"
-                 mode="M190">
+                 mode="M189">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9337,17 +9304,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M190"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M189"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M190"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M190">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M190"/>
+   <xsl:template match="text()" priority="-1" mode="M189"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M189">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M189"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyID]"
                  priority="1000"
-                 mode="M191">
+                 mode="M190">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9365,17 +9332,17 @@
 	Attribute @listAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M191"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M190"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M191"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M191">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M191"/>
+   <xsl:template match="text()" priority="-1" mode="M190"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M190">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M190"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyName]"
                  priority="1000"
-                 mode="M192">
+                 mode="M191">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9393,17 +9360,17 @@
 	Attribute @listAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M192"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M191"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M192"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M192">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M192"/>
+   <xsl:template match="text()" priority="-1" mode="M191"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M191">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M191"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listID]"
                  priority="1000"
-                 mode="M193">
+                 mode="M192">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9421,17 +9388,17 @@
 	Attribute @listID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M193"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M192"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M193"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M193">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M193"/>
+   <xsl:template match="text()" priority="-1" mode="M192"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M192">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M192"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listName]"
                  priority="1000"
-                 mode="M194">
+                 mode="M193">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9449,17 +9416,17 @@
 	Attribute @listName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M194"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M193"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M194"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M194">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M194"/>
+   <xsl:template match="text()" priority="-1" mode="M193"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M193">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M193"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listSchemeURI]"
                  priority="1000"
-                 mode="M195">
+                 mode="M194">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9477,17 +9444,17 @@
 	Attribute @listSchemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M195"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M194"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M195"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M195">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M195"/>
+   <xsl:template match="text()" priority="-1" mode="M194"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M194">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M194"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listURI]"
                  priority="1000"
-                 mode="M196">
+                 mode="M195">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9505,17 +9472,17 @@
 	Attribute @listURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M196"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M195"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M196"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M196">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M196"/>
+   <xsl:template match="text()" priority="-1" mode="M195"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M195">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M195"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listVersionID]"
                  priority="1000"
-                 mode="M197">
+                 mode="M196">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9533,17 +9500,17 @@
 	Attribute @listVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M197"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M196"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M197"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M197">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M197"/>
+   <xsl:template match="text()" priority="-1" mode="M196"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M196">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M196"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@name]"
                  priority="1000"
-                 mode="M198">
+                 mode="M197">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9561,17 +9528,17 @@
 	Attribute @name' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M198"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M197"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M198"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M198">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M198"/>
+   <xsl:template match="text()" priority="-1" mode="M197"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M197">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M197"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:StreetName"
                  priority="1000"
-                 mode="M199">
+                 mode="M198">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9589,17 +9556,17 @@
 	Element 'ram:StreetName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M199"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M198"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M199"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M199">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M199"/>
+   <xsl:template match="text()" priority="-1" mode="M198"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M198">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M198"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:RoleCode"
                  priority="1000"
-                 mode="M200">
+                 mode="M199">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9617,17 +9584,17 @@
 	Element 'ram:RoleCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M200"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M199"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M200"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M200">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M200"/>
+   <xsl:template match="text()" priority="-1" mode="M199"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M199">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M199"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:AuthorizedLegalRegistration"
                  priority="1000"
-                 mode="M201">
+                 mode="M200">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9645,17 +9612,17 @@
 	Element 'ram:AuthorizedLegalRegistration' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M201"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M200"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M201"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M201">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M201"/>
+   <xsl:template match="text()" priority="-1" mode="M200"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M200">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M200"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M202">
+                 mode="M201">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9673,17 +9640,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M202"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M201"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M202"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M202">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M202"/>
+   <xsl:template match="text()" priority="-1" mode="M201"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M201">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M201"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M203">
+                 mode="M202">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9701,17 +9668,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M203"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M202"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M203"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M203">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M203"/>
+   <xsl:template match="text()" priority="-1" mode="M202"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M202">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M202"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M204">
+                 mode="M203">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9729,17 +9696,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M204"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M203"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M204"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M204">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M204"/>
+   <xsl:template match="text()" priority="-1" mode="M203"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M203">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M203"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M205">
+                 mode="M204">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9761,17 +9728,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M205"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M204"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M205"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M205">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M205"/>
+   <xsl:template match="text()" priority="-1" mode="M204"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M204">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M204"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M206">
+                 mode="M205">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9789,17 +9756,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M206"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M205"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M206"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M206">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M206"/>
+   <xsl:template match="text()" priority="-1" mode="M205"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M205">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M205"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M207">
+                 mode="M206">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9817,17 +9784,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M207"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M206"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M207"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M207">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M207"/>
+   <xsl:template match="text()" priority="-1" mode="M206"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M206">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M206"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M208">
+                 mode="M207">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9845,17 +9812,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M208"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M207"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M208"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M208">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M208"/>
+   <xsl:template match="text()" priority="-1" mode="M207"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M207">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M207"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:LegalClassificationCode"
                  priority="1000"
-                 mode="M209">
+                 mode="M208">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9873,17 +9840,17 @@
 	Element 'ram:LegalClassificationCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M209"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M208"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M209"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M209">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M209"/>
+   <xsl:template match="text()" priority="-1" mode="M208"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M208">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M208"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:Name"
                  priority="1000"
-                 mode="M210">
+                 mode="M209">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9901,17 +9868,17 @@
 	Element 'ram:Name' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M210"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M209"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M210"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M210">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M210"/>
+   <xsl:template match="text()" priority="-1" mode="M209"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M209">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M209"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress"
                  priority="1000"
-                 mode="M211">
+                 mode="M210">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9929,17 +9896,17 @@
 	Element 'ram:PostalTradeAddress' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M211"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M210"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M211"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M211">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M211"/>
+   <xsl:template match="text()" priority="-1" mode="M210"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M210">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M210"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName"
                  priority="1000"
-                 mode="M212">
+                 mode="M211">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9957,17 +9924,17 @@
 	Element 'ram:TradingBusinessName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M212"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M211"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M212"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M212">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M212"/>
+   <xsl:template match="text()" priority="-1" mode="M211"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M211">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M211"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration"
                  priority="1000"
-                 mode="M213">
+                 mode="M212">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -9985,17 +9952,17 @@
 	Element 'ram:SpecifiedTaxRegistration' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M213"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M212"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M213"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M213">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M213"/>
+   <xsl:template match="text()" priority="-1" mode="M212"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M212">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M212"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication"
                  priority="1000"
-                 mode="M214">
+                 mode="M213">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10013,17 +9980,17 @@
 	Element 'ram:URIUniversalCommunication' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M214"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M213"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M214"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M214">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M214"/>
+   <xsl:template match="text()" priority="-1" mode="M213"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M213">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M213"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:ContractReferencedDocument"
                  priority="1000"
-                 mode="M215">
+                 mode="M214">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10041,17 +10008,17 @@
 	Element 'ram:ContractReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M215"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M214"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M215"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M215">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M215"/>
+   <xsl:template match="text()" priority="-1" mode="M214"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M214">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M214"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:DemandForecastReferencedDocument"
                  priority="1000"
-                 mode="M216">
+                 mode="M215">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10069,17 +10036,17 @@
 	Element 'ram:DemandForecastReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M216"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M215"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M216"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M216">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M216"/>
+   <xsl:template match="text()" priority="-1" mode="M215"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M215">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M215"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:OrderResponseReferencedDocument"
                  priority="1000"
-                 mode="M217">
+                 mode="M216">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10097,17 +10064,17 @@
 	Element 'ram:OrderResponseReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M217"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M216"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M217"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M217">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M217"/>
+   <xsl:template match="text()" priority="-1" mode="M216"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M216">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M216"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:PriceListReferencedDocument"
                  priority="1000"
-                 mode="M218">
+                 mode="M217">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10125,17 +10092,17 @@
 	Element 'ram:PriceListReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M218"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M217"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M218"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M218">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M218"/>
+   <xsl:template match="text()" priority="-1" mode="M217"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M217">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M217"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:ProductEndUserTradeParty"
                  priority="1000"
-                 mode="M219">
+                 mode="M218">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10153,17 +10120,17 @@
 	Element 'ram:ProductEndUserTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M219"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M218"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M219"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M219">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M219"/>
+   <xsl:template match="text()" priority="-1" mode="M218"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M218">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M218"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:PromotionalDealReferencedDocument"
                  priority="1000"
-                 mode="M220">
+                 mode="M219">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10181,17 +10148,17 @@
 	Element 'ram:PromotionalDealReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M220"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M219"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M220"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M220">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M220"/>
+   <xsl:template match="text()" priority="-1" mode="M219"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M219">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M219"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:PurchaseConditionsReferencedDocument"
                  priority="1000"
-                 mode="M221">
+                 mode="M220">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10209,17 +10176,17 @@
 	Element 'ram:PurchaseConditionsReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M221"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M220"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M221"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M221">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M221"/>
+   <xsl:template match="text()" priority="-1" mode="M220"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M220">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M220"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:QuotationReferencedDocument"
                  priority="1000"
-                 mode="M222">
+                 mode="M221">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10237,17 +10204,17 @@
 	Element 'ram:QuotationReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M222"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M221"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M222"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M222">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M222"/>
+   <xsl:template match="text()" priority="-1" mode="M221"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M221">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M221"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:Reference"
                  priority="1000"
-                 mode="M223">
+                 mode="M222">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10265,17 +10232,17 @@
 	Element 'ram:Reference' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M223"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M222"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M223"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M223">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M223"/>
+   <xsl:template match="text()" priority="-1" mode="M222"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M222">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M222"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:RequisitionerReferencedDocument"
                  priority="1000"
-                 mode="M224">
+                 mode="M223">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10293,17 +10260,17 @@
 	Element 'ram:RequisitionerReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M224"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M223"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M224"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M224">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M224"/>
+   <xsl:template match="text()" priority="-1" mode="M223"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M223">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M223"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SalesAgentTradeParty"
                  priority="1000"
-                 mode="M225">
+                 mode="M224">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10321,17 +10288,17 @@
 	Element 'ram:SalesAgentTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M225"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M224"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M225"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M225">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M225"/>
+   <xsl:template match="text()" priority="-1" mode="M224"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M224">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M224"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerAssignedAccountantTradeParty"
                  priority="1000"
-                 mode="M226">
+                 mode="M225">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10349,17 +10316,17 @@
 	Element 'ram:SellerAssignedAccountantTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M226"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M225"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M226"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M226">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M226"/>
+   <xsl:template match="text()" priority="-1" mode="M225"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M225">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M225"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerOrderReferencedDocument"
                  priority="1000"
-                 mode="M227">
+                 mode="M226">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10377,17 +10344,17 @@
 	Element 'ram:SellerOrderReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M227"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M226"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M227"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M227">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M227"/>
+   <xsl:template match="text()" priority="-1" mode="M226"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M226">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M226"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty"
                  priority="1000"
-                 mode="M228">
+                 mode="M227">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10405,17 +10372,17 @@
 	Element 'ram:SellerTaxRepresentativeTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M228"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M227"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M228"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M228">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M228"/>
+   <xsl:template match="text()" priority="-1" mode="M227"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M227">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M227"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty"
                  priority="1000"
-                 mode="M229">
+                 mode="M228">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10452,17 +10419,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M229"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M228"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M229"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M229">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M229"/>
+   <xsl:template match="text()" priority="-1" mode="M228"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M228">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M228"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact"
                  priority="1000"
-                 mode="M230">
+                 mode="M229">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10480,17 +10447,17 @@
 	Element 'ram:DefinedTradeContact' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M230"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M229"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M230"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M230">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M230"/>
+   <xsl:template match="text()" priority="-1" mode="M229"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M229">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M229"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Description"
                  priority="1000"
-                 mode="M231">
+                 mode="M230">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10508,17 +10475,17 @@
 	Element 'ram:Description' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M231"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M230"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M231"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M231">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M231"/>
+   <xsl:template match="text()" priority="-1" mode="M230"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M230">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M230"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:EndPointURIUniversalCommunication"
                  priority="1000"
-                 mode="M232">
+                 mode="M231">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10536,17 +10503,17 @@
 	Element 'ram:EndPointURIUniversalCommunication' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M232"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M231"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M232"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M232">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M232"/>
+   <xsl:template match="text()" priority="-1" mode="M231"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M231">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M231"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:GlobalID"
                  priority="1000"
-                 mode="M233">
+                 mode="M232">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10564,17 +10531,17 @@
 	Element 'ram:GlobalID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M233"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M232"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M233"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M233">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M233"/>
+   <xsl:template match="text()" priority="-1" mode="M232"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M232">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M232"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:ID"
                  priority="1000"
-                 mode="M234">
+                 mode="M233">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10592,17 +10559,17 @@
 	Element 'ram:ID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M234"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M233"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M234"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M234">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M234"/>
+   <xsl:template match="text()" priority="-1" mode="M233"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M233">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M233"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:LogoAssociatedSpecifiedBinaryFile"
                  priority="1000"
-                 mode="M235">
+                 mode="M234">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10620,17 +10587,17 @@
 	Element 'ram:LogoAssociatedSpecifiedBinaryFile' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M235"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M234"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M235"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M235">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M235"/>
+   <xsl:template match="text()" priority="-1" mode="M234"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M234">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M234"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Name[@languageID]"
                  priority="1000"
-                 mode="M236">
+                 mode="M235">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10648,17 +10615,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M236"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M235"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M236"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M236">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M236"/>
+   <xsl:template match="text()" priority="-1" mode="M235"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M235">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M235"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Name[@languageLocaleID]"
                  priority="1000"
-                 mode="M237">
+                 mode="M236">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10676,17 +10643,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M237"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M236"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M237"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M237">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M237"/>
+   <xsl:template match="text()" priority="-1" mode="M236"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M236">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M236"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress"
                  priority="1000"
-                 mode="M238">
+                 mode="M237">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10707,17 +10674,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M238"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M237"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M238"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M238">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M238"/>
+   <xsl:template match="text()" priority="-1" mode="M237"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M237">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M237"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:AdditionalStreetName"
                  priority="1000"
-                 mode="M239">
+                 mode="M238">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10735,17 +10702,17 @@
 	Element 'ram:AdditionalStreetName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M239"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M238"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M239"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M239">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M239"/>
+   <xsl:template match="text()" priority="-1" mode="M238"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M238">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M238"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:AttentionOf"
                  priority="1000"
-                 mode="M240">
+                 mode="M239">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10763,17 +10730,17 @@
 	Element 'ram:AttentionOf' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M240"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M239"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M240"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M240">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M240"/>
+   <xsl:template match="text()" priority="-1" mode="M239"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M239">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M239"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:BuildingName"
                  priority="1000"
-                 mode="M241">
+                 mode="M240">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10791,17 +10758,17 @@
 	Element 'ram:BuildingName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M241"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M240"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M241"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M241">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M241"/>
+   <xsl:template match="text()" priority="-1" mode="M240"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M240">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M240"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:BuildingNumber"
                  priority="1000"
-                 mode="M242">
+                 mode="M241">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10819,17 +10786,17 @@
 	Element 'ram:BuildingNumber' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M242"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M241"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M242"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M242">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M242"/>
+   <xsl:template match="text()" priority="-1" mode="M241"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M241">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M241"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CareOf"
                  priority="1000"
-                 mode="M243">
+                 mode="M242">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10847,17 +10814,17 @@
 	Element 'ram:CareOf' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M243"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M242"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M243"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M243">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M243"/>
+   <xsl:template match="text()" priority="-1" mode="M242"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M242">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M242"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CityName[@languageID]"
                  priority="1000"
-                 mode="M244">
+                 mode="M243">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10875,17 +10842,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M244"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M243"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M244"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M244">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M244"/>
+   <xsl:template match="text()" priority="-1" mode="M243"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M243">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M243"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CityName[@languageLocaleID]"
                  priority="1000"
-                 mode="M245">
+                 mode="M244">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10903,17 +10870,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M245"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M244"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M245"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M245">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M245"/>
+   <xsl:template match="text()" priority="-1" mode="M244"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M244">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M244"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CitySubDivisionName"
                  priority="1000"
-                 mode="M246">
+                 mode="M245">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10931,17 +10898,17 @@
 	Element 'ram:CitySubDivisionName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M246"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M245"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M246"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M246">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M246"/>
+   <xsl:template match="text()" priority="-1" mode="M245"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M245">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M245"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M247">
+                 mode="M246">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10959,17 +10926,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M247"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M246"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M247"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M247">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M247"/>
+   <xsl:template match="text()" priority="-1" mode="M246"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M246">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M246"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeID]"
                  priority="1000"
-                 mode="M248">
+                 mode="M247">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -10987,17 +10954,17 @@
 	Attribute @schemeID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M248"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M247"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M248"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M248">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M248"/>
+   <xsl:template match="text()" priority="-1" mode="M247"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M247">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M247"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID[@schemeVersionID]"
                  priority="1000"
-                 mode="M249">
+                 mode="M248">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11015,17 +10982,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M249"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M248"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M249"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M249">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M249"/>
+   <xsl:template match="text()" priority="-1" mode="M248"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M248">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M248"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryName"
                  priority="1000"
-                 mode="M250">
+                 mode="M249">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11043,17 +11010,17 @@
 	Element 'ram:CountryName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M250"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M249"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M250"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M250">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M250"/>
+   <xsl:template match="text()" priority="-1" mode="M249"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M249">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M249"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionID"
                  priority="1000"
-                 mode="M251">
+                 mode="M250">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11071,17 +11038,17 @@
 	Element 'ram:CountrySubDivisionID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M251"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M250"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M251"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M251">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M251"/>
+   <xsl:template match="text()" priority="-1" mode="M250"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M250">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M250"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName"
                  priority="1000"
-                 mode="M252">
+                 mode="M251">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11099,17 +11066,17 @@
 	Element 'ram:CountrySubDivisionName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M252"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M251"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M252"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M252">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M252"/>
+   <xsl:template match="text()" priority="-1" mode="M251"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M251">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M251"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:DepartmentName"
                  priority="1000"
-                 mode="M253">
+                 mode="M252">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11127,17 +11094,17 @@
 	Element 'ram:DepartmentName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M253"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M252"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M253"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M253">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M253"/>
+   <xsl:template match="text()" priority="-1" mode="M252"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M252">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M252"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:ID"
                  priority="1000"
-                 mode="M254">
+                 mode="M253">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11155,17 +11122,17 @@
 	Element 'ram:ID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M254"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M253"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M254"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M254">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M254"/>
+   <xsl:template match="text()" priority="-1" mode="M253"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M253">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M253"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineFive"
                  priority="1000"
-                 mode="M255">
+                 mode="M254">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11183,17 +11150,17 @@
 	Element 'ram:LineFive' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M255"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M254"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M255"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M255">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M255"/>
+   <xsl:template match="text()" priority="-1" mode="M254"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M254">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M254"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineFour"
                  priority="1000"
-                 mode="M256">
+                 mode="M255">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11211,17 +11178,17 @@
 	Element 'ram:LineFour' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M256"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M255"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M256"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M256">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M256"/>
+   <xsl:template match="text()" priority="-1" mode="M255"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M255">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M255"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageID]"
                  priority="1000"
-                 mode="M257">
+                 mode="M256">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11239,17 +11206,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M257"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M256"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M257"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M257">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M257"/>
+   <xsl:template match="text()" priority="-1" mode="M256"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M256">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M256"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineOne[@languageLocaleID]"
                  priority="1000"
-                 mode="M258">
+                 mode="M257">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11267,17 +11234,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M258"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M257"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M258"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M258">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M258"/>
+   <xsl:template match="text()" priority="-1" mode="M257"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M257">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M257"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageID]"
                  priority="1000"
-                 mode="M259">
+                 mode="M258">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11295,17 +11262,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M259"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M258"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M259"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M259">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M259"/>
+   <xsl:template match="text()" priority="-1" mode="M258"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M258">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M258"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineThree[@languageLocaleID]"
                  priority="1000"
-                 mode="M260">
+                 mode="M259">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11323,17 +11290,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M260"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M259"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M260"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M260">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M260"/>
+   <xsl:template match="text()" priority="-1" mode="M259"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M259">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M259"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageID]"
                  priority="1000"
-                 mode="M261">
+                 mode="M260">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11351,17 +11318,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M261"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M260"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M261"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M261">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M261"/>
+   <xsl:template match="text()" priority="-1" mode="M260"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M260">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M260"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineTwo[@languageLocaleID]"
                  priority="1000"
-                 mode="M262">
+                 mode="M261">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11379,17 +11346,17 @@
 	Attribute @languageLocaleID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M262"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M261"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M262"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M262">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M262"/>
+   <xsl:template match="text()" priority="-1" mode="M261"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M261">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M261"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostOfficeBox"
                  priority="1000"
-                 mode="M263">
+                 mode="M262">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11407,17 +11374,17 @@
 	Element 'ram:PostOfficeBox' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M263"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M262"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M263"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M263">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M263"/>
+   <xsl:template match="text()" priority="-1" mode="M262"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M262">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M262"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@languageID]"
                  priority="1000"
-                 mode="M264">
+                 mode="M263">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11435,17 +11402,17 @@
 	Attribute @languageID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M264"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M263"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M264"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M264">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M264"/>
+   <xsl:template match="text()" priority="-1" mode="M263"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M263">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M263"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyID]"
                  priority="1000"
-                 mode="M265">
+                 mode="M264">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11463,17 +11430,17 @@
 	Attribute @listAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M265"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M264"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M265"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M265">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M265"/>
+   <xsl:template match="text()" priority="-1" mode="M264"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M264">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M264"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listAgencyName]"
                  priority="1000"
-                 mode="M266">
+                 mode="M265">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11491,17 +11458,17 @@
 	Attribute @listAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M266"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M265"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M266"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M266">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M266"/>
+   <xsl:template match="text()" priority="-1" mode="M265"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M265">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M265"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listID]"
                  priority="1000"
-                 mode="M267">
+                 mode="M266">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11519,17 +11486,17 @@
 	Attribute @listID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M267"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M266"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M267"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M267">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M267"/>
+   <xsl:template match="text()" priority="-1" mode="M266"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M266">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M266"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listName]"
                  priority="1000"
-                 mode="M268">
+                 mode="M267">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11547,17 +11514,17 @@
 	Attribute @listName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M268"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M267"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M268"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M268">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M268"/>
+   <xsl:template match="text()" priority="-1" mode="M267"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M267">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M267"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listSchemeURI]"
                  priority="1000"
-                 mode="M269">
+                 mode="M268">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11575,17 +11542,17 @@
 	Attribute @listSchemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M269"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M268"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M269"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M269">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M269"/>
+   <xsl:template match="text()" priority="-1" mode="M268"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M268">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M268"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listURI]"
                  priority="1000"
-                 mode="M270">
+                 mode="M269">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11603,17 +11570,17 @@
 	Attribute @listURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M270"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M269"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M270"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M270">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M270"/>
+   <xsl:template match="text()" priority="-1" mode="M269"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M269">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M269"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@listVersionID]"
                  priority="1000"
-                 mode="M271">
+                 mode="M270">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11631,17 +11598,17 @@
 	Attribute @listVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M271"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M270"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M271"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M271">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M271"/>
+   <xsl:template match="text()" priority="-1" mode="M270"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M270">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M270"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode[@name]"
                  priority="1000"
-                 mode="M272">
+                 mode="M271">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11659,17 +11626,17 @@
 	Attribute @name' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M272"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M271"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M272"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M272">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M272"/>
+   <xsl:template match="text()" priority="-1" mode="M271"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M271">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M271"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:StreetName"
                  priority="1000"
-                 mode="M273">
+                 mode="M272">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11687,17 +11654,17 @@
 	Element 'ram:StreetName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M273"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M272"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M273"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M273">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M273"/>
+   <xsl:template match="text()" priority="-1" mode="M272"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M272">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M272"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:RoleCode"
                  priority="1000"
-                 mode="M274">
+                 mode="M273">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11715,17 +11682,17 @@
 	Element 'ram:RoleCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M274"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M273"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M274"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M274">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M274"/>
+   <xsl:template match="text()" priority="-1" mode="M273"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M273">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M273"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:AuthorizedLegalRegistration"
                  priority="1000"
-                 mode="M275">
+                 mode="M274">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11743,17 +11710,17 @@
 	Element 'ram:AuthorizedLegalRegistration' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M275"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M274"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M275"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M275">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M275"/>
+   <xsl:template match="text()" priority="-1" mode="M274"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M274">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M274"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M276">
+                 mode="M275">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11771,17 +11738,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M276"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M275"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M276"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M276">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M276"/>
+   <xsl:template match="text()" priority="-1" mode="M275"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M275">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M275"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M277">
+                 mode="M276">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11799,17 +11766,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M277"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M276"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M277"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M277">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M277"/>
+   <xsl:template match="text()" priority="-1" mode="M276"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M276">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M276"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M278">
+                 mode="M277">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11827,17 +11794,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M278"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M277"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M278"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M278">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M278"/>
+   <xsl:template match="text()" priority="-1" mode="M277"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M277">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M277"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M279">
+                 mode="M278">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11859,17 +11826,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M279"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M278"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M279"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M279">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M279"/>
+   <xsl:template match="text()" priority="-1" mode="M278"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M278">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M278"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M280">
+                 mode="M279">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11887,17 +11854,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M280"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M279"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M280"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M280">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M280"/>
+   <xsl:template match="text()" priority="-1" mode="M279"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M279">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M279"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M281">
+                 mode="M280">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11915,17 +11882,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M281"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M280"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M281"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M281">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M281"/>
+   <xsl:template match="text()" priority="-1" mode="M280"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M280">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M280"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M282">
+                 mode="M281">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11943,17 +11910,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M282"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M281"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M282"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M282">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M282"/>
+   <xsl:template match="text()" priority="-1" mode="M281"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M281">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M281"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:LegalClassificationCode"
                  priority="1000"
-                 mode="M283">
+                 mode="M282">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11971,17 +11938,17 @@
 	Element 'ram:LegalClassificationCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M283"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M282"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M283"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M283">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M283"/>
+   <xsl:template match="text()" priority="-1" mode="M282"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M282">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M282"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:Name"
                  priority="1000"
-                 mode="M284">
+                 mode="M283">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -11999,17 +11966,17 @@
 	Element 'ram:Name' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M284"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M283"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M284"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M284">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M284"/>
+   <xsl:template match="text()" priority="-1" mode="M283"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M283">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M283"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:PostalTradeAddress"
                  priority="1000"
-                 mode="M285">
+                 mode="M284">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12027,17 +11994,17 @@
 	Element 'ram:PostalTradeAddress' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M285"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M284"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M285"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M285">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M285"/>
+   <xsl:template match="text()" priority="-1" mode="M284"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M284">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M284"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName"
                  priority="1000"
-                 mode="M286">
+                 mode="M285">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12055,17 +12022,17 @@
 	Element 'ram:TradingBusinessName' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M286"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M285"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M286"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M286">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M286"/>
+   <xsl:template match="text()" priority="-1" mode="M285"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M285">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M285"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration"
                  priority="1000"
-                 mode="M287">
+                 mode="M286">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12086,17 +12053,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M287"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M286"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M287"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M287">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M287"/>
+   <xsl:template match="text()" priority="-1" mode="M286"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M286">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M286"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:AssociatedRegisteredTax"
                  priority="1000"
-                 mode="M288">
+                 mode="M287">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12114,17 +12081,17 @@
 	Element 'ram:AssociatedRegisteredTax' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M288"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M287"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M288"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M288">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M288"/>
+   <xsl:template match="text()" priority="-1" mode="M287"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M287">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M287"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID"
                  priority="1000"
-                 mode="M289">
+                 mode="M288">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12145,17 +12112,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M289"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M288"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M289"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M289">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M289"/>
+   <xsl:template match="text()" priority="-1" mode="M288"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M288">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M288"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeAgencyID]"
                  priority="1000"
-                 mode="M290">
+                 mode="M289">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12173,17 +12140,17 @@
 	Attribute @schemeAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M290"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M289"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M290"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M290">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M290"/>
+   <xsl:template match="text()" priority="-1" mode="M289"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M289">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M289"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeAgencyName]"
                  priority="1000"
-                 mode="M291">
+                 mode="M290">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12201,17 +12168,17 @@
 	Attribute @schemeAgencyName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M291"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M290"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M291"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M291">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M291"/>
+   <xsl:template match="text()" priority="-1" mode="M290"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M290">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M290"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeDataURI]"
                  priority="1000"
-                 mode="M292">
+                 mode="M291">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12229,17 +12196,17 @@
 	Attribute @schemeDataURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M292"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M291"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M292"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M292">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M292"/>
+   <xsl:template match="text()" priority="-1" mode="M291"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M291">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M291"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeID]"
                  priority="1000"
-                 mode="M293">
+                 mode="M292">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12261,17 +12228,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M293"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M292"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M293"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M293">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M293"/>
+   <xsl:template match="text()" priority="-1" mode="M292"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M292">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M292"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeName]"
                  priority="1000"
-                 mode="M294">
+                 mode="M293">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12289,17 +12256,17 @@
 	Attribute @schemeName' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M294"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M293"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M294"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M294">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M294"/>
+   <xsl:template match="text()" priority="-1" mode="M293"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M293">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M293"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeURI]"
                  priority="1000"
-                 mode="M295">
+                 mode="M294">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12317,17 +12284,17 @@
 	Attribute @schemeURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M295"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M294"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M295"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M295">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M295"/>
+   <xsl:template match="text()" priority="-1" mode="M294"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M294">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M294"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID[@schemeVersionID]"
                  priority="1000"
-                 mode="M296">
+                 mode="M295">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12345,17 +12312,17 @@
 	Attribute @schemeVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M296"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M295"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M296"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M296">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M296"/>
+   <xsl:template match="text()" priority="-1" mode="M295"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M295">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M295"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication"
                  priority="1000"
-                 mode="M297">
+                 mode="M296">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12373,17 +12340,17 @@
 	Element 'ram:URIUniversalCommunication' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M297"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M296"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M297"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M297">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M297"/>
+   <xsl:template match="text()" priority="-1" mode="M296"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M296">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M296"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SpecifiedProcuringProject"
                  priority="1000"
-                 mode="M298">
+                 mode="M297">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12401,17 +12368,17 @@
 	Element 'ram:SpecifiedProcuringProject' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M298"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M297"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M298"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M298">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M298"/>
+   <xsl:template match="text()" priority="-1" mode="M297"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M297">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M297"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SupplyInstructionReferencedDocument"
                  priority="1000"
-                 mode="M299">
+                 mode="M298">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12429,17 +12396,17 @@
 	Element 'ram:SupplyInstructionReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M299"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M298"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M299"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M299">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M299"/>
+   <xsl:template match="text()" priority="-1" mode="M298"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M298">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M298"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:UltimateCustomerOrderReferencedDocument"
                  priority="1000"
-                 mode="M300">
+                 mode="M299">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12457,17 +12424,17 @@
 	Element 'ram:UltimateCustomerOrderReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M300"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M299"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M300"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M300">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M300"/>
+   <xsl:template match="text()" priority="-1" mode="M299"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M299">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M299"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery"
                  priority="1000"
-                 mode="M301">
+                 mode="M300">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12488,17 +12455,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M301"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M300"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M301"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M301">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M301"/>
+   <xsl:template match="text()" priority="-1" mode="M300"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M300">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M300"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent"
                  priority="1000"
-                 mode="M302">
+                 mode="M301">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12516,17 +12483,17 @@
 	Element 'ram:ActualDeliverySupplyChainEvent' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M302"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M301"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M302"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M302">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M302"/>
+   <xsl:template match="text()" priority="-1" mode="M301"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M301">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M301"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDespatchSupplyChainEvent"
                  priority="1000"
-                 mode="M303">
+                 mode="M302">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12544,17 +12511,17 @@
 	Element 'ram:ActualDespatchSupplyChainEvent' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M303"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M302"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M303"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M303">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M303"/>
+   <xsl:template match="text()" priority="-1" mode="M302"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M302">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M302"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualPickUpSupplyChainEvent"
                  priority="1000"
-                 mode="M304">
+                 mode="M303">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12572,17 +12539,17 @@
 	Element 'ram:ActualPickUpSupplyChainEvent' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M304"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M303"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M304"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M304">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M304"/>
+   <xsl:template match="text()" priority="-1" mode="M303"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M303">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M303"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualReceiptSupplyChainEvent"
                  priority="1000"
-                 mode="M305">
+                 mode="M304">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12600,17 +12567,17 @@
 	Element 'ram:ActualReceiptSupplyChainEvent' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M305"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M304"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M305"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M305">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M305"/>
+   <xsl:template match="text()" priority="-1" mode="M304"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M304">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M304"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:AdditionalReferencedDocument"
                  priority="1000"
-                 mode="M306">
+                 mode="M305">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12628,17 +12595,17 @@
 	Element 'ram:AdditionalReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M306"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M305"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M306"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M306">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M306"/>
+   <xsl:template match="text()" priority="-1" mode="M305"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M305">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M305"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ConsumptionReportReferencedDocument"
                  priority="1000"
-                 mode="M307">
+                 mode="M306">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12656,17 +12623,17 @@
 	Element 'ram:ConsumptionReportReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M307"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M306"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M307"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M307">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M307"/>
+   <xsl:template match="text()" priority="-1" mode="M306"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M306">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M306"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:DeliveryNoteReferencedDocument"
                  priority="1000"
-                 mode="M308">
+                 mode="M307">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12684,17 +12651,17 @@
 	Element 'ram:DeliveryNoteReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M308"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M307"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M308"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M308">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M308"/>
+   <xsl:template match="text()" priority="-1" mode="M307"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M307">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M307"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:DespatchAdviceReferencedDocument"
                  priority="1000"
-                 mode="M309">
+                 mode="M308">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12712,17 +12679,17 @@
 	Element 'ram:DespatchAdviceReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M309"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M308"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M309"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M309">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M309"/>
+   <xsl:template match="text()" priority="-1" mode="M308"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M308">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M308"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:PackingListReferencedDocument"
                  priority="1000"
-                 mode="M310">
+                 mode="M309">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12740,17 +12707,17 @@
 	Element 'ram:PackingListReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M310"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M309"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M310"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M310">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M310"/>
+   <xsl:template match="text()" priority="-1" mode="M309"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M309">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M309"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:PreviousDeliverySupplyChainEvent"
                  priority="1000"
-                 mode="M311">
+                 mode="M310">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12768,17 +12735,17 @@
 	Element 'ram:PreviousDeliverySupplyChainEvent' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M311"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M310"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M311"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M311">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M311"/>
+   <xsl:template match="text()" priority="-1" mode="M310"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M310">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M310"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ReceivingAdviceReferencedDocument"
                  priority="1000"
-                 mode="M312">
+                 mode="M311">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12796,17 +12763,17 @@
 	Element 'ram:ReceivingAdviceReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M312"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M311"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M312"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M312">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M312"/>
+   <xsl:template match="text()" priority="-1" mode="M311"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M311">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M311"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:RelatedSupplyChainConsignment"
                  priority="1000"
-                 mode="M313">
+                 mode="M312">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12824,17 +12791,17 @@
 	Element 'ram:RelatedSupplyChainConsignment' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M313"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M312"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M313"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M313">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M313"/>
+   <xsl:template match="text()" priority="-1" mode="M312"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M312">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M312"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipFromTradeParty"
                  priority="1000"
-                 mode="M314">
+                 mode="M313">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12852,17 +12819,17 @@
 	Element 'ram:ShipFromTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M314"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M313"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M314"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M314">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M314"/>
+   <xsl:template match="text()" priority="-1" mode="M313"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M313">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M313"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty"
                  priority="1000"
-                 mode="M315">
+                 mode="M314">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12880,17 +12847,17 @@
 	Element 'ram:ShipToTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M315"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M314"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M315"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M315">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M315"/>
+   <xsl:template match="text()" priority="-1" mode="M314"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M314">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M314"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:UltimateShipToTradeParty"
                  priority="1000"
-                 mode="M316">
+                 mode="M315">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12908,17 +12875,17 @@
 	Element 'ram:UltimateShipToTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M316"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M315"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M316"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M316">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M316"/>
+   <xsl:template match="text()" priority="-1" mode="M315"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M315">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M315"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement"
                  priority="1000"
-                 mode="M317">
+                 mode="M316">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12955,17 +12922,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M317"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M316"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M317"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M317">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M317"/>
+   <xsl:template match="text()" priority="-1" mode="M316"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M316">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M316"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax"
                  priority="1000"
-                 mode="M318">
+                 mode="M317">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -12983,17 +12950,17 @@
 	Element 'ram:ApplicableTradeTax' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M318"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M317"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M318"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M318">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M318"/>
+   <xsl:template match="text()" priority="-1" mode="M317"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M317">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M317"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod"
                  priority="1000"
-                 mode="M319">
+                 mode="M318">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13011,17 +12978,17 @@
 	Element 'ram:BillingSpecifiedPeriod' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M319"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M318"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M319"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M319">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M319"/>
+   <xsl:template match="text()" priority="-1" mode="M318"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M318">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M318"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditReason"
                  priority="1000"
-                 mode="M320">
+                 mode="M319">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13039,17 +13006,17 @@
 	Element 'ram:CreditReason' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M320"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M319"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M320"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M320">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M320"/>
+   <xsl:template match="text()" priority="-1" mode="M319"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M319">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M319"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditReasonCode"
                  priority="1000"
-                 mode="M321">
+                 mode="M320">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13067,17 +13034,17 @@
 	Element 'ram:CreditReasonCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M321"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M320"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M321"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M321">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M321"/>
+   <xsl:template match="text()" priority="-1" mode="M320"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M320">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M320"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditorReferenceID"
                  priority="1000"
-                 mode="M322">
+                 mode="M321">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13095,17 +13062,17 @@
 	Element 'ram:CreditorReferenceID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M322"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M321"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M322"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M322">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M322"/>
+   <xsl:template match="text()" priority="-1" mode="M321"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M321">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M321"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditorReferenceIssuerID"
                  priority="1000"
-                 mode="M323">
+                 mode="M322">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13123,17 +13090,17 @@
 	Element 'ram:CreditorReferenceIssuerID' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M323"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M322"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M323"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M323">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M323"/>
+   <xsl:template match="text()" priority="-1" mode="M322"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M322">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M322"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditorReferenceType"
                  priority="1000"
-                 mode="M324">
+                 mode="M323">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13151,17 +13118,17 @@
 	Element 'ram:CreditorReferenceType' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M324"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M323"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M324"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M324">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M324"/>
+   <xsl:template match="text()" priority="-1" mode="M323"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M323">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M323"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditorReferenceTypeCode"
                  priority="1000"
-                 mode="M325">
+                 mode="M324">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13179,17 +13146,17 @@
 	Element 'ram:CreditorReferenceTypeCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M325"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M324"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M325"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M325">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M325"/>
+   <xsl:template match="text()" priority="-1" mode="M324"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M324">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M324"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:DuePayableAmount"
                  priority="1000"
-                 mode="M326">
+                 mode="M325">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13207,17 +13174,17 @@
 	Element 'ram:DuePayableAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M326"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M325"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M326"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M326">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M326"/>
+   <xsl:template match="text()" priority="-1" mode="M325"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M325">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M325"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:FactoringAgreementReferencedDocument"
                  priority="1000"
-                 mode="M327">
+                 mode="M326">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13235,17 +13202,17 @@
 	Element 'ram:FactoringAgreementReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M327"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M326"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M327"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M327">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M327"/>
+   <xsl:template match="text()" priority="-1" mode="M326"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M326">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M326"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:FactoringListReferencedDocument"
                  priority="1000"
-                 mode="M328">
+                 mode="M327">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13263,17 +13230,17 @@
 	Element 'ram:FactoringListReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M328"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M327"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M328"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M328">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M328"/>
+   <xsl:template match="text()" priority="-1" mode="M327"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M327">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M327"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceApplicableTradeCurrencyExchange"
                  priority="1000"
-                 mode="M329">
+                 mode="M328">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13291,17 +13258,17 @@
 	Element 'ram:InvoiceApplicableTradeCurrencyExchange' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M329"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M328"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M329"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M329">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M329"/>
+   <xsl:template match="text()" priority="-1" mode="M328"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M328">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M328"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode[@listAgencyID]"
                  priority="1000"
-                 mode="M330">
+                 mode="M329">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13319,17 +13286,17 @@
 	Attribute @listAgencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M330"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M329"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M330"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M330">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M330"/>
+   <xsl:template match="text()" priority="-1" mode="M329"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M329">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M329"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode[@listID]"
                  priority="1000"
-                 mode="M331">
+                 mode="M330">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13347,17 +13314,17 @@
 	Attribute @listID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M331"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M330"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M331"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M331">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M331"/>
+   <xsl:template match="text()" priority="-1" mode="M330"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M330">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M330"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode[@listURI]"
                  priority="1000"
-                 mode="M332">
+                 mode="M331">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13375,17 +13342,17 @@
 	Attribute @listURI' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M332"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M331"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M332"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M332">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M332"/>
+   <xsl:template match="text()" priority="-1" mode="M331"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M331">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M331"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode[@listVersionID]"
                  priority="1000"
-                 mode="M333">
+                 mode="M332">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13403,17 +13370,17 @@
 	Attribute @listVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M333"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M332"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M333"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M333">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M333"/>
+   <xsl:template match="text()" priority="-1" mode="M332"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M332">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M332"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceDateTime"
                  priority="1000"
-                 mode="M334">
+                 mode="M333">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13431,17 +13398,17 @@
 	Element 'ram:InvoiceDateTime' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M334"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M333"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M334"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M334">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M334"/>
+   <xsl:template match="text()" priority="-1" mode="M333"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M333">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M333"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceIssuerReference"
                  priority="1000"
-                 mode="M335">
+                 mode="M334">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13459,17 +13426,17 @@
 	Element 'ram:InvoiceIssuerReference' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M335"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M334"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M335"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M335">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M335"/>
+   <xsl:template match="text()" priority="-1" mode="M334"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M334">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M334"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument"
                  priority="1000"
-                 mode="M336">
+                 mode="M335">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13503,17 +13470,17 @@
 	Element 'ram:InvoiceReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M336"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M335"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M336"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M336">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M336"/>
+   <xsl:template match="text()" priority="-1" mode="M335"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M335">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M335"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceeTradeParty"
                  priority="1000"
-                 mode="M337">
+                 mode="M336">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13531,17 +13498,17 @@
 	Element 'ram:InvoiceeTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M337"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M336"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M337"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M337">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M337"/>
+   <xsl:template match="text()" priority="-1" mode="M336"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M336">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M336"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoicerTradeParty"
                  priority="1000"
-                 mode="M338">
+                 mode="M337">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13559,17 +13526,17 @@
 	Element 'ram:InvoicerTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M338"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M337"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M338"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M338">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M338"/>
+   <xsl:template match="text()" priority="-1" mode="M337"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M337">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M337"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:LetterOfCreditReferencedDocument"
                  priority="1000"
-                 mode="M339">
+                 mode="M338">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13587,17 +13554,17 @@
 	Element 'ram:LetterOfCreditReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M339"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M338"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M339"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M339">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M339"/>
+   <xsl:template match="text()" priority="-1" mode="M338"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M338">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M338"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:NextInvoiceDateTime"
                  priority="1000"
-                 mode="M340">
+                 mode="M339">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13615,17 +13582,17 @@
 	Element 'ram:NextInvoiceDateTime' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M340"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M339"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M340"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M340">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M340"/>
+   <xsl:template match="text()" priority="-1" mode="M339"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M339">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M339"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayableSpecifiedTradeAccountingAccount"
                  priority="1000"
-                 mode="M341">
+                 mode="M340">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13643,17 +13610,17 @@
 	Element 'ram:PayableSpecifiedTradeAccountingAccount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M341"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M340"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M341"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M341">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M341"/>
+   <xsl:template match="text()" priority="-1" mode="M340"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M340">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M340"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty"
                  priority="1000"
-                 mode="M342">
+                 mode="M341">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13671,17 +13638,17 @@
 	Element 'ram:PayeeTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M342"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M341"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M342"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M342">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M342"/>
+   <xsl:template match="text()" priority="-1" mode="M341"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M341">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M341"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayerTradeParty"
                  priority="1000"
-                 mode="M343">
+                 mode="M342">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13699,17 +13666,17 @@
 	Element 'ram:PayerTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M343"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M342"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M343"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M343">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M343"/>
+   <xsl:template match="text()" priority="-1" mode="M342"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M342">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M342"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PaymentApplicableTradeCurrencyExchange"
                  priority="1000"
-                 mode="M344">
+                 mode="M343">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13727,17 +13694,17 @@
 	Element 'ram:PaymentApplicableTradeCurrencyExchange' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M344"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M343"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M344"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M344">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M344"/>
+   <xsl:template match="text()" priority="-1" mode="M343"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M343">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M343"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PaymentCurrencyCode"
                  priority="1000"
-                 mode="M345">
+                 mode="M344">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13755,17 +13722,17 @@
 	Element 'ram:PaymentCurrencyCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M345"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M344"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M345"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M345">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M345"/>
+   <xsl:template match="text()" priority="-1" mode="M344"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M344">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M344"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PaymentReference"
                  priority="1000"
-                 mode="M346">
+                 mode="M345">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13783,17 +13750,17 @@
 	Element 'ram:PaymentReference' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M346"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M345"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M346"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M346">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M346"/>
+   <xsl:template match="text()" priority="-1" mode="M345"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M345">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M345"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ProFormaInvoiceReferencedDocument"
                  priority="1000"
-                 mode="M347">
+                 mode="M346">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13811,17 +13778,17 @@
 	Element 'ram:ProFormaInvoiceReferencedDocument' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M347"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M346"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M347"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M347">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M347"/>
+   <xsl:template match="text()" priority="-1" mode="M346"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M346">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M346"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PurchaseSpecifiedTradeAccountingAccount"
                  priority="1000"
-                 mode="M348">
+                 mode="M347">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13839,17 +13806,17 @@
 	Element 'ram:PurchaseSpecifiedTradeAccountingAccount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M348"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M347"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M348"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M348">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M348"/>
+   <xsl:template match="text()" priority="-1" mode="M347"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M347">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M347"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount"
                  priority="1000"
-                 mode="M349">
+                 mode="M348">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13867,17 +13834,17 @@
 	Element 'ram:ReceivableSpecifiedTradeAccountingAccount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M349"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M348"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M349"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M349">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M349"/>
+   <xsl:template match="text()" priority="-1" mode="M348"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M348">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M348"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SalesSpecifiedTradeAccountingAccount"
                  priority="1000"
-                 mode="M350">
+                 mode="M349">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13895,17 +13862,17 @@
 	Element 'ram:SalesSpecifiedTradeAccountingAccount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M350"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M349"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M350"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M350">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M350"/>
+   <xsl:template match="text()" priority="-1" mode="M349"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M349">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M349"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedAdvancePayment"
                  priority="1000"
-                 mode="M351">
+                 mode="M350">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13923,17 +13890,17 @@
 	Element 'ram:SpecifiedAdvancePayment' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M351"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M350"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M351"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M351">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M351"/>
+   <xsl:template match="text()" priority="-1" mode="M350"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M350">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M350"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedFinancialAdjustment"
                  priority="1000"
-                 mode="M352">
+                 mode="M351">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13951,17 +13918,17 @@
 	Element 'ram:SpecifiedFinancialAdjustment' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M352"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M351"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M352"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M352">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M352"/>
+   <xsl:template match="text()" priority="-1" mode="M351"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M351">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M351"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedLogisticsServiceCharge"
                  priority="1000"
-                 mode="M353">
+                 mode="M352">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -13979,17 +13946,17 @@
 	Element 'ram:SpecifiedLogisticsServiceCharge' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M353"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M352"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M353"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M353">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M353"/>
+   <xsl:template match="text()" priority="-1" mode="M352"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M352">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M352"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge"
                  priority="1000"
-                 mode="M354">
+                 mode="M353">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14007,17 +13974,17 @@
 	Element 'ram:SpecifiedTradeAllowanceCharge' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M354"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M353"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M354"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M354">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M354"/>
+   <xsl:template match="text()" priority="-1" mode="M353"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M353">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M353"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms"
                  priority="1000"
-                 mode="M355">
+                 mode="M354">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14035,17 +14002,17 @@
 	Element 'ram:SpecifiedTradePaymentTerms' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M355"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M354"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M355"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M355">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M355"/>
+   <xsl:template match="text()" priority="-1" mode="M354"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M354">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M354"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementFinancialCard"
                  priority="1000"
-                 mode="M356">
+                 mode="M355">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14063,17 +14030,17 @@
 	Element 'ram:SpecifiedTradeSettlementFinancialCard' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M356"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M355"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M356"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M356">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M356"/>
+   <xsl:template match="text()" priority="-1" mode="M355"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M355">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M355"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation"
                  priority="1000"
-                 mode="M357">
+                 mode="M356">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14142,17 +14109,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M357"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M356"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M357"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M357">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M357"/>
+   <xsl:template match="text()" priority="-1" mode="M356"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M356">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M356"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:AllowanceTotalAmount"
                  priority="1000"
-                 mode="M358">
+                 mode="M357">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14170,17 +14137,17 @@
 	Element 'ram:AllowanceTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M358"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M357"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M358"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M358">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M358"/>
+   <xsl:template match="text()" priority="-1" mode="M357"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M357">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M357"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:ChargeTotalAmount"
                  priority="1000"
-                 mode="M359">
+                 mode="M358">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14198,17 +14165,17 @@
 	Element 'ram:ChargeTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M359"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M358"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M359"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M359">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M359"/>
+   <xsl:template match="text()" priority="-1" mode="M358"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M358">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M358"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount[@currencyCodeListVersionID]"
                  priority="1000"
-                 mode="M360">
+                 mode="M359">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14226,17 +14193,17 @@
 	Attribute @currencyCodeListVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M360"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M359"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M360"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M360">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M360"/>
+   <xsl:template match="text()" priority="-1" mode="M359"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M359">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M359"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount[@currencyID]"
                  priority="1000"
-                 mode="M361">
+                 mode="M360">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14254,17 +14221,17 @@
 	Attribute @currencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M361"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M360"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M361"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M361">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M361"/>
+   <xsl:template match="text()" priority="-1" mode="M360"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M360">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M360"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount[@currencyCodeListVersionID]"
                  priority="1000"
-                 mode="M362">
+                 mode="M361">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14282,17 +14249,17 @@
 	Attribute @currencyCodeListVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M362"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M361"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M362"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M362">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M362"/>
+   <xsl:template match="text()" priority="-1" mode="M361"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M361">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M361"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount[@currencyID]"
                  priority="1000"
-                 mode="M363">
+                 mode="M362">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14310,17 +14277,17 @@
 	Attribute @currencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M363"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M362"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M363"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M363">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M363"/>
+   <xsl:template match="text()" priority="-1" mode="M362"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M362">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M362"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrossLineTotalAmount"
                  priority="1000"
-                 mode="M364">
+                 mode="M363">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14338,17 +14305,17 @@
 	Element 'ram:GrossLineTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M364"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M363"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M364"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M364">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M364"/>
+   <xsl:template match="text()" priority="-1" mode="M363"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M363">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M363"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:InformationAmount"
                  priority="1000"
-                 mode="M365">
+                 mode="M364">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14366,17 +14333,17 @@
 	Element 'ram:InformationAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M365"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M364"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M365"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M365">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M365"/>
+   <xsl:template match="text()" priority="-1" mode="M364"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M364">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M364"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:LineTotalAmount"
                  priority="1000"
-                 mode="M366">
+                 mode="M365">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14394,17 +14361,17 @@
 	Element 'ram:LineTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M366"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M365"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M366"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M366">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M366"/>
+   <xsl:template match="text()" priority="-1" mode="M365"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M365">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M365"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:NetIncludingTaxesLineTotalAmount"
                  priority="1000"
-                 mode="M367">
+                 mode="M366">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14422,17 +14389,17 @@
 	Element 'ram:NetIncludingTaxesLineTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M367"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M366"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M367"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M367">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M367"/>
+   <xsl:template match="text()" priority="-1" mode="M366"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M366">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M366"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:NetLineTotalAmount"
                  priority="1000"
-                 mode="M368">
+                 mode="M367">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14450,17 +14417,17 @@
 	Element 'ram:NetLineTotalAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M368"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M367"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M368"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M368">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M368"/>
+   <xsl:template match="text()" priority="-1" mode="M367"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M367">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M367"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:ProductValueExcludingTobaccoTaxInformationAmount"
                  priority="1000"
-                 mode="M369">
+                 mode="M368">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14478,17 +14445,17 @@
 	Element 'ram:ProductValueExcludingTobaccoTaxInformationAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M369"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M368"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M369"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M369">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M369"/>
+   <xsl:template match="text()" priority="-1" mode="M368"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M368">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M368"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:RetailValueExcludingTaxInformationAmount"
                  priority="1000"
-                 mode="M370">
+                 mode="M369">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14506,17 +14473,17 @@
 	Element 'ram:RetailValueExcludingTaxInformationAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M370"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M369"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M370"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M370">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M370"/>
+   <xsl:template match="text()" priority="-1" mode="M369"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M369">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M369"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:RoundingAmount"
                  priority="1000"
-                 mode="M371">
+                 mode="M370">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14534,17 +14501,17 @@
 	Element 'ram:RoundingAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M371"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M370"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M371"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M371">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M371"/>
+   <xsl:template match="text()" priority="-1" mode="M370"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M370">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M370"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount[@currencyCodeListVersionID]"
                  priority="1000"
-                 mode="M372">
+                 mode="M371">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14562,17 +14529,17 @@
 	Attribute @currencyCodeListVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M372"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M371"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M372"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M372">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M372"/>
+   <xsl:template match="text()" priority="-1" mode="M371"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M371">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M371"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount[@currencyID]"
                  priority="1000"
-                 mode="M373">
+                 mode="M372">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14590,17 +14557,17 @@
 	Attribute @currencyID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M373"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M372"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M373"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M373">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M373"/>
+   <xsl:template match="text()" priority="-1" mode="M372"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M372">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M372"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyCodeListVersionID]"
                  priority="1000"
-                 mode="M374">
+                 mode="M373">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14618,17 +14585,17 @@
 	Attribute @currencyCodeListVersionID' marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M374"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M373"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M374"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M374">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M374"/>
+   <xsl:template match="text()" priority="-1" mode="M373"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M373">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M373"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyID]"
                  priority="1000"
-                 mode="M375">
+                 mode="M374">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14650,17 +14617,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M375"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M374"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M375"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M375">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M375"/>
+   <xsl:template match="text()" priority="-1" mode="M374"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M374">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M374"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalAllowanceChargeAmount"
                  priority="1000"
-                 mode="M376">
+                 mode="M375">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14678,17 +14645,17 @@
 	Element 'ram:TotalAllowanceChargeAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M376"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M375"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M376"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M376">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M376"/>
+   <xsl:template match="text()" priority="-1" mode="M375"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M375">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M375"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalDepositFeeInformationAmount"
                  priority="1000"
-                 mode="M377">
+                 mode="M376">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14706,17 +14673,17 @@
 	Element 'ram:TotalDepositFeeInformationAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M377"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M376"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M377"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M377">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M377"/>
+   <xsl:template match="text()" priority="-1" mode="M376"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M376">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M376"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalDiscountAmount"
                  priority="1000"
-                 mode="M378">
+                 mode="M377">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14734,17 +14701,17 @@
 	Element 'ram:TotalDiscountAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M378"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M377"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M378"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M378">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M378"/>
+   <xsl:template match="text()" priority="-1" mode="M377"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M377">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M377"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalPrepaidAmount"
                  priority="1000"
-                 mode="M379">
+                 mode="M378">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14762,17 +14729,17 @@
 	Element 'ram:TotalPrepaidAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M379"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M378"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M379"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M379">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M379"/>
+   <xsl:template match="text()" priority="-1" mode="M378"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M378">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M378"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalRetailValueInformationAmount"
                  priority="1000"
-                 mode="M380">
+                 mode="M379">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14790,17 +14757,17 @@
 	Element 'ram:TotalRetailValueInformationAmount' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M380"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M379"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M380"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M380">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M380"/>
+   <xsl:template match="text()" priority="-1" mode="M379"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M379">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M379"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans"
                  priority="1000"
-                 mode="M381">
+                 mode="M380">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14818,17 +14785,17 @@
 	Element 'ram:SpecifiedTradeSettlementPaymentMeans' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M381"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M380"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M381"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M381">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M381"/>
+   <xsl:template match="text()" priority="-1" mode="M380"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M380">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M380"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SubtotalCalculatedTradeTax"
                  priority="1000"
-                 mode="M382">
+                 mode="M381">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14846,17 +14813,17 @@
 	Element 'ram:SubtotalCalculatedTradeTax' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M382"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M381"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M382"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M382">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M382"/>
+   <xsl:template match="text()" priority="-1" mode="M381"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M381">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M381"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxApplicableTradeCurrencyExchange"
                  priority="1000"
-                 mode="M383">
+                 mode="M382">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14874,17 +14841,17 @@
 	Element 'ram:TaxApplicableTradeCurrencyExchange' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M383"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M382"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M383"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M383">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M383"/>
+   <xsl:template match="text()" priority="-1" mode="M382"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M382">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M382"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode"
                  priority="1000"
-                 mode="M384">
+                 mode="M383">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14902,17 +14869,17 @@
 	Element 'ram:TaxCurrencyCode' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M384"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M383"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M384"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M384">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M384"/>
+   <xsl:template match="text()" priority="-1" mode="M383"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M383">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M383"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:UltimatePayeeTradeParty"
                  priority="1000"
-                 mode="M385">
+                 mode="M384">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14930,17 +14897,17 @@
 	Element 'ram:UltimatePayeeTradeParty' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M385"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M384"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M385"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M385">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M385"/>
+   <xsl:template match="text()" priority="-1" mode="M384"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M384">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M384"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem"
                  priority="1000"
-                 mode="M386">
+                 mode="M385">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14958,17 +14925,17 @@
 	Element 'ram:IncludedSupplyChainTradeLineItem' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M386"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M385"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M386"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M386">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M386"/>
+   <xsl:template match="text()" priority="-1" mode="M385"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M385">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M385"/>
    </xsl:template>
    <!--PATTERN -->
    <!--RULE -->
    <xsl:template match="/rsm:CrossIndustryInvoice/rsm:ValuationBreakdownStatement"
                  priority="1000"
-                 mode="M387">
+                 mode="M386">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -14986,10 +14953,10 @@
 	Element 'rsm:ValuationBreakdownStatement' is marked as not used in the given context.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M387"/>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M386"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M387"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M387">
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M387"/>
+   <xsl:template match="text()" priority="-1" mode="M386"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M386">
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M386"/>
    </xsl:template>
 </xsl:stylesheet>

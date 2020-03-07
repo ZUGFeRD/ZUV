@@ -628,6 +628,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="5">
     <enumeration value="X1A"/>
@@ -3023,6 +3025,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="9">
     <enumeration value="0002"/>
@@ -3222,6 +3226,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="10">
     <enumeration value="0002"/>
@@ -3233,6 +3239,7 @@
     <enumeration value="0096"/>
     <enumeration value="0097"/>
     <enumeration value="0106"/>
+    <enumeration value="0130"/>
     <enumeration value="0135"/>
     <enumeration value="0142"/>
     <enumeration value="0151"/>
@@ -3249,6 +3256,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
     <enumeration value="9901"/>
     <enumeration value="9902"/>
     <enumeration value="9904"/>
@@ -3259,11 +3268,9 @@
     <enumeration value="9913"/>
     <enumeration value="9914"/>
     <enumeration value="9915"/>
-    <enumeration value="9917"/>
     <enumeration value="9918"/>
     <enumeration value="9919"/>
     <enumeration value="9920"/>
-    <enumeration value="9921"/>
     <enumeration value="9922"/>
     <enumeration value="9923"/>
     <enumeration value="9924"/>
@@ -3508,6 +3515,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="13">
     <enumeration value="0002"/>
@@ -3707,6 +3716,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="14">
     <enumeration value="VA"/>
@@ -3912,6 +3923,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="17">
     <enumeration value="0002"/>
@@ -4111,6 +4124,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="18">
     <enumeration value="0002"/>
@@ -4310,6 +4325,8 @@
     <enumeration value="0200"/>
     <enumeration value="0201"/>
     <enumeration value="0202"/>
+    <enumeration value="0203"/>
+    <enumeration value="0204"/>
   </cl>
   <cl id="19">
     <enumeration value="10"/>
@@ -4339,6 +4356,7 @@
     <enumeration value="Z"/>
   </cl>
   <cl id="22">
+    <enumeration value="vatex-eu-132"/>
     <enumeration value="vatex-eu-132-1a"/>
     <enumeration value="vatex-eu-132-1b"/>
     <enumeration value="vatex-eu-132-1c"/>
@@ -4356,6 +4374,7 @@
     <enumeration value="vatex-eu-132-1o"/>
     <enumeration value="vatex-eu-132-1p"/>
     <enumeration value="vatex-eu-132-1q"/>
+    <enumeration value="vatex-eu-143"/>
     <enumeration value="vatex-eu-143-1a"/>
     <enumeration value="vatex-eu-143-1b"/>
     <enumeration value="vatex-eu-143-1c"/>
@@ -4369,6 +4388,7 @@
     <enumeration value="vatex-eu-143-1j"/>
     <enumeration value="vatex-eu-143-1k"/>
     <enumeration value="vatex-eu-143-1l"/>
+    <enumeration value="vatex-eu-148"/>
     <enumeration value="vatex-eu-148-a"/>
     <enumeration value="vatex-eu-148-b"/>
     <enumeration value="vatex-eu-148-c"/>
@@ -4376,6 +4396,7 @@
     <enumeration value="vatex-eu-148-e"/>
     <enumeration value="vatex-eu-148-f"/>
     <enumeration value="vatex-eu-148-g"/>
+    <enumeration value="vatex-eu-151"/>
     <enumeration value="vatex-eu-151-1a"/>
     <enumeration value="vatex-eu-151-1aa"/>
     <enumeration value="vatex-eu-151-1b"/>
