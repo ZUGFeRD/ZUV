@@ -45,6 +45,10 @@ public class ValidationContext {
 
 	}
 
+	public void clearCustomXML() {
+		customXML = "";
+	}
+	
 	public void addCustomXML(String XML) {
 		customXML += XML;
 	}

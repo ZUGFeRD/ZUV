@@ -152,6 +152,8 @@ public class ZUGFeRDValidator {
 					}
 
 					finalStringResult.append("</pdf>\n");
+
+					context.clearCustomXML();
 				} else {
 					boolean isXML = false;
 					try {
@@ -194,7 +196,7 @@ public class ZUGFeRDValidator {
 					}
 					finalStringResult.append(xv.getXMLResult());
 					finalStringResult.append("</xml>");
-
+					context.clearCustomXML();
 				}
 
 			}
