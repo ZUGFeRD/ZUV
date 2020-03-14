@@ -1,24 +1,29 @@
 package ZUV;
 
+import static org.xmlunit.assertj.XmlAssert.assertThat;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.xml.transform.Source;
 
-import org.w3c.dom.Node;
 import org.xmlunit.builder.Input;
 import org.xmlunit.xpath.JAXPXPathEngine;
 import org.xmlunit.xpath.XPathEngine;
 
-
 public class XMLValidatorTest extends ResourceCase {
-	
+
 	public void testZF2XMLValidation() {
 		// ignored for the
 		// time being
 
 		ValidationContext ctx = new ValidationContext(null);
 		XMLValidator xv = new XMLValidator(ctx);
+		XPathEngine xpath = new JAXPXPathEngine();
 		File tempFile = getResourceAsFile("invalidV2.xml");
+		Source source;
+		String content;
 
 		try {
 			xv.setFilename(tempFile.getAbsolutePath());
@@ -67,8 +72,47 @@ public class XMLValidatorTest extends ResourceCase {
 			// ignore, will be in XML output anyway
 		}
 		assertTrue(xv.getXMLResult().contains("<error type=\"25\""));
+		ctx.clear();
+
+		try {
+
+			tempFile = getResourceAsFile("FAIL_zugferd_2p1_MINIMUM_Rechnung_380.xml");
+
+			xv.setFilename(tempFile.getAbsolutePath());
+
+			xv.validate();
+		} catch (IrrecoverableValidationError e) {
+			// ignore, will be in XML output anyway
+		}
+		String res = xv.getXMLResult();
+		/*OutputStream os = null;
+		try {
+			os = new FileOutputStream(new File("return.xml"));
+			os.write(res.getBytes(), 0, res.length());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}*/
+
+		content = "<xml>" + res + "</xml>";
+
+		assertThat(content).valueByXPath("count(//error)")
+				.asInt()
+				.isGreaterThan(1); //2 errors are OK because there is a known bug
+
+
+		assertThat(content).valueByXPath("//error[@type=\"4\"]") 
+				.asString() 
+				.contains(
+						"In Deutschland sind die Profile MINIMUM und BASIC WL nur als Buchungshilfe (TypeCode: 751) zugelassen.");
 
 		ctx.clear();
+
 		tempFile = getResourceAsFile("validV2Basic.xml");
 		try {
 
@@ -86,38 +130,37 @@ public class XMLValidatorTest extends ResourceCase {
 			tempFile = getResourceAsFile("valid_Avoir_FR_type380_minimum_factur-x.xml");
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
-			
-			Source source = Input.fromString("<xml>"+xv.getXMLResult()+"</xml>").build();
-			XPathEngine xpath = new JAXPXPathEngine();
-			String content = xpath.evaluate("/xml/summary/@status", source);
-			assertEquals("invalid",content);
-			
-			//assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
 
-		/* this test failure might have to be upstreamed
-		 	ctx.clear();
-			tempFile = getResourceAsFile("ZUGFeRD-invoice_rabatte_4_abschlag_taxbasistotalamount.xml");
-			xv.setFilename(tempFile.getAbsolutePath());
-			xv.validate();
-			assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
-		*/	
+			source = Input.fromString("<xml>" + xv.getXMLResult() + "</xml>").build();
+			content = xpath.evaluate("/xml/summary/@status", source);
+			assertEquals("invalid", content);
+
+			// assertEquals(true, xv.getXMLResult().contains("valid") &&
+			// !xv.getXMLResult().contains("invalid"));
+
+			/*
+			 * this test failure might have to be upstreamed ctx.clear(); tempFile =
+			 * getResourceAsFile(
+			 * "ZUGFeRD-invoice_rabatte_4_abschlag_taxbasistotalamount.xml");
+			 * xv.setFilename(tempFile.getAbsolutePath()); xv.validate(); assertEquals(true,
+			 * xv.getXMLResult().contains("valid") &&
+			 * !xv.getXMLResult().contains("invalid"));
+			 */
 			ctx.clear();
 			tempFile = getResourceAsFile("attributeBasedXMP_zugferd_2p0_EN16931_Einfach_corrected.xml");
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
 			assertEquals(true, xv.getXMLResult().contains("valid") && !xv.getXMLResult().contains("invalid"));
-			
+
 			ctx.clear();
 			tempFile = getResourceAsFile("validZREtestZugferd.xml");
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
-		
-			source = Input.fromString("<xml>"+xv.getXMLResult()+"</xml>").build();
+
+			source = Input.fromString("<xml>" + xv.getXMLResult() + "</xml>").build();
 			content = xpath.evaluate("/xml/summary/@status", source);
-			assertEquals("invalid",content);
-			
-			
-			
+			assertEquals("invalid", content);
+
 		} catch (IrrecoverableValidationError e) {
 			// ignore, will be in XML output anyway
 		}
@@ -142,7 +185,6 @@ public class XMLValidatorTest extends ResourceCase {
 			xv.setFilename(tempFile.getAbsolutePath());
 			xv.validate();
 			assertEquals(true, xv.getXMLResult().contains("<error type=\"26\""));
-			
 
 		} catch (IrrecoverableValidationError e) {
 			// ignore, will be in XML output anyway

@@ -195,23 +195,23 @@ public class XMLValidator extends Validator {
 						isEN16931=false;// the uri for extended is urn:cen.eu:en16931:2017#conformant#urn:zugferd.de:2p0:extended and thus contains en16931...
 					}
 					if (isMiniumum) {
-						LOGGER.info("is Minimum");
+						LOGGER.debug("is Minimum");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/MINIMUM/FACTUR-X_MINIMUM.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_minimum.xsl";
 					} else if (isBasicWithoutLines) {
-						LOGGER.info("is Basic/WL");
+						LOGGER.debug("is Basic/WL");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC-WL/FACTUR-X_BASIC-WL.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_basicwl.xsl";
 					} else if (isBasic) {
-						LOGGER.info("is Basic");
+						LOGGER.debug("is Basic");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/BASIC/FACTUR-X_BASIC.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_basic.xsl";
 					} else if (isEN16931) {
-						LOGGER.info("is EN16931");
+						LOGGER.debug("is EN16931");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EN16931/FACTUR-X_EN16931.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_en16931.xsl";
 					} else if (isExtended) {
-						LOGGER.info("is EXTENDED");
+						LOGGER.debug("is EXTENDED");
 						validateSchema(zfXML.getBytes(StandardCharsets.UTF_8),"zf2/EXTENDED/FACTUR-X_EXTENDED.xsd", 18, EPart.xml);
 						xsltFilename="/xslt/zugferd21_extended.xsl";
 					} /*
@@ -252,7 +252,7 @@ public class XMLValidator extends Validator {
 
 					{
 						context.addResultItem(
-								new ValidationResultItem(ESeverity.error, "Unsupported profile type")
+								new ValidationResultItem(ESeverity.error, "Unsupported profile type "+context.getProfile())
 										.setSection(25).setPart(EPart.xml));
 
 					}
@@ -321,10 +321,11 @@ public class XMLValidator extends Validator {
 					if (object instanceof FailedAssert) {
 
 						FailedAssert failedAssert = (FailedAssert) object;
+						LOGGER.info("FailedAssert ",failedAssert);
 
 						context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
-								.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(section)
-								.setPart(EPart.xml));
+						.setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(section)
+						.setPart(EPart.xml));
 						failedRules++;
 					} else if (object instanceof FiredRule) {
 						firedRules++;

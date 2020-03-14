@@ -72,13 +72,13 @@ public class ValidationResultItem {
 			additionalAttributes+=" type=\""+section+"\"";
 		}
 		if (location!=null) {
-			additionalAttributes+=" location=\""+XMLTools.encodeXML(location)+"\"";
+			additionalAttributes+=" location=\""+XMLTools.encodeAttribute(location)+"\"";
 		}
 		if (criterion!=null) {
-			additionalAttributes+=" criterion=\""+XMLTools.encodeXML(criterion)+"\"";
+			additionalAttributes+=" criterion=\""+XMLTools.encodeAttribute(criterion)+"\"";
 		}
 		if (stacktrace!=null) {
-			additionalContents+="<stacktrace>"+XMLTools.encodeXML(stacktrace)+"</stacktrace>";
+			additionalContents+="<stacktrace>"+XMLTools.encodeAttribute(stacktrace)+"</stacktrace>";
 		}
 		hasBeenOutputted=true;
 		return "<"+tagname+additionalAttributes+">"+XMLTools.encodeXML(message+additionalContents)+"</"+tagname+">";

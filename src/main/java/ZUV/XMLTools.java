@@ -41,4 +41,11 @@ public class XMLTools {
 	    }
 	    return sb.toString();
 	}
+	public static String encodeAttribute(String s) {
+		String res=s.replace("\n", "").replace("\r", "").replace("\"", "");
+		
+		return XMLTools.encodeXML(res);
+	
+	}
+
 }

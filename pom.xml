@@ -87,6 +87,13 @@
   		<version>2.6.3</version>
       </dependency>
       <dependency>
+          <groupId>org.xmlunit</groupId>
+          <artifactId>xmlunit-assertj</artifactId>
+          <version>2.6.3</version>
+          <scope>test</scope>
+      </dependency>
+      
+      <dependency>
          <!-- for commandline options -->
          <groupId>com.sanityinc</groupId>
          <artifactId>jargs</artifactId>

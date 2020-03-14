@@ -91,7 +91,7 @@ public class ValidationContext {
 	public void clear() {
 		results.clear();
 		isValid = true;
-		customXML = "";
+		clearCustomXML();
 		version = null;
 		profile = null;
 		signature = null;
