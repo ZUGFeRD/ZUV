@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXParseException;
 
 //abstract class
 public class ZUGFeRDValidator {
@@ -168,7 +169,9 @@ public class ZUGFeRDValidator {
 					    	
 					}
 					catch (Exception ex) {
-						//ignore isXML is already false
+						// probably no xml file, sth like SAXParseException content not allowed in prolog
+						// ignore isXML is already false
+						// in the tests, this may error-out anyway
 					}
 					if (isXML) {
 						pdfValidity = true;
