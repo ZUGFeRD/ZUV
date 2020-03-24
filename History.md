@@ -1,9 +1,7 @@
-* be able to validate directories
-* probleme wenn xml dateien mit kommentaren anfangen
-* fail better if only pdf w/o attachment
 
 0.9.0
 ======
+2020-03-24
 * ZF 2.1 Schema/Schematrons
 * check against URI allowing for different fragments
 * #27 wrong exit code
@@ -17,10 +15,11 @@
 * validation element has been removed from pdf info and added as attribute in root, duration is now direct child of info
 * file not found and file too small now without filename
 * XML pretty print output. (XML report may now contain header <?xml...)
-* First XMLUnit test
+* First XMLUnit tests
 * Better Check of XML Validity also against documents which start with comments or not with xml header <?xml...
 * prevent accidental CEN EN16931 application on extended profile 
-* added Symtrax signatur
+* solved issues when XML structures start with comments instead of root node
+* added Symtrax signature
 
 0.8.3
 ======
