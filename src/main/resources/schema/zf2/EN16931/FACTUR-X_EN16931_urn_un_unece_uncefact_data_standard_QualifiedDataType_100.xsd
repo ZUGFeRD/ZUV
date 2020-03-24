@@ -213,6 +213,7 @@
   </xs:complexType>
   <xs:simpleType name="CountryIDContentType">
     <xs:restriction base="xs:token">
+      <xs:enumeration value="1A"/>
       <xs:enumeration value="AD"/>
       <xs:enumeration value="AE"/>
       <xs:enumeration value="AF"/>
@@ -796,6 +797,7 @@
       <xs:enumeration value="66"/>
       <xs:enumeration value="67"/>
       <xs:enumeration value="68"/>
+      <xs:enumeration value="69"/>
       <xs:enumeration value="70"/>
       <xs:enumeration value="74"/>
       <xs:enumeration value="75"/>

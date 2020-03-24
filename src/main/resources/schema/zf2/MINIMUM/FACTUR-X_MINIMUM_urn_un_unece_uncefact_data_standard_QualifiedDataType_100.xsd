@@ -8,6 +8,7 @@
   <xs:import namespace="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" schemaLocation="FACTUR-X_MINIMUM_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd"/>
   <xs:simpleType name="CountryIDContentType">
     <xs:restriction base="xs:token">
+      <xs:enumeration value="1A"/>
       <xs:enumeration value="AD"/>
       <xs:enumeration value="AE"/>
       <xs:enumeration value="AF"/>

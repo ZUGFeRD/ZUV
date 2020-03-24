@@ -4,7 +4,7 @@
    <groupId>org.zugferd</groupId>
    <artifactId>ZUV</artifactId>
    <packaging>jar</packaging>
-   <version>0.8.4-RESTRICTED</version>
+   <version>0.9.0</version>
    <repositories>
       <repository>
          <id>mavencentral</id>

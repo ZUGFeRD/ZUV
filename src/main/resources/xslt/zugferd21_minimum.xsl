@@ -3863,22 +3863,6 @@
                        context="//ram:SpecifiedTradeSettlementHeaderMonetarySummation"/>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="(ram:LineTotalAmount)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(ram:LineTotalAmount)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	An Invoice shall have the Sum of Invoice line net amount (BT-106).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
          <xsl:when test="(ram:TaxBasisTotalAmount)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -3959,22 +3943,6 @@
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="(ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100) div 100)) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount * 100) div 100)) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 - ram:AllowanceTotalAmount*100) div 100)) and not (ram:ChargeTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount*100 + ram:ChargeTotalAmount*100) div 100)) and not (ram:AllowanceTotalAmount)) or ((ram:TaxBasisTotalAmount = (round(ram:LineTotalAmount * 100) div 100)) and not (ram:ChargeTotalAmount) and not (ram:AllowanceTotalAmount))">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	Invoice total amount without VAT (BT-109) = S Invoice line net amount (BT-131) - Sum of allowances on document level (BT-107) + Sum of charges on document level (BT-108).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
          <xsl:when test="(ram:GrandTotalAmount = round(ram:TaxBasisTotalAmount*100 + ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]*100 +0) div 100) or ((ram:GrandTotalAmount = ram:TaxBasisTotalAmount) and not (ram:TaxTotalAmount[@currencyID=/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode]))"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -3986,22 +3954,6 @@
                </xsl:attribute>
                <svrl:text>
 	Invoice total amount with VAT (BT-112) = Invoice total amount without VAT (BT-109) + Invoice total VAT amount (BT-110).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="(ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100)) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100) div 100)) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="(ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100 + ram:RoundingAmount*100) div 100)) or ((ram:DuePayableAmount = ram:GrandTotalAmount + ram:RoundingAmount) and not (ram:TotalPrepaidAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100 - ram:TotalPrepaidAmount*100) div 100)) and not (ram:RoundingAmount)) or ((ram:DuePayableAmount = (round(ram:GrandTotalAmount*100) div 100)) and not (ram:TotalPrepaidAmount) and not (ram:RoundingAmount))">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	Amount due for payment (BT-115) = Invoice total amount with VAT (BT-112) -Paid amount (BT-113) +Rounding amount (BT-114).</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -4368,22 +4320,6 @@
                        xmlns:schold="http://www.ascc.net/xml/schematron"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="//rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode[. = 'E']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'E']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="../ram:BasisAmount = (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement[ram:ApplicableTradeTax/ram:CategoryCode = 'E']/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount)*10*10)div 100) + (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='true' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100) - (round(sum(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge[ram:ChargeIndicator/udt:Indicator='false' and ram:CategoryTradeTax/ram:CategoryCode='E']/ram:ActualAmount)*10*10)div 100)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	In a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Exempt from VAT" the VAT category taxable amount (BT-116) shall equal the sum of Invoice line net amounts (BT-131) minus the sum of Document level allowance amounts (BT-92) plus the sum of Document level charge amounts (BT-99) where the VAT category codes (BT-151, BT-95, BT-102) are “Exempt from VAT".</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
          <xsl:when test="../ram:CalculatedAmount = 0"/>
@@ -5404,38 +5340,6 @@
                </xsl:attribute>
                <svrl:text>
 	The Seller postal address (BG-5) shall contain a Seller country code (BT-40).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="//ram:BuyerTradeParty/ram:PostalTradeAddress"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="//ram:BuyerTradeParty/ram:PostalTradeAddress">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	An Invoice shall contain the Buyer postal address (BG-8).</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="//ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID!=''"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:schold="http://www.ascc.net/xml/schematron"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="//ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID!=''">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-	The Buyer postal address shall contain a Buyer country code (BT-55).</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -14063,17 +13967,17 @@
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(ram:TaxTotalAmount)=1"/>
+         <xsl:when test="count(ram:TaxTotalAmount)&lt;=1"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                 xmlns:schold="http://www.ascc.net/xml/schematron"
                                 xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(ram:TaxTotalAmount)=1">
+                                test="count(ram:TaxTotalAmount)&lt;=1">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
                <svrl:text>
-	Element 'ram:TaxTotalAmount' must occur exactly 1 times.</svrl:text>
+	Element 'ram:TaxTotalAmount' may occur at maximum 1 times.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>

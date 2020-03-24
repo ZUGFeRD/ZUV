@@ -161,7 +161,7 @@
       <xs:element name="ChargeTotalAmount" type="udt:AmountType" minOccurs="0"/>
       <xs:element name="AllowanceTotalAmount" type="udt:AmountType" minOccurs="0"/>
       <xs:element name="TaxBasisTotalAmount" type="udt:AmountType"/>
-      <xs:element name="TaxTotalAmount" type="udt:AmountType"/>
+      <xs:element name="TaxTotalAmount" type="udt:AmountType" minOccurs="0"/>
       <xs:element name="GrandTotalAmount" type="udt:AmountType"/>
       <xs:element name="TotalPrepaidAmount" type="udt:AmountType" minOccurs="0"/>
       <xs:element name="DuePayableAmount" type="udt:AmountType"/>
