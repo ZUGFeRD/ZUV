@@ -1,76 +1,144 @@
 # ZUV
 ZUV (ZUgferd+[VeraPDF](http://VeraPDF.org)) is an open-source e-invoice validator for the [ZUGFeRD](https://www.ferd-net.de/zugferd/specification/index.html)/[Factur-X](http://fnfe-mpe.org/factur-x/) standard.
 
-It checks both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2 (EN16931 profile only) XMLs for correctness.
-The XML check is done by validating against the official ZUGFeRD schematron file for v1 and the EN16931 UN/CEFACT SCRDM v16B uncoupled schematron from the [CEN](https://github.com/CenPC434/validation).
+It checks both PDF/A-3 compliance (based on VeraPDF) and ZUGFeRD version 1 respectively 2/2.1 XMLs for correctness.
+The XML check is done by validating against the official ZUGFeRD schematron file for v1 and v2.1 and additionally the EN16931 UN/CEFACT SCRDM v16B uncoupled schematron from the [CEN](https://github.com/CenPC434/validation).
 
 
 ## Build
-In the pom.xml directory compile the jar with `/opt/local/bin/mvn clean package`
+In the pom.xml directory compile the jar with `./mvnw clean package`
 
 To prepare the schematron files they have to be converted to XSLT files, which is done with a XSLT transformation
 itself.
 Get [Saxon](http://saxon.sourceforge.net/#F9.9HE) and the [XSLT](https://github.com/Schematron/stf/tree/master/iso-schematron-xslt2) to convert schematron to XSLT 
 and run
-`java -jar ./saxon9he.jar -o:minimum.xsl -s:zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl`
+`java -jar ./saxon9he.jar -o:minimum.xsl -s:zugferd2p0_basicwl_minimum.sch ./schematron_to_xslt/iso-schematron-xslt2/iso_svrl_for_xslt1.xsl`
 to do so.
 
 To create a new en16931 run 
+`
 git clone https://github.com/ConnectingEurope/eInvoicing-EN16931.git 
 mvn -f pom-xslt.xml package
-
+`
 
 
       
-## Install
-
-Originally this was intended as VeraPDF plugin in which case you had to install a VeraPDF. Due to deployment issues we switched from ZUV being embedded in VeraPDF to VeraPDF being embedded into ZUV.
 
 ## Run
 
 To check a file for ZUGFeRD conformance use
 
-`java -jar ZUV-0.8.3.jar --action validate -f <filename of ZUGFeRD PDF.pdf>`
+`java -jar ZUV-0.9.0.jar --action validate -f <filename of ZUGFeRD PDF.pdf>`
 
 You can provide either the complete PDF which will be checked for XML and PDF correctness, or just a XML file, which of course
 will only be checked for XML correctness.
 
 
 ## Output
+A valid file looks like this
 ```
-<validation><pdf>
-<info><duration unit='ms'>2065</duration></info>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<report>
-  <buildInformation>
-    <releaseDetails id="core" version="1.10.2" buildDate="2017-11-30T12:47:00+01:00"></releaseDetails>
-    <releaseDetails id="validation-model" version="1.10.5" buildDate="2017-12-28T11:50:00+01:00"></releaseDetails>
-  </buildInformation>
-  <jobs>
-    <job>
-      <item size="163545">
-        <name>/Users/jstaerk/workspace/ZUV/fail3.pdf</name>
-      </item>
-      <validationReport profileName="PDF/A-3U validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true">
-        <details passedRules="125" failedRules="0" passedChecks="11200" failedChecks="0"></details>
-      </validationReport>
-      <duration start="1520759189894" finish="1520759191502">00:00:01.608</duration>
-    </job>
-  </jobs>
-  <batchSummary totalJobs="1" failedToParse="0" encrypted="0">
-    <validationReports compliant="1" nonCompliant="0" failedJobs="0">1</validationReports>
-    <featureReports failedJobs="0">0</featureReports>
-    <repairReports failedJobs="0">0</repairReports>
-    <duration start="1520759189547" finish="1520759191533">00:00:01.986</duration>
-  </batchSummary>
-</report>
-</pdf><xml><errors>
-<error><criterion>@format</criterion><result>
-	Attribute '@format' is required in this context.</result>
-</error></errors>
-<info><duration unit='ms'>12612</duration></info>
-</xml>
-<info><duration unit='ms'>14677</duration></info>
+<validation filename="Facture_UE_MINIMUM.pdf" datetime="2020-03-23 12:34:54">
+  <pdf> 
+    <report> 
+      <buildInformation> 
+        <releaseDetails id="core" version="1.12.1" buildDate="2018-05-08T18:57:00+02:00"/>  
+        <releaseDetails id="validation-model" version="1.12.1" buildDate="2018-05-08T20:39:00+02:00"/> 
+      </buildInformation>  
+      <jobs> 
+        <job> 
+          <item size="101181"> 
+            <name>/Users/jstaerk/workspace/zugferd/helper_files/../foreign_samples/fx/Facture_UE_MINIMUM.pdf</name> 
+          </item>  
+          <validationReport profileName="PDF/A-3B validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true"> 
+            <details passedRules="123" failedRules="0" passedChecks="11082" failedChecks="0"/> 
+          </validationReport>  
+          <duration start="1584963295227" finish="1584963296646">00:00:01.419</duration> 
+        </job> 
+      </jobs>  
+      <batchSummary totalJobs="1" failedToParse="0" encrypted="0"> 
+        <validationReports compliant="1" nonCompliant="0" failedJobs="0">1</validationReports>  
+        <featureReports failedJobs="0">0</featureReports>  
+        <repairReports failedJobs="0">0</repairReports>  
+        <duration start="1584963294997" finish="1584963296679">00:00:01.682</duration> 
+      </batchSummary> 
+    </report>  
+    <info>
+      <signature>Factur/X Python</signature>
+      <duration unit="ms">2361</duration>
+    </info>
+    <summary status="valid"/>
+  </pdf>  
+  <xml>
+    <info>
+      <version>2</version>
+      <profile>urn:factur-x.eu:1p0:minimum</profile>
+      <validator version="0.8.4-RESTRICTED"/>
+      <rules>
+        <fired>26</fired>
+        <failed>0</failed>
+      </rules>
+      <duration unit="ms">2772</duration>
+    </info>
+    <summary status="valid"/>
+  </xml>
+  <summary status="valid"/>
+</validation>
+```
+Invalid files with errors e.g. in the XML part can look like this
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<validation filename="Facture_UE_EXTENDED.pdf" datetime="2020-03-23 12:34:43">
+  <pdf> 
+    <report> 
+      <buildInformation> 
+        <releaseDetails id="core" version="1.12.1" buildDate="2018-05-08T18:57:00+02:00"/>  
+        <releaseDetails id="validation-model" version="1.12.1" buildDate="2018-05-08T20:39:00+02:00"/> 
+      </buildInformation>  
+      <jobs> 
+        <job> 
+          <item size="109172"> 
+            <name>/Users/jstaerk/workspace/zugferd/helper_files/../foreign_samples/fx/Facture_UE_EXTENDED.pdf</name> 
+          </item>  
+          <validationReport profileName="PDF/A-3B validation profile" statement="PDF file is compliant with Validation Profile requirements." isCompliant="true"> 
+            <details passedRules="123" failedRules="0" passedChecks="11082" failedChecks="0"/> 
+          </validationReport>  
+          <duration start="1584963283448" finish="1584963284790">00:00:01.342</duration> 
+        </job> 
+      </jobs>  
+      <batchSummary totalJobs="1" failedToParse="0" encrypted="0"> 
+        <validationReports compliant="1" nonCompliant="0" failedJobs="0">1</validationReports>  
+        <featureReports failedJobs="0">0</featureReports>  
+        <repairReports failedJobs="0">0</repairReports>  
+        <duration start="1584963283223" finish="1584963284825">00:00:01.602</duration> 
+      </batchSummary> 
+    </report>  
+    <info>
+      <signature>Factur/X Python</signature>
+      <duration unit="ms">2296</duration>
+    </info>
+    <summary status="valid"/>
+  </pdf>  
+  <xml>
+    <info>
+      <version>2</version>
+      <profile>urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended</profile>
+      <validator version="0.8.4-RESTRICTED"/>
+      <rules>
+        <fired>97</fired>
+        <failed>1</failed>
+      </rules>
+      <duration unit="ms">8546</duration>
+    </info>
+    <messages>
+      <error type="4" location="/*[local-name()='CrossIndustryInvoice' and namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100']/*[local-name()='SupplyChainTradeTransaction' and namespace-uri()='urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100']/*[local-name()='ApplicableHeaderTradeSettlement' and namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100']/*[local-name()='ApplicableTradeTax' and namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100']/*[local-name()='CategoryCode' and namespace-uri()='urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100']" criterion="(/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString) or (../../ram:BillingSpecifiedPeriod/ram:StartDateTime) or (../../ram:BillingSpecifiedPeriod/ram:EndDateTime)">In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Actual delivery date (BT-72) or the Invoicing period (BG-14) shall not be blank.</error> 
+    </messages>
+    <summary status="invalid"/>
+  </xml>
+  <messages></messages>
+  <summary status="invalid"/>
 </validation>
 ```
 
@@ -123,28 +191,8 @@ Permissive Open Source APL2, see LICENSE
 
 see the [history file](History.md)
 
-## Todo
-
-* Use https://github.com/veraPDF/veraPDF-rest as web interface
-
 
 ## Authors
 
 Jochen Staerk "Mustangproject Chief ZUGFeRD amatuer" <jochen@zugferd.org>
 
-https://blog.eight02.com/2011/05/validating-xml-with-iso-schematron-on.html
-
-Saxon 9he from https://sourceforge.net/projects/saxon/
-https://github.com/Schematron/stf
-/Users/jstaerk/Downloads/stf-master/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl
-java -jar /Users/jstaerk/Downloads/SaxonHE9-9-1-6J\ \(1\)/saxon9he.jar -o:minimum.xsl -s:FACTUR-X_MINIMUM.scmt /Users/jstaerk/Downloads/stf-master/iso-schematron-xslt2/iso_svrl_for_xslt2.xsl
-
-					// http://www.bentoweb.org/refs/TCDL2.0/tsdtf_schematron.html // explains that
-					// this xslt can be created using sth like
-					// saxon java net.sf.saxon.Transform -o tcdl2.0.tsdtf.sch.tmp.xsl -s
-					// tcdl2.0.tsdtf.sch iso_svrl.xsl
-
-Syntax error near {...radeAddress[ram:CountryID=7...} at char 158 in expression in xsl:when/@test on line 10762 column 187 of en16931.xsl:
-  XPST0003: expected ")", found "<eof>"
-
-  java -jar /Users/jstaerk/Downloads/SaxonHE9-9-1-6J\ \(1\)/saxon9he.jar -o:zugferd21_basic.xsl -s:/Users/jstaerk/workspace/zugferd/release/BASIC/FACTUR-X_BASIC.scmt /Users/jstaerk/Downloads/stf-master/iso-schematron-xslt1/iso_svrl_for_xslt1.xsl  
