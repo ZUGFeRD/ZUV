@@ -148,7 +148,7 @@ Feel free to embed this into your java software, send me a PR to use it as a lib
 
 For exec, you might try something like  
 ```
-exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.8.3.jar --action validate -f '.escapeshellarg($uploadfile).' 2>/dev/null', $output);
+exec('java -Dfile.encoding=UTF-8 -jar /path/to/ZUV-0.9.0.jar --action validate -f '.escapeshellarg($uploadfile).' 2>/dev/null', $output);
 ```
 * Redirecting stderr away (some logging messages might otherwise disturb XML well formedness)
 * Escaping any file names in case you use original file names at all (apart from security concerns please take into account that they might contain spaces)
