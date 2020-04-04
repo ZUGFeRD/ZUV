@@ -1,3 +1,4 @@
+* switching to dom4j for XML escaping 
 
 0.9.0
 ======
