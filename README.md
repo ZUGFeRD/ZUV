@@ -191,6 +191,9 @@ Permissive Open Source APL2, see LICENSE
 
 see the [history file](History.md)
 
+## Architecture
+![Diagram of the architecture](ZUV-Architektur.svg)
+
 
 ## Authors
 
