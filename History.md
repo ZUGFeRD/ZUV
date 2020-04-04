@@ -1,4 +1,5 @@
-* switching to dom4j for XML escaping 
+* leave BOM removal to Mustang
+* switch to dom4j for XML escaping 
 
 0.9.0
 ======

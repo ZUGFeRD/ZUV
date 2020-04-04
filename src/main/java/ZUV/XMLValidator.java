@@ -53,7 +53,7 @@ public class XMLValidator extends Validator {
 		// file existence must have been checked before
 
 		try {
-			zfXML = removeBOMFromString(Files.readAllBytes(Paths.get(name)));
+			zfXML = new String(Files.readAllBytes(Paths.get(name)));
 		} catch (IOException e) {
 
 			ValidationResultItem vri = new ValidationResultItem(ESeverity.exception, e.getMessage()).setSection(9)
@@ -70,22 +70,6 @@ public class XMLValidator extends Validator {
 		zfXML = xml;
 	}
 
-	protected String removeBOMFromString(byte[] rawXML) {
-		byte[] bomlessData;
-
-		if ((rawXML != null) && (rawXML.length > 3) && (rawXML[0] == (byte) 0xEF) && (rawXML[1] == (byte) 0xBB)
-				&& (rawXML[2] == (byte) 0xBF)) {
-			// I don't like BOMs, lets remove it
-			bomlessData = new byte[rawXML.length - 3];
-			System.arraycopy(rawXML, 3, bomlessData, 0, rawXML.length - 3);
-		} else {
-			bomlessData = rawXML;
-		}
-
-		return new String(bomlessData);
-
-	}
-	
 	public static boolean matchesURI(String uri1, String uri2) {
 		return (uri1.equals(uri2)||uri1.startsWith(uri2+"#"));
 	}
