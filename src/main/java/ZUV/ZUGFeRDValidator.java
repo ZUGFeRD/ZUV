@@ -135,11 +135,7 @@ public class ZUGFeRDValidator {
 						pdfValidity = context.isValid();
 
 						Signature = context.getSignature();
-						context.clear();
-						if (!pdfValidity) {
-							// clear sets valid to true again
-							context.setInvalid();
-						}
+						context.clear();// clear sets valid to true again
 						if (pdfv.getRawXML() != null) {
 							xv.setStringContent(pdfv.getRawXML());
 							displayXMLValidationOutput = true;
@@ -200,6 +196,10 @@ public class ZUGFeRDValidator {
 					finalStringResult.append(xv.getXMLResult());
 					finalStringResult.append("</xml>");
 					context.clearCustomXML();
+				}
+
+				if ((isPDF)&&(!pdfValidity)) {
+					context.setInvalid();
 				}
 
 			}
