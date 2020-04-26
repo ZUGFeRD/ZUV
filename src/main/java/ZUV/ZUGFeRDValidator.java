@@ -74,7 +74,7 @@ public class ZUGFeRDValidator {
 		StringBuffer finalStringResult = new StringBuffer();
 		SimpleDateFormat isoDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //$NON-NLS-1$
 		Date date = new Date();
-
+		startTime = Calendar.getInstance().getTimeInMillis();
 		try {
 			Path path = Paths.get(filename);
 			context.setFilename(path.getFileName().toString());// set filename without path

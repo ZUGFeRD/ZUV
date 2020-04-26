@@ -3,6 +3,7 @@
 * upgraded verapdf from 1.12.1 to  1.14.105 
 * made invalid PDF even more invalid
 * invalid PDFs with valid XML incorrectly reported invalid XML
+* logger logged the current time, not the duration
 
 0.9.0
 ======
