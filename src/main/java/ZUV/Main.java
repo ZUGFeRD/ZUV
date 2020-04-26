@@ -28,6 +28,7 @@ public class Main {
 
 		Option<Boolean> licenseOption = parser.addBooleanOption('l', "license");
 		Option<Boolean> helpOption = parser.addBooleanOption('h', "help");
+		Option<String> logAppendOption = parser.addStringOption("logAppend");
 
 		boolean optionsRecognized = false;
 
@@ -67,6 +68,7 @@ public class Main {
 
 		if ((action != null) && (action.equals("validate"))) {
 			ZUGFeRDValidator zfv=new ZUGFeRDValidator();
+			zfv.setLogAppend(parser.getOptionValue(logAppendOption));
 			System.out.println(zfv.validate(filename));
 
 			optionsRecognized = !zfv.hasOptionsError();
@@ -78,7 +80,7 @@ public class Main {
 
 		if ((!optionsRecognized) || (helpRequested != null && helpRequested.booleanValue())) {
 			System.out.println(
-					"usage: --action validate -f <ZUGFeRD PDF Filename.pdf>|<ZUGFeRD XML Filename.xml> [-l (shows license)]");
+					"usage: --action validate -f <ZUGFeRD PDF Filename.pdf>|<ZUGFeRD XML Filename.xml> [-l (shows license)][--logAppend \"String to be appended to validation result log\"]");
 			System.exit(-1);
 		}
 

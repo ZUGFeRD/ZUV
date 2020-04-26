@@ -194,6 +194,36 @@ see the [history file](History.md)
 ## Architecture
 ![Diagram of the architecture](ZUV-Architektur.svg)
 
+## Monitoring
+This is a sample of a logstash config file for the ZUV log format
+```
+input {
+    # stdin {}
+    file {
+	path => "/var/log/*.log"
+	start_position => "beginning"
+	sincedb_path => "/dev/null"
+    }
+}
+
+filter {
+    grok {
+	match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} \[main\] %{WORD:loglevel}  ZUV.ZUGFeRDValidator - Parsed PDF:%{WORD:pdfvalidity} XML:%{WORD:xmlvalidity} Signature:%{WORD:signature} Checksum:%{WORD:checksum} Profile:%{DATA:profile} Version:%{WORD:version} Took:%{NUMBER:parseTime}" }
+    }
+
+    date {
+	match => [ "timestamp" , "yyyy-MM-dd HH:mm:ss.SSS" ]
+    }
+
+}
+
+output {
+    # stdout {}
+    elasticsearch {
+	hosts => ["138.201.160.93:9200"]
+    }
+}
+```
 
 ## Authors
 

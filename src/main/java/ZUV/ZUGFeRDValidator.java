@@ -34,13 +34,14 @@ public class ZUGFeRDValidator {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZUGFeRDValidator.class.getCanonicalName()); // log
 																												// output
 	protected ValidationContext context = new ValidationContext(LOGGER);
-	private String sha1Checksum;
-	private boolean pdfValidity;
-	private boolean displayXMLValidationOutput;
-	private long startTime;
-	private boolean optionsRecognized;
-	private String Signature;
-	private boolean wasCompletelyValid = false;
+	protected String sha1Checksum;
+	protected boolean pdfValidity;
+	protected boolean displayXMLValidationOutput;
+	protected long startTime;
+	protected boolean optionsRecognized;
+	protected String Signature;
+	protected boolean wasCompletelyValid = false;
+	protected String logAppend=null;
 
 	/***
 	 * within the validation it turned out something in the options was wrong, e.g.
@@ -50,6 +51,10 @@ public class ZUGFeRDValidator {
 	public boolean hasOptionsError() {
 		return !optionsRecognized;
 
+	}
+
+	public void setLogAppend(String tobeappended) {
+		logAppend = tobeappended;
 	}
 
 	/***
@@ -231,9 +236,13 @@ public class ZUGFeRDValidator {
 		xmlValidity = context.isValid();
 		long duration = Calendar.getInstance().getTimeInMillis() - startTime;
 
+		String toBeAppended="";
+		if (logAppend!=null) {
+			toBeAppended=logAppend;
+		}
 		LOGGER.info("Parsed PDF:" + (pdfValidity ? "valid" : "invalid") + " XML:" + (xmlValidity ? "valid" : "invalid")
 				+ " Signature:" + Signature + " Checksum:" + sha1Checksum + " Profile:" + context.getProfile()
-				+ " Version:" + context.getVersion() + " Took:" + duration + "ms");
+				+ " Version:" + context.getVersion() + " Took:" + duration + "ms "+toBeAppended);
 		wasCompletelyValid = ((pdfValidity) && (xmlValidity));
 		return sw.toString();
 	}
