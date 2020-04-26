@@ -240,9 +240,12 @@ public class ZUGFeRDValidator {
 		if (logAppend!=null) {
 			toBeAppended=logAppend;
 		}
+
+
+
 		LOGGER.info("Parsed PDF:" + (pdfValidity ? "valid" : "invalid") + " XML:" + (xmlValidity ? "valid" : "invalid")
 				+ " Signature:" + Signature + " Checksum:" + sha1Checksum + " Profile:" + context.getProfile()
-				+ " Version:" + context.getVersion() + " Took:" + duration + "ms "+toBeAppended);
+				+ " Version:" + context.getVersion() + " Took:" + duration + "ms Errors:["+context.getCSVResult()+"] "+toBeAppended);
 		wasCompletelyValid = ((pdfValidity) && (xmlValidity));
 		return sw.toString();
 	}

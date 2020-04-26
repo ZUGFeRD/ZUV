@@ -5,6 +5,8 @@
 * invalid PDFs with valid XML incorrectly reported invalid XML
 * logger logged the current time, not the duration
 * additional parameter --logAppend to allow better logging in different environments, e.g. add IPs on web servers
+* now logging which error types have occurred
+* added a logstash config file template
 
 0.9.0
 ======
