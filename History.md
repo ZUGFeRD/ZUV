@@ -1,3 +1,8 @@
+
+0.9.1
+======
+
+* XRechnung now reported as warnings
 * leave BOM removal to Mustang
 * switch to dom4j for XML escaping 
 * upgraded verapdf from 1.12.1 to  1.14.105 
@@ -7,6 +12,7 @@
 * additional parameter --logAppend to allow better logging in different environments, e.g. add IPs on web servers
 * now logging which error types have occurred
 * added a logstash config file template
+
 
 0.9.0
 ======
