@@ -248,12 +248,12 @@ public class XMLValidator extends Validator {
                 }
 
                 // main schematron validation
-                validateSchematron(zfXML, xsltFilename, 4);
+                validateSchematron(zfXML, xsltFilename, 4, ESeverity.error);
 
                 if (context.getVersion().equals("2")
                         && isEN16931) {
                     //additionally validate against CEN
-                    validateSchematron(zfXML, "/xslt/cii16931schematron/EN16931-CII-validation.xslt", 24);
+                    validateSchematron(zfXML, "/xslt/cii16931schematron/EN16931-CII-validation.xslt", 24, ESeverity.error);
 
                     validateXR(zfXML);
                 }
@@ -309,9 +309,8 @@ public class XMLValidator extends Validator {
     }
 
     public void validateXR(String xml) throws IrrecoverableValidationError {
-        LOGGER.error("checking xr:" + xml);
 
-
+/*
         DocumentBuilderFactory docbfactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = docbfactory.newDocumentBuilder();
@@ -349,12 +348,14 @@ public class XMLValidator extends Validator {
             LOGGER.error(ex.getMessage(), ex);
 
         }
+*/
 
+        validateSchematron(xml, "/xslt/XRechnung-CII-validation.xslt",27, ESeverity.notice);
 
     }
 
 
-    public void validateSchematron(String xml, String xsltFilename, int section) throws IrrecoverableValidationError {
+    public void validateSchematron(String xml, String xsltFilename, int section, ESeverity severity) throws IrrecoverableValidationError {
         ISchematronResource aResSCH = null;
         aResSCH = SchematronResourceXSLT.fromClassPath(xsltFilename);
         if (aResSCH != null) {
@@ -378,7 +379,7 @@ public class XMLValidator extends Validator {
                         FailedAssert failedAssert = (FailedAssert) object;
                         LOGGER.info("FailedAssert ", failedAssert);
 
-                        context.addResultItem(new ValidationResultItem(ESeverity.error, failedAssert.getText())
+                        context.addResultItem(new ValidationResultItem(severity, failedAssert.getText())
                                 .setLocation(failedAssert.getLocation()).setCriterion(failedAssert.getTest()).setSection(section)
                                 .setPart(EPart.fx));
                         failedRules++;
