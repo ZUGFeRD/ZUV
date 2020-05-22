@@ -186,6 +186,7 @@ Permissive Open Source APL2, see LICENSE
 | 24  | Issues in CEN EN16931 Schematron Check |
 | 25  | Unsupported profile type  |
 | 26  | No rules matched, XML to minimal?  |
+| 27  | XRechnung schematron validation  |
 
 ## History
 
