@@ -1,3 +1,6 @@
+# Merge into Mustang
+If you want to help or get the latest alpha: ZUV is in the process of being merged into [Mustang 2.0](https://github.com/ZUGFeRD/mustangproject).
+
 # ZUV
 ZUV (ZUgferd+[VeraPDF](http://VeraPDF.org)) is an open-source e-invoice validator for the [ZUGFeRD](https://www.ferd-net.de/zugferd/specification/index.html)/[Factur-X](http://fnfe-mpe.org/factur-x/) standard.
 
