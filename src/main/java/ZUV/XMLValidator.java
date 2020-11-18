@@ -161,7 +161,7 @@ public class XMLValidator extends Validator {
 
                 // urn:cen.eu:en16931:2017
                 // urn:cen.eu:en16931:2017:compliant:factur-x.eu:1p0:basic
-                if (root.getNodeName().equalsIgnoreCase("rsm:CrossIndustryInvoice")) { // ZUGFeRD 2.0 or Factur-X
+                if (root.getNodeName().toLowerCase().contains("crossindustryinvoice")) { // ZUGFeRD 2.0 or Factur-X
                     context.setVersion("2");
 
                     isMiniumum = context.getProfile().contains("minimum");
